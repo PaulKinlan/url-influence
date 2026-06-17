@@ -1,0 +1,334 @@
+// Build a standalone interactive dashboard from results/transcript.jsonl.
+//
+// Emits two committed files:
+//   results/dashboard-data.js  - window.URLINFLUENCE = { meta, items, cells }
+//   results/dashboard.html     - vanilla-JS UI (no deps, no server needed):
+//     filter by model / condition / pre-vs-post cutoff / item-track / pass-fail,
+//     an interactive item x condition matrix per model, a live per-condition
+//     mean + lift strip for the current filter, and click-through to each cell's
+//     exact prompt, model output, and the judge's full prompt + raw verdict.
+//
+// Open results/dashboard.html directly in a browser (it loads dashboard-data.js
+// via a relative <script>, so file:// works — no fetch/CORS issue).
+
+import { readFile, writeFile } from "node:fs/promises";
+import { CORPUS } from "./corpus.mjs";
+
+const PASS_DEFAULT = 0.5;
+
+async function main() {
+  const raw = await readFile("results/transcript.jsonl", "utf8");
+  const cells = raw
+    .split("\n")
+    .filter(Boolean)
+    .map((l) => JSON.parse(l));
+
+  // Item metadata (track = api vs calibration, plus the human task).
+  const items = {};
+  for (const it of CORPUS) {
+    items[it.id] = {
+      id: it.id,
+      kind: it.kind,
+      target: it.target,
+      contentDate: it.contentDate,
+      track: it.groundTruth.expectUnknown ? "calibration" : "api-usage",
+    };
+  }
+
+  // Trim each cell to the fields the UI needs (keeps everything that lets a
+  // human validate a verdict; drops nothing load-bearing).
+  const slim = cells.map((c) => ({
+    model: c.model,
+    label: c.label,
+    cutoff: c.cutoff,
+    itemId: c.itemId,
+    contentDate: c.contentDate,
+    preCutoff: c.preCutoff,
+    condition: c.condition,
+    urlUsed: c.urlUsed,
+    correctness: c.finalCorrectness,
+    structural: c.structural,
+    runError: c.runError,
+    prompt: c.prompt,
+    output: c.output,
+    judge: c.judge
+      ? {
+          correctness: c.judge.correctness,
+          usedRealSurface: c.judge.usedRealSurface,
+          hallucinated: c.judge.hallucinated,
+          reason: c.judge.reason,
+          judgeError: c.judge.judgeError,
+          judgePrompt: c.judge.judgePrompt,
+          judgeRaw: c.judge.judgeRaw,
+        }
+      : null,
+  }));
+
+  const models = [];
+  const seen = new Set();
+  for (const c of cells) {
+    if (!seen.has(c.model)) {
+      seen.add(c.model);
+      models.push({ key: c.model, label: c.label, cutoff: c.cutoff });
+    }
+  }
+  const conditions = [
+    "name-only",
+    "url-only",
+    "url+name",
+    "full-content",
+    "fake-structural-url",
+    "random-url",
+  ];
+
+  const data = {
+    meta: {
+      generatedAt: cells[0]?.timestamp || null,
+      passDefault: PASS_DEFAULT,
+      conditionNotes: {
+        "name-only": "task described in words, no URL (baseline)",
+        "url-only": "ONLY the opaque URL string (SO id / arXiv id / RFC / chromestatus id); page never fetched",
+        "url+name": "opaque URL plus the task name",
+        "full-content": "the real page pasted in (ceiling)",
+        "fake-structural-url": "plausible but nonexistent URL, same shape (control)",
+        "random-url": "unrelated real URL (control)",
+      },
+    },
+    models,
+    conditions,
+    items,
+    cells: slim,
+  };
+
+  await writeFile(
+    "results/dashboard-data.js",
+    "window.URLINFLUENCE = " + JSON.stringify(data) + ";\n",
+  );
+  await writeFile("results/dashboard.html", HTML);
+  console.log(
+    `[dashboard] wrote results/dashboard.html + results/dashboard-data.js (${slim.length} cells)`,
+  );
+}
+
+const HTML = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URL Influence — interactive results</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#272b34; --fg:#e6e8ec; --mut:#9aa3b2; --acc:#6ea8fe; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--fg); }
+  header { padding:14px 18px; border-bottom:1px solid var(--line); }
+  header h1 { font-size:16px; margin:0 0 2px; }
+  header .sub { color:var(--mut); font-size:12px; }
+  .wrap { display:flex; gap:0; height:calc(100vh - 58px); }
+  .controls { width:250px; min-width:250px; border-right:1px solid var(--line); padding:14px; overflow:auto; }
+  .main { flex:1; overflow:auto; padding:16px; }
+  .detail { width:0; transition:width .12s; border-left:1px solid var(--line); overflow:auto; }
+  .detail.open { width:46%; min-width:380px; padding:16px; }
+  fieldset { border:1px solid var(--line); border-radius:8px; margin:0 0 14px; padding:10px 12px; }
+  legend { color:var(--mut); font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:0 4px; }
+  label.row { display:flex; align-items:center; gap:8px; padding:3px 0; cursor:pointer; }
+  label.row input { accent-color:var(--acc); }
+  select, input[type=number] { background:var(--panel); color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:5px 7px; width:100%; }
+  .stats { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:8px 12px; min-width:110px; }
+  .stat .k { color:var(--mut); font-size:11px; }
+  .stat .v { font-size:18px; font-variant-numeric:tabular-nums; }
+  table { border-collapse:collapse; width:100%; }
+  th, td { border:1px solid var(--line); padding:6px 8px; text-align:center; font-variant-numeric:tabular-nums; }
+  th { background:var(--panel); position:sticky; top:0; z-index:1; font-weight:600; }
+  td.item { text-align:left; white-space:nowrap; }
+  td.item .tk { color:var(--mut); font-size:11px; }
+  .cellbtn { cursor:pointer; display:block; width:100%; height:100%; border:0; border-radius:4px; padding:6px 4px; font:inherit; color:#0b0d10; font-variant-numeric:tabular-nums; }
+  .cellbtn.null { background:#3a3f4b; color:var(--mut); cursor:default; }
+  .badge { display:inline-block; font-size:10px; padding:1px 6px; border-radius:10px; border:1px solid var(--line); color:var(--mut); }
+  .pill { font-size:11px; color:var(--mut); }
+  pre { background:#0b0d10; border:1px solid var(--line); border-radius:6px; padding:10px; white-space:pre-wrap; word-break:break-word; max-height:280px; overflow:auto; font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .kv { display:grid; grid-template-columns:130px 1fr; gap:4px 10px; margin:8px 0; }
+  .kv .k { color:var(--mut); }
+  a { color:var(--acc); word-break:break-all; }
+  h3 { margin:16px 0 6px; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--mut); }
+  .close { float:right; background:none; border:1px solid var(--line); color:var(--fg); border-radius:6px; cursor:pointer; padding:3px 9px; }
+  .legend { font-size:11px; color:var(--mut); margin-top:6px; }
+  .swatch { display:inline-block; width:11px; height:11px; border-radius:3px; vertical-align:-1px; margin:0 3px 0 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>URL Influence — interactive results</h1>
+  <div class="sub" id="sub"></div>
+</header>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Model (matrix)</legend>
+      <select id="model"></select>
+    </fieldset>
+    <fieldset>
+      <legend>Item track</legend>
+      <label class="row"><input type="radio" name="track" value="all"> All</label>
+      <label class="row"><input type="radio" name="track" value="api-usage" checked> API-usage only</label>
+      <label class="row"><input type="radio" name="track" value="calibration"> Knowledge-calibration only</label>
+    </fieldset>
+    <fieldset>
+      <legend>Cutoff bucket</legend>
+      <label class="row"><input type="radio" name="bucket" value="all" checked> All</label>
+      <label class="row"><input type="radio" name="bucket" value="pre"> Pre-cutoff (in training)</label>
+      <label class="row"><input type="radio" name="bucket" value="post"> Post-cutoff</label>
+    </fieldset>
+    <fieldset>
+      <legend>Conditions</legend>
+      <div id="conds"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Pass threshold</legend>
+      <label class="row">correctness &ge; <input type="number" id="pass" min="0" max="1" step="0.05" style="width:70px"></label>
+      <label class="row"><input type="checkbox" id="failonly"> show failing cells only</label>
+    </fieldset>
+  </div>
+  <div class="main" id="main"></div>
+  <div class="detail" id="detail"></div>
+</div>
+<script src="dashboard-data.js"></script>
+<script>
+const D = window.URLINFLUENCE;
+const $ = (s)=>document.querySelector(s);
+document.getElementById("sub").textContent =
+  D.cells.length + " cells \\u00b7 " + D.models.length + " models \\u00b7 generated " + (D.meta.generatedAt||"");
+
+const modelSel = $("#model");
+D.models.forEach(m=>{ const o=document.createElement("option"); o.value=m.key; o.textContent=m.label+" (cut "+m.cutoff+")"; modelSel.appendChild(o); });
+
+const condsBox = $("#conds");
+D.conditions.forEach(c=>{
+  const l=document.createElement("label"); l.className="row";
+  l.innerHTML='<input type="checkbox" class="cond" value="'+c+'" checked> '+c;
+  l.title=D.meta.conditionNotes[c]||"";
+  condsBox.appendChild(l);
+});
+$("#pass").value = D.meta.passDefault;
+
+function color(v){
+  if(v==null) return null;
+  // red(0) -> amber(.5) -> green(1)
+  const h = 120*v; // 0=red,120=green
+  return "hsl("+h+",70%,62%)";
+}
+function activeConds(){ return [...document.querySelectorAll(".cond:checked")].map(i=>i.value); }
+function getRadio(n){ return document.querySelector('input[name="'+n+'"]:checked').value; }
+
+function filtered(){
+  const track=getRadio("track"), bucket=getRadio("bucket"), conds=new Set(activeConds());
+  const pass=parseFloat($("#pass").value), failonly=$("#failonly").checked;
+  return D.cells.filter(c=>{
+    if(!conds.has(c.condition)) return false;
+    const it=D.items[c.itemId];
+    if(track!=="all" && it.track!==track) return false;
+    if(bucket==="pre" && !c.preCutoff) return false;
+    if(bucket==="post" && c.preCutoff) return false;
+    if(failonly){ if(c.correctness==null) return false; if(c.correctness>=pass) return false; }
+    return true;
+  });
+}
+
+function meanBy(cells, cond){
+  const v=cells.filter(c=>c.condition===cond && typeof c.correctness==="number").map(c=>c.correctness);
+  return v.length? v.reduce((a,b)=>a+b,0)/v.length : null;
+}
+
+function render(){
+  const model=modelSel.value;
+  const all=filtered();
+  const mc=all.filter(c=>c.model===model);
+
+  // Stats strip (current model + filter): per-condition mean + lift.
+  const nameM=meanBy(mc,"name-only"), urlM=meanBy(mc,"url-only");
+  const lift=(nameM!=null&&urlM!=null)? (urlM-nameM):null;
+  const pass=parseFloat($("#pass").value);
+  const passed=mc.filter(c=>typeof c.correctness==="number"&&c.correctness>=pass).length;
+  const scored=mc.filter(c=>typeof c.correctness==="number").length;
+  let stats='<div class="stats">';
+  stats+=stat("cells (this model)", mc.length);
+  stats+=stat("pass rate", scored? (Math.round(100*passed/scored)+"% ("+passed+"/"+scored+")"):"—");
+  stats+=stat("name-only mean", fmt(nameM));
+  stats+=stat("url-only mean", fmt(urlM));
+  stats+=stat("lift (url−name)", lift==null?"—":(lift>=0?"+":"")+lift.toFixed(2));
+  stats+='</div>';
+
+  // Matrix: rows=items present in filter, cols=active conditions.
+  const conds=activeConds();
+  const itemIds=[...new Set(mc.map(c=>c.itemId))].sort((a,b)=>{
+    const A=D.items[a], B=D.items[b];
+    return (A.contentDate<B.contentDate?-1:A.contentDate>B.contentDate?1:0);
+  });
+  let t='<table><thead><tr><th class="item">item (date · track)</th>';
+  conds.forEach(c=> t+='<th title="'+(D.meta.conditionNotes[c]||"")+'">'+c+'</th>');
+  t+='</tr></thead><tbody>';
+  itemIds.forEach(id=>{
+    const it=D.items[id];
+    const side = (mc.find(c=>c.itemId===id)||{}).preCutoff ? "pre":"post";
+    t+='<tr><td class="item">'+id+'<div class="tk">'+it.contentDate+' · '+it.track+' · '+side+'-cutoff</div></td>';
+    conds.forEach(c=>{
+      const cell=mc.find(x=>x.itemId===id&&x.condition===c);
+      if(!cell){ t+='<td><div class="cellbtn null">·</div></td>'; return; }
+      const v=cell.correctness;
+      if(v==null){ const lbl=cell.runError?"err":"—"; t+='<td><div class="cellbtn null" title="'+(cell.runError||"no score")+'">'+lbl+'</div></td>'; return; }
+      const idx=D.cells.indexOf(cell);
+      t+='<td><button class="cellbtn" style="background:'+color(v)+'" data-i="'+idx+'">'+v.toFixed(2)+'</button></td>';
+    });
+    t+='</tr>';
+  });
+  t+='</tbody></table>';
+  t+='<div class="legend">cell = final correctness 0..1 <span class="swatch" style="background:'+color(0)+'"></span>0 <span class="swatch" style="background:'+color(0.5)+'"></span>.5 <span class="swatch" style="background:'+color(1)+'"></span>1 · "err" = model call failed · click a cell for the prompt, output and judge verdict</div>';
+
+  $("#main").innerHTML=stats+t;
+  document.querySelectorAll(".cellbtn[data-i]").forEach(b=> b.onclick=()=>showDetail(D.cells[+b.dataset.i]));
+}
+
+function stat(k,v){ return '<div class="stat"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
+function fmt(x){ return x==null?"—":x.toFixed(2); }
+function esc(s){ return (s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function showDetail(c){
+  const it=D.items[c.itemId];
+  const j=c.judge||{};
+  let h='<button class="close" onclick="document.getElementById(\\'detail\\').classList.remove(\\'open\\')">close</button>';
+  h+='<h3>'+c.itemId+' · '+c.condition+'</h3>';
+  h+='<div class="kv">';
+  h+='<div class="k">model</div><div>'+esc(c.label)+' (cutoff '+c.cutoff+')</div>';
+  h+='<div class="k">item track</div><div>'+it.track+' · '+it.kind+'</div>';
+  h+='<div class="k">content date</div><div>'+c.contentDate+' · '+(c.preCutoff?"PRE-cutoff (could be in training)":"POST-cutoff")+'</div>';
+  h+='<div class="k">URL used</div><div>'+(c.urlUsed?('<a href="'+esc(c.urlUsed)+'" target="_blank">'+esc(c.urlUsed)+'</a>'):'<span class="pill">none (this condition uses no URL)</span>')+'</div>';
+  h+='<div class="k">final correctness</div><div>'+fmt(c.correctness)+(c.structural!=null?' · structural '+c.structural.toFixed(2):'')+'</div>';
+  if(c.runError) h+='<div class="k">run error</div><div>'+esc(c.runError)+'</div>';
+  h+='</div>';
+  if(j && (j.reason||j.correctness!=null)){
+    h+='<div class="kv">';
+    h+='<div class="k">judge correctness</div><div>'+fmt(j.correctness)+'</div>';
+    h+='<div class="k">used real surface</div><div>'+(j.usedRealSurface===true?"yes":j.usedRealSurface===false?"no":"—")+'</div>';
+    h+='<div class="k">hallucinated</div><div>'+(j.hallucinated===true?"yes":j.hallucinated===false?"no":"—")+'</div>';
+    h+='<div class="k">judge reason</div><div>'+esc(j.reason)+'</div>';
+    if(j.judgeError) h+='<div class="k">judge error</div><div>'+esc(j.judgeError)+'</div>';
+    h+='</div>';
+  }
+  h+='<h3>Prompt sent to model</h3><pre>'+esc(typeof c.prompt==="object"?JSON.stringify(c.prompt,null,2):c.prompt)+'</pre>';
+  h+='<h3>Model output</h3><pre>'+esc(c.output||"(empty / failed)")+'</pre>';
+  if(j.judgePrompt){ h+='<h3>Judge prompt</h3><pre>'+esc(typeof j.judgePrompt==="object"?JSON.stringify(j.judgePrompt,null,2):j.judgePrompt)+'</pre>'; }
+  if(j.judgeRaw){ h+='<h3>Judge raw verdict</h3><pre>'+esc(j.judgeRaw)+'</pre>'; }
+  const d=$("#detail"); d.innerHTML=h; d.classList.add("open");
+}
+
+document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", render));
+render();
+</script>
+</body>
+</html>
+`;
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

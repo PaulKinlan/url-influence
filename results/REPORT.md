@@ -1,22 +1,29 @@
 # URL Influence: Results
 
-Generated: 2026-06-17T12:19:02.943Z
+Generated: 2026-06-17T20:59:52.310Z
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 720 (judge failures: 0)
 
+> An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
+
 ## How to read this
 
-**Hypothesis.** An *opaque* URL (a bare arXiv id, RFC number, Stack Overflow question id) carries no description of its content. If handing the model only that URL string lifts output quality, the lift can only come from the model having memorised that URL->content mapping during training. So the lift should appear **only when the content behind the URL predates the model's knowledge cutoff** (it could have been in the training set), and should vanish for content created after the cutoff. The model never browses; the page is never fetched except in the explicit `full-content` ceiling condition.
+**The question.** Can a bare *opaque* URL (just the string, page never fetched) make a model produce a better answer than simply naming the task — and does that only happen for content from before the model's training cutoff? If so, the URL is acting as a retrieval key into the weights.
 
-**Key metric — LIFT.** Per model: `LIFT = mean(correctness | url-only) − mean(correctness | name-only)`. `name-only` describes the task in words with no URL; `url-only` gives ONLY the opaque URL. A positive lift means the bare URL alone improved the answer over naming the task. The signature predicted by the hypothesis is **positive pre-cutoff lift, ~zero post-cutoff lift**.
+**Two tracks, measured separately (this is important).** The corpus has two kinds of item and they must NOT be averaged together:
 
-**Correctness** is 0..1 from the LLM-as-judge (full judge prompts and raw verdicts for every cell are in [RUNLOG.md](RUNLOG.md) / [transcript.jsonl](transcript.jsonl) so each verdict can be validated). Where the judge was unavailable it falls back to a deterministic structural must-mention check.
+- **API-usage items** — the model is asked to USE a real API or recall real content; correctness = did it produce the right surface. **The LIFT metric below is computed on these only.** This is the real test.
+- **Knowledge-calibration items** (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) — the content post-dates every model, so the *correct* answer is "I can't determine this". A bare URL scores HIGH here precisely because it hands the model nothing, so it correctly refuses. Averaging these into the lift manufactures a fake "url-only helps post-cutoff" signal — so they are reported on their own (refusal calibration), never in the lift.
 
-**Controls.** `fake-structural-url` (a plausible but nonexistent URL of the same shape) and `random-url` (an unrelated real URL) should both collapse toward ZERO lift — if URL *structure* or merely *having a URL* were doing the work, these would also lift; they should not.
+**LIFT** (API-usage items) `= mean(correctness | url-only) − mean(correctness | name-only)`. Positive = the bare URL alone beat naming the task. The hypothesis predicts **positive lift pre-cutoff, ~zero post-cutoff**.
 
-**Blanks.** A blank cell is always labelled with its cause: `— (no items)` (no corpus items fall in that pre/post bucket for this model), `— (run error)` (every model call for that slice failed), `— (judge failed)` (the judge errored with no structural fallback), or `— (skipped: no key)` (the whole model was skipped for a missing API key). Blanks are never silently empty.
+**Correctness** is 0..1 from an LLM-as-judge; every judge prompt + raw verdict is in [transcript.jsonl](transcript.jsonl) / [RUNLOG.md](RUNLOG.md) / [dashboard.html](dashboard.html) so each score is checkable.
 
-_Models with no scored rows this run (skipped for a missing API key, or attempted but produced no usable output): GPT-5.5 (`gpt-5.5`), GPT-5.2 (`gpt-5.2`), GPT-5 (`gpt-5`). In this run the OpenAI models were attempted but every call returned HTTP 429 insufficient_quota (the available key had no quota), so they yielded no data and are excluded; with a funded key they are included with zero code change._
+**Controls.** `fake-structural-url` (plausible but nonexistent, same shape) and `random-url` (unrelated real URL) should collapse toward name-only / zero — if URL shape or merely having a URL did the work, these would lift too.
+
+**Blanks** are always labelled: `— (no items)`, `— (run error)`, `— (judge failed)`, `— (skipped: no key)`.
+
+_Models with no scored rows this run: GPT-5.5 (`gpt-5.5`), GPT-5.2 (`gpt-5.2`), GPT-5 (`gpt-5`). The OpenAI models were attempted but every call returned HTTP 429 insufficient_quota (the key had no quota), so they are excluded; with a funded key they are included with zero code change._
 
 ## Models
 
@@ -31,66 +38,81 @@ _Models with no scored rows this run (skipped for a missing API key, or attempte
 
 See [SOURCES.md](SOURCES.md) for the full model -> cutoff -> source table.
 
-## Headline: lift of url-only vs name-only, split by cutoff
+## Headline: lift (API-usage items only), split by cutoff
 
-`LIFT = mean(url-only) − mean(name-only)`. The boundary effect is visible if **pre-cutoff lift > post-cutoff lift** (the URL helps for content the model could have trained on, not for content after its cutoff). `n pre/post` is how many scored cells fall each side.
+`LIFT = mean(url-only) − mean(name-only)` over API-usage items only (knowledge-calibration items excluded). `n pre/post` = API-usage items each side of this model's cutoff.
 
 | Model | cutoff | overall lift | pre-cutoff lift | post-cutoff lift | n pre/post |
 |---|---|---|---|---|---|
-| Claude Opus 4.8 | 2026-01-31 | -0.23 | -0.33 | +0.14 | 96/24 |
-| Claude Sonnet 4.6 | 2026-01-31 | -0.22 | -0.31 | +0.13 | 96/24 |
-| Claude Opus 4.6 | 2025-08-31 | -0.36 | -0.42 | -0.22 | 84/36 |
-| Claude Sonnet 4.5 | 2025-07-31 | -0.30 | -0.42 | -0.03 | 84/36 |
-| Gemini 3.1 Pro | 2025-01-31 | -0.17 | -0.33 | -0.03 | 54/66 |
-| Gemini 3.5 Flash | 2025-01-31 | -0.11 | -0.32 | +0.06 | 54/66 |
+| Claude Opus 4.8 | 2026-01-31 | -0.32 | -0.33 | -0.20 | 16/1 |
+| Claude Sonnet 4.6 | 2026-01-31 | -0.32 | -0.31 | -0.50 | 16/1 |
+| Claude Opus 4.6 | 2025-08-31 | -0.42 | -0.42 | -0.42 | 14/3 |
+| Claude Sonnet 4.5 | 2025-07-31 | -0.41 | -0.42 | -0.37 | 14/3 |
+| Gemini 3.1 Pro | 2025-01-31 | -0.21 | -0.33 | -0.06 | 9/8 |
+| Gemini 3.5 Flash | 2025-01-31 | -0.18 | -0.32 | -0.01 | 9/8 |
 
-## Pre- vs post-cutoff mean correctness, per condition
+## API-usage items: pre/post mean correctness per condition
 
-For each model, every corpus item is classified pre- or post-cutoff (contentDate < cutoff = pre). Mean correctness per condition within each bucket. The thing to look for: in the **pre** rows `url-only` approaches `name-only`/`url+name`; in the **post** rows `url-only` should NOT beat `name-only`, and the controls stay flat.
+Knowledge-calibration items excluded. In **pre** rows, does `url-only` approach `name-only`? In **post** rows, it should not beat `name-only`; controls stay flat.
 
-### Claude Opus 4.8 (cutoff 2026-01-31) — 96 pre / 24 post
+### Claude Opus 4.8 (cutoff 2026-01-31) — 16 pre / 1 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
 | pre-cutoff | 0.56 | 0.23 | 0.76 | 0.98 | 0.33 | 0.00 |
-| post-cutoff | 0.69 | 0.82 | 0.78 | 0.51 | 0.33 | 0.25 |
+| post-cutoff | 0.50 | 0.30 | 0.95 | 0.00 | 0.00 | 0.00 |
 
-### Claude Sonnet 4.6 (cutoff 2026-01-31) — 96 pre / 24 post
+### Claude Sonnet 4.6 (cutoff 2026-01-31) — 16 pre / 1 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
 | pre-cutoff | 0.56 | 0.25 | 0.72 | 0.98 | 0.25 | 0.00 |
-| post-cutoff | 0.38 | 0.50 | 0.66 | 0.24 | 0.53 | 0.00 |
+| post-cutoff | 0.50 | 0.00 | 0.60 | 0.00 | 0.00 | 0.00 |
 
-### Claude Opus 4.6 (cutoff 2025-08-31) — 84 pre / 36 post
+### Claude Opus 4.6 (cutoff 2025-08-31) — 14 pre / 3 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
 | pre-cutoff | 0.57 | 0.14 | 0.78 | 1.00 | 0.31 | 0.00 |
-| post-cutoff | 0.55 | 0.33 | 0.57 | 0.56 | 0.35 | 0.00 |
+| post-cutoff | 0.42 | 0.00 | 0.50 | 0.75 | 0.00 | 0.00 |
 
-### Claude Sonnet 4.5 (cutoff 2025-07-31) — 84 pre / 36 post
+### Claude Sonnet 4.5 (cutoff 2025-07-31) — 14 pre / 3 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
 | pre-cutoff | 0.56 | 0.14 | 0.63 | 0.91 | 0.25 | 0.00 |
-| post-cutoff | 0.37 | 0.33 | 0.25 | 0.20 | 0.35 | 0.00 |
+| post-cutoff | 0.37 | 0.00 | 0.13 | 0.33 | 0.00 | 0.00 |
 
-### Gemini 3.1 Pro (cutoff 2025-01-31) — 54 pre / 66 post
+### Gemini 3.1 Pro (cutoff 2025-01-31) — 9 pre / 8 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
 | pre-cutoff | 0.67 | 0.33 | 0.78 | 0.98 | 0.32 | 0.00 |
-| post-cutoff | 0.39 | 0.36 | 0.27 | 0.48 | 0.27 | 0.00 |
+| post-cutoff | 0.19 | 0.13 | 0.00 | 0.63 | 0.11 | 0.00 |
 
-### Gemini 3.5 Flash (cutoff 2025-01-31) — 54 pre / 66 post
+### Gemini 3.5 Flash (cutoff 2025-01-31) — 9 pre / 8 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
 | pre-cutoff | 0.66 | 0.33 | 0.88 | 0.99 | 0.19 | 0.00 |
-| post-cutoff | 0.12 | 0.18 | 0.27 | 0.62 | 0.13 | 0.00 |
+| post-cutoff | 0.01 | 0.00 | 0.13 | 0.73 | 0.00 | 0.00 |
 
-## Mean correctness by condition x model (all items)
+## Knowledge-calibration items: correct-refusal rate per condition
+
+These items (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) post-date every model; correctness = the model correctly said it could not determine the answer. NOT part of the lift. The thing to see: a bare `url-only` (and `name-only`) often score HIGH here — refusing is easy when you're handed nothing — which is exactly why these would pollute a lift average if included.
+
+| Model | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
+|---|---|---|---|---|---|---|
+| Claude Opus 4.8 | 0.75 | 1.00 | 0.72 | 0.68 | 0.43 | 0.33 |
+| Claude Sonnet 4.6 | 0.33 | 0.67 | 0.68 | 0.32 | 0.70 | 0.00 |
+| Claude Opus 4.6 | 0.68 | 0.67 | 0.63 | 0.37 | 0.70 | 0.00 |
+| Claude Sonnet 4.5 | 0.37 | 0.67 | 0.37 | 0.07 | 0.70 | 0.00 |
+| Gemini 3.1 Pro | 0.93 | 1.00 | 1.00 | 0.10 | 0.70 | 0.00 |
+| Gemini 3.5 Flash | 0.40 | 0.67 | 0.65 | 0.32 | 0.47 | 0.00 |
+
+## All items, mean correctness by condition x model
+
+_Both tracks combined — included only for completeness. Use the API-usage table above for the real signal._
 
 | Condition | Claude Opus 4.8 (cut 2026-01-31) | Claude Sonnet 4.6 (cut 2026-01-31) | Claude Opus 4.6 (cut 2025-08-31) | Claude Sonnet 4.5 (cut 2025-07-31) | Gemini 3.1 Pro (cut 2025-01-31) | Gemini 3.5 Flash (cut 2025-01-31) |
 |---|---|---|---|---|---|---|
@@ -101,18 +123,21 @@ For each model, every corpus item is classified pre- or post-cutoff (contentDate
 | fake-structural-url | 0.33 | 0.31 | 0.32 | 0.28 | 0.29 | 0.15 |
 | random-url | 0.05 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 
-The two control rows (`fake-structural-url`, `random-url`) are expected to sit at or below `name-only`: a fake or unrelated URL carries no real retrieval key, so it should give no lift.
+## Interpretation
 
-## Interpretation (honest)
+- **Headline (API-usage items only):** mean lift -0.31 overall — a bare opaque URL, with no page content, does NOT beat simply naming the task, and across models it tends to lower the score. The model is more cautious or more error-prone when handed only a context-free URL string than when told plainly what to build.
+- **Boundary (API-usage items):** mean pre-cutoff lift -0.36, mean post-cutoff lift -0.26. The pre- vs post-cutoff gap on API-usage items is small or noisy at this corpus size, so the boundary effect is not yet demonstrated; the post-cutoff bucket is only one or two real items per model.
+- **Why the earlier read was wrong:** an apparent positive *post-cutoff* url-only score comes from the knowledge-calibration items (scroll-triggered-animations, arxiv-future-fake-real-id, html-in-canvas), where the correct answer is "I don't know". A bare URL elicits exactly that refusal, scoring high — which is the OPPOSITE of the URL helping the model use an API. Those items are now excluded from the lift.
+- **What does work:** `url+name` and the `full-content` ceiling score well across the board, and the controls (`fake-structural-url`, `random-url`) collapse toward name-only / zero, so the harness is measuring real content rather than URL shape.
 
-- **Overall:** mean pre-cutoff lift -0.36, mean post-cutoff lift +0.01. Across models the pre- vs post-cutoff lift gap is small or reversed at this sample size, so the boundary effect is not cleanly demonstrated.
-- **Claude Opus 4.8:** a bare opaque URL did not help and may have hurt (lift -0.23). Ceiling (full pasted content) scored 0.89 vs name-only 0.58. Fake-structural-URL scored 0.33 and random-URL 0.05 (controls for URL shape vs real content). Pre-cutoff lift -0.33 vs post-cutoff lift +0.14: the boundary effect is weak or mixed at this sample size.
-- **Claude Sonnet 4.6:** a bare opaque URL did not help and may have hurt (lift -0.22). Ceiling (full pasted content) scored 0.83 vs name-only 0.52. Fake-structural-URL scored 0.31 and random-URL 0.00 (controls for URL shape vs real content). Pre-cutoff lift -0.31 vs post-cutoff lift +0.13: the boundary effect is weak or mixed at this sample size.
-- **Claude Opus 4.6:** a bare opaque URL did not help and may have hurt (lift -0.36). Ceiling (full pasted content) scored 0.87 vs name-only 0.56. Fake-structural-URL scored 0.32 and random-URL 0.00 (controls for URL shape vs real content). Pre-cutoff lift -0.42 vs post-cutoff lift -0.22: the boundary effect is weak or mixed at this sample size.
-- **Claude Sonnet 4.5:** a bare opaque URL did not help and may have hurt (lift -0.30). Ceiling (full pasted content) scored 0.70 vs name-only 0.50. Fake-structural-URL scored 0.28 and random-URL 0.00 (controls for URL shape vs real content). Pre-cutoff lift -0.42 vs post-cutoff lift -0.03: the boundary effect is weak or mixed at this sample size.
-- **Gemini 3.1 Pro:** a bare opaque URL did not help and may have hurt (lift -0.17). Ceiling (full pasted content) scored 0.70 vs name-only 0.52. Fake-structural-URL scored 0.29 and random-URL 0.00 (controls for URL shape vs real content). Pre-cutoff lift -0.33 vs post-cutoff lift -0.03: the boundary effect is weak or mixed at this sample size.
-- **Gemini 3.5 Flash:** a bare opaque URL did not help and may have hurt (lift -0.11). Ceiling (full pasted content) scored 0.78 vs name-only 0.36. Fake-structural-URL scored 0.15 and random-URL 0.00 (controls for URL shape vs real content). Pre-cutoff lift -0.32 vs post-cutoff lift +0.06: the boundary effect is weak or mixed at this sample size.
+Per model (API-usage items):
+- **Claude Opus 4.8:** bare URL did not help / hurt (lift -0.32); full-content 0.92 vs name-only 0.56; pre -0.33 / post -0.20 (n 16/1).
+- **Claude Sonnet 4.6:** bare URL did not help / hurt (lift -0.32); full-content 0.92 vs name-only 0.56; pre -0.31 / post -0.50 (n 16/1).
+- **Claude Opus 4.6:** bare URL did not help / hurt (lift -0.42); full-content 0.96 vs name-only 0.54; pre -0.42 / post -0.42 (n 14/3).
+- **Claude Sonnet 4.5:** bare URL did not help / hurt (lift -0.41); full-content 0.81 vs name-only 0.53; pre -0.42 / post -0.37 (n 14/3).
+- **Gemini 3.1 Pro:** bare URL did not help / hurt (lift -0.21); full-content 0.81 vs name-only 0.44; pre -0.33 / post -0.06 (n 9/8).
+- **Gemini 3.5 Flash:** bare URL did not help / hurt (lift -0.18); full-content 0.87 vs name-only 0.35; pre -0.32 / post -0.01 (n 9/8).
 
 ---
 
-_Scale is small (a handful of items per cell), so treat these as directional, not statistically significant. Cutoff dates are the vendors' published values (see SOURCES.md); the pre/post boundary is still fuzzy for items dated within a month or two of a cutoff. The complete per-cell record — every prompt, every model output, and every judge prompt + raw verdict — is in [RUNLOG.md](RUNLOG.md) and [transcript.jsonl](transcript.jsonl)._
+_Small scale (a handful of API-usage items per pre/post bucket), so treat these as directional, not statistically significant — the post-cutoff API bucket is especially thin and is the main reason for expanding the corpus. Cutoff dates are the vendors' published values (see SOURCES.md). Every prompt, output, and judge prompt + raw verdict is in [transcript.jsonl](transcript.jsonl), [RUNLOG.md](RUNLOG.md), and [dashboard.html](dashboard.html)._
