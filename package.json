@@ -1,0 +1,17 @@
+{
+  "name": "url-influence",
+  "version": "0.1.0",
+  "description": "Experiment: does an opaque URL alone steer an LLM's output because the content was in training, and does the effect track the model's knowledge cutoff?",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "Paul Kinlan <paul.kinlan@gmail.com>",
+  "scripts": {
+    "run": "node src/run.mjs",
+    "score": "node src/score.mjs",
+    "analyze": "node src/analyze.mjs",
+    "pilot": "node src/run.mjs --pilot && node src/score.mjs && node src/analyze.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,1735 @@
+{
+  "generatedAt": "2026-06-17T09:47:13.836Z",
+  "judgeModel": "claude-sonnet-4-5",
+  "judged": 72,
+  "judgeFails": 0,
+  "scores": [
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "fake-structural-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model correctly declined to answer due to knowledge cutoff limitations rather than providing the expected DeepSeek-R1 information."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "full-content",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model correctly identifies DeepSeek-R1 with all key identifiers (DeepSeek, reasoning, reinforcement learning) and provides accurate details about the paper's core contributions."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "name-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model correctly declined to answer without being provided the arXiv ID, which was indeed missing from the task prompt."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "random-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model completely misunderstood the task and discussed postage stamps instead of the arXiv paper about DeepSeek-R1's reinforcement learning approach to reasoning in LLMs."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "url+name",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model correctly declined to answer rather than fabricating information about a paper outside its training data."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "url-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model correctly states it lacks knowledge of this January 2025 paper due to its April 2024 training cutoff and does not attempt to guess or fabricate content."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "fake-structural-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model refused to answer and did not provide any information about Mamba or selective state space models."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "full-content",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The response correctly identifies Mamba, selective state space models, and all key architectural details with accurate publication information."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "name-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model did not attempt to answer because no arXiv ID was provided in the prompt, so it cannot be evaluated for correctness or hallucination."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "random-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model completely misunderstood the task, discussing postage stamps and Wikipedia instead of the arXiv paper about Mamba and selective state space models."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "url+name",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model correctly identifies the paper as Mamba introducing selective state space models with linear-time complexity, matching all key identifiers."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "url-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model declined to answer and provided no information about Mamba, state space models, or selective SSMs."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "fake-structural-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to provide CSS code and did not use any of the required API identifiers (anchor-name, position-anchor, anchor(), position-area)."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "full-content",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model correctly demonstrates all key CSS Anchor Positioning API features including anchor-name, position-anchor, anchor() function, position-area, and position-try-fallbacks with proper syntax."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "name-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "anchor-name",
+        "position-anchor",
+        "anchor("
+      ],
+      "structuralMisses": [
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0.9,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The code correctly demonstrates anchor-name, position-anchor, and anchor() function with proper syntax, though it uses inset-area instead of position-area and doesn't show position-try-fallbacks for o"
+      },
+      "correctness": 0.9
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "random-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model output discusses postage stamps from Wikipedia instead of providing CSS code using the Anchor Positioning API as requested."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "url+name",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "anchor-name",
+        "position-anchor",
+        "anchor("
+      ],
+      "structuralMisses": [
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0.85,
+        "usedRealSurface": true,
+        "hallucinated": true,
+        "reason": "Correctly demonstrates anchor-name, position-anchor, and anchor() function, but uses 'inset-area' instead of the expected 'position-area' property and includes 'anchor-size()' which may not be part of"
+      },
+      "correctness": 0.85
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "url-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to answer the task and provided no CSS Anchor Positioning API code."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "fake-structural-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "HTTP"
+      ],
+      "structuralMisses": [
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model answered about RFC 9999 instead of RFC 9110 and provided no information about HTTP Semantics, methods, or status codes."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "full-content",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model correctly identifies RFC 9110 as 'HTTP Semantics' from June 2022, accurately describes its scope including methods, status codes, and header fields, mentions it obsoletes RFCs 7230-7235, and"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "name-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The output accurately identifies RFC 9110 as HTTP Semantics (June 2022), correctly states it obsoletes RFC 7230-7235, and properly describes methods, status codes, header fields, and version-independe"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "random-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "method"
+      ],
+      "structuralMisses": [
+        "HTTP",
+        "Semantics",
+        "status code"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model completely failed to address RFC 9110 and instead provided irrelevant information about postage stamps, demonstrating total task failure and confabulation."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "url+name",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The output correctly identifies RFC 9110 as 'HTTP Semantics' (June 2022), mentions it obsoletes parts of RFC 7230 series, and accurately covers methods, status codes, and header fields with proper sec"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "url-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model accurately identifies RFC 9110 as HTTP Semantics (June 2022), correctly describes its obsolescence of RFC 7231-7235 series, and properly covers HTTP methods, status codes, and header fields "
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "fake-structural-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.5,
+      "structuralHits": [
+        "Temporal",
+        "Now"
+      ],
+      "structuralMisses": [
+        "PlainDate",
+        "ZonedDateTime"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "Model mentions Temporal exists but refuses to provide the requested code examples using Temporal.Now, Temporal.PlainDate, and Temporal.ZonedDateTime for date arithmetic."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "full-content",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime",
+        "Now"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The code correctly demonstrates all key Temporal API identifiers and methods including Temporal.Now, PlainDate, ZonedDateTime, add(), Duration, and proper date arithmetic operations."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "name-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime",
+        "Now"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The code correctly demonstrates all required Temporal API concepts including Temporal.Now, Temporal.PlainDate, Temporal.ZonedDateTime, and date arithmetic with .add() method using the real API surface"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "random-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Now"
+      ],
+      "structuralMisses": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model output discusses postage stamps and Wikipedia articles instead of providing JavaScript code using the Temporal API as requested."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "url+name",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime",
+        "Now"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The code correctly demonstrates Temporal API usage with all expected identifiers (Temporal, PlainDate, ZonedDateTime, Now) and proper date arithmetic methods."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "url-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Now"
+      ],
+      "structuralMisses": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to attempt the task, providing no Temporal API code or relevant identifiers."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "fake-structural-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition",
+        "finished"
+      ],
+      "structuralMisses": [
+        "ready"
+      ],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model correctly demonstrates document.startViewTransition() with proper callback usage, ViewTransition object with .finished promise, .skipTransition() method, and ::view-transition pseudo-element"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "full-content",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition",
+        "finished"
+      ],
+      "structuralMisses": [
+        "ready"
+      ],
+      "judge": {
+        "correctness": 0.85,
+        "usedRealSurface": true,
+        "hallucinated": true,
+        "reason": "The code correctly uses startViewTransition, finished, and other real API features, but hallucinates an options parameter with 'update' and 'types' properties that doesn't exist in the actual API."
+      },
+      "correctness": 0.85
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "name-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition",
+        "ready",
+        "finished"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The code correctly demonstrates document.startViewTransition() with proper callback pattern, ViewTransition object, and all expected promises (ready, finished, updateCallbackDone) along with accurate "
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "random-url",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "startViewTransition",
+        "ViewTransition",
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model completely ignored the task about View Transitions API and instead responded about a Wikipedia article on postage stamps that was never mentioned."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "url+name",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition",
+        "ready",
+        "finished"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The code correctly demonstrates document.startViewTransition() with the callback pattern, uses the ViewTransition object with .ready and .finished promises, and mentions view-transition-name CSS prope"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "url-only",
+      "model": "claude-sonnet-4-5",
+      "cutoff": "2025-07",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "startViewTransition",
+        "ViewTransition",
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to attempt the task and provided no code or API usage whatsoever."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "fake-structural-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model correctly refused to answer about a paper beyond its knowledge cutoff without fabricating information."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "full-content",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model correctly identifies DeepSeek-R1 with all key identifiers (DeepSeek, reasoning, reinforcement learning) and accurately describes the method's core approach."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "name-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model failed to attempt answering and instead requested the arXiv ID that was supposed to be provided in the task."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "random-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model refused to answer and did not identify the paper as DeepSeek-R1 or mention any of the key identifiers (DeepSeek, reasoning, reinforcement learning)."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "url+name",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model correctly declined to answer due to knowledge cutoff, avoiding fabrication but providing no correct information."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "itemKind": "recall",
+      "contentDate": "2025-01",
+      "condition": "url-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "DeepSeek",
+        "reasoning",
+        "reinforcement learning"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model correctly declined to answer due to lack of knowledge, providing no information about DeepSeek-R1."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "fake-structural-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model declined to answer and made no claims about the paper's content."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "full-content",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The response accurately identifies Mamba, selective state space models, and linear-time scaling as the key contributions, matching all expected identifiers with additional correct technical details."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "name-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model requested the arXiv ID instead of answering the question, failing to provide any information about the paper's architecture or ideas."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "random-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "Model completely ignored the arXiv task and instead answered about postage stamps from a Wikipedia URL, showing total confusion about the question."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "url+name",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "Model completely confuses the paper with Mixtral; arXiv 2312.00752 is about Mamba/selective state space models, not Mixture of Experts."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "itemKind": "recall",
+      "contentDate": "2023-12",
+      "condition": "url-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Mamba",
+        "state space",
+        "selective"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model refused to answer and did not provide any information about Mamba or selective state space models."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "fake-structural-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model declined to answer claiming lack of knowledge, providing no CSS code or real API identifiers."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "full-content",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "anchor-name",
+        "position-anchor",
+        "anchor("
+      ],
+      "structuralMisses": [
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0.95,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "Correctly demonstrates anchor-name, position-anchor, and anchor() function with proper syntax and realistic usage, though code is truncated at the end."
+      },
+      "correctness": 0.95
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "name-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "anchor-name",
+        "position-anchor",
+        "anchor("
+      ],
+      "structuralMisses": [
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model output only contains HTML boilerplate without any CSS implementation of the Anchor Positioning API features."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "random-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to complete the CSS task and instead discussed an unrelated Wikipedia URL about postage stamps."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "url+name",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.75,
+      "structuralHits": [
+        "anchor-name",
+        "position-anchor",
+        "anchor("
+      ],
+      "structuralMisses": [
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The answer correctly demonstrates all required CSS Anchor Positioning API features including anchor-name, position-anchor, and the anchor() function with proper syntax and usage."
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "itemKind": "code",
+      "contentDate": "2024-08",
+      "condition": "url-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "anchor-name",
+        "position-anchor",
+        "anchor(",
+        "position-area"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to complete the task and produced no CSS code with the required Anchor Positioning API features."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "fake-structural-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model incorrectly stated RFC 9999 instead of addressing RFC 9110, providing no relevant information about HTTP Semantics."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "full-content",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The output correctly identifies RFC 9110 as 'HTTP Semantics' (June 2022), mentions it obsoletes prior RFCs including parts of 7230-7235, and accurately describes key sections covering HTTP methods, st"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "name-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 0.85,
+        "usedRealSurface": true,
+        "hallucinated": true,
+        "reason": "Correctly identifies RFC 9110 as HTTP Semantics covering methods and status codes, but incorrectly states publication date as August 2022 instead of June 2022."
+      },
+      "correctness": 0.85
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "random-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "HTTP"
+      ],
+      "structuralMisses": [
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to answer the RFC 9110 question and instead discussed a completely unrelated Wikipedia URL about postage stamps."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "url+name",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.5,
+      "structuralHits": [
+        "HTTP",
+        "Semantics"
+      ],
+      "structuralMisses": [
+        "method",
+        "status code"
+      ],
+      "judge": {
+        "correctness": 0.85,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "Correctly identifies RFC 9110 as 'HTTP Semantics' and mentions it updates earlier specs, but lacks specific details about methods, status codes, and header fields that define its scope."
+      },
+      "correctness": 0.85
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "itemKind": "recall",
+      "contentDate": "2022-06",
+      "condition": "url-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 1,
+      "structuralHits": [
+        "HTTP",
+        "Semantics",
+        "method",
+        "status code"
+      ],
+      "structuralMisses": [],
+      "judge": {
+        "correctness": 1,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The model accurately identifies RFC 9110 as 'HTTP Semantics', correctly states it obsoletes parts of RFC 7230-7235, and comprehensively covers methods, status codes, header fields, and message semanti"
+      },
+      "correctness": 1
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "fake-structural-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Now"
+      ],
+      "structuralMisses": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model refused to attempt the task, claiming unfamiliarity with Temporal API (misinterpreting it as 'Chrono'), and provided no code using the required identifiers."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "full-content",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Temporal"
+      ],
+      "structuralMisses": [
+        "PlainDate",
+        "ZonedDateTime",
+        "Now"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "The output only contains a comment about Temporal without implementing any date arithmetic using the required API methods."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "name-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Temporal"
+      ],
+      "structuralMisses": [
+        "PlainDate",
+        "ZonedDateTime",
+        "Now"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The output is incomplete and contains no actual Temporal API code, only a comment fragment about polyfills."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "random-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime",
+        "Now"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": true,
+        "reason": "The model output discusses postage stamps instead of the Temporal API for JavaScript date arithmetic, completely ignoring the actual task."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "url+name",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Now"
+      ],
+      "structuralMisses": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model refused to attempt the task and provided no code or relevant Temporal API information."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "temporal-api",
+      "itemKind": "code",
+      "contentDate": "2025-05",
+      "condition": "url-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.25,
+      "structuralHits": [
+        "Now"
+      ],
+      "structuralMisses": [
+        "Temporal",
+        "PlainDate",
+        "ZonedDateTime"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "Model refused to attempt the task, providing no code or Temporal API usage whatsoever."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "fake-structural-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.5,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition"
+      ],
+      "structuralMisses": [
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0.3,
+        "usedRealSurface": true,
+        "hallucinated": true,
+        "reason": "The model mentions the correct concept and `startViewTransition` but incorrectly calls it `startPageTransition` in the code example, mixing correct and hallucinated API names."
+      },
+      "correctness": 0.3
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "full-content",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.5,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition"
+      ],
+      "structuralMisses": [
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0.85,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "Code demonstrates correct View Transitions API usage with startViewTransition, view-transition-name, and ::view-transition pseudo-elements, though the JavaScript is incomplete."
+      },
+      "correctness": 0.85
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "name-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.5,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition"
+      ],
+      "structuralMisses": [
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The output is incomplete and cut off mid-sentence, containing no actual code or real API identifiers."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "random-url",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "startViewTransition",
+        "ViewTransition",
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to complete the task and provided an unrelated response about postage stamps instead of implementing the View Transitions API."
+      },
+      "correctness": 0
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "url+name",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0.5,
+      "structuralHits": [
+        "startViewTransition",
+        "ViewTransition"
+      ],
+      "structuralMisses": [
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0.9,
+        "usedRealSurface": true,
+        "hallucinated": false,
+        "reason": "Code correctly uses startViewTransition with callback for DOM updates, includes view-transition-name and pseudo-elements, though output is truncated."
+      },
+      "correctness": 0.9
+    },
+    {
+      "itemId": "view-transitions",
+      "itemKind": "code",
+      "contentDate": "2023-03",
+      "condition": "url-only",
+      "model": "gemini-2.5-flash",
+      "cutoff": "2025-01",
+      "runError": null,
+      "structural": 0,
+      "structuralHits": [],
+      "structuralMisses": [
+        "startViewTransition",
+        "ViewTransition",
+        "ready",
+        "finished"
+      ],
+      "judge": {
+        "correctness": 0,
+        "usedRealSurface": false,
+        "hallucinated": false,
+        "reason": "The model refused to complete the task and provided no JavaScript code or API usage whatsoever."
+      },
+      "correctness": 0
+    }
+  ]
+}
