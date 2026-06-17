@@ -12,6 +12,11 @@
 const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
 const GOOGLE_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
+const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+
+// Per-request timeout. Without it, one stalled connection freezes the whole
+// sequential run. Thinking models can be slow, so keep this generous.
+const REQUEST_TIMEOUT_MS = 120000;
 
 function requireEnv(name) {
   const v = process.env[name];
@@ -34,6 +39,7 @@ async function callAnthropic(model, { system, user, maxTokens = 1500 }) {
       system,
       messages: [{ role: "user", content: user }],
     }),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   const json = await res.json();
   if (!res.ok) {
@@ -67,6 +73,7 @@ async function callGoogle(model, { system, user, maxTokens = 1500 }) {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   });
   const json = await res.json();
   if (!res.ok) {
@@ -88,11 +95,48 @@ async function callGoogle(model, { system, user, maxTokens = 1500 }) {
   };
 }
 
+async function callOpenAI(model, { system, user, maxTokens = 1500 }) {
+  const key = requireEnv("OPENAI_API_KEY");
+  // Chat Completions API. Newer OpenAI models reject `max_tokens` and require
+  // `max_completion_tokens`; send the latter for forward-compatibility.
+  const res = await fetch(OPENAI_URL, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${key}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      max_completion_tokens: maxTokens,
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: user },
+      ],
+    }),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(
+      `OpenAI ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
+    );
+  }
+  const text = json.choices?.[0]?.message?.content || "";
+  return {
+    text,
+    usage: {
+      inputTokens: json.usage?.prompt_tokens ?? null,
+      outputTokens: json.usage?.completion_tokens ?? null,
+    },
+    raw: json,
+  };
+}
+
 const ADAPTERS = {
   anthropic: callAnthropic,
   google: callGoogle,
-  // openai: callOpenAI,   // add when a key is present
-  // xai: callXai,
+  openai: callOpenAI,
+  // xai: callXai,        // add when a key is present
 };
 
 export async function callModel(modelEntry, prompt) {
@@ -104,5 +148,14 @@ export async function callModel(modelEntry, prompt) {
 export function hasKeyFor(vendor) {
   if (vendor === "anthropic") return !!process.env.ANTHROPIC_API_KEY;
   if (vendor === "google") return !!process.env.GEMINI_API_KEY;
+  if (vendor === "openai") return !!process.env.OPENAI_API_KEY;
   return false;
+}
+
+// Which env var each vendor needs, for honest "skipped (no key)" reporting.
+export function keyEnvFor(vendor) {
+  if (vendor === "anthropic") return "ANTHROPIC_API_KEY";
+  if (vendor === "google") return "GEMINI_API_KEY";
+  if (vendor === "openai") return "OPENAI_API_KEY";
+  return null;
 }

@@ -1,6 +1,13 @@
 node_modules/
 .env
 .env.*
+# results/raw/ is the intermediate (one JSON per model call). It stays OUT of the
+# repo; the committed results/transcript.jsonl is the complete, auditable record.
 results/raw/
+results/judge-cache/
 *.log
 .DS_Store
+
+# ...but the run console log IS part of the committed audit trail, so un-ignore
+# it explicitly (the *.log glob above would otherwise catch it).
+!results/run.log

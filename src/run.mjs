@@ -10,8 +10,20 @@
 import { MODELS, pilotModels, modelByKey } from "./models.mjs";
 import { CORPUS, corpusFor, PILOT_ITEM_IDS } from "./corpus.mjs";
 import { CONDITIONS, buildPrompt, urlForCondition } from "./conditions.mjs";
-import { callModel, hasKeyFor } from "./providers.mjs";
-import { fetchPageText, writeJson, nowIso, sleep } from "./util.mjs";
+import { callModel, hasKeyFor, keyEnvFor } from "./providers.mjs";
+import {
+  fetchPageText,
+  writeJson,
+  readJson,
+  nowIso,
+  sleep,
+  loadDotEnv,
+} from "./util.mjs";
+import { existsSync } from "node:fs";
+
+// Load a local .env (gitignored) so keys can come from there if not already in
+// the environment. Real env vars always win. Keys are never logged.
+loadDotEnv();
 
 const RAW_DIR = "results/raw";
 
@@ -55,9 +67,11 @@ async function main() {
   console.log(`[run] items: ${items.map((i) => i.id).join(", ")}`);
   console.log(`[run] models: ${usable.map((m) => m.key).join(", ") || "(none)"}`);
   if (skipped.length) {
-    console.log(
-      `[run] SKIPPED (no key): ${skipped.map((m) => `${m.key}[${m.vendor}]`).join(", ")}`,
-    );
+    for (const m of skipped) {
+      console.log(
+        `[run] SKIPPED ${m.key} [${m.vendor}] - missing ${keyEnvFor(m.vendor)} (set it in the env or a gitignored .env to include this model)`,
+      );
+    }
   }
   if (!usable.length) {
     console.error("[run] No usable models (no API keys present). Aborting.");
@@ -85,12 +99,27 @@ async function main() {
     for (const item of items) {
       for (const condition of CONDITIONS) {
         total++;
+        const fname = `${RAW_DIR}/${model.key}__${item.id}__${condition}.json`;
+        const tag = `${model.key} / ${item.id} / ${condition}`;
+        // Resume support: skip cells already completed without error, so an
+        // interrupted run can be re-invoked and only fills the gaps.
+        if (existsSync(fname)) {
+          try {
+            const prev = await readJson(fname);
+            if (prev && prev.error == null && prev.output) {
+              ok++;
+              console.log(`[skip] ${tag} (already done)`);
+              continue;
+            }
+          } catch {
+            // fall through and re-run
+          }
+        }
         const fetched =
           condition === "full-content"
             ? fetchedByItem[item.id]?.text || null
             : null;
         const prompt = buildPrompt(item, condition, fetched);
-        const tag = `${model.key} / ${item.id} / ${condition}`;
         process.stdout.write(`[call] ${tag} ... `);
         const record = {
           runId,
@@ -120,7 +149,6 @@ async function main() {
           failures.push({ tag, error: record.error });
           console.log(`FAILED: ${record.error}`);
         }
-        const fname = `${RAW_DIR}/${model.key}__${item.id}__${condition}.json`;
         await writeJson(fname, record);
         await sleep(250);
       }

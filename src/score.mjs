@@ -14,9 +14,20 @@
 import { CORPUS } from "./corpus.mjs";
 import { modelByKey } from "./models.mjs";
 import { callModel, hasKeyFor } from "./providers.mjs";
-import { listJson, readJson, writeJson, nowIso, sleep } from "./util.mjs";
+import {
+  listJson,
+  readJson,
+  writeJson,
+  nowIso,
+  sleep,
+  loadDotEnv,
+} from "./util.mjs";
+import { existsSync } from "node:fs";
+
+loadDotEnv();
 
 const RAW_DIR = "results/raw";
+const CACHE_DIR = "results/judge-cache"; // gitignored; lets scoring resume
 const JUDGE_KEY = "claude-sonnet-4-5"; // capable + cheap + available
 
 const UNKNOWN_PATTERNS = [
@@ -109,18 +120,45 @@ async function main() {
   let judged = 0;
   let judgeFails = 0;
 
+  let cacheHits = 0;
   for (const f of files) {
     const rec = await readJson(f);
     const item = itemById(rec.itemId);
     if (!item) continue;
 
+    // Resume support: if this raw record was already scored, reuse the cached
+    // score row instead of re-calling the judge. Cache key = raw file basename.
+    const cacheFile = `${CACHE_DIR}/${f.split("/").pop()}`;
+    if (existsSync(cacheFile)) {
+      try {
+        const cached = await readJson(cacheFile);
+        if (cached && cached.judge !== undefined) {
+          scores.push(cached);
+          if (cached.judge && typeof cached.judge.correctness === "number") {
+            judged++;
+          }
+          cacheHits++;
+          continue;
+        }
+      } catch {
+        // fall through and re-score
+      }
+    }
+
     const out = rec.output;
     const struct = structuralScore(item, out);
 
     let judge = null;
+    // The FULL judge prompt (system + user, verbatim) and the FULL raw judge
+    // response are captured for every judged cell so the LLM-as-judge work is
+    // fully auditable. judgeRaw is NEVER truncated.
+    let judgePrompt = null;
+    let judgeRaw = null;
     if (canJudge && out && rec.error == null) {
+      judgePrompt = buildJudgePrompt(item, out);
       try {
-        const res = await callModel(judgeModel, buildJudgePrompt(item, out));
+        const res = await callModel(judgeModel, judgePrompt);
+        judgeRaw = res.text;
         judge = parseJudge(res.text);
         if (judge) judged++;
         else judgeFails++;
@@ -128,15 +166,22 @@ async function main() {
       } catch (e) {
         judgeFails++;
         judge = { error: String(e.message || e) };
+        judgeRaw = null;
       }
     }
 
-    const correctness =
-      judge && typeof judge.correctness === "number"
+    // A failed model call (run error or empty output) has NO score — never let
+    // a failure masquerade as a structural 0, which would pollute the means and
+    // make a model that never answered look like it scored zero. analyze.mjs
+    // labels all-null slices explicitly as "— (run error)".
+    const failed = rec.error != null || !out;
+    const correctness = failed
+      ? null
+      : judge && typeof judge.correctness === "number"
         ? judge.correctness
         : struct.structural; // fall back to structural if no judge
 
-    scores.push({
+    const row = {
       itemId: rec.itemId,
       itemKind: rec.itemKind,
       contentDate: rec.contentDate,
@@ -144,13 +189,19 @@ async function main() {
       model: rec.model,
       cutoff: rec.cutoff,
       runError: rec.error,
-      structural: struct.structural,
+      structural: failed ? null : struct.structural,
       structuralHits: struct.hits,
       structuralMisses: struct.misses,
       admitsUnknown: struct.admitsUnknown,
       judge,
+      // Auditability: exact judge prompt + full (untruncated) raw judge text.
+      judgePrompt,
+      judgeRaw,
       correctness: correctness == null ? null : Number(correctness),
-    });
+    };
+    scores.push(row);
+    // Cache this row so an interrupted scoring run can resume without re-judging.
+    await writeJson(cacheFile, row);
     process.stdout.write(
       `[score] ${rec.model}/${rec.itemId}/${rec.condition} ` +
         `struct=${struct.structural == null ? "-" : struct.structural.toFixed(2)} ` +

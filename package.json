@@ -8,8 +8,10 @@
   "scripts": {
     "run": "node src/run.mjs",
     "score": "node src/score.mjs",
+    "transcript": "node src/transcript.mjs",
     "analyze": "node src/analyze.mjs",
-    "pilot": "node src/run.mjs --pilot && node src/score.mjs && node src/analyze.mjs"
+    "pilot": "node src/run.mjs --pilot && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs",
+    "full": "node src/run.mjs && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs"
   },
   "engines": {
     "node": ">=20"

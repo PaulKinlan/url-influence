@@ -80,11 +80,19 @@ See [`results/REPORT.md`](results/REPORT.md) and
 Requires Node >= 20. No dependencies (uses built-in `fetch`).
 
 ```bash
-# Required environment variables (read ONLY from the environment, never committed):
+# API keys are read ONLY from the environment (never committed). They can be
+# real environment variables OR placed in a gitignored local .env file (a tiny
+# built-in loader reads KEY=VALUE lines; real env vars always win):
 export ANTHROPIC_API_KEY=sk-ant-...
 export GEMINI_API_KEY=...
+export OPENAI_API_KEY=sk-...        # optional; OpenAI models run only if present
 
-# Cheap pilot: 6 items x 6 conditions x 2 models, then score + analyze.
+# ...or create a gitignored .env in the repo root:
+#   ANTHROPIC_API_KEY=sk-ant-...
+#   GEMINI_API_KEY=...
+#   OPENAI_API_KEY=sk-...
+
+# Cheap pilot: a 6-item subset x 6 conditions x pilot models, then score + analyze.
 npm run pilot
 
 # Or step by step:
@@ -104,9 +112,37 @@ Useful flags: `--items=id1,id2` and `--models=key1,key2` to target subsets.
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Anthropic models + the default judge | yes (for Claude / judging) |
 | `GEMINI_API_KEY` | Google Gemini models | yes (for Gemini) |
+| `OPENAI_API_KEY` | OpenAI GPT-5.x models | optional (OpenAI auto-included iff set) |
 
-Keys are read only from `process.env`. `.env`, `node_modules/`, and
-`results/raw/` are gitignored. Never paste a key into a file.
+Keys are read only from `process.env`, or from a gitignored `.env` in the repo
+root (a built-in loader, no dependency, parses simple `KEY=VALUE` lines and only
+fills vars not already set, so real env vars win). `.env`, `node_modules/`, and
+`results/raw/` are gitignored. Never paste a key into a tracked file. If
+`OPENAI_API_KEY` is absent the runner clearly logs the skipped OpenAI models and
+the experiment proceeds with the remaining providers; adding the key later
+includes OpenAI with zero code change.
+
+### Models
+
+The current registry (`src/models.mjs`) uses each vendor's current flagships
+plus a few older models for cutoff spread. Every cutoff is the vendor's
+published value with a cited source; see [`results/SOURCES.md`](results/SOURCES.md).
+
+| Model | Vendor | API id | Cutoff |
+|---|---|---|---|
+| Claude Opus 4.8 | Anthropic | `claude-opus-4-8` | 2026-01-31 |
+| Claude Sonnet 4.6 | Anthropic | `claude-sonnet-4-6` | 2026-01-31 |
+| Claude Opus 4.6 | Anthropic | `claude-opus-4-6` | 2025-08-31 |
+| Claude Sonnet 4.5 | Anthropic | `claude-sonnet-4-5-20250929` | 2025-07-31 |
+| Gemini 3.1 Pro | Google | `gemini-3.1-pro-preview` | 2025-01-31 |
+| Gemini 3.5 Flash | Google | `gemini-3.5-flash` | 2025-01-31 |
+| GPT-5.5 | OpenAI | `gpt-5.5` | 2025-12-01 |
+| GPT-5.2 | OpenAI | `gpt-5.2` | 2025-08-31 |
+| GPT-5 | OpenAI | `gpt-5` | 2024-09-30 |
+
+All current Gemini models share a ~Jan 2025 cutoff, so the within-Google spread
+is flat; the cross-model spread (Sep 2024 -> Jan 2026) is what tests the
+boundary.
 
 ## Adding a model
 
