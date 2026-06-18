@@ -34,7 +34,7 @@ The corpus carries URLs at several opacity levels for every item:
 |---|---|---|
 | Descriptive | `developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition` | The full API name is in the path |
 | Semi-opaque | `github.com/WICG/view-transitions` | Owner/repo hints at the topic |
-| Fully opaque | `arxiv.org/abs/2312.00752`, `rfc-editor.org/rfc/rfc9110`, `stackoverflow.com/questions/75643683`, a DOI | A pure id that says nothing |
+| Fully opaque | `arxiv.org/abs/2312.00752`, `datatracker.ietf.org/doc/rfc9110/`, `chromestatus.com/feature/5193009714954240`, a DOI | A pure id that says nothing |
 
 The core conditions deliberately use the **fully opaque** URL, because that is the
 strong form of the claim: a string of digits steering output can only be coming
@@ -44,6 +44,9 @@ Some opaque-looking URLs are intentionally fake, missing, or unrelated controls.
 Those items are marked in the corpus with
 `validation.opaqueRole = "structural-control"` and are excluded from headline
 URL-memory lift; they test whether URL shape alone steers or hallucinates.
+For web-platform features, prefer ChromeStatus feature URLs as the headline
+opaque pointer; Stack Overflow URLs can be retained as
+`validation.stackOverflowUrl` metadata or used as explicit structural controls.
 
 ## Conditions
 

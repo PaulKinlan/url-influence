@@ -28,7 +28,9 @@
 //   validation  - optional corpus-maintenance metadata. Use
 //                 validation.opaqueRole = "structural-control" when urls.opaque
 //                 is deliberately fake/unrelated; those items are controls, not
-//                 headline URL-memory evidence.
+//                 headline URL-memory evidence. Use validation.stackOverflowUrl
+//                 to retain an SO-shaped noisy/control pointer when ChromeStatus
+//                 is the real opaque URL.
 //
 // To extend: copy an item, fill the fields. Keep groundTruth.mustMention to
 // distinctive, real identifiers (method/property/section names), not generic
@@ -45,7 +47,7 @@ export const CORPUS = [
       "Write JavaScript that uses the document.startViewTransition() View Transitions API to animate a DOM update.",
     contentDate: "2023-03", // shipped Chrome 111, well pre-cutoff for all
     bcdKey: "api.Document.startViewTransition",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/75643683" },
     groundTruth: {
       mustMention: ["startViewTransition", "ViewTransition", "ready", "finished"],
       notes:
@@ -55,7 +57,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition",
       semiOpaque: "https://github.com/WICG/view-transitions",
-      opaque: "https://stackoverflow.com/questions/75643683",
+      opaque: "https://chromestatus.com/feature/5193009714954240",
       specUrl: "https://www.w3.org/TR/css-view-transitions-1/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition",
@@ -71,7 +73,7 @@ export const CORPUS = [
       "Write HTML and JavaScript using the Popover API (the popover attribute and HTMLElement.showPopover/togglePopover).",
     contentDate: "2024-04", // popover shipped Chrome 114 (2023) and broadly 2024; pre-cutoff for all
     bcdKey: "html.global_attributes.popover",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/77432324" },
     groundTruth: {
       mustMention: ["popover", "popovertarget", "showPopover", "togglePopover"],
       notes:
@@ -80,7 +82,7 @@ export const CORPUS = [
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Popover_API",
       semiOpaque: "https://github.com/openui/open-ui",
-      opaque: "https://stackoverflow.com/questions/77432324",
+      opaque: "https://chromestatus.com/feature/5463833265045504",
       specUrl: "https://html.spec.whatwg.org/multipage/popover.html",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Popover_API",
@@ -94,7 +96,7 @@ export const CORPUS = [
     target:
       "Write the CSS/HTML to enable cross-document (multi-page) View Transitions using @view-transition.",
     contentDate: "2024-09", // cross-document VT shipped Chrome 126/late 2024
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/78201234" },
     groundTruth: {
       mustMention: ["@view-transition", "navigation", "view-transition-name"],
       notes:
@@ -104,7 +106,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition",
       semiOpaque: "https://github.com/WICG/view-transitions",
-      opaque: "https://stackoverflow.com/questions/78201234",
+      opaque: "https://chromestatus.com/feature/5118874666663936",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition",
       randomUrl: RANDOM_URL,
@@ -117,7 +119,7 @@ export const CORPUS = [
     target:
       "Write CSS using the CSS Anchor Positioning API (anchor-name, position-anchor, the anchor() function).",
     contentDate: "2024-08", // shipped Chrome 125 / mid 2024
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/78745612" },
     groundTruth: {
       mustMention: ["anchor-name", "position-anchor", "anchor(", "position-area"],
       notes:
@@ -127,7 +129,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning",
       semiOpaque: "https://github.com/oddbird/css-anchor-positioning",
-      opaque: "https://stackoverflow.com/questions/78745612",
+      opaque: "https://chromestatus.com/feature/5124922471874560",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning",
       randomUrl: RANDOM_URL,
@@ -224,7 +226,7 @@ export const CORPUS = [
     target:
       "Write JavaScript using the Temporal API (Temporal.Now, Temporal.PlainDate, Temporal.ZonedDateTime) to do date arithmetic.",
     contentDate: "2025-05", // Temporal began shipping in browsers mid-2025
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79412345" },
     groundTruth: {
       mustMention: ["Temporal", "PlainDate", "ZonedDateTime", "Now"],
       notes:
@@ -233,7 +235,7 @@ export const CORPUS = [
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal",
       semiOpaque: "https://github.com/tc39/proposal-temporal",
-      opaque: "https://stackoverflow.com/questions/79412345",
+      opaque: "https://chromestatus.com/feature/5668291307634688",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal",
       randomUrl: RANDOM_URL,
@@ -277,7 +279,7 @@ export const CORPUS = [
       "Write HTML/CSS for a customizable <select> element (appearance: base-select, the ::picker(select) pseudo-element, and <selectedcontent>).",
     // Shipped Chrome 134 (2025-03-04). Post Gemini/GPT-5; pre Claude flagships.
     contentDate: "2025-03",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79501234" },
     groundTruth: {
       mustMention: [
         "appearance: base-select",
@@ -291,7 +293,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/::picker",
       semiOpaque: "https://github.com/openui/open-ui",
-      opaque: "https://stackoverflow.com/questions/79501234",
+      opaque: "https://chromestatus.com/feature/5737365999976448",
       fullContentUrl:
         "https://developer.chrome.com/blog/a-customizable-select",
       randomUrl: RANDOM_URL,
@@ -334,7 +336,7 @@ export const CORPUS = [
     // Shipped Chrome 140 (2025-09-02). Post Opus 4.6 / GPT-5.2 (Aug 2025);
     // pre GPT-5.5 (Dec 2025) and the Jan-2026 Claude flagships.
     contentDate: "2025-09",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79612345" },
     groundTruth: {
       mustMention: ["startViewTransition", "view-transition-name", "element"],
       notes:
@@ -344,7 +346,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.chrome.com/blog/element-scoped-view-transitions",
       semiOpaque: "https://github.com/WICG/view-transitions",
-      opaque: "https://stackoverflow.com/questions/79612345",
+      opaque: "https://chromestatus.com/feature/5109852273377280",
       fullContentUrl:
         "https://developer.chrome.com/blog/element-scoped-view-transitions",
       randomUrl: RANDOM_URL,
@@ -389,7 +391,7 @@ export const CORPUS = [
     // (latest is Opus 4.8 / Sonnet 4.6 at 2026-01-31). The CORRECT behaviour is
     // to be uncertain rather than confidently invent the exact syntax.
     contentDate: "2026-02",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79912345" },
     groundTruth: {
       mustMention: ["animation-trigger", "scroll"],
       notes:
@@ -400,7 +402,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.chrome.com/blog/scroll-triggered-animations",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
-      opaque: "https://stackoverflow.com/questions/79912345",
+      opaque: "https://chromestatus.com/feature/5181996801982464",
       fullContentUrl:
         "https://developer.chrome.com/blog/scroll-triggered-animations",
       randomUrl: RANDOM_URL,
@@ -502,7 +504,7 @@ export const CORPUS = [
       "Write JavaScript using the FedCM API for federated sign-in (navigator.credentials.get with an identity option).",
     contentDate: "2022-12", // Chrome 108, pre-cutoff for ALL models
     bcdKey: "api.IdentityCredential",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/74619456" },
     groundTruth: {
       mustMention: [
         "navigator.credentials.get",
@@ -516,7 +518,7 @@ export const CORPUS = [
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API",
       semiOpaque: "https://github.com/fedidcg/FedCM",
-      opaque: "https://stackoverflow.com/questions/74619456",
+      opaque: "https://chromestatus.com/feature/6438627087220736",
       specUrl: "https://www.w3.org/TR/fedcm/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API",
@@ -921,8 +923,8 @@ export const CORPUS = [
   // opaque id, the descriptive MDN URL, the canonical W3C/WHATWG/TC39 spec URL,
   // and the Browser Compat Data (BCD) dotted key — run under the
   // mdn-url-only / spec-url-only / bcd-key-only probes plus opaque url-only.
-  // (Promise and Service Worker have no canonical ChromeStatus base entry, so
-  // their opaque id is a structural-control, not real opaque evidence.)
+  // (Promise has no canonical ChromeStatus base entry, so its opaque id is a
+  // structural-control, not real opaque evidence.)
   {
     id: "fetch-api",
     kind: "code",
@@ -930,6 +932,7 @@ export const CORPUS = [
       "Write JavaScript that uses the fetch() API to GET a URL and parse the JSON response.",
     contentDate: "2015-03", // Chrome 42, March 2015 — pre-Chrome-80
     bcdKey: "api.fetch",
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/29775797" },
     groundTruth: {
       mustMention: ["fetch(", ".json(", "Response", "await"],
       notes:
@@ -954,6 +957,7 @@ export const CORPUS = [
       "Write JavaScript that uses IntersectionObserver to run a callback when an element scrolls into view.",
     contentDate: "2016-05", // Chrome 51, May 2016
     bcdKey: "api.IntersectionObserver",
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/45514676" },
     groundTruth: {
       mustMention: [
         "IntersectionObserver",
@@ -1014,7 +1018,7 @@ export const CORPUS = [
       "Write JavaScript that registers a service worker and caches assets in its install event.",
     contentDate: "2015-01", // Chrome 40, Jan 2015
     bcdKey: "api.ServiceWorker",
-    validation: { opaqueRole: "structural-control" },
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/33639071" },
     groundTruth: {
       mustMention: [
         "navigator.serviceWorker",
@@ -1029,7 +1033,7 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
       semiOpaque: "https://github.com/w3c/ServiceWorker",
-      opaque: "https://stackoverflow.com/questions/33639071",
+      opaque: "https://www.chromestatus.com/feature/6561526227927040",
       specUrl: "https://www.w3.org/TR/service-workers/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
@@ -1045,6 +1049,7 @@ export const CORPUS = [
       "Write CSS that lays out a container with CSS Grid (a grid with explicit columns, rows, and gaps).",
     contentDate: "2017-03", // Chrome 57, March 2017
     bcdKey: "css.properties.grid",
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/43520932" },
     groundTruth: {
       mustMention: [
         "display: grid",
@@ -1075,6 +1080,7 @@ export const CORPUS = [
       "Write JavaScript using an async function and await to sequence two asynchronous calls.",
     contentDate: "2016-10", // Chrome 55 / ES2017, Oct 2016
     bcdKey: "javascript.statements.async_function",
+    validation: { stackOverflowUrl: "https://stackoverflow.com/questions/42624647" },
     groundTruth: {
       mustMention: ["async", "await", "try", "catch"],
       notes:

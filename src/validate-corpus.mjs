@@ -233,6 +233,27 @@ function validateStatic(problems) {
         item.validation.opaqueRole,
       );
     }
+    if (item.validation?.stackOverflowUrl) {
+      if (!isValidUrl(item.validation.stackOverflowUrl)) {
+        issue(
+          problems,
+          "error",
+          item.id,
+          "validation.stackOverflowUrl",
+          "invalid Stack Overflow metadata URL",
+          item.validation.stackOverflowUrl,
+        );
+      } else if (!stackOverflowQuestionId(item.validation.stackOverflowUrl)) {
+        issue(
+          problems,
+          "error",
+          item.id,
+          "validation.stackOverflowUrl",
+          "Stack Overflow metadata URL must be a question URL",
+          item.validation.stackOverflowUrl,
+        );
+      }
+    }
 
     for (const field of PRIMARY_URL_FIELDS) {
       const value = item.urls?.[field];

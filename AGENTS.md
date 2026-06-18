@@ -39,8 +39,11 @@ Before adding or changing an item in `src/corpus.mjs`:
 
 1. Confirm the opaque URL resolves to the intended content.
 2. Prefer canonical opaque ids: arXiv ids, RFC ids, ChromeStatus ids, DOI ids,
-   or real Stack Overflow question ids that match the item.
-3. Avoid arbitrary Stack Overflow ids for real opaque evidence. If you
+   or real Stack Overflow question ids that match the item. For web-platform
+   items, prefer ChromeStatus over Stack Overflow because ChromeStatus feature
+   pages are indexable and canonical for Chrome web-platform launches.
+3. Avoid arbitrary Stack Overflow ids for headline opaque evidence. Keep SO
+   pointers as `validation.stackOverflowUrl` metadata when useful. If you
    intentionally want a fake/unrelated SO-shaped or ChromeStatus-shaped control,
    add `validation.opaqueRole = "structural-control"`.
 4. Use `npm run validate:live` after changing real opaque URLs. It will allow
