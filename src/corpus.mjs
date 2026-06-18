@@ -695,7 +695,7 @@ export const CORPUS = [
     groundTruth: {
       mustMention: ["corner-shape", "squircle", "superellipse(", "border-radius"],
       notes:
-        "Chrome 147 (~2026-04) shipped corner shaping: the corner-shape property (and corner-*-shape longhands) restyles the area defined by border-radius. Values include squircle, superellipse(<number>), scoop, notch, bevel, round, square — e.g. `border-radius: 16px; corner-shape: squircle`. Post-dates every current model's cutoff.",
+        "Chrome 139 (~2025-08) shipped corner shaping: the corner-shape property (and corner-*-shape longhands) restyles the area defined by border-radius. Values include squircle, superellipse(<number>), scoop, notch, bevel, round, square — e.g. `border-radius: 16px; corner-shape: squircle`.",
     },
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape",
@@ -776,7 +776,7 @@ export const CORPUS = [
     groundTruth: {
       mustMention: ["Translator", "create", "translate", "availability"],
       notes:
-        "The built-in Translator API (shipped Chrome 148 ~2026-05) uses the global Translator object: `await Translator.availability({sourceLanguage, targetLanguage})`, then `const t = await Translator.create({sourceLanguage, targetLanguage})`, then `await t.translate(text)` (or t.translateStreaming). Post-dates every current model's cutoff.",
+        "The built-in Translator API (shipped Chrome 138 ~2025-06) uses the global Translator object: `await Translator.availability({sourceLanguage, targetLanguage})`, then `const t = await Translator.create({sourceLanguage, targetLanguage})`, then `await t.translate(text)` (or t.translateStreaming).",
     },
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Translator",
@@ -803,7 +803,7 @@ export const CORPUS = [
     groundTruth: {
       mustMention: ["LanguageDetector", "create", "detect", "availability"],
       notes:
-        "The built-in Language Detector API (shipped Chrome 148 ~2026-05) uses the global LanguageDetector object: `await LanguageDetector.availability()`, then `const d = await LanguageDetector.create({expectedInputLanguages})`, then `const results = await d.detect(text)` returning an array of { detectedLanguage, confidence }. Post-dates every current model's cutoff.",
+        "The built-in Language Detector API (shipped Chrome 138 ~2025-06) uses the global LanguageDetector object: `await LanguageDetector.availability()`, then `const d = await LanguageDetector.create({expectedInputLanguages})`, then `const results = await d.detect(text)` returning an array of { detectedLanguage, confidence }.",
     },
     urls: {
       descriptive:
@@ -887,7 +887,7 @@ export const CORPUS = [
     groundTruth: {
       mustMention: ["shape(", "from", "line to", "clip-path", "close"],
       notes:
-        "The CSS shape() function (shipped Chrome 149 ~2026-06) builds a <basic-shape> from drawing commands and works in clip-path/offset-path with responsive units, e.g. `clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 100%, close)` and curve/arc commands (curve to ... with ..., arc to ... of ...). It is the responsive successor to path(). Post-dates every current model's cutoff.",
+        "The CSS shape() function (shipped Chrome 135 ~2025-04) builds a <basic-shape> from drawing commands and works in clip-path/offset-path with responsive units, e.g. `clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 100%, close)` and curve/arc commands (curve to ... with ..., arc to ... of ...). It is the responsive successor to path().",
     },
     urls: {
       descriptive:
@@ -916,7 +916,7 @@ export const CORPUS = [
     groundTruth: {
       mustMention: ["toBase64", "fromBase64", "toHex", "fromHex"],
       notes:
-        "TC39 Uint8Array base64/hex (shipped Chrome 149 ~2026-06): instance methods Uint8Array.prototype.toBase64() / toHex() and static Uint8Array.fromBase64(str) / fromHex(str), replacing manual btoa/atob byte juggling. e.g. new Uint8Array([0,15,255]).toHex() === '000fff'. Post-dates every current model's cutoff.",
+        "TC39 Uint8Array base64/hex (shipped Chrome 140 ~2025-09): instance methods Uint8Array.prototype.toBase64() / toHex() and static Uint8Array.fromBase64(str) / fromHex(str), replacing manual btoa/atob byte juggling. e.g. new Uint8Array([0,15,255]).toHex() === '000fff'.",
     },
     urls: {
       descriptive:
@@ -952,7 +952,7 @@ export const CORPUS = [
         "container-name",
       ],
       notes:
-        "Scroll-state container queries (shipped Chrome 149 ~2026-06): set `container-type: scroll-state` (optionally `container: name / scroll-state`) on an ancestor, then query `@container scroll-state(stuck: top)`, `scroll-state(snapped: y)`, or `scroll-state(scrollable: top)` to style descendants based on the container's scroll state. Post-dates every current model's cutoff.",
+        "Scroll-state container queries (shipped Chrome 133 ~2025-02): set `container-type: scroll-state` (optionally `container: name / scroll-state`) on an ancestor, then query `@container scroll-state(stuck: top)`, `scroll-state(snapped: y)`, or `scroll-state(scrollable: top)` to style descendants based on the container's scroll state.",
     },
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",

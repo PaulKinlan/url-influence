@@ -118,7 +118,11 @@ async function main() {
     const model = modelByKey(rec.model) || { key: rec.model, label: rec.model, cutoff: rec.cutoff };
     const item = CORPUS.find((it) => it.id === rec.itemId) || {};
     const score = scoreIndex.get(scoreKey(rec.model, rec.itemId, rec.condition)) || null;
-    const pre = preCutoff(rec.contentDate, model.cutoff);
+    // Use the CURRENT corpus contentDate (corrected ship dates) rather than the
+    // value baked into the raw cell at run time, so date fixes apply without a
+    // paid re-run.
+    const contentDate = item.contentDate ?? rec.contentDate;
+    const pre = preCutoff(contentDate, model.cutoff);
 
     // ---- JSONL row: complete machine-readable record ----
     const judge = score?.judge || null;
@@ -130,7 +134,7 @@ async function main() {
       cutoff: rec.cutoff,
       itemId: rec.itemId,
       itemKind: rec.itemKind,
-      contentDate: rec.contentDate,
+      contentDate,
       preCutoff: pre,
       condition: rec.condition,
       urlUsed: rec.urlUsed,
@@ -170,7 +174,7 @@ async function main() {
       lastItem = null;
     }
     if (rec.itemId !== lastItem) {
-      md.push(`## Item: ${rec.itemId} (${rec.itemKind}, contentDate ${rec.contentDate})`);
+      md.push(`## Item: ${rec.itemId} (${rec.itemKind}, contentDate ${contentDate})`);
       md.push("");
       lastItem = rec.itemId;
     }

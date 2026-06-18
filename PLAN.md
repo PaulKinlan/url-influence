@@ -58,6 +58,16 @@ decisions made, and what we have learned about the URLs and methodology.
   GLM pre/post-cutoff split — z.ai does not publish one.
 
 ### Done
+- (2026-06-18, opus agent) **Made the analysis date-correction-safe (no paid
+  re-run needed for date fixes).** `analyze.mjs` + `transcript.mjs` now classify
+  pre/post-cutoff from the CURRENT corpus `contentDate` (by itemId), not the
+  value baked into each raw cell at run time — so the 9 ship-date corrections
+  (and any future ones) apply at analysis time without re-running cells. Also
+  corrected the 6 now-pre-cutoff items' `groundTruth.notes` (they had the wrong
+  Chrome milestone in prose AND a now-false "post-dates every current model's
+  cutoff" claim): corner-shape M139/2025-08, translator + language-detector
+  M138/2025-06, css-shape-function M135/2025-04, uint8array-base64-hex
+  M140/2025-09, css-scroll-state-container-queries M133/2025-02. Validate clean.
 - (2026-06-18, opus corpus-agent) **Enriched 23 web-platform items with
   verified `urls.specUrl` + top-level `bcdKey`** from webstatus.dev (spec links +
   ship dates), web-features `compat_features`, and `@mdn/browser-compat-data`

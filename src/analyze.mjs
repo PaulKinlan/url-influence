@@ -36,6 +36,13 @@ const OPAQUE_STRUCTURAL_CONTROLS = new Set(
 );
 const isOpaqueStructuralControl = (id) => OPAQUE_STRUCTURAL_CONTROLS.has(id);
 
+// contentDate is baked into each raw cell at run time, but the corpus's dates
+// can be corrected after a run (e.g. wrong ship dates fixed). Always classify
+// pre/post from the CURRENT corpus contentDate, by itemId — so date fixes apply
+// to the analysis without re-running the (paid) matrix.
+const CONTENT_DATE = new Map(CORPUS.map((i) => [i.id, i.contentDate]));
+const cdOf = (id, fallback) => CONTENT_DATE.get(id) ?? fallback;
+
 function relativeToCutoff(contentDate, cutoff) {
   const norm = (s) => {
     const [y, m = "01", d = "01"] = s.split("-");
@@ -157,7 +164,7 @@ async function main() {
     const apiSplitRows = { pre: {}, post: {} };
     for (const bucket of ["pre", "post"]) {
       const br = api.filter(
-        (r) => relativeToCutoff(r.contentDate, model.cutoff) === bucket,
+        (r) => relativeToCutoff(cdOf(r.itemId, r.contentDate), model.cutoff) === bucket,
       );
       const cm = condMeans(br);
       apiSplit[bucket] = cm.by;
@@ -166,12 +173,12 @@ async function main() {
     const apiSplitN = {
       pre: new Set(
         api
-          .filter((r) => relativeToCutoff(r.contentDate, model.cutoff) === "pre")
+          .filter((r) => relativeToCutoff(cdOf(r.itemId, r.contentDate), model.cutoff) === "pre")
           .map((r) => r.itemId),
       ).size,
       post: new Set(
         api
-          .filter((r) => relativeToCutoff(r.contentDate, model.cutoff) === "post")
+          .filter((r) => relativeToCutoff(cdOf(r.itemId, r.contentDate), model.cutoff) === "post")
           .map((r) => r.itemId),
       ).size,
     };
