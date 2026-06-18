@@ -146,7 +146,10 @@ async function main() {
     }
 
     const out = rec.output;
-    const struct = structuralScore(item, out);
+    const skipped = rec.skipped === true;
+    const struct = skipped
+      ? { structural: null, hits: [], misses: [] }
+      : structuralScore(item, out);
 
     let judge = null;
     // The FULL judge prompt (system + user, verbatim) and the FULL raw judge
@@ -154,7 +157,7 @@ async function main() {
     // fully auditable. judgeRaw is NEVER truncated.
     let judgePrompt = null;
     let judgeRaw = null;
-    if (canJudge && out && rec.error == null) {
+    if (!skipped && canJudge && out && rec.error == null) {
       judgePrompt = buildJudgePrompt(item, out);
       try {
         const res = await callModel(judgeModel, judgePrompt);
@@ -174,7 +177,7 @@ async function main() {
     // a failure masquerade as a structural 0, which would pollute the means and
     // make a model that never answered look like it scored zero. analyze.mjs
     // labels all-null slices explicitly as "— (run error)".
-    const failed = rec.error != null || !out;
+    const failed = skipped || rec.error != null || !out;
     const correctness = failed
       ? null
       : judge && typeof judge.correctness === "number"
@@ -189,6 +192,8 @@ async function main() {
       model: rec.model,
       cutoff: rec.cutoff,
       runError: rec.error,
+      skipped,
+      skipReason: rec.skipReason || null,
       structural: failed ? null : struct.structural,
       structuralHits: struct.hits,
       structuralMisses: struct.misses,

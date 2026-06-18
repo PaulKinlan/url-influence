@@ -14,6 +14,8 @@ Claude-specific reminders:
   failure; it cannot prove memorization unless the opaque URL is verified as a
   real pointer to the intended content.
 - Keep API-usage lift separate from knowledge-calibration refusal behavior.
+- Treat `validation.opaqueRole = "structural-control"` items as intentional
+  fake/unrelated opaque controls, not headline URL-memory evidence.
 - Run `npm run validate` before spending model API budget.
 - Run `npm run validate:live` after changing opaque URLs or source URLs.
 - If another agent has uncommitted edits, merge around them rather than

@@ -22,6 +22,10 @@ seen in training? The headline claim is only supported when:
 - `url-only - name-only` on API-usage items is the headline lift. Identifier
   probes such as `mdn-url-only`, `spec-url-only`, and `bcd-key-only` are
   diagnostics, not headline evidence.
+- Headline lift only uses API-usage items whose `urls.opaque` is intended to be
+  a real pointer to the target content. If an opaque-looking SO/ChromeStatus/id
+  URL is deliberately fake, missing, or unrelated, mark the item with
+  `validation.opaqueRole = "structural-control"` and treat it as a control.
 - Knowledge-calibration items with `groundTruth.expectUnknown` are reported
   separately. Do not average them into API-usage lift.
 - Every scored output must be auditable: prompt, model output, judge prompt,
@@ -36,16 +40,20 @@ Before adding or changing an item in `src/corpus.mjs`:
 1. Confirm the opaque URL resolves to the intended content.
 2. Prefer canonical opaque ids: arXiv ids, RFC ids, ChromeStatus ids, DOI ids,
    or real Stack Overflow question ids that match the item.
-3. Avoid arbitrary Stack Overflow ids. Use `npm run validate:live` after
-   changing Stack Overflow URLs.
-4. Keep `target` independent of the opaque URL unless the condition explicitly
+3. Avoid arbitrary Stack Overflow ids for real opaque evidence. If you
+   intentionally want a fake/unrelated SO-shaped or ChromeStatus-shaped control,
+   add `validation.opaqueRole = "structural-control"`.
+4. Use `npm run validate:live` after changing real opaque URLs. It will allow
+   explicitly marked structural controls but should fail for unmarked broken
+   real pointers.
+5. Keep `target` independent of the opaque URL unless the condition explicitly
    includes the URL.
-5. For recall items, make `name-only` a fair named baseline. Do not write
+6. For recall items, make `name-only` a fair named baseline. Do not write
    "this arXiv id" unless the id is actually present in that condition.
-6. Keep `mustMention` to distinctive identifiers, not generic words.
-7. Set `contentDate` to the date the tested content/API surface existed. If the
+7. Keep `mustMention` to distinctive identifiers, not generic words.
+8. Set `contentDate` to the date the tested content/API surface existed. If the
    URL mapping appeared materially later, document that in a comment.
-8. If adding `specUrl` or `bcdKey`, verify the optional probe condition is
+9. If adding `specUrl` or `bcdKey`, verify the optional probe condition is
    meaningful for that item.
 
 ## Run Workflow

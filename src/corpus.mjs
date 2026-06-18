@@ -25,6 +25,10 @@
 //                   randomUrl    : an unrelated real URL (off-target control)
 //   fakeUrl     - a plausible but NONEXISTENT URL of the same shape, to isolate
 //                 whether URL *structure* alone steers output.
+//   validation  - optional corpus-maintenance metadata. Use
+//                 validation.opaqueRole = "structural-control" when urls.opaque
+//                 is deliberately fake/unrelated; those items are controls, not
+//                 headline URL-memory evidence.
 //
 // To extend: copy an item, fill the fields. Keep groundTruth.mustMention to
 // distinctive, real identifiers (method/property/section names), not generic
@@ -40,6 +44,8 @@ export const CORPUS = [
     target:
       "Write JavaScript that uses the document.startViewTransition() View Transitions API to animate a DOM update.",
     contentDate: "2023-03", // shipped Chrome 111, well pre-cutoff for all
+    bcdKey: "api.Document.startViewTransition",
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["startViewTransition", "ViewTransition", "ready", "finished"],
       notes:
@@ -50,6 +56,7 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition",
       semiOpaque: "https://github.com/WICG/view-transitions",
       opaque: "https://stackoverflow.com/questions/75643683",
+      specUrl: "https://www.w3.org/TR/css-view-transitions-1/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition",
       randomUrl: RANDOM_URL,
@@ -63,6 +70,8 @@ export const CORPUS = [
     target:
       "Write HTML and JavaScript using the Popover API (the popover attribute and HTMLElement.showPopover/togglePopover).",
     contentDate: "2024-04", // popover shipped Chrome 114 (2023) and broadly 2024; pre-cutoff for all
+    bcdKey: "html.global_attributes.popover",
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["popover", "popovertarget", "showPopover", "togglePopover"],
       notes:
@@ -72,6 +81,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Popover_API",
       semiOpaque: "https://github.com/openui/open-ui",
       opaque: "https://stackoverflow.com/questions/77432324",
+      specUrl: "https://html.spec.whatwg.org/multipage/popover.html",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Popover_API",
       randomUrl: RANDOM_URL,
@@ -84,6 +94,7 @@ export const CORPUS = [
     target:
       "Write the CSS/HTML to enable cross-document (multi-page) View Transitions using @view-transition.",
     contentDate: "2024-09", // cross-document VT shipped Chrome 126/late 2024
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["@view-transition", "navigation", "view-transition-name"],
       notes:
@@ -106,6 +117,7 @@ export const CORPUS = [
     target:
       "Write CSS using the CSS Anchor Positioning API (anchor-name, position-anchor, the anchor() function).",
     contentDate: "2024-08", // shipped Chrome 125 / mid 2024
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["anchor-name", "position-anchor", "anchor(", "position-area"],
       notes:
@@ -138,8 +150,8 @@ export const CORPUS = [
     urls: {
       descriptive: "https://www.rfc-editor.org/info/rfc9110",
       semiOpaque: "https://github.com/httpwg/http-core",
-      opaque: "https://www.rfc-editor.org/rfc/rfc9110",
-      fullContentUrl: "https://www.rfc-editor.org/rfc/rfc9110.txt",
+      opaque: "https://datatracker.ietf.org/doc/rfc9110/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc9110",
       randomUrl: RANDOM_URL,
     },
     fakeUrl: "https://www.rfc-editor.org/rfc/rfc9999",
@@ -182,7 +194,7 @@ export const CORPUS = [
       fullContentUrl: "https://arxiv.org/abs/2312.00752",
       randomUrl: RANDOM_URL,
     },
-    fakeUrl: "https://arxiv.org/abs/2312.00001",
+    fakeUrl: "https://arxiv.org/abs/2312.99999",
   },
 
   // ---- boundary-straddling items (contentDate 2025-01..2026-01) ----
@@ -204,7 +216,7 @@ export const CORPUS = [
       fullContentUrl: "https://arxiv.org/abs/2501.12948",
       randomUrl: RANDOM_URL,
     },
-    fakeUrl: "https://arxiv.org/abs/2501.00002",
+    fakeUrl: "https://arxiv.org/abs/2501.99999",
   },
   {
     id: "temporal-api",
@@ -212,6 +224,7 @@ export const CORPUS = [
     target:
       "Write JavaScript using the Temporal API (Temporal.Now, Temporal.PlainDate, Temporal.ZonedDateTime) to do date arithmetic.",
     contentDate: "2025-05", // Temporal began shipping in browsers mid-2025
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["Temporal", "PlainDate", "ZonedDateTime", "Now"],
       notes:
@@ -255,7 +268,7 @@ export const CORPUS = [
       fullContentUrl: "https://arxiv.org/abs/2503.19786",
       randomUrl: RANDOM_URL,
     },
-    fakeUrl: "https://arxiv.org/abs/2503.00003",
+    fakeUrl: "https://arxiv.org/abs/2503.99999",
   },
   {
     id: "customizable-select",
@@ -264,6 +277,7 @@ export const CORPUS = [
       "Write HTML/CSS for a customizable <select> element (appearance: base-select, the ::picker(select) pseudo-element, and <selectedcontent>).",
     // Shipped Chrome 134 (2025-03-04). Post Gemini/GPT-5; pre Claude flagships.
     contentDate: "2025-03",
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: [
         "appearance: base-select",
@@ -308,7 +322,7 @@ export const CORPUS = [
       fullContentUrl: "https://arxiv.org/abs/2507.20534",
       randomUrl: RANDOM_URL,
     },
-    fakeUrl: "https://arxiv.org/abs/2507.00007",
+    fakeUrl: "https://arxiv.org/abs/2507.99999",
   },
 
   // ---- 2025-08..2025-12 window: only the very latest flagships know ----
@@ -320,6 +334,7 @@ export const CORPUS = [
     // Shipped Chrome 140 (2025-09-02). Post Opus 4.6 / GPT-5.2 (Aug 2025);
     // pre GPT-5.5 (Dec 2025) and the Jan-2026 Claude flagships.
     contentDate: "2025-09",
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["startViewTransition", "view-transition-name", "element"],
       notes:
@@ -361,7 +376,7 @@ export const CORPUS = [
       fullContentUrl: "https://arxiv.org/abs/2601.03267",
       randomUrl: RANDOM_URL,
     },
-    fakeUrl: "https://arxiv.org/abs/2601.00009",
+    fakeUrl: "https://arxiv.org/abs/2601.99999",
   },
 
   // ---- POST-2026-01: every current flagship is blind ----
@@ -374,6 +389,7 @@ export const CORPUS = [
     // (latest is Opus 4.8 / Sonnet 4.6 at 2026-01-31). The CORRECT behaviour is
     // to be uncertain rather than confidently invent the exact syntax.
     contentDate: "2026-02",
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["animation-trigger", "scroll"],
       notes:
@@ -485,6 +501,8 @@ export const CORPUS = [
     target:
       "Write JavaScript using the FedCM API for federated sign-in (navigator.credentials.get with an identity option).",
     contentDate: "2022-12", // Chrome 108, pre-cutoff for ALL models
+    bcdKey: "api.IdentityCredential",
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: [
         "navigator.credentials.get",
@@ -499,6 +517,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API",
       semiOpaque: "https://github.com/fedidcg/FedCM",
       opaque: "https://stackoverflow.com/questions/74619456",
+      specUrl: "https://www.w3.org/TR/fedcm/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API",
       randomUrl: RANDOM_URL,
@@ -893,6 +912,179 @@ export const CORPUS = [
       randomUrl: RANDOM_URL,
     },
     fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/image/color",
+  },
+
+  // ---- OLD, deeply in-training web features (pre-Chrome-80, 2014-2017) ----
+  // Every current model knows these cold. They carry the FULL spectrum of
+  // identifiers so we can see which KIND of id acts as a retrieval key for a
+  // web feature: opaque SO# (un-memorised, and SO blocks crawlers so likely not
+  // in training at all), the descriptive MDN URL, the canonical W3C/WHATWG/TC39
+  // spec URL, and the Browser Compat Data (BCD) dotted key. These run under the
+  // mdn-url-only / spec-url-only / bcd-key-only conditions in addition to the
+  // opaque url-only.
+  {
+    id: "fetch-api",
+    kind: "code",
+    target:
+      "Write JavaScript that uses the fetch() API to GET a URL and parse the JSON response.",
+    contentDate: "2015-03", // Chrome 42, March 2015 — pre-Chrome-80
+    bcdKey: "api.fetch",
+    groundTruth: {
+      mustMention: ["fetch(", ".json(", "Response", "await"],
+      notes:
+        "fetch(url) returns a Promise<Response>; await it, check response.ok, then await response.json(). Shipped Chrome 42 (2015), universally in training.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch",
+      semiOpaque: "https://github.com/whatwg/fetch",
+      opaque: "https://stackoverflow.com/questions/29775797",
+      specUrl: "https://fetch.spec.whatwg.org/",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/API/Window/httpGet",
+  },
+  {
+    id: "intersection-observer",
+    kind: "code",
+    target:
+      "Write JavaScript that uses IntersectionObserver to run a callback when an element scrolls into view.",
+    contentDate: "2016-05", // Chrome 51, May 2016
+    bcdKey: "api.IntersectionObserver",
+    groundTruth: {
+      mustMention: [
+        "IntersectionObserver",
+        "observe",
+        "isIntersecting",
+        "threshold",
+      ],
+      notes:
+        "new IntersectionObserver(callback, { threshold }) then .observe(el); the callback receives entries with entry.isIntersecting and entry.intersectionRatio. Shipped Chrome 51 (2016).",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver",
+      semiOpaque: "https://github.com/w3c/IntersectionObserver",
+      opaque: "https://stackoverflow.com/questions/45514676",
+      specUrl: "https://www.w3.org/TR/intersection-observer/",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/API/ViewportObserver",
+  },
+  {
+    id: "js-promise",
+    kind: "code",
+    target:
+      "Write JavaScript that creates and consumes a Promise (construct one, resolve/reject it, and handle it with then/catch).",
+    contentDate: "2014-01", // Chrome 32 / ES2015, Jan 2014
+    bcdKey: "javascript.builtins.Promise",
+    groundTruth: {
+      mustMention: ["new Promise", "resolve", "reject", "then", "catch"],
+      notes:
+        "new Promise((resolve, reject) => {...}); consume with .then(onFulfilled).catch(onRejected). Part of ES2015, shipped Chrome 32 (2014).",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+      semiOpaque: "https://github.com/tc39/ecma262",
+      opaque: "https://stackoverflow.com/questions/30564053",
+      specUrl: "https://tc39.es/ecma262/#sec-promise-objects",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Future",
+  },
+  {
+    id: "service-worker",
+    kind: "code",
+    target:
+      "Write JavaScript that registers a service worker and caches assets in its install event.",
+    contentDate: "2015-01", // Chrome 40, Jan 2015
+    bcdKey: "api.ServiceWorker",
+    validation: { opaqueRole: "structural-control" },
+    groundTruth: {
+      mustMention: [
+        "navigator.serviceWorker",
+        "register",
+        "install",
+        "caches",
+      ],
+      notes:
+        "navigator.serviceWorker.register('/sw.js'); inside the worker, the 'install' event uses event.waitUntil(caches.open(...).then(c => c.addAll(...))). Shipped Chrome 40 (2015).",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+      semiOpaque: "https://github.com/w3c/ServiceWorker",
+      opaque: "https://stackoverflow.com/questions/33639071",
+      specUrl: "https://www.w3.org/TR/service-workers/",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/API/Background_Worker_API",
+  },
+  {
+    id: "css-grid",
+    kind: "code",
+    target:
+      "Write CSS that lays out a container with CSS Grid (a grid with explicit columns, rows, and gaps).",
+    contentDate: "2017-03", // Chrome 57, March 2017
+    bcdKey: "css.properties.grid",
+    validation: { opaqueRole: "structural-control" },
+    groundTruth: {
+      mustMention: [
+        "display: grid",
+        "grid-template-columns",
+        "grid-template-rows",
+        "gap",
+      ],
+      notes:
+        "display: grid with grid-template-columns / grid-template-rows (often repeat()/fr units) and gap. Shipped Chrome 57 (2017).",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://stackoverflow.com/questions/43520932",
+      specUrl: "https://www.w3.org/TR/css-grid-1/",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_lattice_layout",
+  },
+  {
+    id: "async-await",
+    kind: "code",
+    target:
+      "Write JavaScript using an async function and await to sequence two asynchronous calls.",
+    contentDate: "2016-10", // Chrome 55 / ES2017, Oct 2016
+    bcdKey: "javascript.statements.async_function",
+    groundTruth: {
+      mustMention: ["async", "await", "try", "catch"],
+      notes:
+        "async function f() { const a = await p1(); const b = await p2(a); } with try/catch for errors. ES2017, shipped Chrome 55 (2016).",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+      semiOpaque: "https://github.com/tc39/ecma262",
+      opaque: "https://stackoverflow.com/questions/42624647",
+      specUrl: "https://tc39.es/ecma262/#sec-async-function-definitions",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/defer_function",
   },
 ];
 

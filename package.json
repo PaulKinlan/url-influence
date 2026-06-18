@@ -10,8 +10,11 @@
     "score": "node src/score.mjs",
     "transcript": "node src/transcript.mjs",
     "analyze": "node src/analyze.mjs",
-    "pilot": "node src/run.mjs --pilot && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs",
-    "full": "node src/run.mjs && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs"
+    "dashboard": "node src/dashboard.mjs",
+    "validate": "node src/validate-corpus.mjs",
+    "validate:live": "node src/validate-corpus.mjs --live",
+    "pilot": "node src/validate-corpus.mjs && node src/run.mjs --pilot && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs && node src/dashboard.mjs",
+    "full": "node src/validate-corpus.mjs && node src/run.mjs && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs && node src/dashboard.mjs"
   },
   "engines": {
     "node": ">=20"

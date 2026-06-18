@@ -13,6 +13,7 @@
 
 import { readFile, writeFile } from "node:fs/promises";
 import { CORPUS } from "./corpus.mjs";
+import { CONDITION_DEFS, CONDITIONS } from "./conditions.mjs";
 
 const PASS_DEFAULT = 0.5;
 
@@ -32,6 +33,7 @@ async function main() {
       target: it.target,
       contentDate: it.contentDate,
       track: it.groundTruth.expectUnknown ? "calibration" : "api-usage",
+      opaqueRole: it.validation?.opaqueRole || "real",
     };
   }
 
@@ -49,6 +51,8 @@ async function main() {
     correctness: c.finalCorrectness,
     structural: c.structural,
     runError: c.runError,
+    skipped: c.skipped ?? false,
+    skipReason: c.skipReason ?? null,
     prompt: c.prompt,
     output: c.output,
     judge: c.judge
@@ -72,30 +76,17 @@ async function main() {
       models.push({ key: c.model, label: c.label, cutoff: c.cutoff });
     }
   }
-  const conditions = [
-    "name-only",
-    "url-only",
-    "url+name",
-    "full-content",
-    "fake-structural-url",
-    "random-url",
-  ];
-
   const data = {
     meta: {
       generatedAt: cells[0]?.timestamp || null,
       passDefault: PASS_DEFAULT,
-      conditionNotes: {
-        "name-only": "task described in words, no URL (baseline)",
-        "url-only": "ONLY the opaque URL string (SO id / arXiv id / RFC / chromestatus id); page never fetched",
-        "url+name": "opaque URL plus the task name",
-        "full-content": "the real page pasted in (ceiling)",
-        "fake-structural-url": "plausible but nonexistent URL, same shape (control)",
-        "random-url": "unrelated real URL (control)",
-      },
+      conditionNotes: Object.fromEntries(
+        CONDITION_DEFS.map((c) => [c.key, c.description]),
+      ),
+      conditionDefs: CONDITION_DEFS,
     },
     models,
-    conditions,
+    conditions: CONDITIONS,
     items,
     cells: slim,
   };
@@ -174,6 +165,12 @@ const HTML = `<!doctype html>
       <label class="row"><input type="radio" name="track" value="calibration"> Knowledge-calibration only</label>
     </fieldset>
     <fieldset>
+      <legend>Opaque role</legend>
+      <label class="row"><input type="radio" name="opaque" value="real" checked> Real opaque pointers</label>
+      <label class="row"><input type="radio" name="opaque" value="structural-control"> Structural controls</label>
+      <label class="row"><input type="radio" name="opaque" value="all"> All</label>
+    </fieldset>
+    <fieldset>
       <legend>Cutoff bucket</legend>
       <label class="row"><input type="radio" name="bucket" value="all" checked> All</label>
       <label class="row"><input type="radio" name="bucket" value="pre"> Pre-cutoff (in training)</label>
@@ -222,11 +219,14 @@ function getRadio(n){ return document.querySelector('input[name="'+n+'"]:checked
 
 function filtered(){
   const track=getRadio("track"), bucket=getRadio("bucket"), conds=new Set(activeConds());
+  const opaque=getRadio("opaque");
   const pass=parseFloat($("#pass").value), failonly=$("#failonly").checked;
   return D.cells.filter(c=>{
     if(!conds.has(c.condition)) return false;
     const it=D.items[c.itemId];
     if(track!=="all" && it.track!==track) return false;
+    if(opaque==="real" && it.opaqueRole==="structural-control") return false;
+    if(opaque==="structural-control" && it.opaqueRole!=="structural-control") return false;
     if(bucket==="pre" && !c.preCutoff) return false;
     if(bucket==="post" && c.preCutoff) return false;
     if(failonly){ if(c.correctness==null) return false; if(c.correctness>=pass) return false; }
@@ -270,19 +270,24 @@ function render(){
   itemIds.forEach(id=>{
     const it=D.items[id];
     const side = (mc.find(c=>c.itemId===id)||{}).preCutoff ? "pre":"post";
-    t+='<tr><td class="item">'+id+'<div class="tk">'+it.contentDate+' · '+it.track+' · '+side+'-cutoff</div></td>';
+    t+='<tr><td class="item">'+id+'<div class="tk">'+it.contentDate+' · '+it.track+' · '+it.opaqueRole+' · '+side+'-cutoff</div></td>';
     conds.forEach(c=>{
       const cell=mc.find(x=>x.itemId===id&&x.condition===c);
       if(!cell){ t+='<td><div class="cellbtn null">·</div></td>'; return; }
       const v=cell.correctness;
-      if(v==null){ const lbl=cell.runError?"err":"—"; t+='<td><div class="cellbtn null" title="'+(cell.runError||"no score")+'">'+lbl+'</div></td>'; return; }
+      if(v==null){
+        const lbl=cell.skipped?"n/a":(cell.runError?"err":"—");
+        const title=cell.skipReason||cell.runError||"no score";
+        t+='<td><div class="cellbtn null" title="'+esc(title)+'">'+lbl+'</div></td>';
+        return;
+      }
       const idx=D.cells.indexOf(cell);
       t+='<td><button class="cellbtn" style="background:'+color(v)+'" data-i="'+idx+'">'+v.toFixed(2)+'</button></td>';
     });
     t+='</tr>';
   });
   t+='</tbody></table>';
-  t+='<div class="legend">cell = final correctness 0..1 <span class="swatch" style="background:'+color(0)+'"></span>0 <span class="swatch" style="background:'+color(0.5)+'"></span>.5 <span class="swatch" style="background:'+color(1)+'"></span>1 · "err" = model call failed · click a cell for the prompt, output and judge verdict</div>';
+  t+='<div class="legend">cell = final correctness 0..1 <span class="swatch" style="background:'+color(0)+'"></span>0 <span class="swatch" style="background:'+color(0.5)+'"></span>.5 <span class="swatch" style="background:'+color(1)+'"></span>1 · "err" = model call failed · "n/a" = condition not applicable · click a cell for the prompt, output and judge verdict</div>';
 
   $("#main").innerHTML=stats+t;
   document.querySelectorAll(".cellbtn[data-i]").forEach(b=> b.onclick=()=>showDetail(D.cells[+b.dataset.i]));
@@ -300,10 +305,13 @@ function showDetail(c){
   h+='<div class="kv">';
   h+='<div class="k">model</div><div>'+esc(c.label)+' (cutoff '+c.cutoff+')</div>';
   h+='<div class="k">item track</div><div>'+it.track+' · '+it.kind+'</div>';
+  h+='<div class="k">opaque role</div><div>'+esc(it.opaqueRole)+'</div>';
   h+='<div class="k">content date</div><div>'+c.contentDate+' · '+(c.preCutoff?"PRE-cutoff (could be in training)":"POST-cutoff")+'</div>';
   h+='<div class="k">URL used</div><div>'+(c.urlUsed?('<a href="'+esc(c.urlUsed)+'" target="_blank">'+esc(c.urlUsed)+'</a>'):'<span class="pill">none (this condition uses no URL)</span>')+'</div>';
-  h+='<div class="k">final correctness</div><div>'+fmt(c.correctness)+(c.structural!=null?' · structural '+c.structural.toFixed(2):'')+'</div>';
+  const structuralScore = c.structural && typeof c.structural.score==="number" ? c.structural.score : null;
+  h+='<div class="k">final correctness</div><div>'+fmt(c.correctness)+(structuralScore!=null?' · structural '+structuralScore.toFixed(2):'')+'</div>';
   if(c.runError) h+='<div class="k">run error</div><div>'+esc(c.runError)+'</div>';
+  if(c.skipped) h+='<div class="k">skipped</div><div>'+esc(c.skipReason||"not applicable")+'</div>';
   h+='</div>';
   if(j && (j.reason||j.correctness!=null)){
     h+='<div class="kv">';

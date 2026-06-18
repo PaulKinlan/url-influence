@@ -33,6 +33,8 @@
 
   <p>An <em>opaque</em> URL (a Stack Overflow question number, an arXiv id, an RFC number, a chromestatus feature id) carries no description of its content. If handing a model only that string improves its answer over simply naming the task, the lift can only come from the model having memorised that URL&rarr;content mapping in training. We test that across current flagship models with known knowledge cutoffs, and split every result by whether the content pre- or post-dates each model's cutoff.</p>
 
+  <p>Opaque URLs marked as structural controls are intentionally fake, missing, or unrelated; they test URL-shape effects and are not counted as headline URL-memory evidence.</p>
+
   <div class="cards">
     <a class="card primary" href="results/dashboard.html">
       <h3>▶ Interactive dashboard</h3>
@@ -49,10 +51,11 @@
   </div>
 
   <fieldset>
-    <legend>The six conditions</legend>
+    <legend>The condition families</legend>
     <ul>
       <li><strong>name-only</strong> — the task described in words, no URL (baseline)</li>
       <li><strong>url-only</strong> — ONLY the opaque URL string; the page is never fetched</li>
+      <li><strong>mdn-url-only</strong> / <strong>spec-url-only</strong> / <strong>bcd-key-only</strong> — optional identifier probes, not part of the headline lift</li>
       <li><strong>url+name</strong> — the opaque URL plus the task name</li>
       <li><strong>full-content</strong> — the real page pasted in (ceiling)</li>
       <li><strong>fake-structural-url</strong> / <strong>random-url</strong> — controls (a nonexistent URL of the same shape, and an unrelated real URL)</li>

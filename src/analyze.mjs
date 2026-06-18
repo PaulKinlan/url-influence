@@ -17,7 +17,11 @@
 //      are reported on their own as a refusal-calibration view.
 
 import { MODELS } from "./models.mjs";
-import { CONDITIONS } from "./conditions.mjs";
+import {
+  CONDITION_DEFS,
+  CONDITIONS,
+  CORE_LIFT_CONDITIONS,
+} from "./conditions.mjs";
 import { CORPUS } from "./corpus.mjs";
 import { readJson, writeJson, nowIso } from "./util.mjs";
 
@@ -25,6 +29,12 @@ const CALIB = new Set(
   CORPUS.filter((i) => i.groundTruth.expectUnknown).map((i) => i.id),
 );
 const isCalib = (id) => CALIB.has(id);
+const OPAQUE_STRUCTURAL_CONTROLS = new Set(
+  CORPUS.filter((i) => i.validation?.opaqueRole === "structural-control").map(
+    (i) => i.id,
+  ),
+);
+const isOpaqueStructuralControl = (id) => OPAQUE_STRUCTURAL_CONTROLS.has(id);
 
 function relativeToCutoff(contentDate, cutoff) {
   const norm = (s) => {
@@ -53,6 +63,7 @@ function sign(x) {
 function blankReason(rows) {
   if (!rows.length) return "no-data";
   if (rows.some((r) => typeof r.correctness === "number")) return "ok";
+  if (rows.every((r) => r.skipped === true)) return "not-applicable";
   if (rows.every((r) => r.runError != null)) return "run-error";
   if (rows.some((r) => r.judge && r.judge.error != null)) return "judge-failed";
   return "no-data";
@@ -63,6 +74,7 @@ const BLANK_LABEL = {
   "run-error": "— (run error)",
   "judge-failed": "— (judge failed)",
   "skipped": "— (skipped: no key)",
+  "not-applicable": "— (n/a)",
 };
 
 function cell(value, rows) {
@@ -88,9 +100,22 @@ function condMeans(rows) {
 }
 
 function liftOf(by) {
-  return by["url-only"] != null && by["name-only"] != null
-    ? by["url-only"] - by["name-only"]
+  const [base, treatment] = CORE_LIFT_CONDITIONS;
+  return by[treatment] != null && by[base] != null
+    ? by[treatment] - by[base]
     : null;
+}
+
+function conditionTableHeader(firstCol) {
+  return `| ${firstCol} | ${CONDITIONS.join(" | ")} |`;
+}
+
+function conditionTableRule() {
+  return `|---|${CONDITIONS.map(() => "---").join("|")}|`;
+}
+
+function conditionCells(by, rowsByCondition) {
+  return CONDITIONS.map((c) => cell(by[c], rowsByCondition[c])).join(" | ");
 }
 
 async function main() {
@@ -104,6 +129,7 @@ async function main() {
     generatedAt: nowIso(),
     judgeModel: data.judgeModel,
     calibrationItems: [...CALIB],
+    opaqueStructuralControlItems: [...OPAQUE_STRUCTURAL_CONTROLS],
     skippedModels: skippedModels.map((m) => ({
       key: m.key,
       label: m.label,
@@ -114,7 +140,12 @@ async function main() {
 
   for (const model of models) {
     const all = scores.filter((s) => s.model === model.key);
-    const api = all.filter((r) => !isCalib(r.itemId));
+    const api = all.filter(
+      (r) => !isCalib(r.itemId) && !isOpaqueStructuralControl(r.itemId),
+    );
+    const apiOpaqueControls = all.filter(
+      (r) => !isCalib(r.itemId) && isOpaqueStructuralControl(r.itemId),
+    );
     const calib = all.filter((r) => isCalib(r.itemId));
 
     const allCM = condMeans(all);
@@ -164,6 +195,9 @@ async function main() {
         splitRows: apiSplitRows,
         splitN: apiSplitN,
         nItems: new Set(api.map((r) => r.itemId)).size,
+        excludedOpaqueControlItems: new Set(
+          apiOpaqueControls.map((r) => r.itemId),
+        ).size,
       },
       // Knowledge-calibration track (refusal behaviour).
       calib: {
@@ -219,9 +253,11 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   L.push(
-    "- **API-usage items** — the model is asked to USE a real API or recall " +
-      "real content; correctness = did it produce the right surface. **The " +
-      "LIFT metric below is computed on these only.** This is the real test.",
+    "- **API-usage items with real opaque pointers** — the model is asked to " +
+      "USE a real API or recall real content, and the opaque URL is intended " +
+      "to point at that content. Correctness = did it produce the right " +
+      "surface. **The LIFT metric below is computed on these only.** This is " +
+      "the real test.",
   );
   L.push(
     "- **Knowledge-calibration items** (`" +
@@ -234,11 +270,22 @@ async function writeReport(summary, models, data, skippedModels) {
       "in the lift.",
   );
   L.push("");
+  if (summary.opaqueStructuralControlItems.length) {
+    L.push(
+      "- **Intentional opaque structural controls** (`" +
+        summary.opaqueStructuralControlItems.join("`, `") +
+        "`) have `validation.opaqueRole = \"structural-control\"`. Their " +
+        "`url-only` prompt may contain a fake, missing, or unrelated opaque " +
+        "SO/ChromeStatus-shaped URL. They are useful controls, but excluded " +
+        "from headline lift because they are not real URL-to-content pointers.",
+    );
+    L.push("");
+  }
   L.push(
-    "**LIFT** (API-usage items) `= mean(correctness | url-only) − " +
-      "mean(correctness | name-only)`. Positive = the bare URL alone beat " +
-      "naming the task. The hypothesis predicts **positive lift pre-cutoff, " +
-      "~zero post-cutoff**.",
+    "**LIFT** (API-usage items with real opaque pointers) `= " +
+      "mean(correctness | url-only) − mean(correctness | name-only)`. " +
+      "Positive = the bare URL alone beat naming the task. The hypothesis " +
+      "predicts **positive lift pre-cutoff, ~zero post-cutoff**.",
   );
   L.push("");
   L.push(
@@ -256,9 +303,27 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   L.push(
-    "**Blanks** are always labelled: `— (no items)`, `— (run error)`, " +
-      "`— (judge failed)`, `— (skipped: no key)`.",
+    "**Identifier probes.** Conditions such as `mdn-url-only`, " +
+      "`spec-url-only`, and `bcd-key-only` are exploratory. They are useful " +
+      "for diagnosing which identifiers a model can decode, but the headline " +
+      "lift remains strictly `url-only - name-only`.",
   );
+  L.push("");
+  L.push(
+    "**Blanks** are always labelled: `— (no items)`, `— (run error)`, " +
+      "`— (judge failed)`, `— (skipped: no key)`, `— (n/a)`.",
+  );
+  L.push("");
+
+  L.push("## Conditions");
+  L.push("");
+  L.push("| Condition | Group | Required | Meaning |");
+  L.push("|---|---|---|---|");
+  for (const c of CONDITION_DEFS) {
+    L.push(
+      `| ${c.key} | ${c.group} | ${c.required ? "yes" : "no"} | ${c.description} |`,
+    );
+  }
   L.push("");
 
   if (skippedModels && skippedModels.length) {
@@ -284,13 +349,14 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("See [SOURCES.md](SOURCES.md) for the full model -> cutoff -> source table.");
   L.push("");
 
-  // HEADLINE — lift on API-usage items only, split pre/post.
-  L.push("## Headline: lift (API-usage items only), split by cutoff");
+  // HEADLINE — lift on real opaque API-usage items only, split pre/post.
+  L.push("## Headline: lift (real opaque API-usage items only), split by cutoff");
   L.push("");
   L.push(
-    "`LIFT = mean(url-only) − mean(name-only)` over API-usage items only " +
-      "(knowledge-calibration items excluded). `n pre/post` = API-usage items " +
-      "each side of this model's cutoff.",
+    "`LIFT = mean(url-only) − mean(name-only)` over API-usage items whose " +
+      "opaque URL is intended to be a real pointer. Knowledge-calibration " +
+      "items and intentional opaque structural controls are excluded. `n " +
+      "pre/post` = eligible API-usage items each side of this model's cutoff.",
   );
   L.push("");
   L.push("| Model | cutoff | overall lift | pre-cutoff lift | post-cutoff lift | n pre/post |");
@@ -317,31 +383,24 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("");
 
   // API-usage: pre/post mean correctness per condition.
-  L.push("## API-usage items: pre/post mean correctness per condition");
+  L.push("## Real opaque API-usage items: pre/post mean correctness per condition");
   L.push("");
   L.push(
-    "Knowledge-calibration items excluded. In **pre** rows, does `url-only` " +
-      "approach `name-only`? In **post** rows, it should not beat `name-only`; " +
-      "controls stay flat.",
+    "Knowledge-calibration items and intentional opaque structural controls " +
+      "excluded. In **pre** rows, does `url-only` approach `name-only`? In " +
+      "**post** rows, it should not beat `name-only`; controls stay flat.",
   );
   L.push("");
   for (const m of models) {
     const a = pm[m.key].api;
     L.push(`### ${m.label} (cutoff ${m.cutoff}) — ${a.splitN.pre} pre / ${a.splitN.post} post API items`);
     L.push("");
-    L.push("| bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |");
-    L.push("|---|---|---|---|---|---|---|");
+    L.push(conditionTableHeader("bucket"));
+    L.push(conditionTableRule());
     for (const b of ["pre", "post"]) {
       const s = a.split[b];
       const sr = a.splitRows[b];
-      L.push(
-        `| ${b}-cutoff | ${cell(s["name-only"], sr["name-only"])} | ` +
-          `${cell(s["url-only"], sr["url-only"])} | ` +
-          `${cell(s["url+name"], sr["url+name"])} | ` +
-          `${cell(s["full-content"], sr["full-content"])} | ` +
-          `${cell(s["fake-structural-url"], sr["fake-structural-url"])} | ` +
-          `${cell(s["random-url"], sr["random-url"])} |`,
-      );
+      L.push(`| ${b}-cutoff | ${conditionCells(s, sr)} |`);
     }
     L.push("");
   }
@@ -359,20 +418,13 @@ async function writeReport(summary, models, data, skippedModels) {
       "pollute a lift average if included.",
   );
   L.push("");
-  L.push(`| Model | name-only | url-only | url+name | full-content | fake-structural-url | random-url |`);
-  L.push("|---|---|---|---|---|---|---|");
+  L.push(conditionTableHeader("Model"));
+  L.push(conditionTableRule());
   for (const m of models) {
     const c = pm[m.key].calib;
     const b = c.byCondition;
     const br = c.byCondRows;
-    L.push(
-      `| ${m.label} | ${cell(b["name-only"], br["name-only"])} | ` +
-        `${cell(b["url-only"], br["url-only"])} | ` +
-        `${cell(b["url+name"], br["url+name"])} | ` +
-        `${cell(b["full-content"], br["full-content"])} | ` +
-        `${cell(b["fake-structural-url"], br["fake-structural-url"])} | ` +
-        `${cell(b["random-url"], br["random-url"])} |`,
-    );
+    L.push(`| ${m.label} | ${conditionCells(b, br)} |`);
   }
   L.push("");
 
@@ -425,9 +477,10 @@ function interpret(summary, models) {
   );
 
   lines.push(
-    `- **Headline (API-usage items only):** mean lift ${sign(aggOverall)} ` +
-      `overall — a bare opaque URL, with no page content, does NOT beat simply ` +
-      `naming the task, and across models it tends to lower the score. The ` +
+    `- **Headline (real opaque API-usage items only):** mean lift ${sign(aggOverall)} ` +
+      `overall — among items whose opaque URL is meant to be a real pointer, ` +
+      `a bare opaque URL, with no page content, does NOT beat simply naming ` +
+      `the task, and across models it tends to lower the score. The ` +
       `model is more cautious or more error-prone when handed only a context-` +
       `free URL string than when told plainly what to build.`,
   );
@@ -439,7 +492,7 @@ function interpret(summary, models) {
           : "The pre- vs post-cutoff gap on API-usage items is small or noisy at this corpus size, so the boundary effect is not yet demonstrated; the post-cutoff bucket is only one or two real items per model."
         : "Only one side of the cutoff has API-usage data, so the boundary comparison is incomplete.";
     lines.push(
-      `- **Boundary (API-usage items):** mean pre-cutoff lift ${sign(aggPre)}, ` +
+      `- **Boundary (real opaque API-usage items):** mean pre-cutoff lift ${sign(aggPre)}, ` +
         `mean post-cutoff lift ${sign(aggPost)}. ${dir}`,
     );
   }
@@ -460,7 +513,7 @@ function interpret(summary, models) {
   );
 
   lines.push("");
-  lines.push("Per model (API-usage items):");
+  lines.push("Per model (real opaque API-usage items):");
   for (const m of models) {
     const a = summary.perModel[m.key].api;
     const lo = a.lift.overall;

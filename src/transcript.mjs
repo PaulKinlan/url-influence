@@ -137,6 +137,8 @@ async function main() {
       prompt: rec.prompt, // exact { system, user } sent
       output: rec.output, // full model output (untruncated)
       runError: rec.error ?? null,
+      skipped: rec.skipped === true,
+      skipReason: rec.skipReason ?? null,
       timestamp: rec.timestamp ?? null,
       usage: rec.usage ?? null,
       judge: {
@@ -177,6 +179,8 @@ async function main() {
     let statusBits;
     if (rec.error) {
       statusBits = `run error: ${rec.error}`;
+    } else if (rec.skipped) {
+      statusBits = `skipped: ${rec.skipReason || "not applicable"}`;
     } else if (judge?.error) {
       statusBits = `judge failed: ${judge.error}`;
     } else if (judge && typeof judge.correctness === "number") {
@@ -201,7 +205,13 @@ async function main() {
     md.push(fence(rec.prompt?.user));
     md.push("");
     md.push("**Model output:**");
-    md.push(fence(rec.output ?? `(no output; run error: ${rec.error})`));
+    md.push(
+      fence(
+        rec.skipped
+          ? `(skipped; ${rec.skipReason || "not applicable"})`
+          : rec.output ?? `(no output; run error: ${rec.error})`,
+      ),
+    );
     md.push("");
 
     // Judge block.

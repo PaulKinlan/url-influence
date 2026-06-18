@@ -40,20 +40,30 @@ The core conditions deliberately use the **fully opaque** URL, because that is t
 strong form of the claim: a string of digits steering output can only be coming
 from training memory, not from the words in the URL.
 
-## The six conditions
+Some opaque-looking URLs are intentionally fake, missing, or unrelated controls.
+Those items are marked in the corpus with
+`validation.opaqueRole = "structural-control"` and are excluded from headline
+URL-memory lift; they test whether URL shape alone steers or hallucinates.
 
-For every (item x model) we run six matched prompts. The only thing that varies
-between the first two is whether the task is named or given as a bare URL.
+## Conditions
+
+For every applicable (item x model) we run matched prompts. The only thing that
+varies between the core first two is whether the task is named or given as a
+bare opaque URL.
 
 1. **name-only** (control) - describe the task by name, no URL.
 2. **url-only** (the opaque test) - give ONLY the opaque URL string and say "do
-   what is at that URL". Not fetched, not pasted.
-3. **url+name** - the opaque URL plus the task name.
-4. **full-content** (ceiling) - fetch the real page and paste it in.
-5. **fake-structural-url** - a plausible but nonexistent URL of the same shape
+   what is at that URL". Not fetched, not pasted. Headline lift uses only items
+   whose opaque URL is intended to be a real pointer.
+3. **mdn-url-only / spec-url-only / bcd-key-only** - optional identifier probes.
+   These are NOT part of the headline lift. They diagnose whether descriptive
+   documentation URLs, spec URLs, or Browser Compat Data keys steer the model.
+4. **url+name** - the opaque URL plus the task name.
+5. **full-content** (ceiling) - fetch the real page and paste it in.
+6. **fake-structural-url** - a plausible but nonexistent URL of the same shape
    (e.g. a made-up `/Web/API/Xyz` or a fake arXiv id). Isolates whether URL
    *structure* alone steers output.
-6. **random-url** - an unrelated real URL. Off-target control.
+7. **random-url** - an unrelated real URL. Off-target control.
 
 ## Scoring
 
@@ -92,16 +102,24 @@ export OPENAI_API_KEY=sk-...        # optional; OpenAI models run only if presen
 #   GEMINI_API_KEY=...
 #   OPENAI_API_KEY=sk-...
 
-# Cheap pilot: a 6-item subset x 6 conditions x pilot models, then score + analyze.
+# Cheap pilot: validate, run a 6-item subset, score, analyze, and rebuild dashboard.
 npm run pilot
 
 # Or step by step:
+node src/validate-corpus.mjs  # cheap static checks before spending API budget
 node src/run.mjs --pilot        # writes results/raw/*.json (gitignored)
 node src/score.mjs              # writes results/scores.json
+node src/transcript.mjs         # writes results/transcript.jsonl + RUNLOG.md
 node src/analyze.mjs            # writes results/summary.json + results/REPORT.md
+node src/dashboard.mjs          # writes results/dashboard.html + dashboard-data.js
 
 # Full corpus, all models that have a key present:
-node src/run.mjs
+npm run full
+
+# Optional, network-sensitive: checks URL reachability and Stack Overflow title
+# alignment for real opaque URLs. Structural-control opaque URLs are allowed to
+# be fake/unrelated. Run after corpus URL changes, but do not require it in CI.
+npm run validate:live
 ```
 
 Useful flags: `--items=id1,id2` and `--models=key1,key2` to target subsets.

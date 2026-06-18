@@ -2,7 +2,7 @@
 // model, and write the full output + metadata to results/raw/ (gitignored).
 //
 // Usage:
-//   node src/run.mjs --pilot          # 6 pilot items x 6 conditions x pilot models
+//   node src/run.mjs --pilot          # pilot items x conditions x pilot models
 //   node src/run.mjs                  # full corpus x all models that have a key
 //   node src/run.mjs --items=a,b,c    # explicit item ids
 //   node src/run.mjs --models=k1,k2   # explicit model keys
@@ -93,6 +93,7 @@ async function main() {
   let total = 0;
   let ok = 0;
   let failed = 0;
+  let skippedCells = 0;
   const failures = [];
 
   for (const model of usable) {
@@ -106,6 +107,11 @@ async function main() {
         if (existsSync(fname)) {
           try {
             const prev = await readJson(fname);
+            if (prev && prev.skipped === true) {
+              skippedCells++;
+              console.log(`[skip] ${tag} (already skipped)`);
+              continue;
+            }
             if (prev && prev.error == null && prev.output) {
               ok++;
               console.log(`[skip] ${tag} (already done)`);
@@ -120,6 +126,34 @@ async function main() {
             ? fetchedByItem[item.id]?.text || null
             : null;
         const prompt = buildPrompt(item, condition, fetched);
+        if (prompt == null) {
+          // This item carries no identifier for this condition (e.g. no
+          // specUrl or bcdKey), so there is nothing to ask. Keep an explicit
+          // raw record so reports distinguish not-applicable from missing data.
+          const record = {
+            runId,
+            itemId: item.id,
+            itemKind: item.kind,
+            contentDate: item.contentDate,
+            condition,
+            model: model.key,
+            vendor: model.vendor,
+            apiId: model.apiId,
+            cutoff: model.cutoff,
+            urlUsed: urlForCondition(item, condition),
+            prompt: null,
+            output: null,
+            usage: null,
+            error: null,
+            skipped: true,
+            skipReason: "item has no identifier for this condition",
+            timestamp: nowIso(),
+          };
+          await writeJson(fname, record);
+          skippedCells++;
+          console.log(`[skip] ${tag} (${record.skipReason})`);
+          continue;
+        }
         process.stdout.write(`[call] ${tag} ... `);
         const record = {
           runId,
@@ -155,7 +189,9 @@ async function main() {
     }
   }
 
-  console.log(`\n[run] done. total=${total} ok=${ok} failed=${failed}`);
+  console.log(
+    `\n[run] done. total=${total} ok=${ok} skipped=${skippedCells} failed=${failed}`,
+  );
   if (failures.length) {
     console.log("[run] failures:");
     for (const f of failures) console.log(`  - ${f.tag}: ${f.error}`);
