@@ -125,7 +125,7 @@ export const MODELS = [
   },
 
   // --- xAI (Grok) ----------------------------------------------------------
-  // Run ONLY if XAI_API_KEY is present (env or local .env). xAI's API is
+  // Run ONLY if GROK_API_KEY is present (env or local .env). xAI's API is
   // OpenAI-compatible (api.x.ai). apiIds match xAI's published model pages;
   // confirm against GET https://api.x.ai/v1/models when a key is first
   // available. Cutoffs from the xAI model cards, recorded in model-gap.json.
@@ -145,6 +145,34 @@ export const MODELS = [
     cutoff: "2024-11-30", // November 2024
     cutoffSource: "https://docs.x.ai/developers/models/grok-4",
     label: "Grok 4",
+    pilot: false,
+  },
+
+  // --- z.ai / Zhipu (GLM) --------------------------------------------------
+  // Run ONLY if Z_API_KEY is present. OpenAI-compatible API (api.z.ai). GLM-5.1
+  // and GLM-5.2 share the GLM-5 base (744B MoE); GLM-5.1 shipped ~Mar 2026,
+  // GLM-5.2 ~Jun 2026. NOTE: z.ai does NOT publish a knowledge cutoff for the
+  // GLM-5 family, so the cutoff below is an ESTIMATE, not a cited vendor value
+  // (nearest tracked datapoint: GLM-4.6 = 2025-03 per aiknowledgecutoff.com; the
+  // newer GLM-5 base almost certainly extends later). VERIFY/replace before
+  // trusting any GLM pre/post-cutoff split. apiIds match the z.ai model pages;
+  // confirm on first live call.
+  {
+    key: "glm-5.2",
+    vendor: "zai",
+    apiId: "glm-5.2",
+    cutoff: "2025-10-31", // ESTIMATE (unpublished) — see note above
+    cutoffSource: "https://aiknowledgecutoff.com/z-ai/glm-5.2",
+    label: "GLM-5.2",
+    pilot: false,
+  },
+  {
+    key: "glm-5.1",
+    vendor: "zai",
+    apiId: "glm-5.1",
+    cutoff: "2025-10-31", // ESTIMATE (unpublished; shares GLM-5 base) — see note
+    cutoffSource: "https://aiknowledgecutoff.com/z-ai/glm-5.1",
+    label: "GLM-5.1",
     pilot: false,
   },
 ];
