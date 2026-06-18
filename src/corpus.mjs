@@ -506,22 +506,25 @@ export const CORPUS = [
     fakeUrl:
       "https://developer.mozilla.org/en-US/docs/Web/API/FederatedCredential_API",
   },
-  // Baseline status recall: tests whether the model reports the CURRENT Baseline
-  // status of a feature or a STALE one (the model-gap "stale Baseline" thesis).
-  // :has() became Baseline Newly available 2023-12-21 (Firefox 121 completed
-  // support) and reaches Baseline Widely available 30 months later (~2026-06).
-  // Models cut in 2025 typically report it as "Newly available"/"limited" -
-  // wrong as of mid-2026.
+  // Baseline status recall: SHARP, checkable probe of whether the model knows the
+  // CURRENT Baseline status of :has(). The expected answer is definite: :has()
+  // became Baseline "Newly available" on 2023-12-21 (Firefox 121 completed
+  // cross-browser support) and crosses to Baseline "Widely available" 30 months
+  // later, i.e. mid-2026 (~2026-06). As of mid-2026 the one correct answer is
+  // "Widely available". Models cut in 2025 typically still say "Newly
+  // available"/"limited availability" — exactly the stale-Baseline failure this
+  // targets. mustMention pins the two checkable facts: the 2023-12 newly-available
+  // date and the current "Widely available" status.
   {
     id: "baseline-has-status",
     kind: "recall",
     target:
-      "State the Baseline status of the CSS :has() selector: when it became Baseline Newly available and whether it is now Baseline Widely available.",
+      "Question with a definite answer: as of mid-2026, what is the current Baseline status of the CSS :has() selector — \"Newly available\" or \"Widely available\" — and on what date (YYYY-MM) did it first become Baseline Newly available? State the exact status and date.",
     contentDate: "2026-06", // the "Widely available" milestone post-dates all cutoffs
     groundTruth: {
-      mustMention: ["Baseline", "Widely available", "2023"],
+      mustMention: ["Widely available", "2023-12", "Newly available"],
       notes:
-        ":has() reached Baseline 'Newly available' on 2023-12-21 (Firefox 121 completed cross-browser support) and becomes Baseline 'Widely available' 30 months later, ~2026-06. A correct CURRENT answer (mid-2026) says it is now Widely available, citing the 2023-12 newly-available date. Reporting it as still 'Newly available' / 'limited availability' / not-Baseline is the stale-Baseline failure this item targets.",
+        "Definite expected answer: :has() first became Baseline 'Newly available' on 2023-12-21 (Firefox 121 completed cross-browser support), and 30 months later — mid-2026 (~2026-06) — it crossed to Baseline 'Widely available'. So as of mid-2026 the single correct status is 'Widely available', and the newly-available date is 2023-12. A correct answer states BOTH: now Widely available, newly-available 2023-12. Saying it is still 'Newly available' / 'limited availability' / 'not Baseline' as of mid-2026 is wrong (the stale-Baseline failure).",
     },
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/:has",
@@ -531,6 +534,365 @@ export const CORPUS = [
       randomUrl: RANDOM_URL,
     },
     fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/:contains",
+  },
+
+  // ---- POST-CUTOFF API-USAGE EXPANSION (Paul, 2026-06-17) -------------------
+  // Real, recent web-platform features extracted from the chrome-platform-
+  // showcase per-milestone conformance.json files (v145..v150). Every one
+  // shipped to Chrome stable AFTER 2026-01-31, so they are post-cutoff for every
+  // model in the registry — they make the post-cutoff API bucket measurable.
+  // mustMention strings are taken verbatim from the conformance assertions'
+  // `test` surface (real author-facing identifiers), so the structural check is
+  // meaningful. These are NOT expectUnknown: the correct answer IS the real
+  // surface; we are measuring whether the model can produce it and whether a URL
+  // helps. Milestone -> stable date: v145≈2026-02, v146≈2026-03, v147≈2026-04,
+  // v148≈2026-05, v149≈2026-06, v150≈2026-06-30.
+
+  // v145 (Chrome 145, ~2026-02). Source: chrome-platform-showcase/v145/
+  // text-justify-css-property/conformance.json (csid 5079678972985344).
+  {
+    id: "text-justify-css-property",
+    kind: "code",
+    target:
+      "Write CSS that fully justifies a paragraph and controls HOW the justification stretches the text using the text-justify property (e.g. spacing only between words vs between every character).",
+    contentDate: "2026-02",
+    groundTruth: {
+      mustMention: [
+        "text-justify",
+        "inter-word",
+        "inter-character",
+        "text-align: justify",
+      ],
+      notes:
+        "text-justify controls the justification algorithm used when text-align: justify is set. Values: auto, inter-word (add space only between words), inter-character (distribute space between every character, useful for CJK), and none. Shipped Chrome 145 (~2026-02), post-dating every current model's cutoff (latest 2026-01-31).",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/text-justify",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5079678972985344",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/text-justify",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/text-justification",
+  },
+
+  // v146 (Chrome 146, ~2026-03). Source: chrome-platform-showcase/v146/
+  // support-hanging-and-each-line-for-text-indent/conformance.json
+  // (csid 5084062739988480).
+  {
+    id: "css-text-indent-hanging",
+    kind: "code",
+    target:
+      "Write CSS that indents every line of a paragraph EXCEPT the first (a hanging indent), and a variant that re-applies the indent after each forced line break, using text-indent with its keyword modifiers.",
+    contentDate: "2026-03",
+    groundTruth: {
+      mustMention: ["text-indent", "hanging", "each-line"],
+      notes:
+        "Chrome 146 (~2026-03) added the `hanging` and `each-line` keywords to the text-indent property: `text-indent: 2em hanging` indents all lines except the first; `text-indent: 2em each-line` re-applies after forced line breaks; both can combine as `text-indent: 2em hanging each-line`. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5084062739988480",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent-hanging",
+  },
+  // Source: chrome-platform-showcase/v146/
+  // named-feature-function-for-css-supports/conformance.json
+  // (csid 5153932394102784).
+  {
+    id: "named-feature-supports",
+    kind: "code",
+    target:
+      "Write CSS/JS that feature-detects a named CSS engine capability using the named-feature() function inside @supports and CSS.supports().",
+    contentDate: "2026-03",
+    groundTruth: {
+      mustMention: ["named-feature(", "@supports", "CSS.supports"],
+      notes:
+        "Chrome 146 (~2026-03) added the named-feature() function to CSS feature queries, e.g. `@supports named-feature(foo) { ... }` and `CSS.supports('named-feature(single-axis-scroll-container)')`. It tests for named engine capabilities that aren't expressible as a property:value pair; an unknown name returns false. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5153932394102784",
+      fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports/feature",
+  },
+
+  // v147 (Chrome 147, ~2026-04). Source: chrome-platform-showcase/v147/
+  // corner-shaping-corner-shape-superellipse-squircle/conformance.json
+  // (csid 5357329815699456).
+  {
+    id: "corner-shape-squircle",
+    kind: "code",
+    target:
+      "Write CSS that gives a box squircle (superellipse) corners instead of plain rounded corners, using the corner-shape property together with border-radius.",
+    contentDate: "2026-04",
+    groundTruth: {
+      mustMention: ["corner-shape", "squircle", "superellipse(", "border-radius"],
+      notes:
+        "Chrome 147 (~2026-04) shipped corner shaping: the corner-shape property (and corner-*-shape longhands) restyles the area defined by border-radius. Values include squircle, superellipse(<number>), scoop, notch, bevel, round, square — e.g. `border-radius: 16px; corner-shape: squircle`. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5357329815699456",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-style",
+  },
+  // Source: chrome-platform-showcase/v147/math-sumprecise/conformance.json
+  // (csid 4790090146643968).
+  {
+    id: "math-sumprecise",
+    kind: "code",
+    target:
+      "Write JavaScript that sums an array of floating-point numbers without the usual accumulated rounding error, using the new precise-summation Math method.",
+    contentDate: "2026-04",
+    groundTruth: {
+      mustMention: ["Math.sumPrecise"],
+      notes:
+        "Math.sumPrecise(iterable) (TC39 proposal-math-sum, shipped Chrome 147 ~2026-04) returns the exactly-rounded sum of an iterable of numbers, avoiding the rounding error of naive accumulation: e.g. Math.sumPrecise([0.1, 0.2]) === 0.3 and Math.sumPrecise([1e20, 0.1, -1e20]) === 0.1. It throws on non-number elements and returns -0 for the empty iterable. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sumPrecise",
+      semiOpaque: "https://github.com/tc39/proposal-math-sum",
+      opaque: "https://chromestatus.com/feature/4790090146643968",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sumPrecise",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/preciseSum",
+  },
+  // Source: chrome-platform-showcase/v147/gamepad-event-driven-input-api/
+  // conformance.json (csid 5989275208253440).
+  {
+    id: "gamepad-event-driven-input",
+    kind: "code",
+    target:
+      "Write JavaScript that reacts to gamepad input via events instead of polling navigator.getGamepads(), using the new event-driven Gamepad input event.",
+    contentDate: "2026-04",
+    groundTruth: {
+      mustMention: ["rawgamepadinputchange", "addEventListener", "GamepadEvent"],
+      notes:
+        "Chrome 147 (~2026-04) added event-driven gamepad input: instead of polling navigator.getGamepads() in a rAF loop, listen for the `rawgamepadinputchange` event on window (feature-detect via 'onrawgamepadinputchange' in window). The handler receives a GamepadEvent. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API",
+      semiOpaque: "https://github.com/w3c/gamepad",
+      opaque: "https://chromestatus.com/feature/5989275208253440",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/API/Window/gamepadinput_event",
+  },
+
+  // v148 (Chrome 148, ~2026-05). Source: chrome-platform-showcase/v148/
+  // translator-api/conformance.json (csid 5172811302961152).
+  {
+    id: "translator-api",
+    kind: "code",
+    target:
+      "Write JavaScript using Chrome's built-in Translator API to create a translator for a source/target language pair and translate a string on-device.",
+    contentDate: "2026-05",
+    groundTruth: {
+      mustMention: ["Translator", "create", "translate", "availability"],
+      notes:
+        "The built-in Translator API (shipped Chrome 148 ~2026-05) uses the global Translator object: `await Translator.availability({sourceLanguage, targetLanguage})`, then `const t = await Translator.create({sourceLanguage, targetLanguage})`, then `await t.translate(text)` (or t.translateStreaming). Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Translator",
+      semiOpaque: "https://github.com/webmachinelearning/translation-api",
+      opaque: "https://chromestatus.com/feature/5172811302961152",
+      fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/API/Translator",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/API/TranslationService",
+  },
+  // Source: chrome-platform-showcase/v148/language-detector-api/conformance.json
+  // (csid 6494349985841152).
+  {
+    id: "language-detector-api",
+    kind: "code",
+    target:
+      "Write JavaScript using Chrome's built-in Language Detector API to detect the most likely language of a piece of text on-device, with confidence scores.",
+    contentDate: "2026-05",
+    groundTruth: {
+      mustMention: ["LanguageDetector", "create", "detect", "availability"],
+      notes:
+        "The built-in Language Detector API (shipped Chrome 148 ~2026-05) uses the global LanguageDetector object: `await LanguageDetector.availability()`, then `const d = await LanguageDetector.create({expectedInputLanguages})`, then `const results = await d.detect(text)` returning an array of { detectedLanguage, confidence }. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector",
+      semiOpaque: "https://github.com/webmachinelearning/translation-api",
+      opaque: "https://chromestatus.com/feature/6494349985841152",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetectionService",
+  },
+  // Source: chrome-platform-showcase/v148/text-decoration-skip-ink-all/
+  // conformance.json (csid 5077600085082112).
+  {
+    id: "text-decoration-skip-ink-all",
+    kind: "code",
+    target:
+      "Write CSS that forces an underline to ALWAYS break around glyph descenders (never touch them), using the text-decoration-skip-ink property's strongest value.",
+    contentDate: "2026-05",
+    groundTruth: {
+      mustMention: ["text-decoration-skip-ink", "all", "text-decoration-line"],
+      notes:
+        "Chrome 148 (~2026-05) added the `all` value to text-decoration-skip-ink. Whereas `auto` lets the browser optionally interrupt underlines/overlines around glyphs, `text-decoration-skip-ink: all` forces it to always interrupt them (useful for CJK). Values: auto | none | all. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-ink",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5077600085082112",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-ink",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-glyphs",
+  },
+
+  // v149 (Chrome 149, ~2026-06). Source: chrome-platform-showcase/v149/
+  // css-gap-decorations/conformance.json (csid 5157805733183488).
+  {
+    id: "css-gap-decorations",
+    kind: "code",
+    target:
+      "Write CSS that draws decorative rules (lines) in the gaps between rows and columns of a grid layout, using the CSS gap decorations properties.",
+    contentDate: "2026-06",
+    groundTruth: {
+      mustMention: ["row-rule", "column-rule", "row-rule-style", "row-rule-color"],
+      notes:
+        "CSS gap decorations (shipped Chrome 149 ~2026-06) extend column-rule to grid/flex and add row-rule. Longhands: row-rule-color/row-rule-style/row-rule-width and column-rule-*; shorthands row-rule (e.g. `row-rule: 2px solid red`) and the `rule` shorthand for both axes. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.chrome.com/blog/gap-decorations",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5157805733183488",
+      fullContentUrl: "https://developer.chrome.com/blog/gap-decorations",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/gap-rule",
+  },
+  // Source: chrome-platform-showcase/v149/css-shape-function/conformance.json
+  // (csid 5172258539307008).
+  {
+    id: "css-shape-function",
+    kind: "code",
+    target:
+      "Write CSS that clips an element to a custom outline made of line and curve segments using the shape() function in clip-path (responsive, unlike a fixed path()).",
+    contentDate: "2026-06",
+    groundTruth: {
+      mustMention: ["shape(", "from", "line to", "clip-path", "close"],
+      notes:
+        "The CSS shape() function (shipped Chrome 149 ~2026-06) builds a <basic-shape> from drawing commands and works in clip-path/offset-path with responsive units, e.g. `clip-path: shape(from 0% 0%, line to 100% 0%, line to 100% 100%, close)` and curve/arc commands (curve to ... with ..., arc to ... of ...). It is the responsive successor to path(). Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/shape",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5172258539307008",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/shape",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/polyline",
+  },
+  // Source: chrome-platform-showcase/v149/uint8array-base64-hex/conformance.json
+  // (csid 6281131254874112).
+  {
+    id: "uint8array-base64-hex",
+    kind: "code",
+    target:
+      "Write JavaScript that converts a Uint8Array to and from base64 and hex strings using the new built-in Uint8Array methods (no manual btoa/atob loop).",
+    contentDate: "2026-06",
+    groundTruth: {
+      mustMention: ["toBase64", "fromBase64", "toHex", "fromHex"],
+      notes:
+        "TC39 Uint8Array base64/hex (shipped Chrome 149 ~2026-06): instance methods Uint8Array.prototype.toBase64() / toHex() and static Uint8Array.fromBase64(str) / fromHex(str), replacing manual btoa/atob byte juggling. e.g. new Uint8Array([0,15,255]).toHex() === '000fff'. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/fromBase64",
+      semiOpaque: "https://github.com/tc39/proposal-arraybuffer-base64",
+      opaque: "https://chromestatus.com/feature/6281131254874112",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/fromBase64",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/toBase64String",
+  },
+  // Source: chrome-platform-showcase/v149/css-scroll-state-container-queries/
+  // conformance.json (csid 5072263730167808).
+  {
+    id: "css-scroll-state-container-queries",
+    kind: "code",
+    target:
+      "Write CSS that styles a sticky header differently once it becomes stuck to the top while scrolling, using scroll-state container queries.",
+    contentDate: "2026-06",
+    groundTruth: {
+      mustMention: [
+        "container-type: scroll-state",
+        "@container scroll-state(stuck: top)",
+        "container-name",
+      ],
+      notes:
+        "Scroll-state container queries (shipped Chrome 149 ~2026-06): set `container-type: scroll-state` (optionally `container: name / scroll-state`) on an ancestor, then query `@container scroll-state(stuck: top)`, `scroll-state(snapped: y)`, or `scroll-state(scrollable: top)` to style descendants based on the container's scroll state. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5072263730167808",
+      fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/@container/scroll-position",
+  },
+
+  // v150 (Chrome 150 stable 2026-06-30). Source: chrome-platform-showcase/v150/
+  // css-image-color-function/conformance.json (csid 5121011285622784).
+  {
+    id: "css-image-color-function",
+    kind: "code",
+    target:
+      "Write CSS that uses a solid color as an <image> value (e.g. a background-image that is a flat color swatch) using the image() function.",
+    contentDate: "2026-06",
+    groundTruth: {
+      mustMention: ["image(", "background-image", "list-style-image"],
+      notes:
+        "Chrome 150 (stable 2026-06-30) shipped color arguments to the CSS image() function, so a color can be used wherever an <image> is expected, e.g. `background-image: image(red)`, `background-image: image(rgb(10 20 30 / 0.5))`, `list-style-image: image(blue)`. Post-dates every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/image/image",
+      semiOpaque: "https://github.com/w3c/csswg-drafts",
+      opaque: "https://chromestatus.com/feature/5121011285622784",
+      fullContentUrl:
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/image/image",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/image/color",
   },
 ];
 
