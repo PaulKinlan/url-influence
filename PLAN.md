@@ -33,14 +33,13 @@ decisions made, and what we have learned about the URLs and methodology.
 - **Task 3 (the thesis-prover):** source post-cutoff features where `name-only`
   itself FAILS. Current post-cutoff items are too guessable (high `name-only`),
   so they show "opaque id gives nothing", not "model can't build it".
-- RESOLVED (2026-06-18): old-feature opaque ids replaced with REAL, API-verified
-  ChromeStatus feature ids — `fetch-api` 6730533392351232, `intersection-observer`
-  5695342691483648, `css-grid` 4589636412243968 (control mark removed),
-  `async-await` 5643236399906816. `js-promise` (core ES2015, not in ChromeStatus)
-  and `service-worker` (no clean ChromeStatus base entry found via search) stay
-  `validation.opaqueRole = "structural-control"`. FOLLOW-UP: the in-flight run
-  used the old SO ids for these 4 items' `url-only`/`url+name` cells — clear
-  those raw cells and re-run after the run lands, then regenerate results.
+- Keep SO URLs in the corpus as noisy/control metadata where useful, but prefer
+  ChromeStatus for `urls.opaque` on web-platform items because those pages are
+  indexable and canonical enough for URL-memory testing.
+- **Recharge z.ai** to activate GLM-5.2/5.1 (account currently returns 429
+  insufficient balance), and **confirm/replace the ESTIMATED GLM-5 cutoff**
+  (currently `2025-10-31` in `models.mjs`) with a real value before trusting any
+  GLM pre/post-cutoff split — z.ai does not publish one.
 
 ### Done
 - (2026-06-18, `744fe71`) Strengthened the research harness: condition
@@ -48,7 +47,21 @@ decisions made, and what we have learned about the URLs and methodology.
   skipped-cell handling, static/live corpus validator, structural-control
   opaque URL role, dashboard filter for opaque role, and standard `AGENTS.md` /
   `CLAUDE.md` guidance.
+- (2026-06-18) Web-platform opaque IDs moved toward ChromeStatus: recent
+  SO-backed web features now use ChromeStatus for `urls.opaque`, while the old
+  SO URLs are retained as `validation.stackOverflowUrl` metadata. `js-promise`
+  remains SO-shaped/structural-control because there is no clean base
+  ChromeStatus feature for ES2015 Promise itself.
 - Current flagship models + cited cutoffs; cutoff-spanning corpus.
+- (2026-06-18, `08fcd65` / `aeae016`) Added two providers → 13 models total.
+  **Grok (xAI)**, OpenAI-compatible `api.x.ai`: Grok 4.3 (cutoff 2025-12-31) +
+  Grok 4 (2024-11-30) — ACTIVE via `GROK_API_KEY` (`grok-4` verified
+  end-to-end, 9/9 cells returned output). **z.ai / Zhipu (GLM)**,
+  OpenAI-compatible `api.z.ai/api/paas/v4`: GLM-5.2 + GLM-5.1 via `Z_API_KEY` —
+  key detected and endpoint/id correct, but the account returns `429
+  insufficient balance` (auto-runs once recharged). GLM-5.x cutoff is
+  UNPUBLISHED → set to an ESTIMATE (`2025-10-31`, flagged in `models.mjs`).
+  Adapters surface 429/empty as labelled run errors, never scored 0.
 - Auditable transcript (`RUNLOG.md` / `transcript.jsonl`) + interactive
   `dashboard.html`; GitHub Pages live at https://paulkinlan.github.io/url-influence/ .
 - Split API-usage vs knowledge-calibration tracks; headline lift now computed
@@ -58,9 +71,10 @@ decisions made, and what we have learned about the URLs and methodology.
 - Static validation currently passes: `npm run validate` → 40 items, 9
   conditions, 0 errors, 0 warnings.
 - Live validation currently passes with diagnostics only:
-  `npm run validate:live` → 0 errors, 2 warnings (`openai.com` 403 on a
+  `npm run validate:live` → 0 errors, 3 warnings (`openai.com` 403 on a
   semi-opaque diagnostic URL; fake GitHub repo 404 on a semi-opaque diagnostic
-  URL).
+  URL; `js-promise` uses a related SO question as a structural/noisy control
+  because there is no clean base ChromeStatus entry for ES2015 Promise itself).
 
 ---
 
@@ -74,7 +88,7 @@ fetched. Which identifier we use determines what "opaque" means:
 | arXiv id | `arxiv.org/abs/1706.03762` | opaque (number) | yes, openly crawled |
 | RFC id | `rfc-editor.org/rfc/rfc9110` / datatracker | opaque (number) | yes |
 | DOI | `doi.org/...` | opaque | usually |
-| ChromeStatus id | `chromestatus.com/feature/<n>` | opaque (number) | partial |
+| ChromeStatus id | `chromestatus.com/feature/<n>` | opaque (number) | yes / preferred for web-platform items |
 | **Stack Overflow id** | `stackoverflow.com/questions/<n>` | opaque (number) | uncertain / noisy — see below |
 | MDN URL | `/Web/API/fetch` | **descriptive** (names the API) | yes |
 | spec URL | `fetch.spec.whatwg.org`, `w3.org/TR/...`, `tc39.es/...` | canonical, semi-descriptive | yes |
@@ -94,6 +108,9 @@ Practical consequences:
 - A real, validated SO question id can be an opaque identifier, but it is weaker
   evidence than canonical IDs such as arXiv/RFC/ChromeStatus because training
   inclusion and URL→content memorisation are uncertain.
+- For web-platform items, prefer ChromeStatus as `urls.opaque`; retain the SO
+  pointer as `validation.stackOverflowUrl` if it is useful as provenance or a
+  future noisy-control probe.
 - Unverified, missing, or unrelated SO ids are useful only as structural
   controls. Mark those items with
   `validation.opaqueRole = "structural-control"` and exclude them from
@@ -125,6 +142,10 @@ Practical consequences:
 
 ## What we know — current corpus hygiene
 
+- Web-platform API items should use ChromeStatus IDs for the headline
+  `url-only` opaque condition whenever a clean feature entry exists. The old SO
+  pointers are retained as `validation.stackOverflowUrl` metadata rather than
+  driving headline lift.
 - RFC 9110 now uses Datatracker URLs for the opaque and full-content fields,
   because the old RFC Editor paths did not resolve cleanly.
 - Several fake arXiv controls (`2312.00001`, `2501.00002`, `2503.00003`,
