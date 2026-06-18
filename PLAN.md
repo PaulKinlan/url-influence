@@ -41,6 +41,14 @@ decisions made, and what we have learned about the URLs and methodology.
 - **Task 3 (the thesis-prover):** source post-cutoff features where `name-only`
   itself FAILS. Current post-cutoff items are too guessable (high `name-only`),
   so they show "opaque id gives nothing", not "model can't build it".
+- **Broaden spec-url-only / bcd-key-only coverage.** Only 9/40 items carry
+  `specUrl` + `bcdKey` (the 6 old features + view-transitions/popover/fedcm), so
+  the identifier probes are correctly `skipped` (n/a, not 0) on the other 31 —
+  including ALL the recent 2026 web features, which is exactly where the
+  canonical-web-id question is most interesting. Add `specUrl`
+  (w3.org/csswg-drafts / whatwg / tc39) + `bcdKey` to the recent web-platform
+  items, then re-run just the spec/bcd cells. (Do after the regeneration commit;
+  it edits the corpus.)
 - Keep SO URLs in the corpus as noisy/control metadata where useful, but prefer
   ChromeStatus for `urls.opaque` on web-platform items because those pages are
   indexable and canonical enough for URL-memory testing.
