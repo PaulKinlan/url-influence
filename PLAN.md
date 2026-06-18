@@ -58,6 +58,16 @@ decisions made, and what we have learned about the URLs and methodology.
   GLM pre/post-cutoff split — z.ai does not publish one.
 
 ### Done
+- (2026-06-18, opus agent) **Runner now runs vendors in PARALLEL** (`run.mjs`):
+  cells are grouped by vendor and vendors run concurrently (independent
+  endpoints + rate limits — no reason to serialize across them), each bounded to
+  `--concurrency` in-flight requests (default 4). Replaces the serial triple-loop
+  + 250ms-per-call sleep, so ~vendors×concurrency requests run at once (e.g.
+  5×4=20 vs 1). z.ai's retry/backoff absorbs its rate limits; resume-skip and
+  n/a-skip preserved; each cell writes its own raw file (concurrency-safe).
+  Verified zero-cost on already-done cells across 3 vendors. (The in-flight
+  regeneration run loaded the OLD serial runner; future runs — incl. the spec/bcd
+  top-up — get the speedup.)
 - (2026-06-18, opus agent) **Made the analysis date-correction-safe (no paid
   re-run needed for date fixes).** `analyze.mjs` + `transcript.mjs` now classify
   pre/post-cutoff from the CURRENT corpus `contentDate` (by itemId), not the

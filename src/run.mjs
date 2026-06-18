@@ -28,11 +28,14 @@ loadDotEnv();
 const RAW_DIR = "results/raw";
 
 function parseArgs(argv) {
-  const out = { pilot: false, items: null, models: null };
+  const out = { pilot: false, items: null, models: null, concurrency: null };
   for (const a of argv.slice(2)) {
     if (a === "--pilot") out.pilot = true;
     else if (a.startsWith("--items=")) out.items = a.slice(8).split(",");
     else if (a.startsWith("--models=")) out.models = a.slice(9).split(",");
+    else if (a.startsWith("--concurrency=")) {
+      out.concurrency = Number(a.slice("--concurrency=".length));
+    }
   }
   return out;
 }
@@ -90,104 +93,134 @@ async function main() {
   }
 
   const runId = nowIso().replace(/[:.]/g, "-");
+  const perVendorConcurrency =
+    Number.isFinite(args.concurrency) && args.concurrency > 0
+      ? args.concurrency
+      : 4;
   let total = 0;
   let ok = 0;
   let failed = 0;
   let skippedCells = 0;
   const failures = [];
 
+  // Process one (model x item x condition) cell. Safe to run concurrently:
+  // Node is single-threaded async, so counter writes between awaits don't race,
+  // and each cell writes its own distinct raw file.
+  async function processCell(model, item, condition) {
+    total++;
+    const fname = `${RAW_DIR}/${model.key}__${item.id}__${condition}.json`;
+    const tag = `${model.key} / ${item.id} / ${condition}`;
+    // Resume: skip cells already completed (or already marked n/a-skipped).
+    if (existsSync(fname)) {
+      try {
+        const prev = await readJson(fname);
+        if (prev && prev.skipped === true) {
+          skippedCells++;
+          return;
+        }
+        if (prev && prev.error == null && prev.output) {
+          ok++;
+          return;
+        }
+      } catch {
+        // fall through and re-run
+      }
+    }
+    const fetched =
+      condition === "full-content"
+        ? fetchedByItem[item.id]?.text || null
+        : null;
+    const prompt = buildPrompt(item, condition, fetched);
+    if (prompt == null) {
+      // No identifier for this condition (e.g. no specUrl/bcdKey): record an
+      // explicit skip so reports distinguish not-applicable from missing data.
+      const record = {
+        runId,
+        itemId: item.id,
+        itemKind: item.kind,
+        contentDate: item.contentDate,
+        condition,
+        model: model.key,
+        vendor: model.vendor,
+        apiId: model.apiId,
+        cutoff: model.cutoff,
+        urlUsed: urlForCondition(item, condition),
+        prompt: null,
+        output: null,
+        usage: null,
+        error: null,
+        skipped: true,
+        skipReason: "item has no identifier for this condition",
+        timestamp: nowIso(),
+      };
+      await writeJson(fname, record);
+      skippedCells++;
+      console.log(`[skip] ${tag} (${record.skipReason})`);
+      return;
+    }
+    const record = {
+      runId,
+      itemId: item.id,
+      itemKind: item.kind,
+      contentDate: item.contentDate,
+      condition,
+      model: model.key,
+      vendor: model.vendor,
+      apiId: model.apiId,
+      cutoff: model.cutoff,
+      urlUsed: urlForCondition(item, condition),
+      prompt,
+      timestamp: nowIso(),
+    };
+    try {
+      const res = await callModel(model, prompt);
+      record.output = res.text;
+      record.usage = res.usage;
+      record.error = null;
+      ok++;
+      console.log(`[call] ${tag} ... ok (${res.text.length} chars)`);
+    } catch (e) {
+      record.output = null;
+      record.error = String(e.message || e);
+      failed++;
+      failures.push({ tag, error: record.error });
+      console.log(`[call] ${tag} ... FAILED: ${record.error}`);
+    }
+    await writeJson(fname, record);
+  }
+
+  // Bounded-concurrency pool over a task list.
+  async function runPool(tasks, concurrency) {
+    let idx = 0;
+    const worker = async () => {
+      while (idx < tasks.length) {
+        const t = tasks[idx++];
+        await processCell(t.model, t.item, t.condition);
+      }
+    };
+    await Promise.all(
+      Array.from({ length: Math.max(1, Math.min(concurrency, tasks.length)) }, worker),
+    );
+  }
+
+  // Group every cell by VENDOR, then run vendors in PARALLEL (independent
+  // endpoints + rate limits — no reason to serialize across them), each vendor
+  // bounded to `perVendorConcurrency` in-flight requests.
+  const byVendor = new Map();
   for (const model of usable) {
     for (const item of items) {
       for (const condition of CONDITIONS) {
-        total++;
-        const fname = `${RAW_DIR}/${model.key}__${item.id}__${condition}.json`;
-        const tag = `${model.key} / ${item.id} / ${condition}`;
-        // Resume support: skip cells already completed without error, so an
-        // interrupted run can be re-invoked and only fills the gaps.
-        if (existsSync(fname)) {
-          try {
-            const prev = await readJson(fname);
-            if (prev && prev.skipped === true) {
-              skippedCells++;
-              console.log(`[skip] ${tag} (already skipped)`);
-              continue;
-            }
-            if (prev && prev.error == null && prev.output) {
-              ok++;
-              console.log(`[skip] ${tag} (already done)`);
-              continue;
-            }
-          } catch {
-            // fall through and re-run
-          }
-        }
-        const fetched =
-          condition === "full-content"
-            ? fetchedByItem[item.id]?.text || null
-            : null;
-        const prompt = buildPrompt(item, condition, fetched);
-        if (prompt == null) {
-          // This item carries no identifier for this condition (e.g. no
-          // specUrl or bcdKey), so there is nothing to ask. Keep an explicit
-          // raw record so reports distinguish not-applicable from missing data.
-          const record = {
-            runId,
-            itemId: item.id,
-            itemKind: item.kind,
-            contentDate: item.contentDate,
-            condition,
-            model: model.key,
-            vendor: model.vendor,
-            apiId: model.apiId,
-            cutoff: model.cutoff,
-            urlUsed: urlForCondition(item, condition),
-            prompt: null,
-            output: null,
-            usage: null,
-            error: null,
-            skipped: true,
-            skipReason: "item has no identifier for this condition",
-            timestamp: nowIso(),
-          };
-          await writeJson(fname, record);
-          skippedCells++;
-          console.log(`[skip] ${tag} (${record.skipReason})`);
-          continue;
-        }
-        process.stdout.write(`[call] ${tag} ... `);
-        const record = {
-          runId,
-          itemId: item.id,
-          itemKind: item.kind,
-          contentDate: item.contentDate,
-          condition,
-          model: model.key,
-          vendor: model.vendor,
-          apiId: model.apiId,
-          cutoff: model.cutoff,
-          urlUsed: urlForCondition(item, condition),
-          prompt,
-          timestamp: nowIso(),
-        };
-        try {
-          const res = await callModel(model, prompt);
-          record.output = res.text;
-          record.usage = res.usage;
-          record.error = null;
-          ok++;
-          console.log(`ok (${res.text.length} chars)`);
-        } catch (e) {
-          record.output = null;
-          record.error = String(e.message || e);
-          failed++;
-          failures.push({ tag, error: record.error });
-          console.log(`FAILED: ${record.error}`);
-        }
-        await writeJson(fname, record);
-        await sleep(250);
+        if (!byVendor.has(model.vendor)) byVendor.set(model.vendor, []);
+        byVendor.get(model.vendor).push({ model, item, condition });
       }
     }
   }
+  console.log(
+    `[run] cells per vendor — ${[...byVendor].map(([v, t]) => `${v}:${t.length}`).join(", ")} | per-vendor concurrency ${perVendorConcurrency}`,
+  );
+  await Promise.all(
+    [...byVendor.values()].map((tasks) => runPool(tasks, perVendorConcurrency)),
+  );
 
   console.log(
     `\n[run] done. total=${total} ok=${ok} skipped=${skippedCells} failed=${failed}`,
