@@ -22,7 +22,12 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (none claimed)
+- (2026-06-18, opus agent) Regenerating committed results for the current
+  protocol (40 items × 9 conditions × 13 models incl. Grok). Stopping the stale
+  in-flight run (loaded pre-ChromeStatus corpus + 9-model list), clearing
+  `url-only`/`url+name` raw + judge-cache cells (opaque ids changed to
+  ChromeStatus), then a clean full run → score → transcript → analyze →
+  dashboard → commit. z.ai cells will 429 (no balance) and be excluded.
 
 ### Next / open
 - **Regenerate committed results for the new protocol.** The harness now has 40
