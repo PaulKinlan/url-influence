@@ -916,12 +916,13 @@ export const CORPUS = [
 
   // ---- OLD, deeply in-training web features (pre-Chrome-80, 2014-2017) ----
   // Every current model knows these cold. They carry the FULL spectrum of
-  // identifiers so we can see which KIND of id acts as a retrieval key for a
-  // web feature: opaque SO# (un-memorised, and SO blocks crawlers so likely not
-  // in training at all), the descriptive MDN URL, the canonical W3C/WHATWG/TC39
-  // spec URL, and the Browser Compat Data (BCD) dotted key. These run under the
-  // mdn-url-only / spec-url-only / bcd-key-only conditions in addition to the
-  // opaque url-only.
+  // identifiers so we can see which KIND of id acts as a retrieval key for an
+  // in-training web feature: a real (verified) ChromeStatus feature id as the
+  // opaque id, the descriptive MDN URL, the canonical W3C/WHATWG/TC39 spec URL,
+  // and the Browser Compat Data (BCD) dotted key — run under the
+  // mdn-url-only / spec-url-only / bcd-key-only probes plus opaque url-only.
+  // (Promise and Service Worker have no canonical ChromeStatus base entry, so
+  // their opaque id is a structural-control, not real opaque evidence.)
   {
     id: "fetch-api",
     kind: "code",
@@ -937,7 +938,8 @@ export const CORPUS = [
     urls: {
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch",
       semiOpaque: "https://github.com/whatwg/fetch",
-      opaque: "https://stackoverflow.com/questions/29775797",
+      // Real ChromeStatus feature id (verified via the API: name "Fetch API").
+      opaque: "https://chromestatus.com/feature/6730533392351232",
       specUrl: "https://fetch.spec.whatwg.org/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch",
@@ -966,7 +968,8 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver",
       semiOpaque: "https://github.com/w3c/IntersectionObserver",
-      opaque: "https://stackoverflow.com/questions/45514676",
+      // Real ChromeStatus feature id (verified: name "Intersection Observer", Chrome 51).
+      opaque: "https://chromestatus.com/feature/5695342691483648",
       specUrl: "https://www.w3.org/TR/intersection-observer/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver",
@@ -982,6 +985,10 @@ export const CORPUS = [
       "Write JavaScript that creates and consumes a Promise (construct one, resolve/reject it, and handle it with then/catch).",
     contentDate: "2014-01", // Chrome 32 / ES2015, Jan 2014
     bcdKey: "javascript.builtins.Promise",
+    // Core ES2015 language feature — ChromeStatus does not track it, so there is
+    // no canonical opaque id; the SO id is a structural control, not real
+    // opaque evidence. The spec/bcd probes carry the canonical-id signal.
+    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: ["new Promise", "resolve", "reject", "then", "catch"],
       notes:
@@ -1038,7 +1045,6 @@ export const CORPUS = [
       "Write CSS that lays out a container with CSS Grid (a grid with explicit columns, rows, and gaps).",
     contentDate: "2017-03", // Chrome 57, March 2017
     bcdKey: "css.properties.grid",
-    validation: { opaqueRole: "structural-control" },
     groundTruth: {
       mustMention: [
         "display: grid",
@@ -1053,7 +1059,8 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
-      opaque: "https://stackoverflow.com/questions/43520932",
+      // Real ChromeStatus feature id (verified: name "CSS Grid Layout", Chrome 57).
+      opaque: "https://chromestatus.com/feature/4589636412243968",
       specUrl: "https://www.w3.org/TR/css-grid-1/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
@@ -1077,7 +1084,8 @@ export const CORPUS = [
       descriptive:
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
       semiOpaque: "https://github.com/tc39/ecma262",
-      opaque: "https://stackoverflow.com/questions/42624647",
+      // Real ChromeStatus feature id (verified: name "Async/await functions").
+      opaque: "https://chromestatus.com/feature/5643236399906816",
       specUrl: "https://tc39.es/ecma262/#sec-async-function-definitions",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",

@@ -22,26 +22,45 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (2026-06-18) Identifier-probe + old-feature expansion: added conditions
-  `mdn-url-only` / `spec-url-only` / `bcd-key-only` (diagnostics) and 6
-  pre-Chrome-80 in-training features + spec/BCD backfill on a few recent items.
-  A full run is populating `results/raw` (resume-skips existing cells). After it
-  lands: regenerate score→transcript→analyze→dashboard from raw, then commit.
+- (none claimed)
 
 ### Next / open
+- **Regenerate committed results for the new protocol.** The harness now has 40
+  items, 9 conditions, optional skipped-cell handling, and
+  `validation.opaqueRole = "structural-control"` filtering. Existing
+  committed `results/*` were generated before that filtering and should be
+  treated as old-protocol artifacts until regenerated from raw.
 - **Task 3 (the thesis-prover):** source post-cutoff features where `name-only`
   itself FAILS. Current post-cutoff items are too guessable (high `name-only`),
   so they show "opaque id gives nothing", not "model can't build it".
-- Decide whether the 6 old-feature `url-only` SO ids stay as documented
-  uncrawled controls or are replaced (see methodology note below).
+- RESOLVED (2026-06-18): old-feature opaque ids replaced with REAL, API-verified
+  ChromeStatus feature ids — `fetch-api` 6730533392351232, `intersection-observer`
+  5695342691483648, `css-grid` 4589636412243968 (control mark removed),
+  `async-await` 5643236399906816. `js-promise` (core ES2015, not in ChromeStatus)
+  and `service-worker` (no clean ChromeStatus base entry found via search) stay
+  `validation.opaqueRole = "structural-control"`. FOLLOW-UP: the in-flight run
+  used the old SO ids for these 4 items' `url-only`/`url+name` cells — clear
+  those raw cells and re-run after the run lands, then regenerate results.
 
 ### Done
+- (2026-06-18, `744fe71`) Strengthened the research harness: condition
+  metadata, `mdn-url-only` / `spec-url-only` / `bcd-key-only` probes,
+  skipped-cell handling, static/live corpus validator, structural-control
+  opaque URL role, dashboard filter for opaque role, and standard `AGENTS.md` /
+  `CLAUDE.md` guidance.
 - Current flagship models + cited cutoffs; cutoff-spanning corpus.
 - Auditable transcript (`RUNLOG.md` / `transcript.jsonl`) + interactive
   `dashboard.html`; GitHub Pages live at https://paulkinlan.github.io/url-influence/ .
-- Split API-usage vs knowledge-calibration tracks; lift computed on API-usage only.
+- Split API-usage vs knowledge-calibration tracks; headline lift now computed
+  only on API-usage items whose opaque URL is intended to be a real pointer.
 - Full 9-model coverage incl. OpenAI; GPT-5 empty-completion fix (bigger budget
   + `reasoning_effort=low`).
+- Static validation currently passes: `npm run validate` → 40 items, 9
+  conditions, 0 errors, 0 warnings.
+- Live validation currently passes with diagnostics only:
+  `npm run validate:live` → 0 errors, 2 warnings (`openai.com` 403 on a
+  semi-opaque diagnostic URL; fake GitHub repo 404 on a semi-opaque diagnostic
+  URL).
 
 ---
 
@@ -56,21 +75,32 @@ fetched. Which identifier we use determines what "opaque" means:
 | RFC id | `rfc-editor.org/rfc/rfc9110` / datatracker | opaque (number) | yes |
 | DOI | `doi.org/...` | opaque | usually |
 | ChromeStatus id | `chromestatus.com/feature/<n>` | opaque (number) | partial |
-| **Stack Overflow id** | `stackoverflow.com/questions/<n>` | opaque (number) | **NO — see below** |
+| **Stack Overflow id** | `stackoverflow.com/questions/<n>` | opaque (number) | uncertain / noisy — see below |
 | MDN URL | `/Web/API/fetch` | **descriptive** (names the API) | yes |
 | spec URL | `fetch.spec.whatwg.org`, `w3.org/TR/...`, `tc39.es/...` | canonical, semi-descriptive | yes |
 | BCD key | `api.fetch`, `css.properties.grid` | canonical, terse | yes (BCD is widely mirrored) |
+| structural-control opaque id | fake/unrelated SO#, ChromeStatus#, arXiv-shaped id | opaque shape only | deliberately not headline evidence |
 
-### Stack Overflow is NOT crawlable → not a fair "opaque" baseline
-StackOverflow's `robots.txt` aggressively blocks crawlers; empirically even the
-Anthropic search user-agent is refused (`WebSearch allowed_domains:
-stackoverflow.com` → "domains not accessible"). So SO Q&A content is almost
-certainly **absent from training**. Consequences:
-- A SO-id `url-only` conflates "un-memorised id" with "content never crawled" —
-  it is a *provably-uncrawled* negative control, not a fair retrieval test.
-- We **cannot verify** that a SO id maps to the intended question (nothing can
-  crawl SO), so SO opaque ids in the corpus are effectively synthetic. Treat
-  `url-only`(SO) as a floor/control, not evidence about canonical keys.
+### Stack Overflow ids are noisy opaque evidence
+Checked 2026-06-18: `https://stackoverflow.com/robots.txt` does **not** broadly
+disallow canonical `/questions/<id>` pages. It disallows many endpoints and
+query variants (`/posts/`, `/search/`, `/questions/ask/`,
+`/questions/*answertab=*`, `/questions/*/answer/submit`, `/api/*`, etc.) and
+then has `Allow: /`, including in the group that names GPTBot / ChatGPT-User /
+Google-Extended. So do **not** claim SO question pages are "not crawlable" or
+"certainly absent from training" based on robots.txt alone.
+
+Practical consequences:
+- A real, validated SO question id can be an opaque identifier, but it is weaker
+  evidence than canonical IDs such as arXiv/RFC/ChromeStatus because training
+  inclusion and URL→content memorisation are uncertain.
+- Unverified, missing, or unrelated SO ids are useful only as structural
+  controls. Mark those items with
+  `validation.opaqueRole = "structural-control"` and exclude them from
+  headline lift.
+- The live validator uses the Stack Exchange API to check whether an unmarked
+  SO opaque URL exists and whether its title/link matches the item. Marked
+  structural controls are allowed to be missing or unrelated.
 
 ## What we know — conditions & controls
 
@@ -85,18 +115,38 @@ certainly **absent from training**. Consequences:
 - **Controls:** `fake-structural-url` (plausible but nonexistent, same shape) and
   `random-url` (unrelated real URL). Both should collapse toward `name-only` /
   zero. If they lift, URL *shape* or merely *having a URL* is doing the work.
+- **Structural-control opaque URLs:** if `urls.opaque` itself is deliberately
+  fake, missing, or unrelated, mark the item with
+  `validation.opaqueRole = "structural-control"`. These rows are inspectable in
+  the dashboard, but excluded from headline URL-memory lift.
 - **Two tracks:** API-usage items (lift lives here) vs knowledge-calibration
   items (`groundTruth.expectUnknown`, where refusing is correct) — never average
   calibration into lift.
 
+## What we know — current corpus hygiene
+
+- RFC 9110 now uses Datatracker URLs for the opaque and full-content fields,
+  because the old RFC Editor paths did not resolve cleanly.
+- Several fake arXiv controls (`2312.00001`, `2501.00002`, `2503.00003`,
+  `2507.00007`, `2601.00009`) were real papers. They were changed to
+  `YYMM.99999` shaped IDs that currently return "Article not found".
+- Live validation should be run after any corpus URL changes. Treat errors as
+  blockers for real opaque evidence; treat diagnostic URL warnings separately
+  from methodology failures.
+
 ## What we know — findings (directional; small n per cell)
+
+These findings describe the current committed results artifacts unless
+regenerated. Because the harness changed in `744fe71`, do not quote old
+headline numbers as current protocol results until `results/*` are regenerated.
 
 - **Opaque url-only is net-negative vs name-only for every model** — a bare
   opaque id usually does not help and often hurts.
 - **It works ONLY for memorised canonical ids:** `arxiv-attention`
-  (1706.03762) url-only 1.00 vs name-only 0.00; RFC 9110 1.00. Un-memorised ids
-  (SO#, chromestatus#) → ~0.00 even when the model builds the same thing from
-  the name. → opacity isn't the barrier; *canonical-id memorisation* is.
+  (1706.03762) url-only 1.00 vs name-only 0.00; RFC 9110 1.00. Un-memorised or
+  structural-control ids (fake/unrelated SO#, some ChromeStatus-shaped controls)
+  → ~0.00 even when the model builds the same thing from the name. → opacity
+  isn't the only barrier; *canonical-id memorisation* is.
 - **Caveat on recent features:** post-cutoff `name-only` is high (model builds
   Feb–Jun 2026 features from the name), so negative post-cutoff lift means "the
   id gives nothing", not "can't build it". Need name-only-FAILS items (Task 3).
