@@ -202,45 +202,89 @@ async function callXai(model, { system, user, maxTokens = 1500 }) {
 // generous token budget. Confirm model ids against the z.ai docs on first call.
 const ZAI_URL = "https://api.z.ai/api/paas/v4/chat/completions";
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// z.ai has been returning intermittent 429s even with a funded balance (its
+// admin dashboard lags ~10 min, so we can't see the real cause — most likely
+// rate-limiting surfaced as a balance code). Retry 429s and transient 5xx /
+// network errors with exponential backoff + jitter, honouring Retry-After when
+// present. Genuine 4xx (auth, bad request) are not retried.
 async function callZai(model, { system, user, maxTokens = 1500 }) {
   const key = requireEnv("Z_API_KEY");
-  const res = await fetch(ZAI_URL, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${key}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      max_tokens: Math.max(maxTokens, 8000),
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  const body = JSON.stringify({
+    model,
+    max_tokens: Math.max(maxTokens, 8000),
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
   });
-  const json = await res.json();
-  if (!res.ok) {
-    throw new Error(
+
+  const MAX_ATTEMPTS = 6;
+  let lastErr;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    let res;
+    try {
+      res = await fetch(ZAI_URL, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${key}`,
+          "content-type": "application/json",
+        },
+        body,
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
+    } catch (e) {
+      // Network / timeout — retry with backoff.
+      lastErr = new Error(`z.ai network error: ${String(e.message || e)}`);
+      if (attempt < MAX_ATTEMPTS) {
+        await sleep(backoffMs(attempt));
+        continue;
+      }
+      throw lastErr;
+    }
+
+    const json = await res.json().catch(() => ({}));
+    if (res.ok) {
+      const choice = json.choices?.[0];
+      const text = choice?.message?.content || "";
+      if (!text && choice?.finish_reason === "length") {
+        throw new Error(
+          "z.ai empty completion (finish_reason=length: thinking consumed the budget before any visible output)",
+        );
+      }
+      return {
+        text,
+        usage: {
+          inputTokens: json.usage?.prompt_tokens ?? null,
+          outputTokens: json.usage?.completion_tokens ?? null,
+        },
+        raw: json,
+      };
+    }
+
+    lastErr = new Error(
       `z.ai ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
     );
+    const retryable = res.status === 429 || res.status >= 500;
+    if (retryable && attempt < MAX_ATTEMPTS) {
+      const retryAfter = Number(res.headers.get("retry-after"));
+      const waitMs =
+        Number.isFinite(retryAfter) && retryAfter > 0
+          ? retryAfter * 1000
+          : backoffMs(attempt);
+      await sleep(waitMs);
+      continue;
+    }
+    throw lastErr;
   }
-  const choice = json.choices?.[0];
-  const text = choice?.message?.content || "";
-  if (!text && choice?.finish_reason === "length") {
-    throw new Error(
-      "z.ai empty completion (finish_reason=length: thinking consumed the budget before any visible output)",
-    );
-  }
-  return {
-    text,
-    usage: {
-      inputTokens: json.usage?.prompt_tokens ?? null,
-      outputTokens: json.usage?.completion_tokens ?? null,
-    },
-    raw: json,
-  };
+  throw lastErr;
+}
+
+// Exponential backoff with jitter: ~1s, 2s, 4s, 8s, 16s (capped 20s) + 0-500ms.
+function backoffMs(attempt) {
+  const base = Math.min(1000 * 2 ** (attempt - 1), 20000);
+  return base + Math.floor(Math.random() * 500);
 }
 
 const ADAPTERS = {

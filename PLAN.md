@@ -27,7 +27,10 @@ decisions made, and what we have learned about the URLs and methodology.
   in-flight run (loaded pre-ChromeStatus corpus + 9-model list), clearing
   `url-only`/`url+name` raw + judge-cache cells (opaque ids changed to
   ChromeStatus), then a clean full run → score → transcript → analyze →
-  dashboard → commit. z.ai cells will 429 (no balance) and be excluded.
+  dashboard → commit. z.ai is funded now but returns intermittent 429s despite
+  balance (admin dashboard lags ~10 min) — added 429/5xx retry with exponential
+  backoff + jitter (honours Retry-After) to the z.ai adapter and re-launched the
+  run with it so GLM cells retry rather than fail.
 
 ### Next / open
 - **Regenerate committed results for the new protocol.** The harness now has 40
