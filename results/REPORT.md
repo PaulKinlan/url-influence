@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Generated: 2026-06-18T00:49:31.292Z
+Generated: 2026-06-18T10:28:01.673Z
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 1370 (judge failures: 0)
+Judged outputs: 1836 (judge failures: 0)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -51,9 +51,9 @@ See [SOURCES.md](SOURCES.md) for the full model -> cutoff -> source table.
 | Claude Sonnet 4.5 | 2025-07-31 | -0.50 | -0.42 | -0.57 | 14/17 |
 | Gemini 3.1 Pro | 2025-01-31 | -0.36 | -0.33 | -0.38 | 9/22 |
 | Gemini 3.5 Flash | 2025-01-31 | -0.27 | -0.32 | -0.25 | 9/22 |
-| GPT-5.5 | 2025-12-01 | -1.00 | — (no items) | -1.00 | 0/14 |
-| GPT-5.2 | 2025-08-31 | -0.76 | — (no items) | -0.76 | 0/14 |
-| GPT-5 | 2024-09-30 | — | — (no items) | — | 0/14 |
+| GPT-5.5 | 2025-12-01 | -0.63 | -0.46 | -0.78 | 15/16 |
+| GPT-5.2 | 2025-08-31 | -0.60 | -0.42 | -0.74 | 14/17 |
+| GPT-5 | 2024-09-30 | -0.42 | -0.47 | -0.40 | 8/23 |
 
 ## API-usage items: pre/post mean correctness per condition
 
@@ -101,26 +101,26 @@ Knowledge-calibration items excluded. In **pre** rows, does `url-only` approach 
 | pre-cutoff | 0.66 | 0.33 | 0.88 | 0.99 | 0.19 | 0.00 |
 | post-cutoff | 0.25 | 0.00 | 0.39 | 0.83 | 0.12 | 0.00 |
 
-### GPT-5.5 (cutoff 2025-12-01) — 0 pre / 14 post API items
+### GPT-5.5 (cutoff 2025-12-01) — 15 pre / 16 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
-| pre-cutoff | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) |
-| post-cutoff | 1.00 | 0.00 | 0.99 | 0.92 | 0.42 | 0.00 |
+| pre-cutoff | 0.66 | 0.20 | 0.98 | 0.98 | 0.30 | 0.00 |
+| post-cutoff | 0.78 | 0.00 | 0.87 | 0.93 | 0.32 | 0.00 |
 
-### GPT-5.2 (cutoff 2025-08-31) — 0 pre / 14 post API items
-
-| bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
-|---|---|---|---|---|---|---|
-| pre-cutoff | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) |
-| post-cutoff | 0.76 | 0.00 | 0.28 | 0.92 | 0.09 | 0.00 |
-
-### GPT-5 (cutoff 2024-09-30) — 0 pre / 14 post API items
+### GPT-5.2 (cutoff 2025-08-31) — 14 pre / 17 post API items
 
 | bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|
-| pre-cutoff | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) |
-| post-cutoff | — (no items) | 0.00 | — (no items) | 0.95 | 0.00 | 0.00 |
+| pre-cutoff | 0.57 | 0.14 | 0.62 | 0.98 | 0.13 | 0.00 |
+| post-cutoff | 0.74 | 0.00 | 0.24 | 0.94 | 0.08 | 0.00 |
+
+### GPT-5 (cutoff 2024-09-30) — 8 pre / 23 post API items
+
+| bucket | name-only | url-only | url+name | full-content | fake-structural-url | random-url |
+|---|---|---|---|---|---|---|
+| pre-cutoff | 0.72 | 0.25 | 0.86 | 0.99 | 0.13 | 0.00 |
+| post-cutoff | 0.40 | 0.00 | 0.36 | 0.85 | 0.13 | 0.00 |
 
 ## Knowledge-calibration items: correct-refusal rate per condition
 
@@ -134,9 +134,9 @@ These items (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-i
 | Claude Sonnet 4.5 | 0.37 | 0.67 | 0.37 | 0.07 | 0.70 | 0.00 |
 | Gemini 3.1 Pro | 0.93 | 1.00 | 1.00 | 0.10 | 0.70 | 0.00 |
 | Gemini 3.5 Flash | 0.40 | 0.67 | 0.65 | 0.32 | 0.47 | 0.00 |
-| GPT-5.5 | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) |
-| GPT-5.2 | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) |
-| GPT-5 | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) | — (no items) |
+| GPT-5.5 | 0.77 | 1.00 | 0.43 | 0.37 | 0.33 | 0.00 |
+| GPT-5.2 | 0.93 | 1.00 | 0.67 | 0.03 | 0.73 | 0.00 |
+| GPT-5 | 0.37 | 1.00 | 0.70 | 0.03 | 0.63 | 0.00 |
 
 ## All items, mean correctness by condition x model
 
@@ -144,17 +144,17 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 
 | Condition | Claude Opus 4.8 (cut 2026-01-31) | Claude Sonnet 4.6 (cut 2026-01-31) | Claude Opus 4.6 (cut 2025-08-31) | Claude Sonnet 4.5 (cut 2025-07-31) | Gemini 3.1 Pro (cut 2025-01-31) | Gemini 3.5 Flash (cut 2025-01-31) | GPT-5.5 (cut 2025-12-01) | GPT-5.2 (cut 2025-08-31) | GPT-5 (cut 2024-09-30) |
 |---|---|---|---|---|---|---|---|---|---|
-| name-only | 0.68 | 0.63 | 0.62 | 0.55 | 0.53 | 0.37 | 1.00 | 0.76 | — (no items) |
-| url-only | 0.21 | 0.18 | 0.12 | 0.12 | 0.21 | 0.15 | 0.00 | 0.00 | 0.00 |
-| url+name | 0.81 | 0.69 | 0.74 | 0.56 | 0.51 | 0.54 | 0.99 | 0.28 | — (no items) |
-| full-content | 0.86 | 0.87 | 0.88 | 0.78 | 0.75 | 0.83 | 0.92 | 0.92 | 0.95 |
-| fake-structural-url | 0.45 | 0.33 | 0.40 | 0.25 | 0.30 | 0.17 | 0.42 | 0.09 | 0.00 |
+| name-only | 0.68 | 0.63 | 0.62 | 0.55 | 0.53 | 0.37 | 0.73 | 0.69 | 0.47 |
+| url-only | 0.21 | 0.18 | 0.12 | 0.12 | 0.21 | 0.15 | 0.18 | 0.15 | 0.15 |
+| url+name | 0.81 | 0.69 | 0.74 | 0.56 | 0.51 | 0.54 | 0.88 | 0.43 | 0.51 |
+| full-content | 0.86 | 0.87 | 0.88 | 0.78 | 0.75 | 0.83 | 0.90 | 0.87 | 0.81 |
+| fake-structural-url | 0.45 | 0.33 | 0.40 | 0.25 | 0.30 | 0.17 | 0.31 | 0.16 | 0.17 |
 | random-url | 0.03 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 
 ## Interpretation
 
-- **Headline (API-usage items only):** mean lift -0.56 overall — a bare opaque URL, with no page content, does NOT beat simply naming the task, and across models it tends to lower the score. The model is more cautious or more error-prone when handed only a context-free URL string than when told plainly what to build.
-- **Boundary (API-usage items):** mean pre-cutoff lift -0.36, mean post-cutoff lift -0.64. Pre-cutoff lift exceeds post-cutoff lift — the direction the hypothesis predicts — but both are negative, so the URL is a weak (and net-negative) retrieval key at this corpus size.
+- **Headline (API-usage items only):** mean lift -0.49 overall — a bare opaque URL, with no page content, does NOT beat simply naming the task, and across models it tends to lower the score. The model is more cautious or more error-prone when handed only a context-free URL string than when told plainly what to build.
+- **Boundary (API-usage items):** mean pre-cutoff lift -0.39, mean post-cutoff lift -0.59. Pre-cutoff lift exceeds post-cutoff lift — the direction the hypothesis predicts — but both are negative, so the URL is a weak (and net-negative) retrieval key at this corpus size.
 - **Why the earlier read was wrong:** an apparent positive *post-cutoff* url-only score comes from the knowledge-calibration items (scroll-triggered-animations, arxiv-future-fake-real-id, html-in-canvas), where the correct answer is "I don't know". A bare URL elicits exactly that refusal, scoring high — which is the OPPOSITE of the URL helping the model use an API. Those items are now excluded from the lift.
 - **What does work:** `url+name` and the `full-content` ceiling score well across the board, and the controls (`fake-structural-url`, `random-url`) collapse toward name-only / zero, so the harness is measuring real content rather than URL shape.
 
@@ -165,9 +165,9 @@ Per model (API-usage items):
 - **Claude Sonnet 4.5:** bare URL did not help / hurt (lift -0.50); full-content 0.85 vs name-only 0.57; pre -0.42 / post -0.57 (n 14/17).
 - **Gemini 3.1 Pro:** bare URL did not help / hurt (lift -0.36); full-content 0.82 vs name-only 0.49; pre -0.33 / post -0.38 (n 9/22).
 - **Gemini 3.5 Flash:** bare URL did not help / hurt (lift -0.27); full-content 0.88 vs name-only 0.37; pre -0.32 / post -0.25 (n 9/22).
-- **GPT-5.5:** bare URL did not help / hurt (lift -1.00); full-content 0.92 vs name-only 1.00; pre   -   / post -1.00 (n 0/14).
-- **GPT-5.2:** bare URL did not help / hurt (lift -0.76); full-content 0.92 vs name-only 0.76; pre   -   / post -0.76 (n 0/14).
-- **GPT-5:** no comparable API-usage data; pre   -   / post   -   (n 0/14).
+- **GPT-5.5:** bare URL did not help / hurt (lift -0.63); full-content 0.96 vs name-only 0.72; pre -0.46 / post -0.78 (n 15/16).
+- **GPT-5.2:** bare URL did not help / hurt (lift -0.60); full-content 0.95 vs name-only 0.66; pre -0.42 / post -0.74 (n 14/17).
+- **GPT-5:** bare URL did not help / hurt (lift -0.42); full-content 0.89 vs name-only 0.48; pre -0.47 / post -0.40 (n 8/23).
 
 ---
 
