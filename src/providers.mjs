@@ -98,7 +98,14 @@ async function callGoogle(model, { system, user, maxTokens = 1500 }) {
 async function callOpenAI(model, { system, user, maxTokens = 1500 }) {
   const key = requireEnv("OPENAI_API_KEY");
   // Chat Completions API. Newer OpenAI models reject `max_tokens` and require
-  // `max_completion_tokens`; send the latter for forward-compatibility.
+  // `max_completion_tokens`.
+  //
+  // The GPT-5 family are REASONING models: reasoning tokens are billed against
+  // max_completion_tokens, so a small budget (1500) gets fully consumed by
+  // hidden reasoning and the visible completion returns EMPTY (finish_reason
+  // "length"). Give a generous budget AND ask for low reasoning effort so
+  // usable output remains. (reasoning_effort is accepted/ignored gracefully by
+  // the chat endpoint for non-reasoning models.)
   const res = await fetch(OPENAI_URL, {
     method: "POST",
     headers: {
@@ -107,7 +114,8 @@ async function callOpenAI(model, { system, user, maxTokens = 1500 }) {
     },
     body: JSON.stringify({
       model,
-      max_completion_tokens: maxTokens,
+      max_completion_tokens: Math.max(maxTokens, 8000),
+      reasoning_effort: "low",
       messages: [
         { role: "system", content: system },
         { role: "user", content: user },
@@ -121,7 +129,16 @@ async function callOpenAI(model, { system, user, maxTokens = 1500 }) {
       `OpenAI ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
     );
   }
-  const text = json.choices?.[0]?.message?.content || "";
+  const choice = json.choices?.[0];
+  const text = choice?.message?.content || "";
+  // If the model still returned nothing because reasoning ate the whole budget,
+  // surface it as an explicit error so it is labelled (run error) rather than
+  // scored as a real 0.
+  if (!text && choice?.finish_reason === "length") {
+    throw new Error(
+      `OpenAI empty completion (finish_reason=length: reasoning consumed the ${Math.max(maxTokens, 8000)}-token budget before any visible output)`,
+    );
+  }
   return {
     text,
     usage: {
