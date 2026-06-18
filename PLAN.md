@@ -22,22 +22,26 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (2026-06-18, opus agent) Regenerating committed results for the current
-  protocol (40 items × 9 conditions × 13 models incl. Grok). Stopping the stale
-  in-flight run (loaded pre-ChromeStatus corpus + 9-model list), clearing
-  `url-only`/`url+name` raw + judge-cache cells (opaque ids changed to
-  ChromeStatus), then a clean full run → score → transcript → analyze →
-  dashboard → commit. z.ai is funded now but returns intermittent 429s despite
-  balance (admin dashboard lags ~10 min) — added 429/5xx retry with exponential
-  backoff + jitter (honours Retry-After) to the z.ai adapter and re-launched the
-  run with it so GLM cells retry rather than fail.
+- (2026-06-19, opus agent) **spec/bcd top-up** (parallel runner): cleared the
+  546 stale `skipped` spec-url-only/bcd-key-only cells for the 22 newly-enriched
+  features (the regen run marked them n/a because it loaded the corpus pre-
+  enrichment) and re-running ONLY those across all 13 models via `--concurrency`,
+  then score→transcript→analyze→dashboard→commit. Tests whether the canonical-id
+  effect (BCD/spec decode) holds for the recent + POST-cutoff features too.
 
 ### Next / open
-- **Regenerate committed results for the new protocol.** The harness now has 40
-  items, 9 conditions, optional skipped-cell handling, and
-  `validation.opaqueRole = "structural-control"` filtering. Existing
-  committed `results/*` were generated before that filtering and should be
-  treated as old-protocol artifacts until regenerated from raw.
+- DONE (2026-06-19): committed results regenerated for the current protocol —
+  full 13-model / 4680-cell run, ChromeStatus opaque ids, corrected ship dates,
+  Grok active, GLM with retry. KEY FINDING (per-item, not the misleading
+  averaged lift): opaque `url-only` works ONLY for famous memorised ids
+  (arxiv-attention 1.00 from the bare id vs 0.00 from naming; rfc-9110 1.00) and
+  is ~0 for chromestatus-numbered web features. BUT the CANONICAL WEB id decodes:
+  on the 9 in-training web features the **BCD key** scores ~0.74-1.00 (fetch/
+  promise/fedcm 1.00) and the **spec URL** 0.53-1.00, vs the opaque chromestatus
+  number ≈0. So the web-platform analog of a memorised arXiv id is the BCD key /
+  spec URL. The honest reframe: "canonical memorised ids work (arXiv/RFC/BCD/
+  spec); opaque numeric ids don't" — see methodology review A1 for the per-item
+  table to add to REPORT/dashboard.
 - **Task 3 (the thesis-prover):** source post-cutoff features where `name-only`
   itself FAILS. Current post-cutoff items are too guessable (high `name-only`),
   so they show "opaque id gives nothing", not "model can't build it".
@@ -56,6 +60,156 @@ decisions made, and what we have learned about the URLs and methodology.
   insufficient balance), and **confirm/replace the ESTIMATED GLM-5 cutoff**
   (currently `2025-10-31` in `models.mjs`) with a real value before trusting any
   GLM pre/post-cutoff split — z.ai does not publish one.
+
+### Methodology + code review (2026-06-18, analysis pass — NOT yet claimed)
+
+Grounded in a read of current `src/`, `results/scores.json`, and per-item lift
+for Claude Opus 4.8. Priority-ordered. Tags:
+- **[protocol-changing]** alters what a cell measures → requires a matrix rerun.
+- **[analysis-only]** recomputes from existing data → free, no paid rerun.
+- **[code-only]** no effect on results.
+
+IMPORTANT coordination note: the cheap reproducibility fixes (**B1, B2**) are
+protocol-changing and should land BEFORE the in-flight regeneration finishes,
+otherwise that run is immediately stale on arrival. **[analysis-only]** items
+(A1, A5) can land anytime and re-shape the report for free.
+
+#### A. Methodology — highest priority (these affect the claim's defensibility)
+
+**A1. [analysis-only] Surface per-item lift + stratify by identifier type, not
+just pre/post-cutoff.** The current headline ("overall lift −0.54") is the
+mean of a sharply bimodal, item-specific signal. Verified on Opus 4.8 rows: of
+34 items only ~4 carry any positive lift — `arxiv-attention` (+1.00),
+`rfc-9110` (both=1.0), `html-in-canvas` (+1.00) and `scroll-triggered-animations`
+(+0.90) — and the latter two are *calibration* items where 1.0 = "correctly
+refused". ~28 items sit at `url-only = 0.00` regardless of `name-only`. So the
+effect is **categorical** (works only for a handful of canonical-memorised ids:
+famous arXiv / RFC), NOT continuous, and it is driven by *which id*, not *which
+side of the cutoff*. The pre/post split therefore can't cleanly test the
+hypothesis while those ~4 outliers dominate either bucket.
+- Action (`analyze.mjs`, data already present): add a **per-item lift table /
+  heatmap** to REPORT + dashboard; report **lift stratified by identifier type**
+  (canonical arXiv/RFC vs ChromeStatus vs SO vs descriptive); report **paired
+  per-item lift with a sign test / bootstrap CI** instead of bare cell-mean
+  differences, so n=15 with a couple of +1.0 outliers isn't shown as "lift
+  −0.54". This is the single most honest reframing of the headline.
+
+**A2. [protocol-changing] Judge is bimodal, single-vendor, and uncalibrated.**
+Bucketed all 1836 numeric `correctness` values: `0.00`→985, `1.00`→603,
+`(0,1)`→248 — **~86% binary**. A well-calibrated judge should span the range;
+bimodal grading makes "lift" coarse and hides partial-credit differences
+between conditions. The judge is Claude Sonnet 4.5 (Anthropic) judging 4/13
+Anthropic models → same-vendor bias.
+- Action: `temperature: 0` + stricter rubric demanding gradations; **hand-label
+  a small gold set (~30 cells)** and report judge↔human agreement; ideally add a
+  second cross-vendor judge (e.g. GPT-5.5 judging Claude runs) and report
+  Cohen's κ / disagreement rate. Until calibrated, "correctness 0..1" is one
+  unverified opinion per cell.
+
+**A3. [protocol-changing] Framing confound between `name-only` and `url-only`.**
+The two core prompts differ in more than the identifier — they are different
+task framings: `name-only` = `"Task: <target>. Produce the code."` vs
+`url-only` = `"Do whatever the content at this URL describes: … Produce the
+code."` A bare URL makes the *task itself* vaguer, so lower `url-only` scores
+partly reflect **vaguer instruction**, not "URL failed as a retrieval key". The
+`fake-structural-url` control exposes this: Opus 4.8 overall
+`fake-structural-url` = **0.45**, sitting *between* name-only (0.67) and
+url-only (0.13) — NOT "collapsed toward zero" as REPORT currently claims.
+- Action: add a framing-matched control (e.g. `name-only` phrased "Do whatever
+  the following describes: <target>" with no explicit verb) so the only delta is
+  the identifier; OR report `fake-structural-url − name-only` explicitly as the
+  "framing cost" and net it out of the headline.
+
+**A4. [protocol-changing] `fake-structural-url` is not a matched control for web
+items.** For arXiv items `fakeUrl` is opaque-shaped (`YYMM.99999`), but for web
+items it is **descriptive** (e.g. `…/API/Document/startPageTransition`,
+`…/API/Flyout_API`). That's why `fake-structural-url` = 1.00 on
+`css-anchor-positioning`, `element-scoped-view-transitions`,
+`text-justify-css-property`, `css-text-indent-hanging` — the fake *descriptive*
+path still names the API, so the model decodes it. The control's meaning
+changes by item type.
+- Action: give every item a second, **opaque-shaped** fake control (fake
+  ChromeStatus id / fake arXiv id) so "does URL *shape* steer?" is uniform.
+
+**A5. [analysis-only] Cutoff granularity mismatch biases toward "pre".**
+`contentDate` is often `YYYY-MM` (padded to `-01` in `relativeToCutoff`) while
+cutoffs are month-*end* (`-31`). An item shipping "2025-08" vs cutoff
+"2025-08-31" is classified **pre** even though it likely post-dates training —
+systematically inflates the pre bucket at the boundary.
+- Action: use mid-month (`-15`) for `YYYY-MM` content dates, or document the
+  convention and flag boundary items.
+
+#### B. Reproducibility / robustness
+
+**B1. [protocol-changing] No `temperature` / `seed` anywhere — runs aren't
+reproducible and each cell is n=1.** Confirmed: zero hits in `providers.mjs`;
+all five adapters use vendor defaults.
+- Action: set `temperature: 0` (Anthropic/Google/OpenAI/xAI) and pass `seed` on
+  OpenAI-compatible endpoints. **Land before the in-flight rerun** so the new
+  results are reproducible.
+
+**B2. [protocol-changing] Retry/backoff exists only for z.ai.** `callZai` has
+proper 429/5xx exponential backoff; `callAnthropic` / `callGoogle` /
+`callOpenAI` / `callXai` have none — one transient 429 becomes a permanent
+`run-error` (null) cell. Matters more at 40×9×13.
+- Action: factor `backoffMs` into a shared `withRetry(fn)` wrapper and apply to
+  all five adapters. **Land before the rerun.**
+
+**B3. [protocol-changing] Single draw per cell + binary judge → sign could flip
+on re-run.** With n=15 per bucket and ~86% binary scores, single-draw lift is
+fragile.
+- Action: run **k≥3 samples** per cell on a representative subset and report
+  variance (use it to justify or refute the headline direction).
+
+**B4. [protocol-changing] `htmlToText` is very crude for the ceiling condition.**
+`util.mjs htmlToText` strips *all* tags (no `<pre>`/`<code>`/`<nav>` handling)
+and `conditions.mjs` slices the top 12000 chars — MDN/spec pages carry long
+nav/header chrome, so the real API content can be truncated/garbled, weakening
+the `full-content` ceiling and confounding "URL failed" vs "ceiling also weak".
+- Action: prefer readability extraction or canonical raw sources (MDN
+  `index.json`, arXiv abstract, RFC plain text); log fetched char count +
+  snippet per item for audit.
+
+#### C. Code quality (code-only — no rerun)
+
+**C1. Two parallel vendor switch-if chains.** `hasKeyFor` and `keyEnvFor` in
+`providers.mjs` are near-identical, plus the `ADAPTERS` lookup. Replace with one
+`VENDORS = { anthropic:{env:"ANTHROPIC_API_KEY", adapter:callAnthropic}, … }`
+map; both helpers + the adapter lookup collapse to one-liners and adding a
+vendor becomes one entry, not three edits.
+
+**C2. `buildPrompt` + `urlForCondition` duplicate URL resolution.**
+`CONDITION_DEFS` already carries `urlKind`; both functions re-implement "which
+url field does this condition use". Resolve once (`urlFieldFor(urlKind)`) and
+drive both — removes a "changed the prompt, forgot the report url" bug class.
+
+**C3. No tests.** Pure logic (`parseJudge`, `relativeToCutoff` string-compare
+incl. the `-01`/`-31` padding above, `structuralScore` matching, `loadDotEnv`
+quote-stripping) is exactly where regressions bite. Add a `node:test` file
+(~15 cases); zero new deps (Node 20 ships `node:test`).
+
+**C4. `correctness` mixes two scales.** `score.mjs` falls back to
+`struct.structural` (keyword fraction) when the judge is absent. Current run
+had 0 fallbacks (judge always ran), but if structural-only is ever used the two
+scales aren't comparable. Flag explicitly in summary, e.g.
+`scoreMode: "judge" | "structural-only"`.
+
+#### D. Housekeeping / staleness (reinforces bullets already in Next/open above)
+
+- **Committed `results/*` are stale vs current protocol.** Verified:
+  `results/scores.json` = **6 conditions × 34 items × 9 models = 1836 rows**;
+  corpus is now **40 items × 9 conditions × 13 models**, and the
+  `mdn-url-only` / `spec-url-only` / `bcd-key-only` probes have **zero**
+  committed rows. Until regeneration lands, REPORT + dashboard describe an older
+  protocol. → overlaps the "Regenerate committed results" bullet.
+- **GLM cutoff is an estimate** (`2025-10-31`). Don't let GLM feed the pre/post
+  headline until a real cutoff exists — currently it would, silently. → overlaps
+  the "Recharge z.ai / confirm GLM cutoff" bullet.
+
+#### Suggested landing order
+**B1 + B2** (cheap, before the rerun) → **A1 + A5** (analysis-only, free) →
+rerun → **A2 / A3 / A4 / B3** (protocol-changing, next cycle) → **C1–C4**
+(code-only, any time).
 
 ### Done
 - (2026-06-18, opus agent) **Runner now runs vendors in PARALLEL** (`run.mjs`):
