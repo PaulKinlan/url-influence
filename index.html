@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URL Influence on LLMs — results</title>
+<style>
+  :root { --bg:#0f1115; --panel:#171a21; --line:#272b34; --fg:#e6e8ec; --mut:#9aa3b2; --acc:#6ea8fe; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--fg); }
+  .wrap { max-width:760px; margin:0 auto; padding:48px 22px 80px; }
+  h1 { font-size:24px; margin:0 0 4px; }
+  .sub { color:var(--mut); margin:0 0 28px; }
+  p { color:#cfd4dc; }
+  a { color:var(--acc); }
+  .cards { display:grid; gap:14px; grid-template-columns:1fr 1fr; margin:28px 0; }
+  .card { display:block; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; text-decoration:none; color:var(--fg); transition:border-color .12s; }
+  .card:hover { border-color:var(--acc); }
+  .card h3 { margin:0 0 6px; font-size:16px; }
+  .card p { margin:0; color:var(--mut); font-size:13px; }
+  .card.primary { grid-column:1 / -1; background:linear-gradient(180deg,#1a2438,#171a21); }
+  fieldset { border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:26px 0; }
+  legend { color:var(--mut); font-size:12px; text-transform:uppercase; letter-spacing:.05em; padding:0 6px; }
+  code { background:#0b0d10; border:1px solid var(--line); border-radius:4px; padding:1px 5px; font-size:12px; }
+  ul { color:#cfd4dc; padding-left:20px; }
+  .foot { color:var(--mut); font-size:12px; margin-top:40px; border-top:1px solid var(--line); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>URL influence on LLMs</h1>
+  <p class="sub">Does a bare, opaque URL — the string alone, never fetched — change what a model produces, and only for content from before its training cutoff?</p>
+
+  <p>An <em>opaque</em> URL (a Stack Overflow question number, an arXiv id, an RFC number, a chromestatus feature id) carries no description of its content. If handing a model only that string improves its answer over simply naming the task, the lift can only come from the model having memorised that URL&rarr;content mapping in training. We test that across current flagship models with known knowledge cutoffs, and split every result by whether the content pre- or post-dates each model's cutoff.</p>
+
+  <div class="cards">
+    <a class="card primary" href="results/dashboard.html">
+      <h3>▶ Interactive dashboard</h3>
+      <p>Filter every cell by model, condition, pre-vs-post cutoff, item track and pass/fail; view the item&times;condition matrix; click any cell to read the exact prompt, the model output, and the judge's full prompt + raw verdict.</p>
+    </a>
+    <a class="card" href="https://github.com/PaulKinlan/url-influence/blob/master/results/REPORT.md">
+      <h3>Written report</h3>
+      <p>Headline lift table, pre/post-cutoff breakdown, controls, and interpretation.</p>
+    </a>
+    <a class="card" href="https://github.com/PaulKinlan/url-influence">
+      <h3>Source &amp; data</h3>
+      <p>The harness, the corpus, and the full per-cell <code>transcript.jsonl</code>.</p>
+    </a>
+  </div>
+
+  <fieldset>
+    <legend>The six conditions</legend>
+    <ul>
+      <li><strong>name-only</strong> — the task described in words, no URL (baseline)</li>
+      <li><strong>url-only</strong> — ONLY the opaque URL string; the page is never fetched</li>
+      <li><strong>url+name</strong> — the opaque URL plus the task name</li>
+      <li><strong>full-content</strong> — the real page pasted in (ceiling)</li>
+      <li><strong>fake-structural-url</strong> / <strong>random-url</strong> — controls (a nonexistent URL of the same shape, and an unrelated real URL)</li>
+    </ul>
+  </fieldset>
+
+  <p class="foot">Every score is from an LLM-as-judge whose full prompt and raw verdict are recorded per cell, so each judgement is checkable in the dashboard and in <code>transcript.jsonl</code>. Treat the numbers as directional — the corpus is small per cell.</p>
+</div>
+</body>
+</html>
