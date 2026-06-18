@@ -58,6 +58,30 @@ decisions made, and what we have learned about the URLs and methodology.
   GLM pre/post-cutoff split — z.ai does not publish one.
 
 ### Done
+- (2026-06-18, opus corpus-agent) **Enriched 23 web-platform items with
+  verified `urls.specUrl` + top-level `bcdKey`** from webstatus.dev (spec links +
+  ship dates), web-features `compat_features`, and `@mdn/browser-compat-data`
+  8.0.3 (every BCD key verified to exist; every spec URL passed the live
+  validator). 21 items got both spec+BCD; **2 partial**: `html-in-canvas`
+  (spec=WICG explainer, no BCD entry yet — origin trial) and
+  `named-feature-supports` (spec=css-conditional-5 anchor, no BCD entry yet —
+  Proposed). **1 left absent entirely**: `gamepad-event-driven-input` — the
+  `rawgamepadinputchange` event has no BCD key and only the generic gamepad spec
+  index (the event-driven surface isn't in the published spec text), so neither
+  probe id would be meaningful. **9 contentDate corrections** where
+  webstatus.dev + ChromeStatus both clearly contradicted the corpus (the v145–
+  v150 chrome-platform-showcase milestone the items were sourced from reflects
+  when the conformance TEST appeared, not the Chrome STABLE ship date): temporal
+  2025-05→2026-01 (M144); element-scoped-view-transitions 2025-09→2026-04
+  (M147); prompt-api-shape 2025-05→2026-05 (M148); corner-shape 2026-04→2025-08
+  (M139); translator 2026-05→2025-06 (M138); language-detector 2026-05→2025-06
+  (M138); css-shape-function 2026-06→2025-04 (M135); uint8array-base64-hex
+  2026-06→2025-09 (M140); css-scroll-state-container-queries 2026-06→2025-02
+  (M133). NOTE: 6 of these now PRE-date the Jan-2026 Claude flagships' cutoff —
+  their `groundTruth.notes` still say "post-dates every current model's cutoff"
+  and should be revised before the next pre/post-cutoff analysis. Validate: 40
+  items / 9 conditions / 0 errors / 0 warnings; live validator 0 errors (2
+  pre-existing diagnostic warnings only). Corpus-edit only — matrix NOT run.
 - (2026-06-18, `744fe71`) Strengthened the research harness: condition
   metadata, `mdn-url-only` / `spec-url-only` / `bcd-key-only` probes,
   skipped-cell handling, static/live corpus validator, structural-control

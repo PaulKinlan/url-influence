@@ -96,6 +96,7 @@ export const CORPUS = [
     target:
       "Write the CSS/HTML to enable cross-document (multi-page) View Transitions using @view-transition.",
     contentDate: "2024-09", // cross-document VT shipped Chrome 126/late 2024
+    bcdKey: "css.at-rules.view-transition",
     validation: { stackOverflowUrl: "https://stackoverflow.com/questions/78201234" },
     groundTruth: {
       mustMention: ["@view-transition", "navigation", "view-transition-name"],
@@ -107,6 +108,7 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition",
       semiOpaque: "https://github.com/WICG/view-transitions",
       opaque: "https://chromestatus.com/feature/5118874666663936",
+      specUrl: "https://drafts.csswg.org/css-view-transitions-2/#cross-doc-opt-in",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition",
       randomUrl: RANDOM_URL,
@@ -119,6 +121,7 @@ export const CORPUS = [
     target:
       "Write CSS using the CSS Anchor Positioning API (anchor-name, position-anchor, the anchor() function).",
     contentDate: "2024-08", // shipped Chrome 125 / mid 2024
+    bcdKey: "css.properties.anchor-name",
     validation: { stackOverflowUrl: "https://stackoverflow.com/questions/78745612" },
     groundTruth: {
       mustMention: ["anchor-name", "position-anchor", "anchor(", "position-area"],
@@ -130,6 +133,7 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning",
       semiOpaque: "https://github.com/oddbird/css-anchor-positioning",
       opaque: "https://chromestatus.com/feature/5124922471874560",
+      specUrl: "https://drafts.csswg.org/css-anchor-position-1/#anchoring",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning",
       randomUrl: RANDOM_URL,
@@ -225,7 +229,10 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write JavaScript using the Temporal API (Temporal.Now, Temporal.PlainDate, Temporal.ZonedDateTime) to do date arithmetic.",
-    contentDate: "2025-05", // Temporal began shipping in browsers mid-2025
+    // webstatus.dev + ChromeStatus 5668291307634688: Temporal shipped Chrome 144
+    // (2026-01-13), not mid-2025. Corrected from 2025-05.
+    contentDate: "2026-01",
+    bcdKey: "javascript.builtins.Temporal",
     validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79412345" },
     groundTruth: {
       mustMention: ["Temporal", "PlainDate", "ZonedDateTime", "Now"],
@@ -236,6 +243,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal",
       semiOpaque: "https://github.com/tc39/proposal-temporal",
       opaque: "https://chromestatus.com/feature/5668291307634688",
+      specUrl: "https://tc39.es/proposal-temporal/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal",
       randomUrl: RANDOM_URL,
@@ -279,6 +287,7 @@ export const CORPUS = [
       "Write HTML/CSS for a customizable <select> element (appearance: base-select, the ::picker(select) pseudo-element, and <selectedcontent>).",
     // Shipped Chrome 134 (2025-03-04). Post Gemini/GPT-5; pre Claude flagships.
     contentDate: "2025-03",
+    bcdKey: "css.properties.appearance.base-select",
     validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79501234" },
     groundTruth: {
       mustMention: [
@@ -294,6 +303,7 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/CSS/::picker",
       semiOpaque: "https://github.com/openui/open-ui",
       opaque: "https://chromestatus.com/feature/5737365999976448",
+      specUrl: "https://open-ui.org/components/customizableselect/",
       fullContentUrl:
         "https://developer.chrome.com/blog/a-customizable-select",
       randomUrl: RANDOM_URL,
@@ -333,9 +343,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write JavaScript/CSS using element-scoped View Transitions (calling startViewTransition() on an element rather than document) to animate just one component.",
-    // Shipped Chrome 140 (2025-09-02). Post Opus 4.6 / GPT-5.2 (Aug 2025);
-    // pre GPT-5.5 (Dec 2025) and the Jan-2026 Claude flagships.
-    contentDate: "2025-09",
+    // webstatus.dev + ChromeStatus 5109852273377280: element-scoped view
+    // transitions shipped Chrome 147 (2026-04-07), not Chrome 140/2025-09.
+    // Corrected from 2025-09 → post-dates every current flagship's cutoff.
+    contentDate: "2026-04",
+    bcdKey: "api.Element.startViewTransition",
     validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79612345" },
     groundTruth: {
       mustMention: ["startViewTransition", "view-transition-name", "element"],
@@ -347,6 +359,7 @@ export const CORPUS = [
         "https://developer.chrome.com/blog/element-scoped-view-transitions",
       semiOpaque: "https://github.com/WICG/view-transitions",
       opaque: "https://chromestatus.com/feature/5109852273377280",
+      specUrl: "https://drafts.csswg.org/css-view-transitions-2/#scoped-vt",
       fullContentUrl:
         "https://developer.chrome.com/blog/element-scoped-view-transitions",
       randomUrl: RANDOM_URL,
@@ -391,6 +404,7 @@ export const CORPUS = [
     // (latest is Opus 4.8 / Sonnet 4.6 at 2026-01-31). The CORRECT behaviour is
     // to be uncertain rather than confidently invent the exact syntax.
     contentDate: "2026-02",
+    bcdKey: "css.properties.animation-trigger",
     validation: { stackOverflowUrl: "https://stackoverflow.com/questions/79912345" },
     groundTruth: {
       mustMention: ["animation-trigger", "scroll"],
@@ -403,6 +417,7 @@ export const CORPUS = [
         "https://developer.chrome.com/blog/scroll-triggered-animations",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5181996801982464",
+      specUrl: "https://drafts.csswg.org/animation-triggers-1/#propdef-animation-trigger",
       fullContentUrl:
         "https://developer.chrome.com/blog/scroll-triggered-animations",
       randomUrl: RANDOM_URL,
@@ -459,6 +474,9 @@ export const CORPUS = [
       descriptive: "https://html-in-canvas.dev/",
       semiOpaque: "https://github.com/WICG/html-in-canvas",
       opaque: "https://chromestatus.com/feature/5114053285249024",
+      // No clean BCD key yet (origin trial, not in browser-compat-data); the only
+      // canonical spec is the WICG explainer (per webstatus.dev). bcdKey omitted.
+      specUrl: "https://github.com/WICG/html-in-canvas/blob/main/README.md",
       fullContentUrl:
         "https://developer.chrome.com/blog/html-in-canvas-origin-trial",
       randomUrl: RANDOM_URL,
@@ -478,7 +496,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write JavaScript using Chrome's built-in Prompt API to create a language-model session and prompt it for a response.",
-    contentDate: "2025-05", // global LanguageModel shape stabilised ~mid 2025 (Chrome 138)
+    // webstatus.dev (`languagemodel`) + ChromeStatus 5134603979063296: the
+    // LanguageModel surface shipped Chrome 148 (2026-05-05). Corrected from the
+    // earlier 2025-05 estimate.
+    contentDate: "2026-05",
+    bcdKey: "api.LanguageModel",
     groundTruth: {
       mustMention: ["LanguageModel", "create", "prompt", "availability"],
       notes:
@@ -488,6 +510,7 @@ export const CORPUS = [
       descriptive: "https://developer.chrome.com/docs/ai/prompt-api",
       semiOpaque: "https://github.com/webmachinelearning/prompt-api",
       opaque: "https://chromestatus.com/feature/5134603979063296",
+      specUrl: "https://webmachinelearning.github.io/prompt-api/",
       fullContentUrl: "https://developer.chrome.com/docs/ai/prompt-api",
       randomUrl: RANDOM_URL,
     },
@@ -542,6 +565,7 @@ export const CORPUS = [
     target:
       "Question with a definite answer: as of mid-2026, what is the current Baseline status of the CSS :has() selector — \"Newly available\" or \"Widely available\" — and on what date (YYYY-MM) did it first become Baseline Newly available? State the exact status and date.",
     contentDate: "2026-06", // the "Widely available" milestone post-dates all cutoffs
+    bcdKey: "css.selectors.has",
     groundTruth: {
       mustMention: ["Widely available", "2023-12", "Newly available"],
       notes:
@@ -551,6 +575,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/:has",
       semiOpaque: "https://github.com/web-platform-dx/web-features",
       opaque: "https://caniuse.com/css-has",
+      specUrl: "https://drafts.csswg.org/selectors/#relational",
       fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/:has",
       randomUrl: RANDOM_URL,
     },
@@ -577,6 +602,7 @@ export const CORPUS = [
     target:
       "Write CSS that fully justifies a paragraph and controls HOW the justification stretches the text using the text-justify property (e.g. spacing only between words vs between every character).",
     contentDate: "2026-02",
+    bcdKey: "css.properties.text-justify",
     groundTruth: {
       mustMention: [
         "text-justify",
@@ -591,6 +617,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/text-justify",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5079678972985344",
+      specUrl: "https://drafts.csswg.org/css-text-4/#text-justify-property",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/text-justify",
       randomUrl: RANDOM_URL,
@@ -607,6 +634,7 @@ export const CORPUS = [
     target:
       "Write CSS that indents every line of a paragraph EXCEPT the first (a hanging indent), and a variant that re-applies the indent after each forced line break, using text-indent with its keyword modifiers.",
     contentDate: "2026-03",
+    bcdKey: "css.properties.text-indent.hanging",
     groundTruth: {
       mustMention: ["text-indent", "hanging", "each-line"],
       notes:
@@ -616,6 +644,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5084062739988480",
+      specUrl: "https://drafts.csswg.org/css-text-4/#text-indent-property",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent",
       randomUrl: RANDOM_URL,
@@ -640,6 +669,10 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5153932394102784",
+      // named-feature() has no browser-compat-data entry yet (Proposed); only a
+      // spec anchor exists, so bcdKey is omitted and the bcd-key-only probe skips.
+      specUrl:
+        "https://drafts.csswg.org/css-conditional-5/#typedef-supports-named-feature-fn",
       fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/@supports",
       randomUrl: RANDOM_URL,
     },
@@ -654,7 +687,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write CSS that gives a box squircle (superellipse) corners instead of plain rounded corners, using the corner-shape property together with border-radius.",
-    contentDate: "2026-04",
+    // webstatus.dev (`corner-shape`) + ChromeStatus 5357329815699456: corner
+    // shaping shipped Chrome 139 (2025-08-05), not Chrome 147/2026-04. Corrected
+    // from 2026-04 → it pre-dates the Jan-2026 Claude flagships' cutoff.
+    contentDate: "2025-08",
+    bcdKey: "css.properties.corner-shape",
     groundTruth: {
       mustMention: ["corner-shape", "squircle", "superellipse(", "border-radius"],
       notes:
@@ -664,6 +701,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5357329815699456",
+      specUrl: "https://drafts.csswg.org/css-borders-4/#corner-shaping",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape",
       randomUrl: RANDOM_URL,
@@ -678,6 +716,7 @@ export const CORPUS = [
     target:
       "Write JavaScript that sums an array of floating-point numbers without the usual accumulated rounding error, using the new precise-summation Math method.",
     contentDate: "2026-04",
+    bcdKey: "javascript.builtins.Math.sumPrecise",
     groundTruth: {
       mustMention: ["Math.sumPrecise"],
       notes:
@@ -688,6 +727,8 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sumPrecise",
       semiOpaque: "https://github.com/tc39/proposal-math-sum",
       opaque: "https://chromestatus.com/feature/4790090146643968",
+      specUrl:
+        "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-math.sumprecise",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sumPrecise",
       randomUrl: RANDOM_URL,
@@ -727,7 +768,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write JavaScript using Chrome's built-in Translator API to create a translator for a source/target language pair and translate a string on-device.",
-    contentDate: "2026-05",
+    // webstatus.dev (`translator`) + ChromeStatus 5172811302961152: Translator
+    // shipped Chrome 138 (2025-06-24), not Chrome 148/2026-05. Corrected from
+    // 2026-05 → it pre-dates the Jan-2026 Claude flagships' cutoff.
+    contentDate: "2025-06",
+    bcdKey: "api.Translator",
     groundTruth: {
       mustMention: ["Translator", "create", "translate", "availability"],
       notes:
@@ -737,6 +782,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Translator",
       semiOpaque: "https://github.com/webmachinelearning/translation-api",
       opaque: "https://chromestatus.com/feature/5172811302961152",
+      specUrl: "https://webmachinelearning.github.io/translation-api/#translator-api",
       fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/API/Translator",
       randomUrl: RANDOM_URL,
     },
@@ -749,7 +795,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write JavaScript using Chrome's built-in Language Detector API to detect the most likely language of a piece of text on-device, with confidence scores.",
-    contentDate: "2026-05",
+    // webstatus.dev (`languagedetector`) + ChromeStatus 6494349985841152:
+    // Language Detector shipped Chrome 138 (2025-06-24), not Chrome 148/2026-05.
+    // Corrected from 2026-05 → it pre-dates the Jan-2026 Claude flagships' cutoff.
+    contentDate: "2025-06",
+    bcdKey: "api.LanguageDetector",
     groundTruth: {
       mustMention: ["LanguageDetector", "create", "detect", "availability"],
       notes:
@@ -760,6 +810,8 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector",
       semiOpaque: "https://github.com/webmachinelearning/translation-api",
       opaque: "https://chromestatus.com/feature/6494349985841152",
+      specUrl:
+        "https://webmachinelearning.github.io/translation-api/#language-detector-api",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector",
       randomUrl: RANDOM_URL,
@@ -775,6 +827,7 @@ export const CORPUS = [
     target:
       "Write CSS that forces an underline to ALWAYS break around glyph descenders (never touch them), using the text-decoration-skip-ink property's strongest value.",
     contentDate: "2026-05",
+    bcdKey: "css.properties.text-decoration-skip-ink.all",
     groundTruth: {
       mustMention: ["text-decoration-skip-ink", "all", "text-decoration-line"],
       notes:
@@ -785,6 +838,8 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-ink",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5077600085082112",
+      specUrl:
+        "https://drafts.csswg.org/css-text-decor-4/#valdef-text-decoration-skip-ink-all",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-ink",
       randomUrl: RANDOM_URL,
@@ -801,6 +856,7 @@ export const CORPUS = [
     target:
       "Write CSS that draws decorative rules (lines) in the gaps between rows and columns of a grid layout, using the CSS gap decorations properties.",
     contentDate: "2026-06",
+    bcdKey: "css.properties.row-rule",
     groundTruth: {
       mustMention: ["row-rule", "column-rule", "row-rule-style", "row-rule-color"],
       notes:
@@ -810,6 +866,7 @@ export const CORPUS = [
       descriptive: "https://developer.chrome.com/blog/gap-decorations",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5157805733183488",
+      specUrl: "https://drafts.csswg.org/css-gaps-1/#propdef-row-rule",
       fullContentUrl: "https://developer.chrome.com/blog/gap-decorations",
       randomUrl: RANDOM_URL,
     },
@@ -822,7 +879,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write CSS that clips an element to a custom outline made of line and curve segments using the shape() function in clip-path (responsive, unlike a fixed path()).",
-    contentDate: "2026-06",
+    // webstatus.dev (`shape-function`) + ChromeStatus 5172258539307008: the CSS
+    // shape() function shipped Chrome 135 (2025-04-01), not Chrome 149/2026-06.
+    // Corrected from 2026-06 → it pre-dates the Jan-2026 Claude flagships' cutoff.
+    contentDate: "2025-04",
+    bcdKey: "css.types.basic-shape.shape",
     groundTruth: {
       mustMention: ["shape(", "from", "line to", "clip-path", "close"],
       notes:
@@ -833,6 +894,7 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/shape",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5172258539307008",
+      specUrl: "https://drafts.csswg.org/css-shapes-1/#shape-function",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/shape",
       randomUrl: RANDOM_URL,
@@ -846,7 +908,11 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write JavaScript that converts a Uint8Array to and from base64 and hex strings using the new built-in Uint8Array methods (no manual btoa/atob loop).",
-    contentDate: "2026-06",
+    // webstatus.dev (`uint8array-base64-hex`) + ChromeStatus 6281131254874112:
+    // these methods shipped Chrome 140 (2025-09-02), not Chrome 149/2026-06.
+    // Corrected from 2026-06 → it pre-dates the Jan-2026 Claude flagships' cutoff.
+    contentDate: "2025-09",
+    bcdKey: "javascript.builtins.Uint8Array.toBase64",
     groundTruth: {
       mustMention: ["toBase64", "fromBase64", "toHex", "fromHex"],
       notes:
@@ -857,6 +923,8 @@ export const CORPUS = [
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/fromBase64",
       semiOpaque: "https://github.com/tc39/proposal-arraybuffer-base64",
       opaque: "https://chromestatus.com/feature/6281131254874112",
+      specUrl:
+        "https://tc39.es/ecma262/multipage/indexed-collections.html#sec-additional-properties-of-the-uint8array-prototype-object",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/fromBase64",
       randomUrl: RANDOM_URL,
@@ -871,7 +939,12 @@ export const CORPUS = [
     kind: "code",
     target:
       "Write CSS that styles a sticky header differently once it becomes stuck to the top while scrolling, using scroll-state container queries.",
-    contentDate: "2026-06",
+    // webstatus.dev (`container-scroll-state-queries`) + ChromeStatus
+    // 5072263730167808: scroll-state container queries shipped Chrome 133
+    // (2025-02-04), not Chrome 149/2026-06. Corrected from 2026-06 → it
+    // pre-dates the Jan-2026 Claude flagships' cutoff.
+    contentDate: "2025-02",
+    bcdKey: "css.at-rules.container.scroll-state_queries",
     groundTruth: {
       mustMention: [
         "container-type: scroll-state",
@@ -885,6 +958,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5072263730167808",
+      specUrl: "https://drafts.csswg.org/css-conditional-5/#scroll-state-container",
       fullContentUrl: "https://developer.mozilla.org/en-US/docs/Web/CSS/@container",
       randomUrl: RANDOM_URL,
     },
@@ -900,6 +974,9 @@ export const CORPUS = [
     target:
       "Write CSS that uses a solid color as an <image> value (e.g. a background-image that is a flat color swatch) using the image() function.",
     contentDate: "2026-06",
+    // BCD has no dedicated key for the color argument; css.types.image is the
+    // representative BCD key for the image() function this item exercises.
+    bcdKey: "css.types.image",
     groundTruth: {
       mustMention: ["image(", "background-image", "list-style-image"],
       notes:
@@ -909,6 +986,7 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/CSS/image/image",
       semiOpaque: "https://github.com/w3c/csswg-drafts",
       opaque: "https://chromestatus.com/feature/5121011285622784",
+      specUrl: "https://drafts.csswg.org/css-images-4/#image-notation",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/CSS/image/image",
       randomUrl: RANDOM_URL,
