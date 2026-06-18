@@ -149,11 +149,59 @@ async function callOpenAI(model, { system, user, maxTokens = 1500 }) {
   };
 }
 
+// xAI / Grok. OpenAI-compatible Chat Completions API at api.x.ai. Runs only if
+// XAI_API_KEY is present. Grok 4.x are reasoning models, so give a generous
+// token budget (reasoning can otherwise eat the visible output). Exact model
+// ids / params should be confirmed against GET https://api.x.ai/v1/models when
+// a key is first available.
+const XAI_URL = "https://api.x.ai/v1/chat/completions";
+
+async function callXai(model, { system, user, maxTokens = 1500 }) {
+  const key = requireEnv("XAI_API_KEY");
+  const res = await fetch(XAI_URL, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${key}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model,
+      max_tokens: Math.max(maxTokens, 8000),
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: user },
+      ],
+    }),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(
+      `xAI ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
+    );
+  }
+  const choice = json.choices?.[0];
+  const text = choice?.message?.content || "";
+  if (!text && choice?.finish_reason === "length") {
+    throw new Error(
+      "xAI empty completion (finish_reason=length: reasoning consumed the budget before any visible output)",
+    );
+  }
+  return {
+    text,
+    usage: {
+      inputTokens: json.usage?.prompt_tokens ?? null,
+      outputTokens: json.usage?.completion_tokens ?? null,
+    },
+    raw: json,
+  };
+}
+
 const ADAPTERS = {
   anthropic: callAnthropic,
   google: callGoogle,
   openai: callOpenAI,
-  // xai: callXai,        // add when a key is present
+  xai: callXai,
 };
 
 export async function callModel(modelEntry, prompt) {
@@ -166,6 +214,7 @@ export function hasKeyFor(vendor) {
   if (vendor === "anthropic") return !!process.env.ANTHROPIC_API_KEY;
   if (vendor === "google") return !!process.env.GEMINI_API_KEY;
   if (vendor === "openai") return !!process.env.OPENAI_API_KEY;
+  if (vendor === "xai") return !!process.env.XAI_API_KEY;
   return false;
 }
 
@@ -174,5 +223,6 @@ export function keyEnvFor(vendor) {
   if (vendor === "anthropic") return "ANTHROPIC_API_KEY";
   if (vendor === "google") return "GEMINI_API_KEY";
   if (vendor === "openai") return "OPENAI_API_KEY";
+  if (vendor === "xai") return "XAI_API_KEY";
   return null;
 }

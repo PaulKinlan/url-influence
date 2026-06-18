@@ -123,6 +123,30 @@ export const MODELS = [
     label: "GPT-5",
     pilot: false,
   },
+
+  // --- xAI (Grok) ----------------------------------------------------------
+  // Run ONLY if XAI_API_KEY is present (env or local .env). xAI's API is
+  // OpenAI-compatible (api.x.ai). apiIds match xAI's published model pages;
+  // confirm against GET https://api.x.ai/v1/models when a key is first
+  // available. Cutoffs from the xAI model cards, recorded in model-gap.json.
+  {
+    key: "grok-4.3",
+    vendor: "xai",
+    apiId: "grok-4.3",
+    cutoff: "2025-12-31", // December 2025
+    cutoffSource: "https://docs.x.ai/developers/models/grok-4.3",
+    label: "Grok 4.3",
+    pilot: false,
+  },
+  {
+    key: "grok-4",
+    vendor: "xai",
+    apiId: "grok-4",
+    cutoff: "2024-11-30", // November 2024
+    cutoffSource: "https://docs.x.ai/developers/models/grok-4",
+    label: "Grok 4",
+    pilot: false,
+  },
 ];
 
 export function pilotModels() {
