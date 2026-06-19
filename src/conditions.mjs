@@ -131,15 +131,22 @@ export function buildPrompt(item, condition, fetched) {
       ? "Produce the code. Output the actual code, with the real API names."
       : "Recall the content. State what it is and its key facts.";
 
-  // For `recall` items the only pointer is the opaque id, so the name baselines
-  // describe the work by its human NAME (the descriptive identifier) instead.
-  // `code` items already have a self-contained descriptive target.
-  const nameTask =
+  // `item.target` for recall items is OPAQUE-ID-REFERENTIAL ("the paper at this
+  // arXiv id"), which only reads coherently when the id is attached. So ANY
+  // condition that states the task in WORDS must describe the work by its human
+  // NAME instead. `taskDesc` is that self-contained description, shared by
+  // name-only, name-framed, url+name and full-content. `code` items already have
+  // a self-contained target.
+  const recallDesc = item.kind === "recall" ? DESCRIPTIVE_NAMES[item.id] : null;
+  const taskDesc =
     item.kind === "recall"
-      ? DESCRIPTIVE_NAMES[item.id]
-        ? `Recall ${DESCRIPTIVE_NAMES[item.id]}: what is it about, and what are its key facts / main contribution?`
-        : null // no descriptive name authored -> name baseline is N/A (skip)
+      ? recallDesc
+        ? `Recall ${recallDesc}: what is it about, and what are its key facts / main contribution?`
+        : item.target // only the 1 unmapped (expectUnknown) recall item; its URL/content still carries the pointer
       : item.target;
+  // Name baselines REQUIRE a real descriptive name for recall items (no id to
+  // attach), else N/A (skip) rather than emit the dangling "at this id" phrasing.
+  const nameTask = item.kind === "recall" && !recallDesc ? null : taskDesc;
 
   const system =
     "You are a precise technical assistant. Be concrete and use exact, real " +
@@ -216,20 +223,23 @@ export function buildPrompt(item, condition, fetched) {
     }
 
     case "url+name":
+      // Opaque URL PLUS the task by name. For recall items the "name" is the
+      // descriptive identifier (taskDesc), not the dangling "at this id" target.
       return {
         system,
         user:
-          `Task: ${item.target}\nReference URL: ${item.urls.opaque}\n\n` +
+          `Task: ${taskDesc}\nReference URL: ${item.urls.opaque}\n\n` +
           `${NO_BROWSE_NOTE}\n\n${taskVerb}`,
       };
 
     case "full-content": {
-      // Ceiling: paste the fetched real content.
+      // Ceiling: paste the fetched real content. Uses taskDesc so the recall
+      // framing names the work rather than referencing an absent id.
       const content = (fetched || "(content unavailable)").slice(0, 12000);
       return {
         system,
         user:
-          `Task: ${item.target}\n\nHere is the relevant reference content:\n\n` +
+          `Task: ${taskDesc}\n\nHere is the relevant reference content:\n\n` +
           `"""\n${content}\n"""\n\n${taskVerb}`,
       };
     }
