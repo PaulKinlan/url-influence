@@ -11,6 +11,7 @@
     "transcript": "node src/transcript.mjs",
     "analyze": "node src/analyze.mjs",
     "dashboard": "node src/dashboard.mjs",
+    "test": "node --test tests/unit.test.mjs",
     "validate": "node src/validate-corpus.mjs",
     "validate:live": "node src/validate-corpus.mjs --live",
     "pilot": "node src/validate-corpus.mjs && node src/run.mjs --pilot && node src/score.mjs && node src/transcript.mjs && node src/analyze.mjs && node src/dashboard.mjs",
