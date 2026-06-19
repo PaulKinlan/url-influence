@@ -14,6 +14,13 @@ export const CONDITION_DEFS = [
     description: "task described in words, no URL (baseline)",
   },
   {
+    key: "name-framed",
+    group: "core",
+    required: true,
+    description:
+      "the task DESCRIPTION in the SAME 'do whatever this describes' framing as url-only — isolates the framing cost from the identifier (url-only − name-framed = pure opaque-id-vs-description)",
+  },
+  {
     key: "url-only",
     group: "core",
     required: true,
@@ -65,7 +72,15 @@ export const CONDITION_DEFS = [
     required: true,
     urlKind: "fakeUrl",
     description:
-      "plausible but nonexistent URL of the same shape (structure control)",
+      "plausible but nonexistent URL of the same shape (structure control); NB descriptive for web items (the fake path still names the API)",
+  },
+  {
+    key: "fake-opaque-url",
+    group: "control",
+    required: true,
+    urlKind: "fakeOpaque",
+    description:
+      "an OPAQUE-shaped fake id (fake ChromeStatus#/arXiv#/SO#, uniform) — does opaque URL *shape* alone steer, independent of any real content?",
   },
   {
     key: "random-url",
@@ -90,6 +105,22 @@ export function conditionInfo(condition) {
 const NO_BROWSE_NOTE =
   "You do not have internet access and cannot open the URL. Answer only from your own knowledge of what is at that URL.";
 
+// An OPAQUE-shaped fake id matching the item's real opaque id type, so the
+// "does opaque URL SHAPE steer?" control is uniform across item types (unlike
+// `fakeUrl`, which is descriptive for web items). Nonexistent by construction.
+export function fakeOpaqueOf(item) {
+  const o = item?.urls?.opaque || "";
+  if (/chromestatus\.com\/feature\//.test(o))
+    return "https://chromestatus.com/feature/4000000000000001";
+  if (/arxiv\.org\/abs\//.test(o)) return "https://arxiv.org/abs/2099.99999";
+  if (/stackoverflow\.com\/questions\//.test(o))
+    return "https://stackoverflow.com/questions/99999991";
+  if (/datatracker|rfc-editor|ietf/.test(o))
+    return "https://datatracker.ietf.org/doc/rfc9998/";
+  if (/caniuse\.com/.test(o)) return "https://caniuse.com/zzz-nonexistent";
+  return item?.fakeUrl || "https://example.com/nonexistent/0000";
+}
+
 // `fetched` is the already-fetched page text for the full-content condition
 // (null otherwise). Returns { system, user }.
 export function buildPrompt(item, condition, fetched) {
@@ -109,6 +140,15 @@ export function buildPrompt(item, condition, fetched) {
       return {
         system,
         user: `Task: ${item.target}\n\n${taskVerb}`,
+      };
+
+    case "name-framed":
+      // Framing-matched baseline: same "do whatever this describes" framing as
+      // url-only, but with the plain task description instead of a URL. Lets us
+      // net out the "vaguer instruction" cost of url-only's framing.
+      return {
+        system,
+        user: `Do whatever the following describes:\n\n${item.target}\n\n${taskVerb}`,
       };
 
     case "url-only":
@@ -187,6 +227,16 @@ export function buildPrompt(item, condition, fetched) {
           `${NO_BROWSE_NOTE}\n\n${taskVerb}`,
       };
 
+    case "fake-opaque-url":
+      // An opaque-SHAPED fake id (uniform across item types). Isolates whether
+      // opaque URL *shape* alone steers output, independent of real content.
+      return {
+        system,
+        user:
+          `Do whatever the content at this URL describes:\n\n${fakeOpaqueOf(item)}\n\n` +
+          `${NO_BROWSE_NOTE}\n\n${taskVerb}`,
+      };
+
     case "random-url":
       // An unrelated real URL. Off-target control.
       return {
@@ -216,8 +266,12 @@ export function urlForCondition(item, condition) {
       return item.urls?.specUrl ?? null;
     case "bcd-key-only":
       return item.bcdKey ?? null;
+    case "name-framed":
+      return null;
     case "fake-structural-url":
       return item.fakeUrl;
+    case "fake-opaque-url":
+      return fakeOpaqueOf(item);
     case "random-url":
       return item.urls.randomUrl;
     case "full-content":

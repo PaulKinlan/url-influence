@@ -58,6 +58,8 @@ const ITEM = new Map(CORPUS.map((i) => [i.id, i]));
 // descriptive distinction that makes the numbers interpretable.
 const CONDITION_OPACITY = {
   "name-only": "— (no identifier; baseline)",
+  "name-framed": "— (no id; framing-matched baseline for url-only)",
+  "fake-opaque-url": "CONTROL — opaque-SHAPED fake id (uniform)",
   "url-only": "OPAQUE — bare id, does NOT name the content",
   "mdn-url-only": "DESCRIPTIVE — MDN path names the API",
   "spec-url-only": "CANONICAL — spec URL (usually names the feature)",
