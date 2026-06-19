@@ -8,9 +8,11 @@
   :root { --bg:#0f1115; --panel:#171a21; --line:#272b34; --fg:#e6e8ec; --mut:#9aa3b2; --acc:#6ea8fe; }
   * { box-sizing: border-box; }
   body { margin:0; font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--fg); }
-  header { padding:14px 18px; border-bottom:1px solid var(--line); }
+  header { padding:14px 18px; border-bottom:1px solid var(--line); position:relative; }
   header h1 { font-size:16px; margin:0 0 2px; }
   header .sub { color:var(--mut); font-size:12px; }
+  #copylink { position:absolute; top:14px; right:18px; background:none; border:1px solid var(--line); color:var(--fg); border-radius:6px; cursor:pointer; padding:5px 11px; font-size:12px; }
+  #copylink:hover { border-color:var(--fg); }
   .wrap { display:flex; gap:0; height:calc(100vh - 58px); }
   .controls { width:250px; min-width:250px; border-right:1px solid var(--line); padding:14px; overflow:auto; }
   .main { flex:1; overflow:auto; padding:16px; }
@@ -48,6 +50,7 @@
 <header>
   <h1>URL Influence — interactive results</h1>
   <div class="sub" id="sub"></div>
+  <button id="copylink" type="button" title="Copy a shareable link that reopens this exact view (filters + open cell)">copy link</button>
 </header>
 <div class="wrap">
   <div class="controls">
@@ -144,8 +147,77 @@ function init(){
   for(const id in D.items){ const s=D.items[id].source||"other"; srcCounts[s]=(srcCounts[s]||0)+1; }
   Object.keys(srcCounts).sort().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s+" ("+srcCounts[s]+")"; srcSel.appendChild(o); });
 
-  document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", render));
+  // Any control change re-renders AND rewrites the URL hash, so the address bar
+  // is always a shareable snapshot of the current view.
+  document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", onChange));
+  $("#copylink").addEventListener("click", copyLink);
+  // Restore state from a shared link (if any), else render the default view.
+  applyState();
+  // React to links pasted/edited while the page is open (back/forward too).
+  window.addEventListener("hashchange", applyState);
+}
+
+// ---- Shareable deep links -------------------------------------------------
+// The full view (every filter + the open cell) round-trips through the URL hash
+// so a link reopens the exact same configuration.
+let openCellKey = null;
+const cellKeyOf = (c)=> c.model+"|"+c.itemId+"|"+c.condition;
+
+function serializeState(){
+  const p = new URLSearchParams();
+  p.set("model", modelSel.value);
+  p.set("source", $("#source").value);
+  p.set("pop", $("#popularity").value);
+  p.set("cc", getRadio("cc"));
+  p.set("track", getRadio("track"));
+  p.set("opaque", getRadio("opaque"));
+  p.set("bucket", getRadio("bucket"));
+  p.set("conds", activeConds().join(","));
+  p.set("pass", $("#pass").value);
+  p.set("fail", $("#failonly").checked ? "1" : "0");
+  if(openCellKey) p.set("cell", openCellKey);
+  return p.toString();
+}
+
+// Rewrite the hash without adding history entries (replaceState doesn't fire
+// hashchange, so this won't loop with the hashchange listener).
+function updateHash(){ history.replaceState(null, "", "#"+serializeState()); }
+
+function onChange(){ render(); updateHash(); }
+
+function applyState(){
+  const p = new URLSearchParams(location.hash.replace(/^#/,""));
+  const setVal=(sel,key)=>{ if(p.has(key)) $(sel).value=p.get(key); };
+  const setRadio=(name,key)=>{ if(p.has(key)){ const el=document.querySelector('input[name="'+name+'"][value="'+CSS.escape(p.get(key))+'"]'); if(el) el.checked=true; } };
+  setVal("#model","model"); setVal("#source","source"); setVal("#popularity","pop"); setVal("#pass","pass");
+  setRadio("track","track"); setRadio("opaque","opaque"); setRadio("bucket","bucket"); setRadio("cc","cc");
+  if(p.has("fail")) $("#failonly").checked = p.get("fail")==="1";
+  if(p.has("conds")){
+    const set=new Set(p.get("conds").split(",").filter(Boolean));
+    document.querySelectorAll(".cond").forEach(c=> c.checked=set.has(c.value));
+  }
+  openCellKey = p.get("cell") || null;
   render();
+  if(openCellKey){
+    const [m,it,cond]=openCellKey.split("|");
+    const c=D.cells.find(x=> x.model===m && x.itemId===it && x.condition===cond);
+    if(c) showDetail(c); else openCellKey=null;
+  }
+  updateHash();
+}
+
+function copyLink(){
+  const url = location.href;
+  const done=()=>{ const b=$("#copylink"); const t=b.textContent; b.textContent="copied!"; setTimeout(()=>b.textContent=t,1200); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done, ()=>prompt("Copy this link:", url));
+  } else { prompt("Copy this link:", url); }
+}
+
+function closeDetail(){
+  document.getElementById("detail").classList.remove("open");
+  openCellKey = null;
+  updateHash();
 }
 
 function color(v){
@@ -245,7 +317,10 @@ function esc(s){ return (s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</
 function showDetail(c){
   const it=D.items[c.itemId];
   const j=c.judge||{};
-  let h='<button class="close" onclick="document.getElementById(\'detail\').classList.remove(\'open\')">close</button>';
+  openCellKey = cellKeyOf(c);
+  updateHash();
+  let h='<button class="close" onclick="closeDetail()">close</button>';
+  h+='<button class="close" style="right:64px" title="Copy a link that reopens this cell" onclick="copyLink()">copy link</button>';
   h+='<h3>'+c.itemId+' · '+c.condition+'</h3>';
   h+='<div class="kv">';
   h+='<div class="k">model</div><div>'+esc(c.label)+' (cutoff '+c.cutoff+')</div>';

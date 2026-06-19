@@ -15,14 +15,23 @@
 // not file://.
 
 import { readFile, writeFile } from "node:fs/promises";
-import { gzipSync } from "node:zlib";
+import { gzipSync, gunzipSync } from "node:zlib";
+import { existsSync } from "node:fs";
 import { CORPUS } from "./corpus.mjs";
 import { CONDITION_DEFS, CONDITIONS } from "./conditions.mjs";
 
 const PASS_DEFAULT = 0.5;
 
 async function main() {
-  const raw = await readFile("results/transcript.jsonl", "utf8");
+  // Read the AUTHORITATIVE gzipped transcript (what transcript.mjs writes). The
+  // plain .jsonl is gitignored and can lag, so prefer the .gz; fall back to plain
+  // only if the .gz is absent.
+  let raw;
+  if (existsSync("results/transcript.jsonl.gz")) {
+    raw = gunzipSync(await readFile("results/transcript.jsonl.gz")).toString("utf8");
+  } else {
+    raw = await readFile("results/transcript.jsonl", "utf8");
+  }
   const cells = raw
     .split("\n")
     .filter(Boolean)

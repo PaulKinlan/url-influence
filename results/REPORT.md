@@ -1,10 +1,10 @@
 # URL Influence: Results
 
-Report generated: 2026-06-19T20:42:35.349Z
-Data run / scored: 2026-06-19T20:41:53.741Z
-Code + data commit: [`4582493e70`](https://github.com/PaulKinlan/url-influence/commit/4582493e7022bacaebac7df896ef001e0a32c3b9)
+Report generated: 2026-06-19T22:51:58.912Z
+Data run / scored: 2026-06-19T22:51:56.552Z
+Code + data commit: [`1f416e3767`](https://github.com/PaulKinlan/url-influence/commit/1f416e3767ca856299455a6823fd1baed9237fd5)
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 10302 (judge failures: 0)
+Judged outputs: 12546 (judge failures: 4)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -12,9 +12,10 @@ Judged outputs: 10302 (judge failures: 0)
 
 **The question.** Can a bare *opaque* URL (just the string, page never fetched) make a model produce a better answer than simply naming the task — and does that only happen for content from before the model's training cutoff? If so, the URL is acting as a retrieval key into the weights.
 
-**Two tracks, measured separately (this is important).** The corpus has two kinds of item and they must NOT be averaged together:
+**Three tracks, measured separately (this is important).** The corpus has three kinds of item and they must NOT be averaged together:
 
-- **API-usage items with real opaque pointers** — the model is asked to USE a real API or recall real content, and the opaque URL is intended to point at that content. Correctness = did it produce the right surface. **The LIFT metric below is computed on these only.** This is the real test.
+- **`code` / API-usage items** — the model is asked to USE a real web API, and the opaque URL (a ChromeStatus id) points at that feature. name-only is a genuine task description, so url-only − name-only is a clean "opaque pointer vs description" contrast. **The LIFT metric is computed on these only.**
+- **`recall` items (opaque-id decoding)** — arXiv/RFC/CVE/SO/PMID/DOI/SHA/HF ids. Here name-only is the work's TITLE, which ≈ the answer for famous works, so url-only − name-only is NOT comparable to the API-usage lift and is kept OUT of it. These are analysed on their own — by id-type, by popularity (famous/moderate/obscure), and pre/post cutoff — to ask whether the bare opaque id decodes into the real content.
 - **Knowledge-calibration items** (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) — the content post-dates every model, so the *correct* answer is "I can't determine this". A bare URL scores HIGH here precisely because it hands the model nothing, so it correctly refuses. Averaging these into the lift manufactures a fake "url-only helps post-cutoff" signal — so they are reported on their own (refusal calibration), never in the lift.
 
 - **Intentional opaque structural controls** (`js-promise`) have `validation.opaqueRole = "structural-control"`. Their `url-only` prompt may contain a fake, missing, or unrelated opaque SO/ChromeStatus-shaped URL. They are useful controls, but excluded from headline lift because they are not real URL-to-content pointers.
@@ -77,17 +78,17 @@ The single averaged "lift" below is misleading: the effect is **categorical, not
 
 | Opaque id type (`url-only`) | items | mean url-only | mean name-only |
 |---|---|---|---|
-| RFC id | 9 | 0.79 |   -   |
-| CVE id | 8 | 0.73 |   -   |
-| GitHub commit SHA | 3 | 0.60 |   -   |
-| arXiv id | 20 | 0.55 |   -   |
-| Stack Overflow # | 8 | 0.26 |   -   |
-| DOI | 6 | 0.24 |   -   |
-| HuggingFace id | 3 | 0.14 |   -   |
-| PubMed id | 6 | 0.07 |   -   |
+| RFC id | 9 | 0.79 | 0.96 |
+| CVE id | 8 | 0.73 | 0.81 |
+| arXiv id | 20 | 0.55 | 0.71 |
+| Stack Overflow # | 8 | 0.26 | 0.75 |
+| DOI | 6 | 0.24 | 0.83 |
+| GitHub commit SHA | 8 | 0.22 | 0.50 |
+| HuggingFace id | 3 | 0.14 | 0.04 |
+| PubMed id | 6 | 0.07 | 0.82 |
 | control (synthetic, not a real pointer) | 1 | 0.02 | 1.00 |
 | ChromeStatus # | 28 | 0.01 | 0.78 |
-| caniuse | 1 | 0.00 |   -   |
+| caniuse | 1 | 0.00 | 0.08 |
 
 **Read:** a bare OPAQUE id works only when it is a *famous, memorised* id (landmark arXiv / RFC). Opaque numeric ids the model never memorised (ChromeStatus #, un-famous Stack Overflow #) decode to ~0 — even for features the model knows cold by name. The canonical web-id probes (`bcd-key-only`, `spec-url-only`) DO work, but they are semi-descriptive (the BCD key / spec path usually contains the feature name), so that is partly a *hint*, not pure opaque retrieval. See the per-item table below.
 
@@ -97,14 +98,14 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 
 | condition | identifier | mean (all models) |
 |---|---|---|
-| `name-only` | — (no identifier; baseline) | 0.78 |
-| `name-framed` | — (no id; framing-matched baseline for url-only) | 0.76 |
-| `url-only` | OPAQUE | 0.33 |
-| `mdn-url-only` | DESCRIPTIVE | 0.52 |
+| `name-only` | — (no identifier; baseline) | 0.74 |
+| `name-framed` | — (no id; framing-matched baseline for url-only) | 0.72 |
+| `url-only` | OPAQUE | 0.31 |
+| `mdn-url-only` | DESCRIPTIVE | 0.50 |
 | `spec-url-only` | CANONICAL | 0.59 |
 | `bcd-key-only` | CANONICAL, SEMI-DESCRIPTIVE | 0.73 |
-| `url+name` | OPAQUE id + the task name | 0.59 |
-| `full-content` | — (real page pasted in; ceiling) | 0.88 |
+| `url+name` | OPAQUE id + the task name | 0.74 |
+| `full-content` | — (real page pasted in; ceiling) | 0.94 |
 | `fake-structural-url` | CONTROL | 0.12 |
 | `fake-opaque-url` | CONTROL | 0.00 |
 | `random-url` | CONTROL | 0.00 |
@@ -113,7 +114,7 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 
 Two controls test whether the `url-only` collapse is real or an artifact:
 
-- **Framing.** `name-framed` puts the plain task description in the SAME "do whatever this describes" wording as `url-only`. Framing cost = name-framed − name-only = **-0.02** (≈0): the framing does NOT explain url-only's low score. So the **framing-adjusted lift** (url-only − name-framed = **-0.44**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
+- **Framing.** `name-framed` puts the plain task description in the SAME "do whatever this describes" wording as `url-only`. Framing cost = name-framed − name-only = **-0.01** (≈0): the framing does NOT explain url-only's low score. So the **framing-adjusted lift** (url-only − name-framed = **-0.41**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
 - **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.12**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
 
 ## Per-item identifier reference
@@ -165,6 +166,7 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | CVE id | — | — | 1 (2026-04) |
 | `doi-optuna-kdd` | 2019-07-25 | `doi.org/10.1145/3292500.3330701` | DOI | — | — | 1 (2026-02) |
 | `arxiv-gpt3` | 2020-05-28 | `arxiv.org/abs/2005.14165` | arXiv id | — | — | 1 (2025-09) |
+| `gh-sha-obscure-slugify-empty-separator` | 2020-07-18 | `github.com/sindresorhus/slugify/commit/d7bf7cc06c63676b273fa496340f4a85a64d7fe8` | GitHub commit SHA | — | — | — |
 | `doi-alphafold-nature` | 2021-07-15 | `doi.org/10.1038/s41586-021-03819-2` | DOI | — | — | 0 |
 | `cve-2021-44228-log4shell` | 2021-12-10 | `nvd.nist.gov/vuln/detail/CVE-2021-44228` | CVE id | — | — | 3 (2026-02) |
 | `rfc-9110-http-semantics` | 2022-06 | `datatracker.ietf.org/doc/rfc9110/` | RFC id | — | — | 1 (2025-12) |
@@ -190,8 +192,10 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `arxiv-kimi-k2` | 2025-07 | `arxiv.org/abs/2507.20534` | arXiv id | — | — | 1 (2026-04) |
 | `corner-shape-squircle` | 2025-08 | `chromestatus.com/feature/5357329815699456` | ChromeStatus # | Y | Y | 1 (2026-05) |
 | `uint8array-base64-hex` | 2025-09 | `chromestatus.com/feature/6281131254874112` | ChromeStatus # | Y | Y | 0 |
+| `gh-sha-obscure-slugify-transliterate` | 2025-09-11 | `github.com/sindresorhus/slugify/commit/dc4b4457aa476c7fa04e467761d19d4eb6cd1cba` | GitHub commit SHA | — | — | — |
 | `arxiv-gpt5-system-card` | 2025-12 | `arxiv.org/abs/2601.03267` | arXiv id | — | — | 0 |
 | `temporal-api` | 2026-01 | `chromestatus.com/feature/5668291307634688` | ChromeStatus # | Y | Y | 1 (2025-06) |
+| `gh-sha-obscure-execa-prototype-pollution` | 2026-01-29 | `github.com/sindresorhus/execa/commit/f3a2e8481a1e9138de3895827895c834078b9456` | GitHub commit SHA | — | — | — |
 | `scroll-triggered-animations` | 2026-02 | `chromestatus.com/feature/5181996801982464` | ChromeStatus # | Y | Y | 1 (2026-04) |
 | `html-in-canvas` | 2026-02 | `chromestatus.com/feature/5114053285249024` | ChromeStatus # | Y | — | 0 |
 | `text-justify-css-property` | 2026-02 | `chromestatus.com/feature/5079678972985344` | ChromeStatus # | Y | Y | 0 |
@@ -207,6 +211,7 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `math-sumprecise` | 2026-04 | `chromestatus.com/feature/4790090146643968` | ChromeStatus # | Y | Y | 1 (2026-04) |
 | `gamepad-event-driven-input` | 2026-04 | `chromestatus.com/feature/5989275208253440` | ChromeStatus # | — | — | 0 |
 | `doi-biorxiv-endomesoderm-grn` | 2026-04-01 | `doi.org/10.64898/2026.03.31.715602` | DOI | — | — | 0 |
+| `gh-sha-obscure-ky-searchparams` | 2026-04-21 | `github.com/sindresorhus/ky/commit/add0703b7ea2e20f5afe16ab5d9507a16e275f20` | GitHub commit SHA | — | — | — |
 | `hf-qwen3-6-27b` | 2026-04-21 | `huggingface.co/Qwen/Qwen3.6-27B` | HuggingFace id | — | — | 1 (2026-05) |
 | `arxiv-future-fake-real-id` | 2026-05 | `arxiv.org/abs/2605.04567` | arXiv id | — | — | 0 |
 | `prompt-api-shape` | 2026-05 | `chromestatus.com/feature/5134603979063296` | ChromeStatus # | Y | Y | 0 |
@@ -218,6 +223,7 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `arxiv-diffusiongemma-transparency` | 2026-06-18 | `arxiv.org/abs/2606.20560` | arXiv id | — | — | 0 |
 | `arxiv-lie-algebra-attention` | 2026-06-18 | `arxiv.org/abs/2606.20547` | arXiv id | — | — | 0 |
 | `arxiv-multitask-bayesian-icl` | 2026-06-18 | `arxiv.org/abs/2606.20538` | arXiv id | — | — | 0 |
+| `gh-sha-obscure-hono-bun-native` | 2026-06-18 | `github.com/honojs/hono/commit/d29982cc40c3babb417db625ab0671d982398646` | GitHub commit SHA | — | — | — |
 
 *CC = number of Common Crawl monthly snapshots (of 6 checked, 2025-06 .. 2026-05) that captured the opaque URL; first-seen month in parens. `0` = absent from all (e.g. StackOverflow blocks the crawler); `—` = item has no opaque URL. CC presence is a noisy, incomplete training-inclusion covariate — a URL absent here may still be in training via other routes, and presence does not guarantee recall.*
 
@@ -236,99 +242,104 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 
 | item | opaque id type | name | opaque | mdn | spec | bcd | full |
 |---|---|---|---|---|---|---|---|
-| `pmid-7466396-evolution-cooperation` | PubMed id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `rfc-791-ip` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-1149-avian-carriers` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-2616-http11` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `pmid-10676951-dlbcl-gene-expression` | PubMed id |   -   | 0.00 | 0.00 |   -   |   -   | 0.99 |
-| `pmid-11237011-human-genome` | PubMed id |   -   | 0.45 | 0.45 |   -   |   -   | 1.00 |
-| `doi-human-genome-science` | DOI |   -   | 0.38 | 0.46 |   -   |   -   | 0.00 |
-| `gh-sha-git-initial-commit` | GitHub commit SHA |   -   | 0.85 | 0.76 |   -   |   -   | 1.00 |
-| `gh-sha-linux-initial-git` | GitHub commit SHA |   -   | 0.95 | 0.98 |   -   |   -   | 1.00 |
-| `so-111102-javascript-closures` | Stack Overflow # |   -   | 0.15 | 0.23 |   -   |   -   | 0.86 |
-| `so-178325-jquery-element-hidden` | Stack Overflow # |   -   | 0.00 | 0.00 |   -   |   -   | 0.85 |
-| `so-503093-redirect-webpage` | Stack Overflow # |   -   | 0.77 | 0.77 |   -   |   -   | 0.93 |
-| `so-1335851-use-strict` | Stack Overflow # |   -   | 0.31 | 0.15 |   -   |   -   | 0.88 |
-| `gh-sha-bitcoin-first-commit` | GitHub commit SHA |   -   | 0.00 | 0.07 |   -   |   -   | 0.83 |
-| `doi-corn-seed-traits-pricing` | DOI |   -   | 0.00 | 0.00 |   -   |   -   | 0.00 |
-| `so-11227809-branch-prediction` | Stack Overflow # |   -   | 0.85 | 0.72 |   -   |   -   | 1.00 |
-| `arxiv-word2vec` | arXiv id |   -   | 0.84 | 0.85 |   -   |   -   | 0.99 |
+| `pmid-7466396-evolution-cooperation` | PubMed id | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `rfc-791-ip` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `rfc-1149-avian-carriers` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `rfc-2616-http11` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `pmid-10676951-dlbcl-gene-expression` | PubMed id | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `pmid-11237011-human-genome` | PubMed id | 1.00 | 0.45 | 0.45 |   -   |   -   | 1.00 |
+| `doi-human-genome-science` | DOI | 1.00 | 0.38 | 0.46 |   -   |   -   | 1.00 |
+| `gh-sha-git-initial-commit` | GitHub commit SHA | 0.86 | 0.85 | 0.76 |   -   |   -   | 0.97 |
+| `gh-sha-linux-initial-git` | GitHub commit SHA | 1.00 | 0.95 | 0.98 |   -   |   -   | 1.00 |
+| `so-111102-javascript-closures` | Stack Overflow # | 0.95 | 0.15 | 0.23 |   -   |   -   | 1.00 |
+| `so-178325-jquery-element-hidden` | Stack Overflow # | 0.99 | 0.00 | 0.00 |   -   |   -   | 0.75 |
+| `so-503093-redirect-webpage` | Stack Overflow # | 0.92 | 0.77 | 0.77 |   -   |   -   | 0.98 |
+| `so-1335851-use-strict` | Stack Overflow # | 1.00 | 0.31 | 0.15 |   -   |   -   | 0.97 |
+| `gh-sha-bitcoin-first-commit` | GitHub commit SHA | 0.77 | 0.00 | 0.07 |   -   |   -   | 0.94 |
+| `doi-corn-seed-traits-pricing` | DOI | 0.92 | 0.00 | 0.00 |   -   |   -   | 0.67 |
+| `so-11227809-branch-prediction` | Stack Overflow # | 0.97 | 0.85 | 0.72 |   -   |   -   | 1.00 |
+| `arxiv-word2vec` | arXiv id | 1.00 | 0.84 | 0.85 |   -   |   -   | 0.98 |
 | `js-promise` | control (synthetic, not a real pointer) | 1.00 | 0.02 | 1.00 | 0.53 | 1.00 | 1.00 |
-| `cve-2014-0160-heartbleed` | CVE id |   -   | 0.92 | 0.98 |   -   |   -   | 1.00 |
-| `arxiv-gan` | arXiv id |   -   | 1.00 | 0.99 |   -   |   -   | 1.00 |
-| `arxiv-vgg` | arXiv id |   -   | 0.92 | 0.92 |   -   |   -   | 1.00 |
-| `arxiv-adam` | arXiv id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2014-0160-heartbleed` | CVE id | 1.00 | 0.92 | 0.98 |   -   |   -   | 1.00 |
+| `arxiv-gan` | arXiv id | 1.00 | 1.00 | 0.99 |   -   |   -   | 1.00 |
+| `arxiv-vgg` | arXiv id | 1.00 | 0.92 | 0.92 |   -   |   -   | 1.00 |
+| `arxiv-adam` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `service-worker` | ChromeStatus # | 1.00 | 0.00 | 0.97 | 0.95 | 0.74 | 1.00 |
-| `pmid-25592156-hydrogel-immunoprotection` | PubMed id |   -   | 0.00 | 0.00 |   -   |   -   | 0.97 |
+| `pmid-25592156-hydrogel-immunoprotection` | PubMed id | 0.79 | 0.00 | 0.00 |   -   |   -   | 0.96 |
 | `fetch-api` | ChromeStatus # | 0.96 | 0.00 | 0.95 | 0.61 | 1.00 | 0.98 |
-| `arxiv-knowledge-distillation` | arXiv id |   -   | 0.69 | 0.69 |   -   |   -   | 1.00 |
-| `arxiv-unet` | arXiv id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `doi-deep-learning-nature-review` | DOI |   -   | 0.23 | 0.62 |   -   |   -   | 0.00 |
-| `arxiv-resnet` | arXiv id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `arxiv-knowledge-distillation` | arXiv id | 1.00 | 0.69 | 0.69 |   -   |   -   | 1.00 |
+| `arxiv-unet` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `doi-deep-learning-nature-review` | DOI | 1.00 | 0.23 | 0.62 |   -   |   -   | 1.00 |
+| `arxiv-resnet` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `intersection-observer` | ChromeStatus # | 1.00 | 0.00 | 0.99 | 1.00 | 0.99 | 0.99 |
 | `async-await` | ChromeStatus # | 0.88 | 0.07 | 0.80 | 0.55 | 0.86 | 0.65 |
-| `arxiv-pate` | arXiv id |   -   | 0.08 | 0.08 |   -   |   -   | 1.00 |
+| `arxiv-pate` | arXiv id | 1.00 | 0.08 | 0.08 |   -   |   -   | 1.00 |
 | `css-grid` | ChromeStatus # | 1.00 | 0.00 | 0.92 | 0.91 | 0.85 | 1.00 |
-| `cve-2017-0144-eternalblue` | CVE id |   -   | 1.00 | 1.00 |   -   |   -   | 0.98 |
-| `arxiv-attention` | arXiv id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `arxiv-ppo` | arXiv id |   -   | 0.77 | 0.69 |   -   |   -   | 1.00 |
-| `pmid-28778026-deep-learning-medical-survey` | PubMed id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `rfc-8259-json` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `cve-2018-7600-drupalgeddon2` | CVE id |   -   | 0.95 | 1.00 |   -   |   -   | 1.00 |
-| `arxiv-bert` | arXiv id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `cve-2019-0708-bluekeep` | CVE id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `doi-optuna-kdd` | DOI |   -   | 0.00 | 0.00 |   -   |   -   | 0.00 |
-| `arxiv-gpt3` | arXiv id |   -   | 0.92 | 0.92 |   -   |   -   | 1.00 |
-| `doi-alphafold-nature` | DOI |   -   | 0.82 | 0.79 |   -   |   -   | 0.00 |
-| `cve-2021-44228-log4shell` | CVE id |   -   | 1.00 | 0.97 |   -   |   -   | 1.00 |
-| `rfc-9110-http-semantics` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-9114-http3` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-9293-tcp` | RFC id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2017-0144-eternalblue` | CVE id | 1.00 | 1.00 | 1.00 |   -   |   -   | 0.99 |
+| `arxiv-attention` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `arxiv-ppo` | arXiv id | 1.00 | 0.77 | 0.69 |   -   |   -   | 1.00 |
+| `pmid-28778026-deep-learning-medical-survey` | PubMed id | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `rfc-8259-json` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2018-7600-drupalgeddon2` | CVE id | 1.00 | 0.95 | 1.00 |   -   |   -   | 1.00 |
+| `arxiv-bert` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2019-0708-bluekeep` | CVE id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `doi-optuna-kdd` | DOI | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-gpt3` | arXiv id | 1.00 | 0.92 | 0.92 |   -   |   -   | 1.00 |
+| `gh-sha-obscure-slugify-empty-separator` | GitHub commit SHA | 0.68 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `doi-alphafold-nature` | DOI | 1.00 | 0.82 | 0.79 |   -   |   -   | 1.00 |
+| `cve-2021-44228-log4shell` | CVE id | 1.00 | 1.00 | 0.97 |   -   |   -   | 1.00 |
+| `rfc-9110-http-semantics` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `rfc-9114-http3` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `rfc-9293-tcp` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `fedcm` | ChromeStatus # | 1.00 | 0.00 | 0.87 | 0.95 | 1.00 | 1.00 |
 | `view-transitions` | ChromeStatus # | 0.98 | 0.08 | 0.94 | 0.90 | 0.97 | 0.90 |
-| `arxiv-mamba` | arXiv id |   -   | 0.46 | 0.38 |   -   |   -   | 1.00 |
-| `so-78084814-coredump-file-mapping` | Stack Overflow # |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `cve-2024-3094-xz-backdoor` | CVE id |   -   | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `arxiv-mamba` | arXiv id | 1.00 | 0.46 | 0.38 |   -   |   -   | 1.00 |
+| `so-78084814-coredump-file-mapping` | Stack Overflow # | 0.54 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `cve-2024-3094-xz-backdoor` | CVE id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `popover-api` | ChromeStatus # | 0.96 | 0.15 | 0.97 | 0.92 | 0.95 | 0.92 |
 | `css-anchor-positioning` | ChromeStatus # | 0.98 | 0.08 | 0.93 | 0.81 | 0.94 | 0.97 |
 | `view-transitions-cross-doc` | ChromeStatus # | 0.96 | 0.00 | 0.88 | 0.77 | 0.89 | 0.91 |
-| `arxiv-deepseek-r1` | arXiv id |   -   | 0.28 | 0.15 |   -   |   -   | 1.00 |
-| `rfc-9700-oauth-security-bcp` | RFC id |   -   | 0.15 | 0.13 |   -   |   -   | 1.00 |
-| `rfc-9701-jwt-oauth-introspection` | RFC id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-deepseek-r1` | arXiv id | 0.77 | 0.28 | 0.15 |   -   |   -   | 1.00 |
+| `rfc-9700-oauth-security-bcp` | RFC id | 0.91 | 0.15 | 0.13 |   -   |   -   | 1.00 |
+| `rfc-9701-jwt-oauth-introspection` | RFC id | 0.75 | 0.00 | 0.00 |   -   |   -   | 1.00 |
 | `css-scroll-state-container-queries` | ChromeStatus # | 0.80 | 0.00 | 0.00 | 0.55 | 0.58 | 0.90 |
-| `arxiv-gemma-3` | arXiv id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-gemma-3` | arXiv id | 0.29 | 0.00 | 0.00 |   -   |   -   | 0.99 |
 | `customizable-select` | ChromeStatus # | 0.77 | 0.00 | 0.38 | 0.25 | 0.47 | 0.87 |
 | `css-shape-function` | ChromeStatus # | 0.67 | 0.00 | 0.54 | 0.21 | 0.72 | 0.88 |
 | `translator-api` | ChromeStatus # | 0.34 | 0.00 | 0.35 | 0.42 | 0.60 | 0.87 |
 | `language-detector-api` | ChromeStatus # | 0.47 | 0.00 | 0.49 | 0.32 | 0.67 | 0.96 |
-| `arxiv-kimi-k2` | arXiv id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-kimi-k2` | arXiv id | 0.09 | 0.00 | 0.00 |   -   |   -   | 1.00 |
 | `corner-shape-squircle` | ChromeStatus # | 0.68 | 0.00 | 0.36 | 0.20 | 0.37 | 1.00 |
 | `uint8array-base64-hex` | ChromeStatus # | 1.00 | 0.00 | 0.53 | 0.43 | 0.40 | 1.00 |
-| `arxiv-gpt5-system-card` | arXiv id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `gh-sha-obscure-slugify-transliterate` | GitHub commit SHA | 0.15 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-gpt5-system-card` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
 | `temporal-api` | ChromeStatus # | 0.93 | 0.00 | 0.92 | 0.93 | 0.97 | 1.00 |
+| `gh-sha-obscure-execa-prototype-pollution` | GitHub commit SHA | 0.10 | 0.00 | 0.00 |   -   |   -   | 1.00 |
 | `text-justify-css-property` | ChromeStatus # | 0.97 | 0.00 | 1.00 | 0.97 | 1.00 | 0.99 |
-| `so-79886234-java25-file-exists` | Stack Overflow # |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `so-79890462-reinterpret-cast-structs` | Stack Overflow # |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `cve-2026-25000-wheel-of-life` | CVE id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `hf-qwen3-5-4b` | HuggingFace id |   -   | 0.18 | 0.18 |   -   |   -   | 0.97 |
+| `so-79886234-java25-file-exists` | Stack Overflow # | 0.13 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `so-79890462-reinterpret-cast-structs` | Stack Overflow # | 0.46 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `cve-2026-25000-wheel-of-life` | CVE id | 0.34 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `hf-qwen3-5-4b` | HuggingFace id | 0.00 | 0.18 | 0.18 |   -   |   -   | 0.68 |
 | `css-text-indent-hanging` | ChromeStatus # | 0.88 | 0.00 | 0.77 | 0.78 | 0.73 | 1.00 |
 | `named-feature-supports` | ChromeStatus # | 0.20 | 0.00 | 0.00 | 0.00 |   -   | 0.95 |
-| `cve-2026-3000-idexpert-rce` | CVE id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `hf-gemma-4-26b-a4b-it` | HuggingFace id |   -   | 0.15 | 0.15 |   -   |   -   | 0.58 |
+| `cve-2026-3000-idexpert-rce` | CVE id | 0.17 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `hf-gemma-4-26b-a4b-it` | HuggingFace id | 0.11 | 0.15 | 0.15 |   -   |   -   | 0.58 |
 | `element-scoped-view-transitions` | ChromeStatus # | 0.75 | 0.00 | 0.40 | 0.53 | 0.85 | 0.95 |
 | `math-sumprecise` | ChromeStatus # | 0.77 | 0.00 | 0.48 | 0.47 | 0.82 | 0.93 |
 | `gamepad-event-driven-input` | ChromeStatus # | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.00 |
-| `doi-biorxiv-endomesoderm-grn` | DOI |   -   | 0.00 | 0.00 |   -   |   -   | 0.00 |
-| `hf-qwen3-6-27b` | HuggingFace id |   -   | 0.09 | 0.12 |   -   |   -   | 0.89 |
+| `doi-biorxiv-endomesoderm-grn` | DOI | 0.07 | 0.00 | 0.00 |   -   |   -   | 0.18 |
+| `gh-sha-obscure-ky-searchparams` | GitHub commit SHA | 0.08 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `hf-qwen3-6-27b` | HuggingFace id | 0.00 | 0.09 | 0.12 |   -   |   -   | 0.72 |
 | `prompt-api-shape` | ChromeStatus # | 0.15 | 0.00 | 0.38 | 0.38 | 0.40 | 0.84 |
 | `text-decoration-skip-ink-all` | ChromeStatus # | 0.92 | 0.00 | 0.73 | 0.92 | 0.95 | 1.00 |
-| `pmid-42224782-crispr-echinococcus` | PubMed id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `baseline-has-status` | caniuse |   -   | 0.00 | 0.00 | 0.00 | 0.00 | 0.22 |
+| `pmid-42224782-crispr-echinococcus` | PubMed id | 0.15 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `baseline-has-status` | caniuse | 0.08 | 0.00 | 0.00 | 0.00 | 0.00 | 0.04 |
 | `css-gap-decorations` | ChromeStatus # | 0.75 | 0.00 | 0.56 | 0.53 | 0.53 | 0.88 |
 | `css-image-color-function` | ChromeStatus # | 0.96 | 0.00 | 0.36 | 0.33 | 0.10 | 0.97 |
-| `arxiv-diffusiongemma-transparency` | arXiv id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `arxiv-lie-algebra-attention` | arXiv id |   -   | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `arxiv-multitask-bayesian-icl` | arXiv id |   -   | 0.00 | 0.00 |   -   |   -   | 0.99 |
+| `arxiv-diffusiongemma-transparency` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-lie-algebra-attention` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-multitask-bayesian-icl` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `gh-sha-obscure-hono-bun-native` | GitHub commit SHA | 0.33 | 0.00 | 0.00 |   -   |   -   | 1.00 |
 
 ## Worked judge examples — how cells were scored
 
@@ -355,114 +366,114 @@ _This averages a sharply bimodal, item-specific signal, so a single "lift −0.5
 
 | Model | cutoff | overall lift | pre-cutoff lift | post-cutoff lift | n pre/post |
 |---|---|---|---|---|---|
-| Claude Opus 4.8 | 2026-01-31 | -0.50 | -0.50 | -0.65 | 69/23 |
-| Claude Sonnet 4.6 | 2026-01-31 | -0.50 | -0.49 | -0.62 | 69/23 |
-| Claude Opus 4.6 | 2025-08-31 | -0.45 | -0.38 | -0.70 | 66/26 |
-| Claude Sonnet 4.5 | 2025-07-31 | -0.48 | -0.49 | -0.59 | 65/27 |
-| Gemini 3.1 Pro | 2025-01-31 | -0.32 | -0.44 | -0.49 | 58/34 |
-| Gemini 3.5 Flash | 2025-01-31 | -0.20 | -0.44 | -0.31 | 58/34 |
-| GPT-5.5 | 2025-12-01 | -0.51 | -0.42 | -0.80 | 67/25 |
-| GPT-5.2 | 2025-08-31 | -0.61 | -0.57 | -0.78 | 66/26 |
-| GPT-5 | 2024-09-30 | -0.29 | -0.42 | -0.43 | 55/37 |
-| Grok 4.3 | 2025-12-31 | -0.52 | -0.48 | -0.71 | 68/24 |
-| Grok 4 | 2024-11-30 | -0.48 | -0.37 | -0.74 | 55/37 |
-| GLM-5.2 | 2025-10-31 | -0.47 | -0.44 | -0.64 | 67/25 |
-| GLM-5.1 | 2025-10-31 | -0.44 | -0.35 | -0.73 | 67/25 |
+| Claude Opus 4.8 | 2026-01-31 | -0.78 | -0.99 | -0.48 | 18/12 |
+| Claude Sonnet 4.6 | 2026-01-31 | -0.79 | -0.94 | -0.57 | 18/12 |
+| Claude Opus 4.6 | 2025-08-31 | -0.79 | -0.86 | -0.71 | 16/14 |
+| Claude Sonnet 4.5 | 2025-07-31 | -0.68 | -0.86 | -0.51 | 15/15 |
+| Gemini 3.1 Pro | 2025-01-31 | -0.62 | -1.00 | -0.43 | 10/20 |
+| Gemini 3.5 Flash | 2025-01-31 | -0.45 | -0.99 | -0.19 | 10/20 |
+| GPT-5.5 | 2025-12-01 | -0.76 | -0.86 | -0.64 | 17/13 |
+| GPT-5.2 | 2025-08-31 | -0.78 | -0.89 | -0.65 | 16/14 |
+| GPT-5 | 2024-09-30 | -0.54 | -0.98 | -0.31 | 10/20 |
+| Grok 4.3 | 2025-12-31 | -0.71 | -0.86 | -0.52 | 17/13 |
+| Grok 4 | 2024-11-30 | -0.71 | -0.91 | -0.62 | 10/20 |
+| GLM-5.2 | 2025-10-31 | -0.72 | -0.86 | -0.54 | 17/13 |
+| GLM-5.1 | 2025-10-31 | -0.66 | -0.69 | -0.62 | 17/13 |
 
 ## Real opaque API-usage items: pre/post mean correctness per condition
 
 Knowledge-calibration items and intentional opaque structural controls excluded. In **pre** rows, does `url-only` approach `name-only`? In **post** rows, it should not beat `name-only`; controls stay flat.
 
-### Claude Opus 4.8 (cutoff 2026-01-31) — 69 pre / 23 post API items
+### Claude Opus 4.8 (cutoff 2026-01-31) — 18 pre / 12 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.99 | 0.98 | 0.49 | 0.69 | 0.88 | 0.98 | 0.71 | 0.92 | 0.23 | 0.00 | 0.00 |
-| post-cutoff | 0.65 | 0.71 | 0.00 | 0.32 | 0.78 | 0.75 | 0.37 | 0.74 | 0.18 | 0.00 | 0.00 |
+| pre-cutoff | 0.99 | 0.98 | 0.00 | 0.92 | 0.88 | 0.98 | 0.99 | 0.98 | 0.65 | 0.00 | 0.00 |
+| post-cutoff | 0.65 | 0.63 | 0.17 | 0.65 | 0.82 | 0.89 | 0.72 | 0.70 | 0.37 | 0.17 | 0.08 |
 
-### Claude Sonnet 4.6 (cutoff 2026-01-31) — 69 pre / 23 post API items
-
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.94 | 0.86 | 0.45 | 0.68 | 0.74 | 0.94 | 0.71 | 0.92 | 0.14 | 0.00 | 0.00 |
-| post-cutoff | 0.68 | 0.70 | 0.07 | 0.34 | 0.68 | 0.69 | 0.35 | 0.87 | 0.12 | 0.00 | 0.00 |
-
-### Claude Opus 4.6 (cutoff 2025-08-31) — 66 pre / 26 post API items
+### Claude Sonnet 4.6 (cutoff 2026-01-31) — 18 pre / 12 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.86 | 0.86 | 0.48 | 0.69 | 0.63 | 0.98 | 0.67 | 0.90 | 0.16 | 0.00 | 0.00 |
-| post-cutoff | 0.74 | 0.74 | 0.04 | 0.37 | 0.66 | 0.69 | 0.46 | 0.87 | 0.21 | 0.00 | 0.00 |
+| pre-cutoff | 0.94 | 0.86 | 0.00 | 0.84 | 0.74 | 0.94 | 0.88 | 0.97 | 0.41 | 0.00 | 0.00 |
+| post-cutoff | 0.57 | 0.67 | 0.00 | 0.58 | 0.80 | 0.78 | 0.66 | 0.75 | 0.32 | 0.17 | 0.00 |
 
-### Claude Sonnet 4.5 (cutoff 2025-07-31) — 65 pre / 27 post API items
-
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.86 | 0.83 | 0.37 | 0.53 | 0.70 | 0.79 | 0.56 | 0.89 | 0.11 | 0.00 | 0.00 |
-| post-cutoff | 0.65 | 0.42 | 0.06 | 0.23 | 0.45 | 0.55 | 0.39 | 0.81 | 0.10 | 0.00 | 0.00 |
-
-### Gemini 3.1 Pro (cutoff 2025-01-31) — 58 pre / 34 post API items
+### Claude Opus 4.6 (cutoff 2025-08-31) — 16 pre / 14 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 1.00 | 0.97 | 0.56 | 0.72 | 0.76 | 0.93 | 0.76 | 0.89 | 0.10 | 0.00 | 0.00 |
-| post-cutoff | 0.49 | 0.40 | 0.00 | 0.12 | 0.26 | 0.48 | 0.30 | 0.83 | 0.15 | 0.00 | 0.00 |
+| pre-cutoff | 0.86 | 0.86 | 0.00 | 0.80 | 0.63 | 0.98 | 0.84 | 0.97 | 0.62 | 0.00 | 0.00 |
+| post-cutoff | 0.71 | 0.63 | 0.00 | 0.69 | 0.63 | 0.70 | 0.66 | 0.76 | 0.46 | 0.14 | 0.00 |
 
-### Gemini 3.5 Flash (cutoff 2025-01-31) — 58 pre / 34 post API items
-
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.99 | 0.98 | 0.55 | 0.64 | 0.48 | 0.96 | 0.75 | 0.87 | 0.10 | 0.00 | 0.00 |
-| post-cutoff | 0.31 | 0.46 | 0.00 | 0.13 | 0.16 | 0.45 | 0.29 | 0.82 | 0.08 | 0.00 | 0.00 |
-
-### GPT-5.5 (cutoff 2025-12-01) — 67 pre / 25 post API items
+### Claude Sonnet 4.5 (cutoff 2025-07-31) — 15 pre / 15 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.98 | 0.98 | 0.55 | 0.73 | 0.88 | 0.90 | 0.83 | 0.91 | 0.17 | 0.00 | 0.00 |
-| post-cutoff | 0.82 | 0.81 | 0.02 | 0.32 | 0.72 | 0.71 | 0.51 | 0.92 | 0.12 | 0.00 | 0.00 |
+| pre-cutoff | 0.86 | 0.83 | 0.00 | 0.69 | 0.70 | 0.79 | 0.83 | 0.91 | 0.35 | 0.00 | 0.00 |
+| post-cutoff | 0.57 | 0.37 | 0.07 | 0.43 | 0.51 | 0.64 | 0.60 | 0.70 | 0.26 | 0.13 | 0.00 |
 
-### GPT-5.2 (cutoff 2025-08-31) — 66 pre / 26 post API items
-
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.89 | 0.86 | 0.32 | 0.46 | 0.56 | 0.75 | 0.49 | 0.92 | 0.06 | 0.00 | 0.00 |
-| post-cutoff | 0.78 | 0.67 | 0.00 | 0.10 | 0.27 | 0.43 | 0.36 | 0.85 | 0.05 | 0.00 | 0.00 |
-
-### GPT-5 (cutoff 2024-09-30) — 55 pre / 37 post API items
+### Gemini 3.1 Pro (cutoff 2025-01-31) — 10 pre / 20 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.98 | 0.94 | 0.56 | 0.72 | 0.83 | 0.85 | 0.70 | 0.88 | 0.05 | 0.00 | 0.00 |
-| post-cutoff | 0.45 | 0.46 | 0.02 | 0.18 | 0.28 | 0.33 | 0.32 | 0.90 | 0.08 | 0.00 | 0.00 |
+| pre-cutoff | 1.00 | 0.97 | 0.00 | 0.91 | 0.76 | 0.93 | 0.80 | 0.86 | 0.49 | 0.00 | 0.00 |
+| post-cutoff | 0.53 | 0.46 | 0.10 | 0.30 | 0.35 | 0.54 | 0.56 | 0.78 | 0.31 | 0.10 | 0.00 |
 
-### Grok 4.3 (cutoff 2025-12-31) — 68 pre / 24 post API items
-
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.89 | 0.89 | 0.41 | 0.62 | 0.59 | 0.65 | 0.65 | 0.88 | 0.09 | 0.00 | 0.00 |
-| post-cutoff | 0.71 | 0.71 | 0.00 | 0.22 | 0.35 | 0.59 | 0.42 | 0.85 | 0.04 | 0.00 | 0.00 |
-
-### Grok 4 (cutoff 2024-11-30) — 55 pre / 37 post API items
+### Gemini 3.5 Flash (cutoff 2025-01-31) — 10 pre / 20 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.91 | 0.88 | 0.53 | 0.72 | 0.88 | 0.77 | 0.66 | 0.86 | 0.04 | 0.00 | 0.00 |
-| post-cutoff | 0.74 | 0.71 | 0.00 | 0.21 | 0.39 | 0.47 | 0.43 | 0.87 | 0.04 | 0.00 | 0.00 |
+| pre-cutoff | 0.99 | 0.98 | 0.00 | 0.59 | 0.48 | 0.96 | 0.85 | 0.88 | 0.26 | 0.00 | 0.00 |
+| post-cutoff | 0.29 | 0.42 | 0.10 | 0.29 | 0.20 | 0.45 | 0.47 | 0.75 | 0.15 | 0.10 | 0.00 |
 
-### GLM-5.2 (cutoff 2025-10-31) — 67 pre / 25 post API items
-
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.86 | 0.76 | 0.42 | 0.63 | 0.66 | 0.82 | 0.65 | 0.91 | 0.13 | 0.00 | 0.00 |
-| post-cutoff | 0.64 | 0.82 | 0.00 | 0.28 | 0.76 | 0.89 | 0.43 | 0.84 | 0.22 | 0.00 | 0.00 |
-
-### GLM-5.1 (cutoff 2025-10-31) — 67 pre / 25 post API items
+### GPT-5.5 (cutoff 2025-12-01) — 17 pre / 13 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.84 | 0.81 | 0.49 | 0.63 | 0.81 | 0.79 | 0.62 | 0.91 | 0.12 | 0.00 | 0.00 |
-| post-cutoff | 0.73 | 0.63 | 0.00 | 0.24 | 0.69 | 0.61 | 0.37 | 0.86 | 0.10 | 0.00 | 0.00 |
+| pre-cutoff | 0.98 | 0.98 | 0.12 | 0.87 | 0.88 | 0.90 | 0.96 | 0.98 | 0.43 | 0.00 | 0.00 |
+| post-cutoff | 0.79 | 0.70 | 0.15 | 0.62 | 0.74 | 0.72 | 0.79 | 0.78 | 0.23 | 0.15 | 0.00 |
+
+### GPT-5.2 (cutoff 2025-08-31) — 16 pre / 14 post API items
+
+| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.89 | 0.86 | 0.00 | 0.60 | 0.56 | 0.75 | 0.70 | 0.97 | 0.18 | 0.00 | 0.00 |
+| post-cutoff | 0.80 | 0.58 | 0.14 | 0.27 | 0.41 | 0.52 | 0.71 | 0.76 | 0.18 | 0.14 | 0.00 |
+
+### GPT-5 (cutoff 2024-09-30) — 10 pre / 20 post API items
+
+| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.98 | 0.94 | 0.00 | 0.98 | 0.83 | 0.85 | 0.88 | 0.89 | 0.20 | 0.00 | 0.00 |
+| post-cutoff | 0.41 | 0.46 | 0.10 | 0.34 | 0.37 | 0.38 | 0.51 | 0.78 | 0.20 | 0.10 | 0.00 |
+
+### Grok 4.3 (cutoff 2025-12-31) — 17 pre / 13 post API items
+
+| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.89 | 0.89 | 0.02 | 0.75 | 0.59 | 0.65 | 0.86 | 0.93 | 0.06 | 0.00 | 0.00 |
+| post-cutoff | 0.67 | 0.68 | 0.15 | 0.40 | 0.49 | 0.70 | 0.78 | 0.77 | 0.21 | 0.15 | 0.00 |
+
+### Grok 4 (cutoff 2024-11-30) — 10 pre / 20 post API items
+
+| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.91 | 0.88 | 0.00 | 0.98 | 0.88 | 0.77 | 0.92 | 0.94 | 0.00 | 0.00 | 0.00 |
+| post-cutoff | 0.67 | 0.64 | 0.05 | 0.44 | 0.48 | 0.53 | 0.74 | 0.78 | 0.16 | 0.10 | 0.00 |
+
+### GLM-5.2 (cutoff 2025-10-31) — 17 pre / 13 post API items
+
+| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.86 | 0.76 | 0.00 | 0.71 | 0.66 | 0.82 | 0.91 | 0.97 | 0.33 | 0.00 | 0.00 |
+| post-cutoff | 0.69 | 0.78 | 0.15 | 0.61 | 0.80 | 0.99 | 0.85 | 0.81 | 0.52 | 0.15 | 0.00 |
+
+### GLM-5.1 (cutoff 2025-10-31) — 17 pre / 13 post API items
+
+| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.84 | 0.81 | 0.15 | 0.70 | 0.81 | 0.79 | 0.86 | 0.96 | 0.28 | 0.00 | 0.00 |
+| post-cutoff | 0.70 | 0.54 | 0.08 | 0.55 | 0.70 | 0.69 | 0.65 | 0.76 | 0.30 | 0.15 | 0.00 |
 
 ## Knowledge-calibration items: correct-refusal rate per condition
 
@@ -490,39 +501,39 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 
 | Condition | Claude Opus 4.8 (cut 2026-01-31) | Claude Sonnet 4.6 (cut 2026-01-31) | Claude Opus 4.6 (cut 2025-08-31) | Claude Sonnet 4.5 (cut 2025-07-31) | Gemini 3.1 Pro (cut 2025-01-31) | Gemini 3.5 Flash (cut 2025-01-31) | GPT-5.5 (cut 2025-12-01) | GPT-5.2 (cut 2025-08-31) | GPT-5 (cut 2024-09-30) | Grok 4.3 (cut 2025-12-31) | Grok 4 (cut 2024-11-30) | GLM-5.2 (cut 2025-10-31) | GLM-5.1 (cut 2025-10-31) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| name-only | 0.86 | 0.80 | 0.80 | 0.72 | 0.70 | 0.54 | 0.90 | 0.85 | 0.61 | 0.80 | 0.75 | 0.79 | 0.78 |
-| name-framed | 0.84 | 0.79 | 0.76 | 0.61 | 0.64 | 0.62 | 0.86 | 0.74 | 0.63 | 0.81 | 0.73 | 0.78 | 0.70 |
-| url-only | 0.38 | 0.35 | 0.35 | 0.29 | 0.37 | 0.36 | 0.42 | 0.25 | 0.36 | 0.32 | 0.33 | 0.32 | 0.36 |
-| mdn-url-only | 0.59 | 0.60 | 0.61 | 0.46 | 0.52 | 0.46 | 0.61 | 0.38 | 0.52 | 0.53 | 0.53 | 0.54 | 0.53 |
+| name-only | 0.73 | 0.76 | 0.80 | 0.70 | 0.68 | 0.64 | 0.87 | 0.75 | 0.69 | 0.69 | 0.70 | 0.74 | 0.72 |
+| name-framed | 0.72 | 0.75 | 0.77 | 0.66 | 0.65 | 0.69 | 0.83 | 0.73 | 0.71 | 0.69 | 0.65 | 0.74 | 0.70 |
+| url-only | 0.36 | 0.33 | 0.34 | 0.27 | 0.35 | 0.35 | 0.40 | 0.24 | 0.35 | 0.30 | 0.31 | 0.31 | 0.34 |
+| mdn-url-only | 0.57 | 0.57 | 0.58 | 0.43 | 0.49 | 0.44 | 0.58 | 0.36 | 0.49 | 0.50 | 0.50 | 0.51 | 0.51 |
 | spec-url-only | 0.83 | 0.72 | 0.59 | 0.57 | 0.46 | 0.28 | 0.80 | 0.49 | 0.53 | 0.51 | 0.61 | 0.69 | 0.74 |
 | bcd-key-only | 0.91 | 0.86 | 0.84 | 0.71 | 0.67 | 0.63 | 0.81 | 0.64 | 0.55 | 0.66 | 0.61 | 0.86 | 0.73 |
-| url+name | 0.63 | 0.63 | 0.61 | 0.52 | 0.61 | 0.58 | 0.73 | 0.47 | 0.55 | 0.60 | 0.56 | 0.60 | 0.55 |
-| full-content | 0.86 | 0.88 | 0.87 | 0.84 | 0.85 | 0.83 | 0.89 | 0.87 | 0.86 | 0.85 | 0.84 | 0.87 | 0.87 |
-| fake-structural-url | 0.22 | 0.15 | 0.20 | 0.14 | 0.15 | 0.11 | 0.17 | 0.09 | 0.08 | 0.11 | 0.06 | 0.18 | 0.14 |
+| url+name | 0.79 | 0.78 | 0.75 | 0.70 | 0.68 | 0.68 | 0.85 | 0.69 | 0.70 | 0.73 | 0.70 | 0.77 | 0.73 |
+| full-content | 0.90 | 0.93 | 0.93 | 0.88 | 0.88 | 0.90 | 0.94 | 0.91 | 0.91 | 0.92 | 0.90 | 0.92 | 0.91 |
+| fake-structural-url | 0.21 | 0.14 | 0.19 | 0.13 | 0.14 | 0.10 | 0.16 | 0.08 | 0.08 | 0.11 | 0.06 | 0.17 | 0.13 |
 | fake-opaque-url | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 |
 | random-url | 0.01 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 
 ## Interpretation
 
-- **Headline (real opaque API-usage items only):** mean lift -0.44 overall — among items whose opaque URL is meant to be a real pointer, a bare opaque URL, with no page content, does NOT beat simply naming the task, and across models it tends to lower the score. The model is more cautious or more error-prone when handed only a context-free URL string than when told plainly what to build.
-- **Boundary (real opaque API-usage items):** mean pre-cutoff lift -0.45, mean post-cutoff lift -0.63. Pre-cutoff lift exceeds post-cutoff lift — the direction the hypothesis predicts — but both are negative, so the URL is a weak (and net-negative) retrieval key at this corpus size.
+- **Headline (real opaque API-usage items only):** mean lift -0.69 overall — among items whose opaque URL is meant to be a real pointer, a bare opaque URL, with no page content, does NOT beat simply naming the task, and across models it tends to lower the score. The model is more cautious or more error-prone when handed only a context-free URL string than when told plainly what to build.
+- **Boundary (real opaque API-usage items):** mean pre-cutoff lift -0.90, mean post-cutoff lift -0.52. The pre- vs post-cutoff gap on API-usage items is small or noisy at this corpus size, so the boundary effect is not yet demonstrated; the post-cutoff bucket is only one or two real items per model.
 - **Why the earlier read was wrong:** an apparent positive *post-cutoff* url-only score comes from the knowledge-calibration items (scroll-triggered-animations, arxiv-future-fake-real-id, html-in-canvas), where the correct answer is "I don't know". A bare URL elicits exactly that refusal, scoring high — which is the OPPOSITE of the URL helping the model use an API. Those items are now excluded from the lift.
 - **What does work:** `url+name` and the `full-content` ceiling score well across the board, and the controls (`fake-structural-url`, `random-url`) collapse toward name-only / zero, so the harness is measuring real content rather than URL shape.
 
 Per model (real opaque API-usage items):
-- **Claude Opus 4.8:** bare URL did not help / hurt (lift -0.50); full-content 0.88 vs name-only 0.87; pre -0.50 / post -0.65 (n 69/23).
-- **Claude Sonnet 4.6:** bare URL did not help / hurt (lift -0.50); full-content 0.90 vs name-only 0.85; pre -0.49 / post -0.62 (n 69/23).
-- **Claude Opus 4.6:** bare URL did not help / hurt (lift -0.45); full-content 0.89 vs name-only 0.81; pre -0.38 / post -0.70 (n 66/26).
-- **Claude Sonnet 4.5:** bare URL did not help / hurt (lift -0.48); full-content 0.86 vs name-only 0.76; pre -0.49 / post -0.59 (n 65/27).
-- **Gemini 3.1 Pro:** bare URL did not help / hurt (lift -0.32); full-content 0.87 vs name-only 0.67; pre -0.44 / post -0.49 (n 58/34).
-- **Gemini 3.5 Flash:** bare URL did not help / hurt (lift -0.20); full-content 0.85 vs name-only 0.55; pre -0.44 / post -0.31 (n 58/34).
-- **GPT-5.5:** bare URL did not help / hurt (lift -0.51); full-content 0.91 vs name-only 0.91; pre -0.42 / post -0.80 (n 67/25).
-- **GPT-5.2:** bare URL did not help / hurt (lift -0.61); full-content 0.90 vs name-only 0.84; pre -0.57 / post -0.78 (n 66/26).
-- **GPT-5:** bare URL did not help / hurt (lift -0.29); full-content 0.89 vs name-only 0.64; pre -0.42 / post -0.43 (n 55/37).
-- **Grok 4.3:** bare URL did not help / hurt (lift -0.52); full-content 0.88 vs name-only 0.82; pre -0.48 / post -0.71 (n 68/24).
-- **Grok 4:** bare URL did not help / hurt (lift -0.48); full-content 0.87 vs name-only 0.80; pre -0.37 / post -0.74 (n 55/37).
-- **GLM-5.2:** bare URL did not help / hurt (lift -0.47); full-content 0.89 vs name-only 0.77; pre -0.44 / post -0.64 (n 67/25).
-- **GLM-5.1:** bare URL did not help / hurt (lift -0.44); full-content 0.90 vs name-only 0.79; pre -0.35 / post -0.73 (n 67/25).
+- **Claude Opus 4.8:** bare URL did not help / hurt (lift -0.78); full-content 0.87 vs name-only 0.85; pre -0.99 / post -0.48 (n 18/12).
+- **Claude Sonnet 4.6:** bare URL did not help / hurt (lift -0.79); full-content 0.88 vs name-only 0.79; pre -0.94 / post -0.57 (n 18/12).
+- **Claude Opus 4.6:** bare URL did not help / hurt (lift -0.79); full-content 0.87 vs name-only 0.79; pre -0.86 / post -0.71 (n 16/14).
+- **Claude Sonnet 4.5:** bare URL did not help / hurt (lift -0.68); full-content 0.81 vs name-only 0.71; pre -0.86 / post -0.51 (n 15/15).
+- **Gemini 3.1 Pro:** bare URL did not help / hurt (lift -0.62); full-content 0.80 vs name-only 0.69; pre -1.00 / post -0.43 (n 10/20).
+- **Gemini 3.5 Flash:** bare URL did not help / hurt (lift -0.45); full-content 0.79 vs name-only 0.52; pre -0.99 / post -0.19 (n 10/20).
+- **GPT-5.5:** bare URL did not help / hurt (lift -0.76); full-content 0.89 vs name-only 0.90; pre -0.86 / post -0.64 (n 17/13).
+- **GPT-5.2:** bare URL did not help / hurt (lift -0.78); full-content 0.87 vs name-only 0.85; pre -0.89 / post -0.65 (n 16/14).
+- **GPT-5:** bare URL did not help / hurt (lift -0.54); full-content 0.82 vs name-only 0.60; pre -0.98 / post -0.31 (n 10/20).
+- **Grok 4.3:** bare URL did not help / hurt (lift -0.71); full-content 0.86 vs name-only 0.79; pre -0.86 / post -0.52 (n 17/13).
+- **Grok 4:** bare URL did not help / hurt (lift -0.71); full-content 0.84 vs name-only 0.75; pre -0.91 / post -0.62 (n 10/20).
+- **GLM-5.2:** bare URL did not help / hurt (lift -0.72); full-content 0.90 vs name-only 0.78; pre -0.86 / post -0.54 (n 17/13).
+- **GLM-5.1:** bare URL did not help / hurt (lift -0.66); full-content 0.87 vs name-only 0.78; pre -0.69 / post -0.62 (n 17/13).
 
 ---
 

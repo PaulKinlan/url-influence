@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T20:42:35.349Z",
+  "generatedAt": "2026-06-19T22:51:58.912Z",
   "judgeModel": "claude-sonnet-4-5",
   "calibrationItems": [
     "scroll-triggered-animations",
@@ -498,70 +498,70 @@
       "label": "Claude Opus 4.8",
       "cutoff": "2026-01-31",
       "byConditionAll": {
-        "name-only": 0.8564516129032257,
-        "name-framed": 0.8435483870967743,
-        "url-only": 0.3822916666666667,
-        "mdn-url-only": 0.5947916666666667,
+        "name-only": 0.7315000000000002,
+        "name-framed": 0.7204999999999999,
+        "url-only": 0.3633663366336634,
+        "mdn-url-only": 0.5653465346534654,
         "spec-url-only": 0.8327586206896551,
         "bcd-key-only": 0.9125,
-        "url+name": 0.6286458333333333,
-        "full-content": 0.8625000000000002,
-        "fake-structural-url": 0.2197916666666667,
-        "fake-opaque-url": 0.03125,
-        "random-url": 0.010416666666666666
+        "url+name": 0.7871287128712872,
+        "full-content": 0.900990099009901,
+        "fake-structural-url": 0.20891089108910893,
+        "fake-opaque-url": 0.0297029702970297,
+        "random-url": 0.009900990099009901
       },
       "api": {
         "byCondition": {
-          "name-only": 0.8678571428571428,
-          "name-framed": 0.8803571428571428,
-          "url-only": 0.366304347826087,
-          "mdn-url-only": 0.5945652173913044,
-          "spec-url-only": 0.8403846153846153,
-          "bcd-key-only": 0.9045454545454544,
-          "url+name": 0.620108695652174,
-          "full-content": 0.8755434782608696,
-          "fake-structural-url": 0.21521739130434783,
-          "fake-opaque-url": 0,
-          "random-url": 0
+          "name-only": 0.8516666666666666,
+          "name-framed": 0.8383333333333334,
+          "url-only": 0.06666666666666667,
+          "mdn-url-only": 0.8133333333333334,
+          "spec-url-only": 0.8574074074074074,
+          "bcd-key-only": 0.95,
+          "url+name": 0.8816666666666666,
+          "full-content": 0.8666666666666667,
+          "fake-structural-url": 0.5366666666666667,
+          "fake-opaque-url": 0.06666666666666667,
+          "random-url": 0.03333333333333333
         },
         "lift": {
-          "overall": -0.5015527950310558,
-          "pre": -0.5004830917874397,
-          "post": -0.65
+          "overall": -0.7849999999999999,
+          "pre": -0.9888888888888889,
+          "post": -0.47916666666666674
         },
         "split": {
           "pre": {
             "name-only": 0.9888888888888889,
             "name-framed": 0.9777777777777779,
-            "url-only": 0.4884057971014493,
-            "mdn-url-only": 0.6855072463768117,
+            "url-only": 0,
+            "mdn-url-only": 0.9222222222222223,
             "spec-url-only": 0.8812500000000001,
             "bcd-key-only": 0.9766666666666666,
-            "url+name": 0.705072463768116,
-            "full-content": 0.9202898550724637,
-            "fake-structural-url": 0.22753623188405797,
+            "url+name": 0.9861111111111112,
+            "full-content": 0.9777777777777779,
+            "fake-structural-url": 0.6499999999999999,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.65,
-            "name-framed": 0.7050000000000001,
-            "url-only": 0,
-            "mdn-url-only": 0.3217391304347826,
-            "spec-url-only": 0.775,
-            "bcd-key-only": 0.75,
-            "url+name": 0.36521739130434777,
-            "full-content": 0.7413043478260868,
-            "fake-structural-url": 0.1782608695652174,
-            "fake-opaque-url": 0,
-            "random-url": 0
+            "name-only": 0.6458333333333334,
+            "name-framed": 0.6291666666666667,
+            "url-only": 0.16666666666666666,
+            "mdn-url-only": 0.65,
+            "spec-url-only": 0.8227272727272728,
+            "bcd-key-only": 0.8928571428571429,
+            "url+name": 0.725,
+            "full-content": 0.7000000000000001,
+            "fake-structural-url": 0.3666666666666667,
+            "fake-opaque-url": 0.16666666666666666,
+            "random-url": 0.08333333333333333
           }
         },
         "splitN": {
-          "pre": 69,
-          "post": 23
+          "pre": 18,
+          "post": 12
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -580,76 +580,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "claude-sonnet-4-6": {
       "label": "Claude Sonnet 4.6",
       "cutoff": "2026-01-31",
       "byConditionAll": {
-        "name-only": 0.7999999999999999,
-        "name-framed": 0.7887096774193548,
-        "url-only": 0.35000000000000003,
-        "mdn-url-only": 0.6036458333333333,
+        "name-only": 0.7600000000000001,
+        "name-framed": 0.7525,
+        "url-only": 0.3326732673267327,
+        "mdn-url-only": 0.5737623762376237,
         "spec-url-only": 0.7241935483870966,
         "bcd-key-only": 0.8637931034482759,
-        "url+name": 0.6328125,
-        "full-content": 0.8786458333333332,
-        "fake-structural-url": 0.14843749999999997,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.7762376237623763,
+        "full-content": 0.9341584158415841,
+        "fake-structural-url": 0.14108910891089105,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.8499999999999999,
-          "name-framed": 0.8017857142857142,
-          "url-only": 0.35434782608695653,
-          "mdn-url-only": 0.5972826086956521,
-          "spec-url-only": 0.7196428571428571,
-          "bcd-key-only": 0.8592592592592593,
-          "url+name": 0.6173913043478261,
-          "full-content": 0.904891304347826,
-          "fake-structural-url": 0.13206521739130433,
-          "fake-opaque-url": 0,
+          "name-only": 0.7933333333333332,
+          "name-framed": 0.7816666666666666,
+          "url-only": 0,
+          "mdn-url-only": 0.735,
+          "spec-url-only": 0.7637931034482758,
+          "bcd-key-only": 0.8907407407407407,
+          "url+name": 0.7916666666666666,
+          "full-content": 0.8816666666666667,
+          "fake-structural-url": 0.3749999999999999,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.49565217391304334,
-          "pre": -0.4923913043478261,
-          "post": -0.6154347826086956
+          "overall": -0.7933333333333332,
+          "pre": -0.9416666666666667,
+          "post": -0.5708333333333333
         },
         "split": {
           "pre": {
             "name-only": 0.9416666666666667,
             "name-framed": 0.8583333333333334,
-            "url-only": 0.4492753623188406,
-            "mdn-url-only": 0.6833333333333332,
+            "url-only": 0,
+            "mdn-url-only": 0.8416666666666668,
             "spec-url-only": 0.7388888888888889,
             "bcd-key-only": 0.9444444444444444,
-            "url+name": 0.7079710144927536,
-            "full-content": 0.9181159420289854,
-            "fake-structural-url": 0.13695652173913042,
+            "url+name": 0.8805555555555556,
+            "full-content": 0.9694444444444444,
+            "fake-structural-url": 0.4138888888888889,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.6849999999999999,
-            "name-framed": 0.7,
-            "url-only": 0.06956521739130435,
-            "mdn-url-only": 0.3391304347826087,
-            "spec-url-only": 0.6849999999999999,
-            "bcd-key-only": 0.6888888888888889,
-            "url+name": 0.3456521739130435,
-            "full-content": 0.8652173913043477,
-            "fake-structural-url": 0.11739130434782609,
-            "fake-opaque-url": 0,
+            "name-only": 0.5708333333333333,
+            "name-framed": 0.6666666666666666,
+            "url-only": 0,
+            "mdn-url-only": 0.5750000000000001,
+            "spec-url-only": 0.8045454545454547,
+            "bcd-key-only": 0.7833333333333333,
+            "url+name": 0.6583333333333333,
+            "full-content": 0.75,
+            "fake-structural-url": 0.31666666666666665,
+            "fake-opaque-url": 0.16666666666666666,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 69,
-          "post": 23
+          "pre": 18,
+          "post": 12
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -668,76 +668,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "claude-opus-4-6": {
       "label": "Claude Opus 4.6",
       "cutoff": "2025-08-31",
       "byConditionAll": {
-        "name-only": 0.7967741935483871,
-        "name-framed": 0.7629032258064515,
-        "url-only": 0.3541666666666667,
-        "mdn-url-only": 0.6078125,
+        "name-only": 0.796,
+        "name-framed": 0.7680000000000001,
+        "url-only": 0.33663366336633666,
+        "mdn-url-only": 0.5777227722772278,
         "spec-url-only": 0.5903225806451613,
         "bcd-key-only": 0.8448275862068966,
-        "url+name": 0.6098958333333334,
-        "full-content": 0.8673684210526315,
-        "fake-structural-url": 0.20104166666666667,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.754950495049505,
+        "full-content": 0.927,
+        "fake-structural-url": 0.1910891089108911,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.8089285714285713,
-          "name-framed": 0.8089285714285713,
-          "url-only": 0.358695652173913,
-          "mdn-url-only": 0.6005434782608695,
-          "spec-url-only": 0.6464285714285715,
-          "bcd-key-only": 0.8629629629629628,
-          "url+name": 0.6119565217391304,
-          "full-content": 0.8945054945054944,
-          "fake-structural-url": 0.1760869565217391,
-          "fake-opaque-url": 0,
+          "name-only": 0.7899999999999999,
+          "name-framed": 0.755,
+          "url-only": 0,
+          "mdn-url-only": 0.7483333333333333,
+          "spec-url-only": 0.6310344827586207,
+          "bcd-key-only": 0.8703703703703703,
+          "url+name": 0.755,
+          "full-content": 0.8699999999999999,
+          "fake-structural-url": 0.5433333333333332,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.4502329192546583,
-          "pre": -0.37765151515151507,
-          "post": -0.6990384615384615
+          "overall": -0.7899999999999999,
+          "pre": -0.8624999999999999,
+          "post": -0.7071428571428571
         },
         "split": {
           "pre": {
             "name-only": 0.8624999999999999,
             "name-framed": 0.8624999999999999,
-            "url-only": 0.48484848484848486,
-            "mdn-url-only": 0.6931818181818182,
+            "url-only": 0,
+            "mdn-url-only": 0.8031250000000001,
             "spec-url-only": 0.634375,
             "bcd-key-only": 0.984375,
-            "url+name": 0.6734848484848486,
-            "full-content": 0.9046153846153847,
-            "fake-structural-url": 0.1643939393939394,
+            "url+name": 0.840625,
+            "full-content": 0.96875,
+            "fake-structural-url": 0.615625,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.7374999999999999,
-            "name-framed": 0.7375000000000002,
-            "url-only": 0.038461538461538464,
-            "mdn-url-only": 0.36538461538461536,
-            "spec-url-only": 0.6625,
-            "bcd-key-only": 0.6863636363636364,
-            "url+name": 0.4557692307692308,
-            "full-content": 0.8692307692307693,
-            "fake-structural-url": 0.20576923076923076,
-            "fake-opaque-url": 0,
+            "name-only": 0.7071428571428571,
+            "name-framed": 0.6321428571428572,
+            "url-only": 0,
+            "mdn-url-only": 0.6857142857142857,
+            "spec-url-only": 0.6269230769230769,
+            "bcd-key-only": 0.7045454545454546,
+            "url+name": 0.6571428571428571,
+            "full-content": 0.7571428571428571,
+            "fake-structural-url": 0.46071428571428574,
+            "fake-opaque-url": 0.14285714285714285,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 66,
-          "post": 26
+          "pre": 16,
+          "post": 14
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -756,76 +756,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "claude-sonnet-4-5": {
       "label": "Claude Sonnet 4.5",
       "cutoff": "2025-07-31",
       "byConditionAll": {
-        "name-only": 0.7241935483870967,
-        "name-framed": 0.6129032258064517,
-        "url-only": 0.28750000000000003,
-        "mdn-url-only": 0.4557291666666667,
+        "name-only": 0.6964999999999999,
+        "name-framed": 0.6626262626262626,
+        "url-only": 0.2732673267326733,
+        "mdn-url-only": 0.43316831683168316,
         "spec-url-only": 0.5677419354838709,
         "bcd-key-only": 0.7051724137931036,
-        "url+name": 0.5177083333333333,
-        "full-content": 0.8390625000000002,
-        "fake-structural-url": 0.13749999999999998,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.703,
+        "full-content": 0.8816831683168317,
+        "fake-structural-url": 0.1306930693069307,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.7625,
-          "name-framed": 0.6428571428571429,
-          "url-only": 0.2782608695652174,
-          "mdn-url-only": 0.4418478260869565,
-          "spec-url-only": 0.5857142857142856,
-          "bcd-key-only": 0.6833333333333335,
-          "url+name": 0.5086956521739132,
-          "full-content": 0.8646739130434784,
-          "fake-structural-url": 0.10978260869565219,
-          "fake-opaque-url": 0,
+          "name-only": 0.715,
+          "name-framed": 0.6,
+          "url-only": 0.03333333333333333,
+          "mdn-url-only": 0.5616666666666668,
+          "spec-url-only": 0.6068965517241378,
+          "bcd-key-only": 0.7203703703703704,
+          "url+name": 0.715,
+          "full-content": 0.8083333333333333,
+          "fake-structural-url": 0.30666666666666664,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.48423913043478256,
-          "pre": -0.48743589743589744,
-          "post": -0.5945868945868946
+          "overall": -0.6816666666666666,
+          "pre": -0.8566666666666667,
+          "post": -0.5066666666666667
         },
         "split": {
           "pre": {
             "name-only": 0.8566666666666667,
             "name-framed": 0.8333333333333334,
-            "url-only": 0.36923076923076925,
-            "mdn-url-only": 0.5292307692307692,
+            "url-only": 0,
+            "mdn-url-only": 0.6933333333333335,
             "spec-url-only": 0.7,
             "bcd-key-only": 0.7866666666666667,
-            "url+name": 0.5592307692307692,
-            "full-content": 0.8853846153846154,
-            "fake-structural-url": 0.1123076923076923,
+            "url+name": 0.8266666666666665,
+            "full-content": 0.9133333333333333,
+            "fake-structural-url": 0.35333333333333333,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.6538461538461539,
-            "name-framed": 0.4230769230769231,
-            "url-only": 0.05925925925925926,
-            "mdn-url-only": 0.23148148148148148,
-            "spec-url-only": 0.4538461538461538,
-            "bcd-key-only": 0.5541666666666667,
-            "url+name": 0.387037037037037,
-            "full-content": 0.8148148148148148,
-            "fake-structural-url": 0.1037037037037037,
-            "fake-opaque-url": 0,
+            "name-only": 0.5733333333333334,
+            "name-framed": 0.36666666666666664,
+            "url-only": 0.06666666666666667,
+            "mdn-url-only": 0.43,
+            "spec-url-only": 0.5071428571428571,
+            "bcd-key-only": 0.6375000000000001,
+            "url+name": 0.6033333333333334,
+            "full-content": 0.7033333333333334,
+            "fake-structural-url": 0.26,
+            "fake-opaque-url": 0.13333333333333333,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 65,
-          "post": 27
+          "pre": 15,
+          "post": 15
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -844,76 +844,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "gemini-3.1-pro": {
       "label": "Gemini 3.1 Pro",
       "cutoff": "2025-01-31",
       "byConditionAll": {
-        "name-only": 0.6951612903225807,
-        "name-framed": 0.6419354838709677,
-        "url-only": 0.3687500000000001,
-        "mdn-url-only": 0.5151041666666666,
+        "name-only": 0.6830000000000002,
+        "name-framed": 0.6505000000000001,
+        "url-only": 0.35049504950495053,
+        "mdn-url-only": 0.48960396039603954,
         "spec-url-only": 0.45645161290322583,
         "bcd-key-only": 0.6689655172413791,
-        "url+name": 0.6062500000000001,
-        "full-content": 0.8515625000000003,
-        "fake-structural-url": 0.146875,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.6846534653465347,
+        "full-content": 0.8821782178217823,
+        "fake-structural-url": 0.1396039603960396,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.6696428571428571,
-          "name-framed": 0.6053571428571428,
-          "url-only": 0.35217391304347834,
-          "mdn-url-only": 0.49619565217391304,
-          "spec-url-only": 0.43392857142857144,
-          "bcd-key-only": 0.6462962962962963,
-          "url+name": 0.5891304347826087,
-          "full-content": 0.8673913043478262,
-          "fake-structural-url": 0.11956521739130437,
-          "fake-opaque-url": 0,
+          "name-only": 0.685,
+          "name-framed": 0.63,
+          "url-only": 0.06666666666666667,
+          "mdn-url-only": 0.49833333333333335,
+          "spec-url-only": 0.48793103448275865,
+          "bcd-key-only": 0.6814814814814812,
+          "url+name": 0.64,
+          "full-content": 0.8049999999999999,
+          "fake-structural-url": 0.37,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.31746894409937876,
-          "pre": -0.44137931034482747,
-          "post": -0.4861111111111111
+          "overall": -0.6183333333333334,
+          "pre": -1,
+          "post": -0.4275000000000001
         },
         "split": {
           "pre": {
             "name-only": 1,
             "name-framed": 0.97,
-            "url-only": 0.5586206896551725,
-            "mdn-url-only": 0.7163793103448277,
+            "url-only": 0,
+            "mdn-url-only": 0.905,
             "spec-url-only": 0.755,
             "bcd-key-only": 0.925,
-            "url+name": 0.7586206896551724,
-            "full-content": 0.8879310344827587,
-            "fake-structural-url": 0.10172413793103449,
+            "url+name": 0.8,
+            "full-content": 0.86,
+            "fake-structural-url": 0.49000000000000005,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.4861111111111111,
-            "name-framed": 0.4027777777777778,
-            "url-only": 0,
-            "mdn-url-only": 0.12058823529411763,
-            "spec-url-only": 0.25555555555555554,
-            "bcd-key-only": 0.48235294117647054,
-            "url+name": 0.3,
-            "full-content": 0.8323529411764705,
-            "fake-structural-url": 0.15,
-            "fake-opaque-url": 0,
+            "name-only": 0.5275000000000001,
+            "name-framed": 0.45999999999999996,
+            "url-only": 0.1,
+            "mdn-url-only": 0.29500000000000004,
+            "spec-url-only": 0.34736842105263155,
+            "bcd-key-only": 0.538235294117647,
+            "url+name": 0.5599999999999999,
+            "full-content": 0.7775,
+            "fake-structural-url": 0.30999999999999994,
+            "fake-opaque-url": 0.1,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 58,
-          "post": 34
+          "pre": 10,
+          "post": 20
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -932,76 +932,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "gemini-3.5-flash": {
       "label": "Gemini 3.5 Flash",
       "cutoff": "2025-01-31",
       "byConditionAll": {
-        "name-only": 0.5354838709677419,
-        "name-framed": 0.6241935483870968,
-        "url-only": 0.3645833333333333,
-        "mdn-url-only": 0.46458333333333335,
+        "name-only": 0.644,
+        "name-framed": 0.6915,
+        "url-only": 0.3465346534653465,
+        "mdn-url-only": 0.4415841584158416,
         "spec-url-only": 0.27903225806451615,
         "bcd-key-only": 0.6293103448275862,
-        "url+name": 0.5833333333333334,
-        "full-content": 0.8270833333333334,
-        "fake-structural-url": 0.11041666666666666,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.6801980198019802,
+        "full-content": 0.8960396039603961,
+        "fake-structural-url": 0.10495049504950495,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.5499999999999999,
-          "name-framed": 0.6446428571428572,
-          "url-only": 0.34782608695652173,
-          "mdn-url-only": 0.45,
-          "spec-url-only": 0.27321428571428574,
-          "bcd-key-only": 0.6351851851851852,
-          "url+name": 0.5793478260869566,
-          "full-content": 0.8510869565217393,
-          "fake-structural-url": 0.0891304347826087,
-          "fake-opaque-url": 0,
+          "name-only": 0.5199999999999999,
+          "name-framed": 0.6116666666666667,
+          "url-only": 0.06666666666666667,
+          "mdn-url-only": 0.3866666666666666,
+          "spec-url-only": 0.2982758620689655,
+          "bcd-key-only": 0.6388888888888888,
+          "url+name": 0.6,
+          "full-content": 0.7899999999999999,
+          "fake-structural-url": 0.18666666666666665,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.2021739130434782,
-          "pre": -0.4382758620689655,
-          "post": -0.3055555555555556
+          "overall": -0.45333333333333325,
+          "pre": -0.99,
+          "post": -0.18500000000000003
         },
         "split": {
           "pre": {
             "name-only": 0.99,
             "name-framed": 0.985,
-            "url-only": 0.5517241379310345,
-            "mdn-url-only": 0.6362068965517241,
+            "url-only": 0,
+            "mdn-url-only": 0.59,
             "spec-url-only": 0.485,
             "bcd-key-only": 0.9550000000000001,
-            "url+name": 0.75,
-            "full-content": 0.8698275862068965,
-            "fake-structural-url": 0.09655172413793103,
+            "url+name": 0.85,
+            "full-content": 0.875,
+            "fake-structural-url": 0.26,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.3055555555555556,
-            "name-framed": 0.4555555555555555,
-            "url-only": 0,
-            "mdn-url-only": 0.1323529411764706,
-            "spec-url-only": 0.15555555555555556,
-            "bcd-key-only": 0.44705882352941173,
-            "url+name": 0.2882352941176471,
-            "full-content": 0.8191176470588235,
-            "fake-structural-url": 0.07647058823529411,
-            "fake-opaque-url": 0,
+            "name-only": 0.28500000000000003,
+            "name-framed": 0.425,
+            "url-only": 0.1,
+            "mdn-url-only": 0.28500000000000003,
+            "spec-url-only": 0.19999999999999998,
+            "bcd-key-only": 0.4529411764705882,
+            "url+name": 0.475,
+            "full-content": 0.7474999999999999,
+            "fake-structural-url": 0.15,
+            "fake-opaque-url": 0.1,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 58,
-          "post": 34
+          "pre": 10,
+          "post": 20
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1020,76 +1020,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "gpt-5.5": {
       "label": "GPT-5.5",
       "cutoff": "2025-12-01",
       "byConditionAll": {
-        "name-only": 0.8999999999999999,
-        "name-framed": 0.8629032258064515,
-        "url-only": 0.42083333333333334,
-        "mdn-url-only": 0.6130208333333333,
+        "name-only": 0.8665,
+        "name-framed": 0.8314999999999999,
+        "url-only": 0.39999999999999997,
+        "mdn-url-only": 0.5826732673267326,
         "spec-url-only": 0.8032258064516129,
         "bcd-key-only": 0.8120689655172414,
-        "url+name": 0.7343750000000001,
-        "full-content": 0.8874999999999998,
-        "fake-structural-url": 0.1692708333333333,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.8544554455445545,
+        "full-content": 0.9445544554455445,
+        "fake-structural-url": 0.16089108910891087,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.9142857142857143,
-          "name-framed": 0.9124999999999999,
-          "url-only": 0.40652173913043477,
-          "mdn-url-only": 0.6179347826086957,
-          "spec-url-only": 0.8178571428571428,
-          "bcd-key-only": 0.8314814814814815,
-          "url+name": 0.7413043478260871,
-          "full-content": 0.9135869565217393,
-          "fake-structural-url": 0.15489130434782608,
-          "fake-opaque-url": 0,
+          "name-only": 0.8966666666666666,
+          "name-framed": 0.8583333333333332,
+          "url-only": 0.13333333333333333,
+          "mdn-url-only": 0.7616666666666667,
+          "spec-url-only": 0.8241379310344827,
+          "bcd-key-only": 0.835185185185185,
+          "url+name": 0.8866666666666667,
+          "full-content": 0.8933333333333334,
+          "fake-structural-url": 0.3416666666666666,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.5077639751552795,
-          "pre": -0.4242317822651447,
-          "post": -0.8021818181818182
+          "overall": -0.7633333333333333,
+          "pre": -0.8588235294117645,
+          "post": -0.6384615384615385
         },
         "split": {
           "pre": {
             "name-only": 0.976470588235294,
             "name-framed": 0.9794117647058823,
-            "url-only": 0.5522388059701493,
-            "mdn-url-only": 0.7291044776119403,
+            "url-only": 0.11764705882352941,
+            "mdn-url-only": 0.8735294117647059,
             "spec-url-only": 0.8823529411764706,
             "bcd-key-only": 0.9029411764705882,
-            "url+name": 0.8261194029850747,
-            "full-content": 0.9111940298507463,
-            "fake-structural-url": 0.16791044776119404,
+            "url+name": 0.9617647058823531,
+            "full-content": 0.9794117647058823,
+            "fake-structural-url": 0.42647058823529416,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.8181818181818182,
-            "name-framed": 0.8090909090909091,
-            "url-only": 0.016,
-            "mdn-url-only": 0.32,
-            "spec-url-only": 0.7181818181818183,
-            "bcd-key-only": 0.71,
-            "url+name": 0.514,
-            "full-content": 0.92,
-            "fake-structural-url": 0.12,
-            "fake-opaque-url": 0,
+            "name-only": 0.7923076923076924,
+            "name-framed": 0.7000000000000001,
+            "url-only": 0.15384615384615385,
+            "mdn-url-only": 0.6153846153846154,
+            "spec-url-only": 0.7416666666666667,
+            "bcd-key-only": 0.72,
+            "url+name": 0.7884615384615384,
+            "full-content": 0.7807692307692307,
+            "fake-structural-url": 0.23076923076923078,
+            "fake-opaque-url": 0.15384615384615385,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 67,
-          "post": 25
+          "pre": 17,
+          "post": 13
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1108,76 +1108,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "gpt-5.2": {
       "label": "GPT-5.2",
       "cutoff": "2025-08-31",
       "byConditionAll": {
-        "name-only": 0.8500000000000001,
-        "name-framed": 0.7387096774193548,
-        "url-only": 0.25,
-        "mdn-url-only": 0.37604166666666666,
+        "name-only": 0.7549999999999999,
+        "name-framed": 0.73,
+        "url-only": 0.2376237623762376,
+        "mdn-url-only": 0.35742574257425747,
         "spec-url-only": 0.49354838709677423,
         "bcd-key-only": 0.6448275862068965,
-        "url+name": 0.4661458333333334,
-        "full-content": 0.8697916666666666,
-        "fake-structural-url": 0.0859375,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.6925742574257426,
+        "full-content": 0.9133663366336634,
+        "fake-structural-url": 0.08168316831683169,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.8410714285714286,
-          "name-framed": 0.7785714285714286,
-          "url-only": 0.22826086956521738,
-          "mdn-url-only": 0.3565217391304348,
-          "spec-url-only": 0.43928571428571433,
-          "bcd-key-only": 0.6185185185185184,
-          "url+name": 0.4527173913043479,
-          "full-content": 0.8956521739130435,
-          "fake-structural-url": 0.05597826086956522,
-          "fake-opaque-url": 0,
+          "name-only": 0.8450000000000001,
+          "name-framed": 0.73,
+          "url-only": 0.06666666666666667,
+          "mdn-url-only": 0.44666666666666666,
+          "spec-url-only": 0.4931034482758621,
+          "bcd-key-only": 0.6555555555555554,
+          "url+name": 0.705,
+          "full-content": 0.8716666666666667,
+          "fake-structural-url": 0.17833333333333334,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.6128105590062112,
-          "pre": -0.5693181818181818,
-          "post": -0.7791666666666668
+          "overall": -0.7783333333333334,
+          "pre": -0.8875000000000001,
+          "post": -0.6535714285714287
         },
         "split": {
           "pre": {
             "name-only": 0.8875000000000001,
             "name-framed": 0.8625,
-            "url-only": 0.3181818181818182,
-            "mdn-url-only": 0.4590909090909091,
+            "url-only": 0,
+            "mdn-url-only": 0.6,
             "spec-url-only": 0.5625,
             "bcd-key-only": 0.75,
-            "url+name": 0.48863636363636365,
-            "full-content": 0.9151515151515152,
-            "fake-structural-url": 0.05833333333333333,
+            "url+name": 0.703125,
+            "full-content": 0.9656250000000001,
+            "fake-structural-url": 0.17812499999999998,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.7791666666666668,
-            "name-framed": 0.6666666666666666,
-            "url-only": 0,
-            "mdn-url-only": 0.09615384615384616,
-            "spec-url-only": 0.27499999999999997,
-            "bcd-key-only": 0.4272727272727273,
-            "url+name": 0.3615384615384615,
-            "full-content": 0.8461538461538461,
-            "fake-structural-url": 0.05,
-            "fake-opaque-url": 0,
+            "name-only": 0.7964285714285715,
+            "name-framed": 0.5785714285714285,
+            "url-only": 0.14285714285714285,
+            "mdn-url-only": 0.2714285714285714,
+            "spec-url-only": 0.4076923076923077,
+            "bcd-key-only": 0.5181818181818182,
+            "url+name": 0.7071428571428571,
+            "full-content": 0.7642857142857142,
+            "fake-structural-url": 0.17857142857142858,
+            "fake-opaque-url": 0.14285714285714285,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 66,
-          "post": 26
+          "pre": 16,
+          "post": 14
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1196,76 +1196,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "gpt-5": {
       "label": "GPT-5",
       "cutoff": "2024-09-30",
       "byConditionAll": {
-        "name-only": 0.614516129032258,
-        "name-framed": 0.6322580645161291,
-        "url-only": 0.36354166666666665,
-        "mdn-url-only": 0.5184210526315789,
+        "name-only": 0.69,
+        "name-framed": 0.713,
+        "url-only": 0.3455445544554455,
+        "mdn-url-only": 0.4925,
         "spec-url-only": 0.5258064516129033,
         "bcd-key-only": 0.5517241379310345,
-        "url+name": 0.5510526315789473,
-        "full-content": 0.8609375,
-        "fake-structural-url": 0.08229166666666667,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.698,
+        "full-content": 0.9089108910891087,
+        "fake-structural-url": 0.07821782178217822,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.6410714285714286,
-          "name-framed": 0.630357142857143,
-          "url-only": 0.3467391304347826,
-          "mdn-url-only": 0.5027173913043478,
-          "spec-url-only": 0.47500000000000003,
-          "bcd-key-only": 0.5203703703703704,
-          "url+name": 0.5521978021978022,
-          "full-content": 0.8875000000000001,
-          "fake-structural-url": 0.06521739130434782,
-          "fake-opaque-url": 0,
+          "name-only": 0.6016666666666667,
+          "name-framed": 0.62,
+          "url-only": 0.06666666666666667,
+          "mdn-url-only": 0.5637931034482759,
+          "spec-url-only": 0.5275862068965518,
+          "bcd-key-only": 0.5555555555555556,
+          "url+name": 0.6362068965517241,
+          "full-content": 0.8150000000000001,
+          "fake-structural-url": 0.19666666666666668,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.294332298136646,
-          "pre": -0.41636363636363627,
-          "post": -0.4284534534534534
+          "overall": -0.535,
+          "pre": -0.9799999999999999,
+          "post": -0.3125
         },
         "split": {
           "pre": {
             "name-only": 0.9799999999999999,
             "name-framed": 0.945,
-            "url-only": 0.5636363636363636,
-            "mdn-url-only": 0.7227272727272728,
+            "url-only": 0,
+            "mdn-url-only": 0.985,
             "spec-url-only": 0.8300000000000001,
             "bcd-key-only": 0.85,
-            "url+name": 0.7027272727272728,
-            "full-content": 0.8818181818181818,
-            "fake-structural-url": 0.05454545454545454,
+            "url+name": 0.875,
+            "full-content": 0.8900000000000002,
+            "fake-structural-url": 0.2,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.4527777777777777,
-            "name-framed": 0.4555555555555555,
-            "url-only": 0.024324324324324326,
-            "mdn-url-only": 0.17567567567567569,
-            "spec-url-only": 0.2777777777777778,
-            "bcd-key-only": 0.3264705882352941,
-            "url+name": 0.3222222222222222,
-            "full-content": 0.8959459459459461,
-            "fake-structural-url": 0.08108108108108109,
-            "fake-opaque-url": 0,
+            "name-only": 0.4125,
+            "name-framed": 0.4575,
+            "url-only": 0.1,
+            "mdn-url-only": 0.34210526315789475,
+            "spec-url-only": 0.3684210526315789,
+            "bcd-key-only": 0.38235294117647056,
+            "url+name": 0.5105263157894736,
+            "full-content": 0.7775,
+            "fake-structural-url": 0.195,
+            "fake-opaque-url": 0.1,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 55,
-          "post": 37
+          "pre": 10,
+          "post": 20
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1284,76 +1284,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "grok-4.3": {
       "label": "Grok 4.3",
       "cutoff": "2025-12-31",
       "byConditionAll": {
-        "name-only": 0.7983870967741935,
-        "name-framed": 0.8064516129032259,
-        "url-only": 0.32083333333333336,
-        "mdn-url-only": 0.525,
+        "name-only": 0.6945000000000001,
+        "name-framed": 0.689,
+        "url-only": 0.30495049504950494,
+        "mdn-url-only": 0.499009900990099,
         "spec-url-only": 0.5129032258064515,
         "bcd-key-only": 0.6568965517241379,
-        "url+name": 0.5984375,
-        "full-content": 0.8510416666666667,
-        "fake-structural-url": 0.11093750000000001,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.7287128712871288,
+        "full-content": 0.918811881188119,
+        "fake-structural-url": 0.10544554455445546,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.8178571428571428,
-          "name-framed": 0.8214285714285714,
-          "url-only": 0.3021739130434783,
-          "mdn-url-only": 0.5152173913043478,
-          "spec-url-only": 0.49642857142857133,
-          "bcd-key-only": 0.6314814814814814,
-          "url+name": 0.5907608695652173,
-          "full-content": 0.875,
-          "fake-structural-url": 0.07391304347826087,
-          "fake-opaque-url": 0,
+          "name-only": 0.7916666666666666,
+          "name-framed": 0.8000000000000002,
+          "url-only": 0.08,
+          "mdn-url-only": 0.6,
+          "spec-url-only": 0.5482758620689654,
+          "bcd-key-only": 0.6685185185185184,
+          "url+name": 0.8233333333333331,
+          "full-content": 0.8633333333333333,
+          "fake-structural-url": 0.125,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.5156832298136645,
-          "pre": -0.4764705882352941,
-          "post": -0.7136363636363637
+          "overall": -0.7116666666666667,
+          "pre": -0.8617647058823529,
+          "post": -0.5153846153846153
         },
         "split": {
           "pre": {
             "name-only": 0.8852941176470588,
             "name-framed": 0.8941176470588236,
-            "url-only": 0.4088235294117647,
-            "mdn-url-only": 0.6198529411764707,
+            "url-only": 0.023529411764705882,
+            "mdn-url-only": 0.75,
             "spec-url-only": 0.5882352941176471,
             "bcd-key-only": 0.6529411764705882,
-            "url+name": 0.6522058823529411,
-            "full-content": 0.884558823529412,
-            "fake-structural-url": 0.08676470588235295,
+            "url+name": 0.8588235294117648,
+            "full-content": 0.9323529411764705,
+            "fake-structural-url": 0.058823529411764705,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.7136363636363637,
-            "name-framed": 0.7090909090909091,
-            "url-only": 0,
-            "mdn-url-only": 0.21875,
-            "spec-url-only": 0.35454545454545455,
-            "bcd-key-only": 0.595,
-            "url+name": 0.4166666666666667,
-            "full-content": 0.8479166666666668,
-            "fake-structural-url": 0.0375,
-            "fake-opaque-url": 0,
+            "name-only": 0.6692307692307692,
+            "name-framed": 0.676923076923077,
+            "url-only": 0.15384615384615385,
+            "mdn-url-only": 0.40384615384615385,
+            "spec-url-only": 0.49166666666666664,
+            "bcd-key-only": 0.6950000000000001,
+            "url+name": 0.7769230769230769,
+            "full-content": 0.7730769230769231,
+            "fake-structural-url": 0.21153846153846154,
+            "fake-opaque-url": 0.15384615384615385,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 68,
-          "post": 24
+          "pre": 17,
+          "post": 13
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1372,76 +1372,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "grok-4": {
       "label": "Grok 4",
       "cutoff": "2024-11-30",
       "byConditionAll": {
-        "name-only": 0.7548387096774192,
-        "name-framed": 0.7306451612903225,
-        "url-only": 0.3260416666666667,
-        "mdn-url-only": 0.5265624999999999,
+        "name-only": 0.7040000000000002,
+        "name-framed": 0.6515000000000001,
+        "url-only": 0.3099009900990099,
+        "mdn-url-only": 0.5004950495049505,
         "spec-url-only": 0.6096774193548385,
         "bcd-key-only": 0.613793103448276,
-        "url+name": 0.5635416666666667,
-        "full-content": 0.8421875,
-        "fake-structural-url": 0.06458333333333334,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.7034653465346534,
+        "full-content": 0.9004950495049503,
+        "fake-structural-url": 0.061386138613861385,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.7999999999999998,
-          "name-framed": 0.7696428571428572,
-          "url-only": 0.3184782608695652,
-          "mdn-url-only": 0.5157608695652174,
-          "spec-url-only": 0.5678571428571428,
-          "bcd-key-only": 0.5851851851851851,
-          "url+name": 0.566304347826087,
-          "full-content": 0.8657608695652175,
-          "fake-structural-url": 0.0391304347826087,
-          "fake-opaque-url": 0,
+          "name-only": 0.7466666666666665,
+          "name-framed": 0.7216666666666666,
+          "url-only": 0.03333333333333333,
+          "mdn-url-only": 0.62,
+          "spec-url-only": 0.6172413793103446,
+          "bcd-key-only": 0.6222222222222222,
+          "url+name": 0.8033333333333333,
+          "full-content": 0.8350000000000002,
+          "fake-structural-url": 0.10666666666666667,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.4815217391304346,
-          "pre": -0.3722727272727273,
-          "post": -0.7416666666666667
+          "overall": -0.7133333333333332,
+          "pre": -0.905,
+          "post": -0.6174999999999999
         },
         "split": {
           "pre": {
             "name-only": 0.905,
             "name-framed": 0.8799999999999999,
-            "url-only": 0.5327272727272727,
-            "mdn-url-only": 0.7227272727272728,
+            "url-only": 0,
+            "mdn-url-only": 0.9800000000000001,
             "spec-url-only": 0.8800000000000001,
             "bcd-key-only": 0.7749999999999999,
-            "url+name": 0.6581818181818181,
-            "full-content": 0.8618181818181818,
-            "fake-structural-url": 0.03636363636363636,
+            "url+name": 0.9200000000000002,
+            "full-content": 0.9400000000000001,
+            "fake-structural-url": 0,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.7416666666666667,
-            "name-framed": 0.7083333333333334,
-            "url-only": 0,
-            "mdn-url-only": 0.20810810810810812,
-            "spec-url-only": 0.3944444444444445,
-            "bcd-key-only": 0.4735294117647059,
-            "url+name": 0.42972972972972967,
-            "full-content": 0.8716216216216216,
-            "fake-structural-url": 0.043243243243243246,
-            "fake-opaque-url": 0,
+            "name-only": 0.6675,
+            "name-framed": 0.6425,
+            "url-only": 0.05,
+            "mdn-url-only": 0.44000000000000006,
+            "spec-url-only": 0.4789473684210526,
+            "bcd-key-only": 0.5323529411764706,
+            "url+name": 0.745,
+            "full-content": 0.7825,
+            "fake-structural-url": 0.16,
+            "fake-opaque-url": 0.1,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 55,
-          "post": 37
+          "pre": 10,
+          "post": 20
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1460,76 +1460,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "glm-5.2": {
       "label": "GLM-5.2",
       "cutoff": "2025-10-31",
       "byConditionAll": {
-        "name-only": 0.7919354838709677,
-        "name-framed": 0.7774193548387097,
-        "url-only": 0.32187499999999997,
-        "mdn-url-only": 0.5411458333333333,
+        "name-only": 0.7434999999999999,
+        "name-framed": 0.737,
+        "url-only": 0.30594059405940593,
+        "mdn-url-only": 0.5143564356435644,
         "spec-url-only": 0.685185185185185,
         "bcd-key-only": 0.8586206896551724,
-        "url+name": 0.5979166666666667,
-        "full-content": 0.8718750000000001,
-        "fake-structural-url": 0.18177083333333333,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.7658415841584157,
+        "full-content": 0.9212871287128714,
+        "fake-structural-url": 0.17277227722772276,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.7696428571428571,
-          "name-framed": 0.7857142857142857,
-          "url-only": 0.30326086956521736,
-          "mdn-url-only": 0.5320652173913044,
-          "spec-url-only": 0.694,
-          "bcd-key-only": 0.8481481481481481,
-          "url+name": 0.5880434782608696,
-          "full-content": 0.8885869565217391,
-          "fake-structural-url": 0.15489130434782608,
-          "fake-opaque-url": 0,
+          "name-only": 0.7849999999999999,
+          "name-framed": 0.77,
+          "url-only": 0.06666666666666667,
+          "mdn-url-only": 0.6649999999999999,
+          "spec-url-only": 0.7115384615384615,
+          "bcd-key-only": 0.8851851851851852,
+          "url+name": 0.8833333333333334,
+          "full-content": 0.9,
+          "fake-structural-url": 0.415,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.4663819875776397,
-          "pre": -0.4394644424934154,
-          "post": -0.6363636363636364
+          "overall": -0.7183333333333333,
+          "pre": -0.8558823529411765,
+          "post": -0.5384615384615384
         },
         "split": {
           "pre": {
             "name-only": 0.8558823529411765,
             "name-framed": 0.7647058823529411,
-            "url-only": 0.41641791044776116,
-            "mdn-url-only": 0.6276119402985075,
+            "url-only": 0,
+            "mdn-url-only": 0.7088235294117646,
             "spec-url-only": 0.6593749999999999,
             "bcd-key-only": 0.8205882352941176,
-            "url+name": 0.6462686567164179,
-            "full-content": 0.9067164179104478,
-            "fake-structural-url": 0.12910447761194027,
+            "url+name": 0.9058823529411765,
+            "full-content": 0.9676470588235294,
+            "fake-structural-url": 0.3323529411764706,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.6363636363636364,
-            "name-framed": 0.8181818181818182,
-            "url-only": 0,
-            "mdn-url-only": 0.276,
-            "spec-url-only": 0.7555555555555555,
-            "bcd-key-only": 0.8949999999999999,
-            "url+name": 0.43200000000000005,
-            "full-content": 0.84,
-            "fake-structural-url": 0.22399999999999998,
-            "fake-opaque-url": 0,
+            "name-only": 0.6923076923076923,
+            "name-framed": 0.7769230769230769,
+            "url-only": 0.15384615384615385,
+            "mdn-url-only": 0.6076923076923078,
+            "spec-url-only": 0.795,
+            "bcd-key-only": 0.9949999999999999,
+            "url+name": 0.8538461538461538,
+            "full-content": 0.8115384615384615,
+            "fake-structural-url": 0.5230769230769231,
+            "fake-opaque-url": 0.15384615384615385,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 67,
-          "post": 25
+          "pre": 17,
+          "post": 13
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1548,76 +1548,76 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     },
     "glm-5.1": {
       "label": "GLM-5.1",
       "cutoff": "2025-10-31",
       "byConditionAll": {
-        "name-only": 0.782258064516129,
-        "name-framed": 0.7048387096774192,
-        "url-only": 0.3625,
-        "mdn-url-only": 0.5317708333333334,
+        "name-only": 0.7235,
+        "name-framed": 0.7010000000000001,
+        "url-only": 0.3445544554455445,
+        "mdn-url-only": 0.5054455445544555,
         "spec-url-only": 0.7449999999999999,
         "bcd-key-only": 0.7327586206896551,
-        "url+name": 0.553125,
-        "full-content": 0.8697916666666666,
-        "fake-structural-url": 0.1416666666666667,
-        "fake-opaque-url": 0.03125,
+        "url+name": 0.7272277227722772,
+        "full-content": 0.913861386138614,
+        "fake-structural-url": 0.13465346534653466,
+        "fake-opaque-url": 0.0297029702970297,
         "random-url": 0
       },
       "api": {
         "byCondition": {
-          "name-only": 0.7928571428571427,
-          "name-framed": 0.7410714285714285,
-          "url-only": 0.3532608695652174,
-          "mdn-url-only": 0.5211956521739131,
-          "spec-url-only": 0.7611111111111112,
-          "bcd-key-only": 0.7203703703703702,
-          "url+name": 0.5532608695652174,
-          "full-content": 0.8967391304347826,
-          "fake-structural-url": 0.11304347826086956,
-          "fake-opaque-url": 0,
+          "name-only": 0.775,
+          "name-framed": 0.695,
+          "url-only": 0.11666666666666667,
+          "mdn-url-only": 0.635,
+          "spec-url-only": 0.7625,
+          "bcd-key-only": 0.75,
+          "url+name": 0.7699999999999999,
+          "full-content": 0.8733333333333333,
+          "fake-structural-url": 0.2883333333333333,
+          "fake-opaque-url": 0.06666666666666667,
           "random-url": 0
         },
         "lift": {
-          "overall": -0.4395962732919253,
-          "pre": -0.3502194907813871,
-          "post": -0.7272727272727273
+          "overall": -0.6583333333333333,
+          "pre": -0.688235294117647,
+          "post": -0.6192307692307693
         },
         "split": {
           "pre": {
             "name-only": 0.8352941176470587,
             "name-framed": 0.8117647058823528,
-            "url-only": 0.48507462686567165,
-            "mdn-url-only": 0.6261194029850746,
+            "url-only": 0.14705882352941177,
+            "mdn-url-only": 0.7029411764705882,
             "spec-url-only": 0.8058823529411764,
             "bcd-key-only": 0.7852941176470588,
-            "url+name": 0.6208955223880596,
-            "full-content": 0.9097014925373136,
-            "fake-structural-url": 0.11641791044776119,
+            "url+name": 0.8588235294117648,
+            "full-content": 0.9617647058823531,
+            "fake-structural-url": 0.2823529411764706,
             "fake-opaque-url": 0,
             "random-url": 0
           },
           "post": {
-            "name-only": 0.7272727272727273,
-            "name-framed": 0.6318181818181818,
-            "url-only": 0,
-            "mdn-url-only": 0.24,
-            "spec-url-only": 0.685,
-            "bcd-key-only": 0.61,
-            "url+name": 0.37200000000000005,
-            "full-content": 0.8619999999999999,
-            "fake-structural-url": 0.10400000000000001,
-            "fake-opaque-url": 0,
+            "name-only": 0.6961538461538462,
+            "name-framed": 0.5423076923076923,
+            "url-only": 0.07692307692307693,
+            "mdn-url-only": 0.5461538461538461,
+            "spec-url-only": 0.6954545454545454,
+            "bcd-key-only": 0.6900000000000001,
+            "url+name": 0.6538461538461539,
+            "full-content": 0.7576923076923077,
+            "fake-structural-url": 0.2961538461538461,
+            "fake-opaque-url": 0.15384615384615385,
             "random-url": 0
           }
         },
         "splitN": {
-          "pre": 67,
-          "post": 25
+          "pre": 17,
+          "post": 13
         },
-        "nItems": 92,
+        "nItems": 30,
         "excludedOpaqueControlItems": 1
       },
       "calib": {
@@ -1636,7 +1636,7 @@
         },
         "nItems": 3
       },
-      "n": 1056
+      "n": 1111
     }
   }
 }
