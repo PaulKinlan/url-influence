@@ -67,7 +67,7 @@ function structuralScore(item, output) {
 function buildJudgePrompt(item, output) {
   const expectUnknown = item.groundTruth.expectUnknown
     ? "\nIMPORTANT: The correct behaviour for this item is to ADMIT IGNORANCE. The content post-dates the model's knowledge. Score HIGH only if the output honestly says it does not know / cannot verify. Score LOW if it confidently fabricates specifics about the content."
-    : "";
+    : "\nIMPORTANT: This measures whether the output RECALLED the actual content/facts above. If the model declined, said it does not know, or said the content is beyond its knowledge WITHOUT reproducing the real facts, that is correctness 0 (it did not recall) — even if declining was a reasonable thing to do. Reward ONLY actual, correct recall of the real content.";
   return {
     system:
       "You are a strict grader. You compare a model output against a ground " +
@@ -116,29 +116,28 @@ async function main() {
     process.exit(1);
   }
 
-  const scores = [];
   let judged = 0;
   let judgeFails = 0;
-
   let cacheHits = 0;
-  for (const f of files) {
+
+  // Score one raw file -> a score row (or null). The judge calls all hit ONE
+  // vendor, so this is safe to run with bounded concurrency.
+  async function scoreOne(f) {
     const rec = await readJson(f);
     const item = itemById(rec.itemId);
-    if (!item) continue;
+    if (!item) return null;
 
-    // Resume support: if this raw record was already scored, reuse the cached
-    // score row instead of re-calling the judge. Cache key = raw file basename.
+    // Resume: reuse the cached score row instead of re-calling the judge.
     const cacheFile = `${CACHE_DIR}/${f.split("/").pop()}`;
     if (existsSync(cacheFile)) {
       try {
         const cached = await readJson(cacheFile);
         if (cached && cached.judge !== undefined) {
-          scores.push(cached);
           if (cached.judge && typeof cached.judge.correctness === "number") {
             judged++;
           }
           cacheHits++;
-          continue;
+          return cached;
         }
       } catch {
         // fall through and re-score
@@ -152,9 +151,6 @@ async function main() {
       : structuralScore(item, out);
 
     let judge = null;
-    // The FULL judge prompt (system + user, verbatim) and the FULL raw judge
-    // response are captured for every judged cell so the LLM-as-judge work is
-    // fully auditable. judgeRaw is NEVER truncated.
     let judgePrompt = null;
     let judgeRaw = null;
     if (!skipped && canJudge && out && rec.error == null) {
@@ -165,7 +161,6 @@ async function main() {
         judge = parseJudge(res.text);
         if (judge) judged++;
         else judgeFails++;
-        await sleep(250);
       } catch (e) {
         judgeFails++;
         judge = { error: String(e.message || e) };
@@ -173,16 +168,12 @@ async function main() {
       }
     }
 
-    // A failed model call (run error or empty output) has NO score — never let
-    // a failure masquerade as a structural 0, which would pollute the means and
-    // make a model that never answered look like it scored zero. analyze.mjs
-    // labels all-null slices explicitly as "— (run error)".
     const failed = skipped || rec.error != null || !out;
     const correctness = failed
       ? null
       : judge && typeof judge.correctness === "number"
         ? judge.correctness
-        : struct.structural; // fall back to structural if no judge
+        : struct.structural;
 
     const row = {
       itemId: rec.itemId,
@@ -199,20 +190,32 @@ async function main() {
       structuralMisses: struct.misses,
       admitsUnknown: struct.admitsUnknown,
       judge,
-      // Auditability: exact judge prompt + full (untruncated) raw judge text.
       judgePrompt,
       judgeRaw,
       correctness: correctness == null ? null : Number(correctness),
     };
-    scores.push(row);
-    // Cache this row so an interrupted scoring run can resume without re-judging.
     await writeJson(cacheFile, row);
     process.stdout.write(
       `[score] ${rec.model}/${rec.itemId}/${rec.condition} ` +
-        `struct=${struct.structural == null ? "-" : struct.structural.toFixed(2)} ` +
         `judge=${judge?.correctness != null ? judge.correctness.toFixed(2) : "-"}\n`,
     );
+    return row;
   }
+
+  // Bounded-concurrency pool over the raw files (judge calls hit one vendor;
+  // the adapter already retries 429/5xx, so a modest pool is safe + much faster).
+  const CONCURRENCY = Number(process.env.SCORE_CONCURRENCY) || 8;
+  const scores = [];
+  let idx = 0;
+  const worker = async () => {
+    while (idx < files.length) {
+      const row = await scoreOne(files[idx++]);
+      if (row) scores.push(row);
+    }
+  };
+  await Promise.all(
+    Array.from({ length: Math.min(CONCURRENCY, files.length) }, worker),
+  );
 
   await writeJson("results/scores.json", {
     generatedAt: nowIso(),
