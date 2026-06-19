@@ -54,11 +54,13 @@ decisions made, and what we have learned about the URLs and methodology.
   per-item identifier table (+ first-seen month) and a present-vs-absent decode
   table (present 0.46 / absent 0.18); dashboard has an "In/Not in Common Crawl"
   filter + per-row CC badge. analysis-only, no rerun.
+- **Dashboard data gzipped (Paul):** dashboard-data.js now ships
+  `window.__URLINFLUENCE_GZ` = base64 of gzipped JSON (57.5→9.1MB, 6.3x); browser
+  inflates on boot with DecompressionStream. Inlined (not a fetched .gz) so
+  file:// still works — no fetch/CORS. Size-warning resolved.
 - PENDING (lower priority): A2 full (cross-vendor judge), B3 (k-samples variance),
   C2 (url-resolution dedupe), fix GitHub-SHA negative to obscure commits, README
-  "opaque spectrum" minor tidy. WATCH: dashboard-data.js now 55MB (past GitHub's
-  50MB soft warning, under the 100MB hard limit) — may need stronger clipping or
-  gzip soon as the matrix grows.
+  "opaque spectrum" minor tidy.
 
 ### Next / open
 - DONE (2026-06-19): committed results regenerated for the current protocol —
