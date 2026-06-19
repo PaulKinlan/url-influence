@@ -2343,6 +2343,145 @@ export const CORPUS = [
       "https://github.com/bitcoin/bitcoin/commit/2222222222222222222222222222222222222222",
   },
 
+  // ---- OBSCURE GitHub commit SHAs (the proper opaque-SHA NEGATIVE) ----------
+  // The famous first-commit items above are contaminated: milestone commits ARE
+  // memorised, so url-only "works" for them. These are ROUTINE, non-milestone
+  // commits (real SHAs, content verified via the GitHub API) that no model has
+  // SHA->diff memorised. Spanning 2020..2026; the 2026 ones are post-cutoff for
+  // every model and are the strongest negatives. Expected: url-only (bare SHA)
+  // ~0 even when the repo is well-known, while full-content (the pasted diff) is
+  // the ceiling — demonstrating fame/notability, not the SHA, drives decoding.
+  {
+    id: "gh-sha-obscure-slugify-empty-separator",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2020-07-18", // verified via GitHub API (sindresorhus/slugify)
+    groundTruth: {
+      mustMention: ["slugify", "separator", "empty"],
+      notes:
+        "Commit d7bf7cc06c63676b273fa496340f4a85a64d7fe8 in sindresorhus/slugify is 'Add support for empty `separator` (#53)' (July 2020). It lets the slugify `separator` option be an empty string (touching index.js, index.d.ts, readme.md, test.js). A routine, non-milestone commit — almost certainly NOT memorised by SHA. Correct recall states it added empty-separator support to slugify.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/sindresorhus/slugify/commit/d7bf7cc06c63676b273fa496340f4a85a64d7fe8",
+      semiOpaque:
+        "https://api.github.com/repos/sindresorhus/slugify/commits/d7bf7cc06c63676b273fa496340f4a85a64d7fe8",
+      opaque:
+        "https://github.com/sindresorhus/slugify/commit/d7bf7cc06c63676b273fa496340f4a85a64d7fe8",
+      fullContentUrl:
+        "https://api.github.com/repos/sindresorhus/slugify/commits/d7bf7cc06c63676b273fa496340f4a85a64d7fe8",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/sindresorhus/slugify/commit/3333333333333333333333333333333333333333",
+  },
+  {
+    id: "gh-sha-obscure-slugify-transliterate",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2025-09-11", // verified via GitHub API (sindresorhus/slugify)
+    groundTruth: {
+      mustMention: ["slugify", "transliterate"],
+      notes:
+        "Commit dc4b4457aa476c7fa04e467761d19d4eb6cd1cba in sindresorhus/slugify is 'Add `transliterate` option' (Sept 2025, fixes #68). It adds a `transliterate` option to slugify (touching index.js, index.d.ts, readme.md, test.js). Routine, non-milestone — not memorised by SHA. Correct recall states it added a transliterate option to slugify.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/sindresorhus/slugify/commit/dc4b4457aa476c7fa04e467761d19d4eb6cd1cba",
+      semiOpaque:
+        "https://api.github.com/repos/sindresorhus/slugify/commits/dc4b4457aa476c7fa04e467761d19d4eb6cd1cba",
+      opaque:
+        "https://github.com/sindresorhus/slugify/commit/dc4b4457aa476c7fa04e467761d19d4eb6cd1cba",
+      fullContentUrl:
+        "https://api.github.com/repos/sindresorhus/slugify/commits/dc4b4457aa476c7fa04e467761d19d4eb6cd1cba",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/sindresorhus/slugify/commit/4444444444444444444444444444444444444444",
+  },
+  {
+    id: "gh-sha-obscure-execa-prototype-pollution",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2026-01-29", // verified via GitHub API (sindresorhus/execa) — POST-cutoff
+    groundTruth: {
+      mustMention: ["execa", "prototype pollution"],
+      notes:
+        "Commit f3a2e8481a1e9138de3895827895c834078b9456 in sindresorhus/execa is 'Harden against prototype pollution (#1223)' (Jan 2026). It hardens execa's option/argument handling against prototype pollution (touching lib/arguments/options.js, lib/methods/bind.js, lib/methods/node.js, lib/methods/parameters.js). Post-dates every model cutoff — cannot be memorised. Correct recall states it hardened execa against prototype pollution.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/sindresorhus/execa/commit/f3a2e8481a1e9138de3895827895c834078b9456",
+      semiOpaque:
+        "https://api.github.com/repos/sindresorhus/execa/commits/f3a2e8481a1e9138de3895827895c834078b9456",
+      opaque:
+        "https://github.com/sindresorhus/execa/commit/f3a2e8481a1e9138de3895827895c834078b9456",
+      fullContentUrl:
+        "https://api.github.com/repos/sindresorhus/execa/commits/f3a2e8481a1e9138de3895827895c834078b9456",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/sindresorhus/execa/commit/5555555555555555555555555555555555555555",
+  },
+  {
+    id: "gh-sha-obscure-ky-searchparams",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2026-04-21", // verified via GitHub API (sindresorhus/ky) — POST-cutoff
+    groundTruth: {
+      mustMention: ["ky", "URLSearchParams"],
+      notes:
+        "Commit add0703b7ea2e20f5afe16ab5d9507a16e275f20 in sindresorhus/ky is 'Fix init hook URLSearchParams deletions' (April 2026). It fixes how the ky HTTP client merges/handles URLSearchParams deletions in the init hook (touching source/core/Ky.ts, source/utils/merge.ts, test/main.ts). Post-dates every model cutoff. Correct recall states it fixed URLSearchParams deletion handling in ky's init hook.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/sindresorhus/ky/commit/add0703b7ea2e20f5afe16ab5d9507a16e275f20",
+      semiOpaque:
+        "https://api.github.com/repos/sindresorhus/ky/commits/add0703b7ea2e20f5afe16ab5d9507a16e275f20",
+      opaque:
+        "https://github.com/sindresorhus/ky/commit/add0703b7ea2e20f5afe16ab5d9507a16e275f20",
+      fullContentUrl:
+        "https://api.github.com/repos/sindresorhus/ky/commits/add0703b7ea2e20f5afe16ab5d9507a16e275f20",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/sindresorhus/ky/commit/6666666666666666666666666666666666666666",
+  },
+  {
+    id: "gh-sha-obscure-hono-bun-native",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2026-06-18", // verified via GitHub API (honojs/hono) — POST-cutoff
+    groundTruth: {
+      mustMention: ["hono", "Bun", "build"],
+      notes:
+        "Commit d29982cc40c3babb417db625ab0671d982398646 in honojs/hono is 'chore: replace arg and glob with Bun native APIs in build script' (June 2026). It swaps the `arg` and `glob` dependencies for Bun's native APIs in hono's build script (touching build/build.ts, bun.lock, package.json). Post-dates every model cutoff. Correct recall states it replaced arg/glob with Bun native APIs in hono's build.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/honojs/hono/commit/d29982cc40c3babb417db625ab0671d982398646",
+      semiOpaque:
+        "https://api.github.com/repos/honojs/hono/commits/d29982cc40c3babb417db625ab0671d982398646",
+      opaque:
+        "https://github.com/honojs/hono/commit/d29982cc40c3babb417db625ab0671d982398646",
+      fullContentUrl:
+        "https://api.github.com/repos/honojs/hono/commits/d29982cc40c3babb417db625ab0671d982398646",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/honojs/hono/commit/7777777777777777777777777777777777777777",
+  },
+
   // ---- Hugging Face model ids (semi-descriptive, clean post-cutoff) ----
   {
     id: "hf-gemma-4-26b-a4b-it",
@@ -2527,6 +2666,16 @@ export const DESCRIPTIVE_NAMES = {
     "the initial commit of Git ('Initial revision of git, the information manager from hell', Torvalds, 2005)",
   "gh-sha-bitcoin-first-commit":
     "the first commit of the Bitcoin reference client (2009)",
+  "gh-sha-obscure-slugify-empty-separator":
+    "the sindresorhus/slugify commit that added support for an empty `separator` option (#53, 2020)",
+  "gh-sha-obscure-slugify-transliterate":
+    "the sindresorhus/slugify commit that added a `transliterate` option (2025)",
+  "gh-sha-obscure-execa-prototype-pollution":
+    "the sindresorhus/execa commit hardening against prototype pollution (#1223, 2026)",
+  "gh-sha-obscure-ky-searchparams":
+    "the sindresorhus/ky commit fixing init-hook URLSearchParams deletions (2026)",
+  "gh-sha-obscure-hono-bun-native":
+    "the honojs/hono commit replacing arg and glob with Bun native APIs in the build script (2026)",
   "hf-gemma-4-26b-a4b-it":
     "the Google Gemma 4 26B (A4B) instruction-tuned model",
   "hf-qwen3-5-4b": "Alibaba's Qwen3.5-4B model",
