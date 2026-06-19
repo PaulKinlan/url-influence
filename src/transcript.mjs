@@ -24,11 +24,12 @@ import { writeFile } from "node:fs/promises";
 
 const RAW_DIR = "results/raw";
 
-// pre/post-cutoff classifier, matched to analyze.mjs: equal-month counts as
-// "post" (the harder case for the model).
+// pre/post-cutoff classifier, matched to analyze.mjs. Content dates pad to
+// mid-month; cutoffs are month-end, so same-year-month items bucket as "pre"
+// but are boundary-ambiguous (see analyze.mjs / the report caveat).
 function preCutoff(contentDate, cutoff) {
   const norm = (s) => {
-    const [y, m = "01", d = "01"] = s.split("-");
+    const [y, m = "06", d = "15"] = s.split("-"); // mid-month (see analyze.mjs)
     return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
   };
   return norm(contentDate) < norm(cutoff);
@@ -105,9 +106,9 @@ async function main() {
   );
   md.push("");
   md.push(
-    "`preCutoff` = the item's contentDate is strictly before this model's " +
-      "knowledge cutoff (could have been in training). Equal-month counts as " +
-      "post (the harder case).",
+    "`preCutoff` = the item's contentDate is before this model's knowledge " +
+      "cutoff (could have been in training). Dates pad to mid-month vs month-end " +
+      "cutoffs, so same-year-month items are `pre` but boundary-ambiguous.",
   );
   md.push("");
 

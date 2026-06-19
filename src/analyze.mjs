@@ -89,12 +89,23 @@ function shortId(item) {
   return o.replace(/^https?:\/\//, "");
 }
 
+// Pad a YYYY-MM date to mid-month (-15), not -01. Cutoffs are month-END (-31),
+// so padding content dates to -01 made same-month items ALWAYS classify "pre"
+// even when they likely post-date training. Mid-month is the less-biased
+// convention; items in the SAME year-month as a model's cutoff remain
+// boundary-ambiguous (flagged in the report).
 function relativeToCutoff(contentDate, cutoff) {
   const norm = (s) => {
-    const [y, m = "01", d = "01"] = s.split("-");
+    const [y, m = "06", d = "15"] = s.split("-");
     return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
   };
   return norm(contentDate) < norm(cutoff) ? "pre" : "post";
+}
+
+// Same year-month as the model cutoff => boundary-ambiguous (could be either
+// side of the training cut). Reported as a caveat, not silently bucketed.
+function isBoundary(contentDate, cutoff) {
+  return (contentDate || "").slice(0, 7) === (cutoff || "").slice(0, 7);
 }
 
 function mean(xs) {
@@ -367,6 +378,14 @@ async function writeReport(summary, models, data, skippedModels) {
       "`spec-url-only`, and `bcd-key-only` are exploratory. They are useful " +
       "for diagnosing which identifiers a model can decode, but the headline " +
       "lift remains strictly `url-only - name-only`.",
+  );
+  L.push("");
+  L.push(
+    "**Cutoff granularity.** Content dates are `YYYY-MM` (padded to mid-month); " +
+      "model cutoffs are month-end. An item in the SAME year-month as a model's " +
+      "cutoff is **boundary-ambiguous** — it could fall either side of the " +
+      "training cut — yet is bucketed `pre`. Treat the pre/post split as fuzzy " +
+      "near the boundary.",
   );
   L.push("");
   L.push(

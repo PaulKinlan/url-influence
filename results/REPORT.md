@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-19T06:30:47.242Z
+Report generated: 2026-06-19T06:38:32.566Z
 Data run / scored: 2026-06-19T00:51:24.851Z
-Code + data commit: [`5857e976be`](https://github.com/PaulKinlan/url-influence/commit/5857e976be6fa3984b8eef0bd5ecc9166cc92ded)
+Code + data commit: [`f830b4eb53`](https://github.com/PaulKinlan/url-influence/commit/f830b4eb53aa7326fc67b7a3b147d623d7719cdc)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 4403 (judge failures: 0)
 
@@ -26,6 +26,8 @@ Judged outputs: 4403 (judge failures: 0)
 **Controls.** `fake-structural-url` (plausible but nonexistent, same shape) and `random-url` (unrelated real URL) should collapse toward name-only / zero — if URL shape or merely having a URL did the work, these would lift too.
 
 **Identifier probes.** Conditions such as `mdn-url-only`, `spec-url-only`, and `bcd-key-only` are exploratory. They are useful for diagnosing which identifiers a model can decode, but the headline lift remains strictly `url-only - name-only`.
+
+**Cutoff granularity.** Content dates are `YYYY-MM` (padded to mid-month); model cutoffs are month-end. An item in the SAME year-month as a model's cutoff is **boundary-ambiguous** — it could fall either side of the training cut — yet is bucketed `pre`. Treat the pre/post split as fuzzy near the boundary.
 
 **Blanks** are always labelled: `— (no items)`, `— (run error)`, `— (judge failed)`, `— (skipped: no key)`, `— (n/a)`.
 
