@@ -217,6 +217,10 @@ async function main() {
   await writeJson("results/scores.json", {
     generatedAt: nowIso(),
     judgeModel: canJudge ? judgeModel.key : null,
+    // C4: make the scoring scale explicit. "judge" = LLM-as-judge correctness;
+    // "structural-only" = the deterministic must-mention fraction was used as a
+    // fallback (a different scale, not directly comparable to judge scores).
+    scoreMode: canJudge ? "judge" : "structural-only",
     judged,
     judgeFails,
     scores,
