@@ -78,17 +78,40 @@ export async function listJson(dir) {
 // Strip HTML to roughly-readable text for the full-content condition. Crude but
 // adequate for pasting reference docs.
 export function htmlToText(html) {
-  return html
+  let s = html;
+  // 1. Drop non-content chrome (scripts/styles + nav/header/footer/aside/svg).
+  //    These carry no API content and otherwise dominate the truncated window.
+  s = s
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
+    .replace(/<svg[\s\S]*?<\/svg>/gi, " ")
+    .replace(/<(nav|header|footer|aside)\b[\s\S]*?<\/\1>/gi, " ");
+  // 2. Preserve code: convert <pre> blocks to fenced text, KEEPING the inner
+  //    newlines (the actual API surface usually lives in code samples).
+  s = s.replace(
+    /<pre\b[^>]*>([\s\S]*?)<\/pre>/gi,
+    (_m, inner) => "\n```\n" + inner.replace(/<[^>]+>/g, "") + "\n```\n",
+  );
+  // 3. Block elements -> newlines so structure survives the tag strip.
+  s = s
+    .replace(/<li\b[^>]*>/gi, "\n- ")
+    .replace(/<\/(p|div|li|tr|h[1-6]|section|article|ul|ol|table)>/gi, "\n")
+    .replace(/<br\s*\/?>/gi, "\n");
+  // 4. Strip remaining tags + decode the common entities.
+  s = s
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, " ")
+    .replace(/&#0?39;|&#x27;/gi, "'");
+  // 5. Collapse spaces but KEEP newlines (don't flatten code / structure).
+  return s
+    .replace(/[ \t]+/g, " ")
+    .replace(/[ \t]*\n[ \t]*/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
