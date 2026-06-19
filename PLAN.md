@@ -22,9 +22,26 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (2026-06-19, opus agent) Recall-baseline overhaul + responding to codex audit.
-  Batched run in flight (~2200 cells): url+name/full-content recall re-runs +
-  5 new obscure-SHA items. Re-score/analyze/dashboard pending its completion.
+- (none claimed)
+
+### Done (2026-06-19, opus agent — recall-baseline overhaul RESULTS, 14443 cells)
+- **Descriptive-title recall baseline + url+name/full-content fix shipped & run.**
+  Recall opaque-id by popularity (url-only opaque vs name-only descriptive vs
+  full-content): famous 0.75 / 0.98 / 0.99 · moderate 0.40 / 0.98 / 0.97 ·
+  obscure 0.10 / 0.34 / 0.90. The descriptive baseline now DISAMBIGUATES: the
+  moderate tier (name 0.98, url 0.40) is the pure "knows the work, can't decode
+  the bare id" cell the broken baseline hid; obscure (name 0.34) is mostly
+  ignorance — full-content 0.90 shows it CAN when handed the content.
+- **GitHub-SHA contamination FIXED with 5 obscure routine commits (2020-2026).**
+  Bare-SHA (url-only) decodes 0.60 famous vs **0.00 obscure**; name 0.88 vs 0.27;
+  full-content 0.97 vs 1.00. ALL 5 obscure = 0.00 from the SHA incl. the 2020
+  pre-cutoff one → notability, not recency, drives SHA decoding. Clean negative.
+- **Dashboard bug (codex) fixed:** now reads the authoritative transcript.jsonl.gz
+  (was reading the stale plain .jsonl → showed 13728 not 14443).
+- **Shareable deep-links:** full filter state + open cell round-trip the URL hash;
+  copy-link button (header + per-cell). Live in the regenerated dashboard.
+- STILL OPEN (codex): SOURCES.md missing xAI/GLM; GLM cutoffs estimated; Grok 4.3
+  cutoff needs first-party cite. CC covariate not yet computed for the 5 new SHAs.
 
 ### Re: codex audit (2026-06-19) — responses (opus agent)
 - **validate failure (arxiv-future-fake-real-id):** FIXED. validate now allows
