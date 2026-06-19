@@ -24,7 +24,24 @@ async function main() {
     .filter(Boolean)
     .map((l) => JSON.parse(l));
 
-  // Item metadata (track = api vs calibration, plus the human task).
+  // Classify an item's opaque-id SOURCE/scheme (for the source filter).
+  const sourceOf = (it) => {
+    if (it.validation?.opaqueRole === "structural-control") return "control";
+    const o = it.urls?.opaque || "";
+    if (/arxiv\.org/.test(o)) return "arXiv";
+    if (/nvd\.nist|cve\.org|cveawg/.test(o) || /CVE-\d/.test(o)) return "CVE";
+    if (/pubmed|ncbi\.nlm/.test(o)) return "PubMed";
+    if (/datatracker|rfc-editor|ietf/.test(o)) return "RFC";
+    if (/chromestatus\.com/.test(o)) return "ChromeStatus";
+    if (/stackoverflow\.com/.test(o)) return "StackOverflow";
+    if (/github\.com\/.+\/commit/.test(o)) return "GitHub-SHA";
+    if (/huggingface\.co/.test(o)) return "HuggingFace";
+    if (/doi\.org/.test(o)) return "DOI";
+    if (/caniuse\.com/.test(o)) return "caniuse";
+    return "other";
+  };
+
+  // Item metadata (track, source scheme, popularity, the human task).
   const items = {};
   for (const it of CORPUS) {
     items[it.id] = {
@@ -34,6 +51,8 @@ async function main() {
       contentDate: it.contentDate,
       track: it.groundTruth.expectUnknown ? "calibration" : "api-usage",
       opaqueRole: it.validation?.opaqueRole || "real",
+      source: sourceOf(it),
+      popularity: it.popularity || null,
     };
   }
 
@@ -173,6 +192,19 @@ const HTML = `<!doctype html>
       <select id="model"></select>
     </fieldset>
     <fieldset>
+      <legend>Source / id scheme</legend>
+      <select id="source"><option value="all">All sources</option></select>
+    </fieldset>
+    <fieldset>
+      <legend>Popularity</legend>
+      <select id="popularity">
+        <option value="all">All</option>
+        <option value="famous">famous</option>
+        <option value="moderate">moderate</option>
+        <option value="obscure">obscure</option>
+      </select>
+    </fieldset>
+    <fieldset>
       <legend>Item track</legend>
       <label class="row"><input type="radio" name="track" value="all"> All</label>
       <label class="row"><input type="radio" name="track" value="api-usage" checked> API-usage only</label>
@@ -222,6 +254,12 @@ D.conditions.forEach(c=>{
 });
 $("#pass").value = D.meta.passDefault;
 
+// Populate the Source dropdown from the items' schemes (sorted, with counts).
+const srcSel = $("#source");
+const srcCounts = {};
+for(const id in D.items){ const s=D.items[id].source||"other"; srcCounts[s]=(srcCounts[s]||0)+1; }
+Object.keys(srcCounts).sort().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s+" ("+srcCounts[s]+")"; srcSel.appendChild(o); });
+
 function color(v){
   if(v==null) return null;
   // red(0) -> amber(.5) -> green(1)
@@ -234,10 +272,13 @@ function getRadio(n){ return document.querySelector('input[name="'+n+'"]:checked
 function filtered(){
   const track=getRadio("track"), bucket=getRadio("bucket"), conds=new Set(activeConds());
   const opaque=getRadio("opaque");
+  const source=$("#source").value, popularity=$("#popularity").value;
   const pass=parseFloat($("#pass").value), failonly=$("#failonly").checked;
   return D.cells.filter(c=>{
     if(!conds.has(c.condition)) return false;
     const it=D.items[c.itemId];
+    if(source!=="all" && it.source!==source) return false;
+    if(popularity!=="all" && it.popularity!==popularity) return false;
     if(track!=="all" && it.track!==track) return false;
     if(opaque==="real" && it.opaqueRole==="structural-control") return false;
     if(opaque==="structural-control" && it.opaqueRole!=="structural-control") return false;
@@ -284,7 +325,7 @@ function render(){
   itemIds.forEach(id=>{
     const it=D.items[id];
     const side = (mc.find(c=>c.itemId===id)||{}).preCutoff ? "pre":"post";
-    t+='<tr><td class="item">'+id+'<div class="tk">'+it.contentDate+' · '+it.track+' · '+it.opaqueRole+' · '+side+'-cutoff</div></td>';
+    t+='<tr><td class="item">'+id+'<div class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+' · '+it.contentDate+' · '+side+'-cutoff</div></td>';
     conds.forEach(c=>{
       const cell=mc.find(x=>x.itemId===id&&x.condition===c);
       if(!cell){ t+='<td><div class="cellbtn null">·</div></td>'; return; }
