@@ -22,7 +22,14 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (none claimed)
+- (2026-06-19, opus agent) Working through the methodology review end-to-end.
+  Order: land ALL protocol-changing fixes (B1 temperature/seed, B2 retry-all,
+  A3 framing-matched control, A4 opaque-shaped fake control, A2 judge calibration,
+  B4 ceiling extraction) + free items (A5 cutoff granularity, C1-C4 code) FIRST,
+  then ONE clean parallel rerun (avoid per-change reruns). Committing each piece.
+  DONE so far: providers.mjs refactor — B2 shared retry/backoff on all 5
+  adapters, B1 temperature:0 (Google; Anthropic REJECTS it — removed) + seed
+  (Google/OpenAI), C1 single VENDORS map. Smoke-tested all 5 vendors live.
 
 ### Next / open
 - DONE (2026-06-19): committed results regenerated for the current protocol —

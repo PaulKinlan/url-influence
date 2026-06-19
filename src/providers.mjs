@@ -6,17 +6,25 @@
 //   text, usage: { inputTokens, outputTokens }, raw
 // }
 //
-// Adding a provider (OpenAI, xAI/Grok, ...) is one function here plus a model
-// entry in models.mjs with the matching `vendor`.
+// Adding a provider is one entry in the VENDORS map below plus its adapter.
 
 const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
 const GOOGLE_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+const XAI_URL = "https://api.x.ai/v1/chat/completions";
+const ZAI_URL = "https://api.z.ai/api/paas/v4/chat/completions";
 
-// Per-request timeout. Without it, one stalled connection freezes the whole
-// sequential run. Thinking models can be slow, so keep this generous.
+// Per-request timeout. Without it, one stalled connection freezes the run.
 const REQUEST_TIMEOUT_MS = 120000;
+
+// Determinism / reproducibility. temperature:0 is sent to vendors that honour
+// it (Anthropic, Google); `seed` is sent to OpenAI (which supports it). The
+// reasoning models (GPT-5, Grok 4.x, GLM-5.x) are inherently non-deterministic
+// and may reject temperature!=default, so we do NOT force temperature on the
+// OpenAI-compatible endpoints to avoid breaking the (paid) run.
+const TEMPERATURE = 0;
+const SEED = 7;
 
 function requireEnv(name) {
   const v = process.env[name];
@@ -24,29 +32,70 @@ function requireEnv(name) {
   return v;
 }
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Exponential backoff with jitter: ~1s, 2s, 4s, 8s, 16s (capped 20s) + 0-500ms.
+function backoffMs(attempt) {
+  return Math.min(1000 * 2 ** (attempt - 1), 20000) + Math.floor(Math.random() * 500);
+}
+
+// Shared retry-aware POST. Retries on 429 / 5xx / network with backoff +
+// jitter, honouring Retry-After. Genuine 4xx (auth, bad request) are not
+// retried. Returns { res, json }; throws a labelled Error on terminal failure.
+async function postJson(url, headers, bodyObj, label, maxAttempts = 6) {
+  const body = JSON.stringify(bodyObj);
+  let lastErr;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    let res;
+    try {
+      res = await fetch(url, {
+        method: "POST",
+        headers,
+        body,
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
+    } catch (e) {
+      lastErr = new Error(`${label} network error: ${String(e.message || e)}`);
+      if (attempt < maxAttempts) {
+        await sleep(backoffMs(attempt));
+        continue;
+      }
+      throw lastErr;
+    }
+    const json = await res.json().catch(() => ({}));
+    if (res.ok) return { res, json };
+    lastErr = new Error(
+      `${label} ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
+    );
+    if ((res.status === 429 || res.status >= 500) && attempt < maxAttempts) {
+      const ra = Number(res.headers.get("retry-after"));
+      await sleep(Number.isFinite(ra) && ra > 0 ? ra * 1000 : backoffMs(attempt));
+      continue;
+    }
+    throw lastErr;
+  }
+  throw lastErr;
+}
+
 async function callAnthropic(model, { system, user, maxTokens = 1500 }) {
   const key = requireEnv("ANTHROPIC_API_KEY");
-  const res = await fetch(ANTHROPIC_URL, {
-    method: "POST",
-    headers: {
+  const { json } = await postJson(
+    ANTHROPIC_URL,
+    {
       "x-api-key": key,
       "anthropic-version": ANTHROPIC_VERSION,
       "content-type": "application/json",
     },
-    body: JSON.stringify({
+    {
       model,
       max_tokens: maxTokens,
+      // NB: `temperature` is DEPRECATED/rejected by the current Claude flagships
+      // (400 "temperature is deprecated for this model"), so we do not send it.
       system,
       messages: [{ role: "user", content: user }],
-    }),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-  });
-  const json = await res.json();
-  if (!res.ok) {
-    throw new Error(
-      `Anthropic ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
-    );
-  }
+    },
+    "Anthropic",
+  );
   const text = (json.content || [])
     .filter((b) => b.type === "text")
     .map((b) => b.text)
@@ -63,28 +112,22 @@ async function callAnthropic(model, { system, user, maxTokens = 1500 }) {
 
 async function callGoogle(model, { system, user, maxTokens = 1500 }) {
   const key = requireEnv("GEMINI_API_KEY");
-  const url = `${GOOGLE_BASE}/${model}:generateContent?key=${key}`;
-  const body = {
-    systemInstruction: { parts: [{ text: system }] },
-    contents: [{ role: "user", parts: [{ text: user }] }],
-    generationConfig: { maxOutputTokens: maxTokens },
-  };
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-  });
-  const json = await res.json();
-  if (!res.ok) {
-    throw new Error(
-      `Google ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
-    );
-  }
+  const { json } = await postJson(
+    `${GOOGLE_BASE}/${model}:generateContent?key=${key}`,
+    { "content-type": "application/json" },
+    {
+      systemInstruction: { parts: [{ text: system }] },
+      contents: [{ role: "user", parts: [{ text: user }] }],
+      generationConfig: {
+        maxOutputTokens: maxTokens,
+        temperature: TEMPERATURE,
+        seed: SEED,
+      },
+    },
+    "Google",
+  );
   const cand = json.candidates?.[0];
-  const text = (cand?.content?.parts || [])
-    .map((p) => p.text || "")
-    .join("");
+  const text = (cand?.content?.parts || []).map((p) => p.text || "").join("");
   return {
     text,
     usage: {
@@ -95,227 +138,93 @@ async function callGoogle(model, { system, user, maxTokens = 1500 }) {
   };
 }
 
-async function callOpenAI(model, { system, user, maxTokens = 1500 }) {
-  const key = requireEnv("OPENAI_API_KEY");
-  // Chat Completions API. Newer OpenAI models reject `max_tokens` and require
-  // `max_completion_tokens`.
-  //
-  // The GPT-5 family are REASONING models: reasoning tokens are billed against
-  // max_completion_tokens, so a small budget (1500) gets fully consumed by
-  // hidden reasoning and the visible completion returns EMPTY (finish_reason
-  // "length"). Give a generous budget AND ask for low reasoning effort so
-  // usable output remains. (reasoning_effort is accepted/ignored gracefully by
-  // the chat endpoint for non-reasoning models.)
-  const res = await fetch(OPENAI_URL, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${key}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      max_completion_tokens: Math.max(maxTokens, 8000),
-      reasoning_effort: "low",
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-  });
-  const json = await res.json();
-  if (!res.ok) {
-    throw new Error(
-      `OpenAI ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
-    );
-  }
-  const choice = json.choices?.[0];
-  const text = choice?.message?.content || "";
-  // If the model still returned nothing because reasoning ate the whole budget,
-  // surface it as an explicit error so it is labelled (run error) rather than
-  // scored as a real 0.
-  if (!text && choice?.finish_reason === "length") {
-    throw new Error(
-      `OpenAI empty completion (finish_reason=length: reasoning consumed the ${Math.max(maxTokens, 8000)}-token budget before any visible output)`,
-    );
-  }
-  return {
-    text,
-    usage: {
-      inputTokens: json.usage?.prompt_tokens ?? null,
-      outputTokens: json.usage?.completion_tokens ?? null,
-    },
-    raw: json,
-  };
-}
-
-// xAI / Grok. OpenAI-compatible Chat Completions API at api.x.ai. Runs only if
-// GROK_API_KEY is present. Grok 4.x are reasoning models, so give a generous
-// token budget (reasoning can otherwise eat the visible output). Exact model
-// ids / params should be confirmed against GET https://api.x.ai/v1/models when
-// a key is first available.
-const XAI_URL = "https://api.x.ai/v1/chat/completions";
-
-async function callXai(model, { system, user, maxTokens = 1500 }) {
-  const key = requireEnv("GROK_API_KEY");
-  const res = await fetch(XAI_URL, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${key}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model,
-      max_tokens: Math.max(maxTokens, 8000),
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-  });
-  const json = await res.json();
-  if (!res.ok) {
-    throw new Error(
-      `xAI ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
-    );
-  }
-  const choice = json.choices?.[0];
-  const text = choice?.message?.content || "";
-  if (!text && choice?.finish_reason === "length") {
-    throw new Error(
-      "xAI empty completion (finish_reason=length: reasoning consumed the budget before any visible output)",
-    );
-  }
-  return {
-    text,
-    usage: {
-      inputTokens: json.usage?.prompt_tokens ?? null,
-      outputTokens: json.usage?.completion_tokens ?? null,
-    },
-    raw: json,
-  };
-}
-
-// z.ai / Zhipu (GLM). OpenAI-compatible Chat Completions at api.z.ai. Runs only
-// if Z_API_KEY is present. GLM-5.x are reasoning ("thinking") models, so give a
-// generous token budget. Confirm model ids against the z.ai docs on first call.
-const ZAI_URL = "https://api.z.ai/api/paas/v4/chat/completions";
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-// z.ai has been returning intermittent 429s even with a funded balance (its
-// admin dashboard lags ~10 min, so we can't see the real cause — most likely
-// rate-limiting surfaced as a balance code). Retry 429s and transient 5xx /
-// network errors with exponential backoff + jitter, honouring Retry-After when
-// present. Genuine 4xx (auth, bad request) are not retried.
-async function callZai(model, { system, user, maxTokens = 1500 }) {
-  const key = requireEnv("Z_API_KEY");
-  const body = JSON.stringify({
+// Shared driver for OpenAI-compatible Chat Completions endpoints (OpenAI, xAI,
+// z.ai). They differ only in URL, key env var, the token-budget field name, and
+// whether reasoning_effort/seed are sent — so those are parameters.
+async function callOpenAICompatible(model, prompt, cfg) {
+  const { system, user, maxTokens = 1500 } = prompt;
+  const key = requireEnv(cfg.envVar);
+  const bodyObj = {
     model,
-    max_tokens: Math.max(maxTokens, 8000),
+    [cfg.tokenField]: Math.max(maxTokens, 8000),
     messages: [
       { role: "system", content: system },
       { role: "user", content: user },
     ],
+    ...(cfg.reasoningEffort ? { reasoning_effort: cfg.reasoningEffort } : {}),
+    ...(cfg.seed != null ? { seed: cfg.seed } : {}),
+  };
+  const { json } = await postJson(
+    cfg.url,
+    { authorization: `Bearer ${key}`, "content-type": "application/json" },
+    bodyObj,
+    cfg.label,
+  );
+  const choice = json.choices?.[0];
+  const text = choice?.message?.content || "";
+  if (!text && choice?.finish_reason === "length") {
+    throw new Error(
+      `${cfg.label} empty completion (finish_reason=length: reasoning/thinking consumed the token budget before any visible output)`,
+    );
+  }
+  return {
+    text,
+    usage: {
+      inputTokens: json.usage?.prompt_tokens ?? null,
+      outputTokens: json.usage?.completion_tokens ?? null,
+    },
+    raw: json,
+  };
+}
+
+const callOpenAI = (model, prompt) =>
+  callOpenAICompatible(model, prompt, {
+    url: OPENAI_URL,
+    envVar: "OPENAI_API_KEY",
+    label: "OpenAI",
+    tokenField: "max_completion_tokens",
+    reasoningEffort: "low",
+    seed: SEED,
   });
 
-  const MAX_ATTEMPTS = 6;
-  let lastErr;
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    let res;
-    try {
-      res = await fetch(ZAI_URL, {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${key}`,
-          "content-type": "application/json",
-        },
-        body,
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      });
-    } catch (e) {
-      // Network / timeout — retry with backoff.
-      lastErr = new Error(`z.ai network error: ${String(e.message || e)}`);
-      if (attempt < MAX_ATTEMPTS) {
-        await sleep(backoffMs(attempt));
-        continue;
-      }
-      throw lastErr;
-    }
+const callXai = (model, prompt) =>
+  callOpenAICompatible(model, prompt, {
+    url: XAI_URL,
+    envVar: "GROK_API_KEY",
+    label: "xAI",
+    tokenField: "max_tokens",
+  });
 
-    const json = await res.json().catch(() => ({}));
-    if (res.ok) {
-      const choice = json.choices?.[0];
-      const text = choice?.message?.content || "";
-      if (!text && choice?.finish_reason === "length") {
-        throw new Error(
-          "z.ai empty completion (finish_reason=length: thinking consumed the budget before any visible output)",
-        );
-      }
-      return {
-        text,
-        usage: {
-          inputTokens: json.usage?.prompt_tokens ?? null,
-          outputTokens: json.usage?.completion_tokens ?? null,
-        },
-        raw: json,
-      };
-    }
+const callZai = (model, prompt) =>
+  callOpenAICompatible(model, prompt, {
+    url: ZAI_URL,
+    envVar: "Z_API_KEY",
+    label: "z.ai",
+    tokenField: "max_tokens",
+  });
 
-    lastErr = new Error(
-      `z.ai ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`,
-    );
-    const retryable = res.status === 429 || res.status >= 500;
-    if (retryable && attempt < MAX_ATTEMPTS) {
-      const retryAfter = Number(res.headers.get("retry-after"));
-      const waitMs =
-        Number.isFinite(retryAfter) && retryAfter > 0
-          ? retryAfter * 1000
-          : backoffMs(attempt);
-      await sleep(waitMs);
-      continue;
-    }
-    throw lastErr;
-  }
-  throw lastErr;
-}
-
-// Exponential backoff with jitter: ~1s, 2s, 4s, 8s, 16s (capped 20s) + 0-500ms.
-function backoffMs(attempt) {
-  const base = Math.min(1000 * 2 ** (attempt - 1), 20000);
-  return base + Math.floor(Math.random() * 500);
-}
-
-const ADAPTERS = {
-  anthropic: callAnthropic,
-  google: callGoogle,
-  openai: callOpenAI,
-  xai: callXai,
-  zai: callZai,
+// Single source of truth per vendor: env var + adapter. hasKeyFor / keyEnvFor /
+// the adapter lookup all derive from this, so adding a vendor is ONE entry.
+const VENDORS = {
+  anthropic: { env: "ANTHROPIC_API_KEY", adapter: callAnthropic },
+  google: { env: "GEMINI_API_KEY", adapter: callGoogle },
+  openai: { env: "OPENAI_API_KEY", adapter: callOpenAI },
+  xai: { env: "GROK_API_KEY", adapter: callXai },
+  zai: { env: "Z_API_KEY", adapter: callZai },
 };
 
 export async function callModel(modelEntry, prompt) {
-  const adapter = ADAPTERS[modelEntry.vendor];
-  if (!adapter) throw new Error(`No adapter for vendor: ${modelEntry.vendor}`);
-  return adapter(modelEntry.apiId, prompt);
+  const v = VENDORS[modelEntry.vendor];
+  if (!v) throw new Error(`No adapter for vendor: ${modelEntry.vendor}`);
+  return v.adapter(modelEntry.apiId, prompt);
 }
 
 export function hasKeyFor(vendor) {
-  if (vendor === "anthropic") return !!process.env.ANTHROPIC_API_KEY;
-  if (vendor === "google") return !!process.env.GEMINI_API_KEY;
-  if (vendor === "openai") return !!process.env.OPENAI_API_KEY;
-  if (vendor === "xai") return !!process.env.GROK_API_KEY;
-  if (vendor === "zai") return !!process.env.Z_API_KEY;
-  return false;
+  const v = VENDORS[vendor];
+  return v ? !!process.env[v.env] : false;
 }
 
 // Which env var each vendor needs, for honest "skipped (no key)" reporting.
 export function keyEnvFor(vendor) {
-  if (vendor === "anthropic") return "ANTHROPIC_API_KEY";
-  if (vendor === "google") return "GEMINI_API_KEY";
-  if (vendor === "openai") return "OPENAI_API_KEY";
-  if (vendor === "xai") return "GROK_API_KEY";
-  if (vendor === "zai") return "Z_API_KEY";
-  return null;
+  return VENDORS[vendor]?.env ?? null;
 }
