@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T15:58:40.202Z",
+  "generatedAt": "2026-06-19T16:39:43.126Z",
   "judgeModel": "claude-sonnet-4-5",
   "calibrationItems": [
     "scroll-triggered-animations",
@@ -9,6 +9,489 @@
   "opaqueStructuralControlItems": [
     "js-promise"
   ],
+  "ccMap": {
+    "view-transitions": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "popover-api": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "view-transitions-cross-doc": {
+      "n": 3,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "css-anchor-positioning": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "rfc-9110-http-semantics": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "arxiv-attention": {
+      "n": 3,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "arxiv-mamba": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-05"
+    },
+    "arxiv-deepseek-r1": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "temporal-api": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "arxiv-gemma-3": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "customizable-select": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "arxiv-kimi-k2": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "element-scoped-view-transitions": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "arxiv-gpt5-system-card": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "scroll-triggered-animations": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "arxiv-future-fake-real-id": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "html-in-canvas": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "prompt-api-shape": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "fedcm": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "baseline-has-status": {
+      "n": 3,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "text-justify-css-property": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "css-text-indent-hanging": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "named-feature-supports": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "corner-shape-squircle": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-05"
+    },
+    "math-sumprecise": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "gamepad-event-driven-input": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "translator-api": {
+      "n": 3,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "language-detector-api": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "text-decoration-skip-ink-all": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-05"
+    },
+    "css-gap-decorations": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "css-shape-function": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "uint8array-base64-hex": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "css-scroll-state-container-queries": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "css-image-color-function": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "fetch-api": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "intersection-observer": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "js-promise": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "service-worker": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "css-grid": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "async-await": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "cve-2014-0160-heartbleed": {
+      "n": 3,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "cve-2021-44228-log4shell": {
+      "n": 3,
+      "present": true,
+      "firstSeen": "2026-02"
+    },
+    "cve-2024-3094-xz-backdoor": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-02"
+    },
+    "cve-2017-0144-eternalblue": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "cve-2019-0708-bluekeep": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "cve-2018-7600-drupalgeddon2": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "cve-2026-25000-wheel-of-life": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "cve-2026-3000-idexpert-rce": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "arxiv-resnet": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "arxiv-bert": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "arxiv-gan": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-06"
+    },
+    "arxiv-unet": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "arxiv-adam": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-05"
+    },
+    "arxiv-vgg": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "arxiv-gpt3": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "arxiv-word2vec": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-02"
+    },
+    "arxiv-ppo": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "arxiv-knowledge-distillation": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "arxiv-pate": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "arxiv-diffusiongemma-transparency": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "arxiv-lie-algebra-attention": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "arxiv-multitask-bayesian-icl": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "pmid-11237011-human-genome": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "pmid-7466396-evolution-cooperation": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-05"
+    },
+    "pmid-10676951-dlbcl-gene-expression": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "pmid-28778026-deep-learning-medical-survey": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "pmid-25592156-hydrogel-immunoprotection": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "pmid-42224782-crispr-echinococcus": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "rfc-2616-http11": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "rfc-8259-json": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "rfc-791-ip": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2025-09"
+    },
+    "rfc-9114-http3": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-02"
+    },
+    "rfc-9293-tcp": {
+      "n": 2,
+      "present": true,
+      "firstSeen": "2026-02"
+    },
+    "rfc-1149-avian-carriers": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "rfc-9700-oauth-security-bcp": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "rfc-9701-jwt-oauth-introspection": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-11227809-branch-prediction": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-111102-javascript-closures": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-1335851-use-strict": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-503093-redirect-webpage": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-178325-jquery-element-hidden": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-78084814-coredump-file-mapping": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-79886234-java25-file-exists": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "so-79890462-reinterpret-cast-structs": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "doi-alphafold-nature": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "doi-human-genome-science": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "doi-deep-learning-nature-review": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "doi-optuna-kdd": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-02"
+    },
+    "doi-corn-seed-traits-pricing": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "doi-biorxiv-endomesoderm-grn": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "gh-sha-linux-initial-git": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "gh-sha-git-initial-commit": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2025-12"
+    },
+    "gh-sha-bitcoin-first-commit": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "hf-gemma-4-26b-a4b-it": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-04"
+    },
+    "hf-qwen3-5-4b": {
+      "n": 0,
+      "present": false,
+      "firstSeen": null
+    },
+    "hf-qwen3-6-27b": {
+      "n": 1,
+      "present": true,
+      "firstSeen": "2026-05"
+    }
+  },
+  "ccCrawls": 6,
   "skippedModels": [],
   "perModel": {
     "claude-opus-4-8": {

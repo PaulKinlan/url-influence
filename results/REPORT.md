@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-19T15:58:40.202Z
+Report generated: 2026-06-19T16:39:43.126Z
 Data run / scored: 2026-06-19T15:58:38.184Z
-Code + data commit: [`c29f878f98`](https://github.com/PaulKinlan/url-influence/commit/c29f878f98cd75ef47a6b82899dee7081b8dc8d5)
+Code + data commit: [`8fb3f470f4`](https://github.com/PaulKinlan/url-influence/commit/8fb3f470f493f4a1c82fd043fec54d50bcbb2462)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 11992 (judge failures: 2)
 
@@ -118,104 +118,115 @@ Two controls test whether the `url-only` collapse is real or an artifact:
 
 Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/canonical ids it also carries.
 
-| item | contentDate | `url-only` (opaque) id | type | spec? | bcd? |
-|---|---|---|---|---|---|
-| `pmid-7466396-evolution-cooperation` | 1981-03-27 | `pubmed.ncbi.nlm.nih.gov/7466396/` | PubMed id | — | — |
-| `rfc-791-ip` | 1981-09 | `datatracker.ietf.org/doc/rfc791/` | RFC id | — | — |
-| `rfc-1149-avian-carriers` | 1990-04 | `datatracker.ietf.org/doc/rfc1149/` | RFC id | — | — |
-| `rfc-2616-http11` | 1999-05 | `datatracker.ietf.org/doc/rfc2616/` | RFC id | — | — |
-| `pmid-10676951-dlbcl-gene-expression` | 2000-02-03 | `pubmed.ncbi.nlm.nih.gov/10676951/` | PubMed id | — | — |
-| `pmid-11237011-human-genome` | 2001-02-15 | `pubmed.ncbi.nlm.nih.gov/11237011/` | PubMed id | — | — |
-| `doi-human-genome-science` | 2001-02-16 | `doi.org/10.1126/science.1058040` | DOI | — | — |
-| `gh-sha-git-initial-commit` | 2005-04-07 | `github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290` | GitHub commit SHA | — | — |
-| `gh-sha-linux-initial-git` | 2005-04-16 | `github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2` | GitHub commit SHA | — | — |
-| `so-111102-javascript-closures` | 2008-09-21 | `stackoverflow.com/questions/111102` | Stack Overflow # | — | — |
-| `so-178325-jquery-element-hidden` | 2008-10-07 | `stackoverflow.com/questions/178325` | Stack Overflow # | — | — |
-| `so-503093-redirect-webpage` | 2009-02-02 | `stackoverflow.com/questions/503093` | Stack Overflow # | — | — |
-| `so-1335851-use-strict` | 2009-08-26 | `stackoverflow.com/questions/1335851` | Stack Overflow # | — | — |
-| `gh-sha-bitcoin-first-commit` | 2009-08-30 | `github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898` | GitHub commit SHA | — | — |
-| `doi-corn-seed-traits-pricing` | 2010-07-19 | `doi.org/10.1093/ajae/aaq063` | DOI | — | — |
-| `so-11227809-branch-prediction` | 2012-06-27 | `stackoverflow.com/questions/11227809` | Stack Overflow # | — | — |
-| `arxiv-word2vec` | 2013-01-16 | `arxiv.org/abs/1301.3781` | arXiv id | — | — |
-| `js-promise` | 2014-01 | `stackoverflow.com/questions/30564053` | control (synthetic, not a real pointer) | Y | Y |
-| `cve-2014-0160-heartbleed` | 2014-04-07 | `nvd.nist.gov/vuln/detail/CVE-2014-0160` | CVE id | — | — |
-| `arxiv-gan` | 2014-06-10 | `arxiv.org/abs/1406.2661` | arXiv id | — | — |
-| `arxiv-vgg` | 2014-09-04 | `arxiv.org/abs/1409.1556` | arXiv id | — | — |
-| `arxiv-adam` | 2014-12-22 | `arxiv.org/abs/1412.6980` | arXiv id | — | — |
-| `service-worker` | 2015-01 | `www.chromestatus.com/feature/6561526227927040` | ChromeStatus # | Y | Y |
-| `pmid-25592156-hydrogel-immunoprotection` | 2015-02-09 | `pubmed.ncbi.nlm.nih.gov/25592156/` | PubMed id | — | — |
-| `fetch-api` | 2015-03 | `chromestatus.com/feature/6730533392351232` | ChromeStatus # | Y | Y |
-| `arxiv-knowledge-distillation` | 2015-03-09 | `arxiv.org/abs/1503.02531` | arXiv id | — | — |
-| `arxiv-unet` | 2015-05-18 | `arxiv.org/abs/1505.04597` | arXiv id | — | — |
-| `doi-deep-learning-nature-review` | 2015-05-27 | `doi.org/10.1038/nature14539` | DOI | — | — |
-| `arxiv-resnet` | 2015-12-10 | `arxiv.org/abs/1512.03385` | arXiv id | — | — |
-| `intersection-observer` | 2016-05 | `chromestatus.com/feature/5695342691483648` | ChromeStatus # | Y | Y |
-| `async-await` | 2016-10 | `chromestatus.com/feature/5643236399906816` | ChromeStatus # | Y | Y |
-| `arxiv-pate` | 2016-10-18 | `arxiv.org/abs/1610.05755` | arXiv id | — | — |
-| `css-grid` | 2017-03 | `chromestatus.com/feature/4589636412243968` | ChromeStatus # | Y | Y |
-| `cve-2017-0144-eternalblue` | 2017-03-17 | `nvd.nist.gov/vuln/detail/CVE-2017-0144` | CVE id | — | — |
-| `arxiv-attention` | 2017-06 | `arxiv.org/abs/1706.03762` | arXiv id | — | — |
-| `arxiv-ppo` | 2017-07-20 | `arxiv.org/abs/1707.06347` | arXiv id | — | — |
-| `pmid-28778026-deep-learning-medical-survey` | 2017-12 | `pubmed.ncbi.nlm.nih.gov/28778026/` | PubMed id | — | — |
-| `rfc-8259-json` | 2017-12 | `datatracker.ietf.org/doc/rfc8259/` | RFC id | — | — |
-| `cve-2018-7600-drupalgeddon2` | 2018-03-29 | `nvd.nist.gov/vuln/detail/CVE-2018-7600` | CVE id | — | — |
-| `arxiv-bert` | 2018-10-11 | `arxiv.org/abs/1810.04805` | arXiv id | — | — |
-| `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | CVE id | — | — |
-| `doi-optuna-kdd` | 2019-07-25 | `doi.org/10.1145/3292500.3330701` | DOI | — | — |
-| `arxiv-gpt3` | 2020-05-28 | `arxiv.org/abs/2005.14165` | arXiv id | — | — |
-| `doi-alphafold-nature` | 2021-07-15 | `doi.org/10.1038/s41586-021-03819-2` | DOI | — | — |
-| `cve-2021-44228-log4shell` | 2021-12-10 | `nvd.nist.gov/vuln/detail/CVE-2021-44228` | CVE id | — | — |
-| `rfc-9110-http-semantics` | 2022-06 | `datatracker.ietf.org/doc/rfc9110/` | RFC id | — | — |
-| `rfc-9114-http3` | 2022-06 | `datatracker.ietf.org/doc/rfc9114/` | RFC id | — | — |
-| `rfc-9293-tcp` | 2022-08 | `datatracker.ietf.org/doc/rfc9293/` | RFC id | — | — |
-| `fedcm` | 2022-12 | `chromestatus.com/feature/6438627087220736` | ChromeStatus # | Y | Y |
-| `view-transitions` | 2023-03 | `chromestatus.com/feature/5193009714954240` | ChromeStatus # | Y | Y |
-| `arxiv-mamba` | 2023-12 | `arxiv.org/abs/2312.00752` | arXiv id | — | — |
-| `so-78084814-coredump-file-mapping` | 2024-02-29 | `stackoverflow.com/questions/78084814` | Stack Overflow # | — | — |
-| `cve-2024-3094-xz-backdoor` | 2024-03-29 | `nvd.nist.gov/vuln/detail/CVE-2024-3094` | CVE id | — | — |
-| `popover-api` | 2024-04 | `chromestatus.com/feature/5463833265045504` | ChromeStatus # | Y | Y |
-| `css-anchor-positioning` | 2024-08 | `chromestatus.com/feature/5124922471874560` | ChromeStatus # | Y | Y |
-| `view-transitions-cross-doc` | 2024-09 | `chromestatus.com/feature/5118874666663936` | ChromeStatus # | Y | Y |
-| `arxiv-deepseek-r1` | 2025-01 | `arxiv.org/abs/2501.12948` | arXiv id | — | — |
-| `rfc-9700-oauth-security-bcp` | 2025-01 | `datatracker.ietf.org/doc/rfc9700/` | RFC id | — | — |
-| `rfc-9701-jwt-oauth-introspection` | 2025-01 | `datatracker.ietf.org/doc/rfc9701/` | RFC id | — | — |
-| `css-scroll-state-container-queries` | 2025-02 | `chromestatus.com/feature/5072263730167808` | ChromeStatus # | Y | Y |
-| `arxiv-gemma-3` | 2025-03 | `arxiv.org/abs/2503.19786` | arXiv id | — | — |
-| `customizable-select` | 2025-03 | `chromestatus.com/feature/5737365999976448` | ChromeStatus # | Y | Y |
-| `css-shape-function` | 2025-04 | `chromestatus.com/feature/5172258539307008` | ChromeStatus # | Y | Y |
-| `translator-api` | 2025-06 | `chromestatus.com/feature/5172811302961152` | ChromeStatus # | Y | Y |
-| `language-detector-api` | 2025-06 | `chromestatus.com/feature/6494349985841152` | ChromeStatus # | Y | Y |
-| `arxiv-kimi-k2` | 2025-07 | `arxiv.org/abs/2507.20534` | arXiv id | — | — |
-| `corner-shape-squircle` | 2025-08 | `chromestatus.com/feature/5357329815699456` | ChromeStatus # | Y | Y |
-| `uint8array-base64-hex` | 2025-09 | `chromestatus.com/feature/6281131254874112` | ChromeStatus # | Y | Y |
-| `arxiv-gpt5-system-card` | 2025-12 | `arxiv.org/abs/2601.03267` | arXiv id | — | — |
-| `temporal-api` | 2026-01 | `chromestatus.com/feature/5668291307634688` | ChromeStatus # | Y | Y |
-| `scroll-triggered-animations` | 2026-02 | `chromestatus.com/feature/5181996801982464` | ChromeStatus # | Y | Y |
-| `html-in-canvas` | 2026-02 | `chromestatus.com/feature/5114053285249024` | ChromeStatus # | Y | — |
-| `text-justify-css-property` | 2026-02 | `chromestatus.com/feature/5079678972985344` | ChromeStatus # | Y | Y |
-| `so-79886234-java25-file-exists` | 2026-02-10 | `stackoverflow.com/questions/79886234` | Stack Overflow # | — | — |
-| `so-79890462-reinterpret-cast-structs` | 2026-02-16 | `stackoverflow.com/questions/79890462` | Stack Overflow # | — | — |
-| `cve-2026-25000-wheel-of-life` | 2026-02-19 | `nvd.nist.gov/vuln/detail/CVE-2026-25000` | CVE id | — | — |
-| `hf-qwen3-5-4b` | 2026-02-27 | `huggingface.co/Qwen/Qwen3.5-4B` | HuggingFace id | — | — |
-| `css-text-indent-hanging` | 2026-03 | `chromestatus.com/feature/5084062739988480` | ChromeStatus # | Y | Y |
-| `named-feature-supports` | 2026-03 | `chromestatus.com/feature/5153932394102784` | ChromeStatus # | Y | — |
-| `cve-2026-3000-idexpert-rce` | 2026-03-02 | `nvd.nist.gov/vuln/detail/CVE-2026-3000` | CVE id | — | — |
-| `hf-gemma-4-26b-a4b-it` | 2026-03-11 | `huggingface.co/google/gemma-4-26B-A4B-it` | HuggingFace id | — | — |
-| `element-scoped-view-transitions` | 2026-04 | `chromestatus.com/feature/5109852273377280` | ChromeStatus # | Y | Y |
-| `math-sumprecise` | 2026-04 | `chromestatus.com/feature/4790090146643968` | ChromeStatus # | Y | Y |
-| `gamepad-event-driven-input` | 2026-04 | `chromestatus.com/feature/5989275208253440` | ChromeStatus # | — | — |
-| `doi-biorxiv-endomesoderm-grn` | 2026-04-01 | `doi.org/10.64898/2026.03.31.715602` | DOI | — | — |
-| `hf-qwen3-6-27b` | 2026-04-21 | `huggingface.co/Qwen/Qwen3.6-27B` | HuggingFace id | — | — |
-| `arxiv-future-fake-real-id` | 2026-05 | `arxiv.org/abs/2605.04567` | arXiv id | — | — |
-| `prompt-api-shape` | 2026-05 | `chromestatus.com/feature/5134603979063296` | ChromeStatus # | Y | Y |
-| `text-decoration-skip-ink-all` | 2026-05 | `chromestatus.com/feature/5077600085082112` | ChromeStatus # | Y | Y |
-| `pmid-42224782-crispr-echinococcus` | 2026-05-25 | `pubmed.ncbi.nlm.nih.gov/42224782/` | PubMed id | — | — |
-| `baseline-has-status` | 2026-06 | `caniuse.com/css-has` | caniuse | Y | Y |
-| `css-gap-decorations` | 2026-06 | `chromestatus.com/feature/5157805733183488` | ChromeStatus # | Y | Y |
-| `css-image-color-function` | 2026-06 | `chromestatus.com/feature/5121011285622784` | ChromeStatus # | Y | Y |
-| `arxiv-diffusiongemma-transparency` | 2026-06-18 | `arxiv.org/abs/2606.20560` | arXiv id | — | — |
-| `arxiv-lie-algebra-attention` | 2026-06-18 | `arxiv.org/abs/2606.20547` | arXiv id | — | — |
-| `arxiv-multitask-bayesian-icl` | 2026-06-18 | `arxiv.org/abs/2606.20538` | arXiv id | — | — |
+| item | contentDate | `url-only` (opaque) id | type | spec? | bcd? | CC (/6) |
+|---|---|---|---|---|---|---|
+| `pmid-7466396-evolution-cooperation` | 1981-03-27 | `pubmed.ncbi.nlm.nih.gov/7466396/` | PubMed id | — | — | 1 (2026-05) |
+| `rfc-791-ip` | 1981-09 | `datatracker.ietf.org/doc/rfc791/` | RFC id | — | — | 2 (2025-09) |
+| `rfc-1149-avian-carriers` | 1990-04 | `datatracker.ietf.org/doc/rfc1149/` | RFC id | — | — | 1 (2025-12) |
+| `rfc-2616-http11` | 1999-05 | `datatracker.ietf.org/doc/rfc2616/` | RFC id | — | — | 0 |
+| `pmid-10676951-dlbcl-gene-expression` | 2000-02-03 | `pubmed.ncbi.nlm.nih.gov/10676951/` | PubMed id | — | — | 0 |
+| `pmid-11237011-human-genome` | 2001-02-15 | `pubmed.ncbi.nlm.nih.gov/11237011/` | PubMed id | — | — | 1 (2025-12) |
+| `doi-human-genome-science` | 2001-02-16 | `doi.org/10.1126/science.1058040` | DOI | — | — | 0 |
+| `gh-sha-git-initial-commit` | 2005-04-07 | `github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290` | GitHub commit SHA | — | — | 1 (2025-12) |
+| `gh-sha-linux-initial-git` | 2005-04-16 | `github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2` | GitHub commit SHA | — | — | 1 (2025-12) |
+| `so-111102-javascript-closures` | 2008-09-21 | `stackoverflow.com/questions/111102` | Stack Overflow # | — | — | 0 |
+| `so-178325-jquery-element-hidden` | 2008-10-07 | `stackoverflow.com/questions/178325` | Stack Overflow # | — | — | 0 |
+| `so-503093-redirect-webpage` | 2009-02-02 | `stackoverflow.com/questions/503093` | Stack Overflow # | — | — | 0 |
+| `so-1335851-use-strict` | 2009-08-26 | `stackoverflow.com/questions/1335851` | Stack Overflow # | — | — | 0 |
+| `gh-sha-bitcoin-first-commit` | 2009-08-30 | `github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898` | GitHub commit SHA | — | — | 0 |
+| `doi-corn-seed-traits-pricing` | 2010-07-19 | `doi.org/10.1093/ajae/aaq063` | DOI | — | — | 0 |
+| `so-11227809-branch-prediction` | 2012-06-27 | `stackoverflow.com/questions/11227809` | Stack Overflow # | — | — | 0 |
+| `arxiv-word2vec` | 2013-01-16 | `arxiv.org/abs/1301.3781` | arXiv id | — | — | 1 (2026-02) |
+| `js-promise` | 2014-01 | `stackoverflow.com/questions/30564053` | control (synthetic, not a real pointer) | Y | Y | 0 |
+| `cve-2014-0160-heartbleed` | 2014-04-07 | `nvd.nist.gov/vuln/detail/CVE-2014-0160` | CVE id | — | — | 3 (2025-09) |
+| `arxiv-gan` | 2014-06-10 | `arxiv.org/abs/1406.2661` | arXiv id | — | — | 2 (2025-06) |
+| `arxiv-vgg` | 2014-09-04 | `arxiv.org/abs/1409.1556` | arXiv id | — | — | 1 (2026-04) |
+| `arxiv-adam` | 2014-12-22 | `arxiv.org/abs/1412.6980` | arXiv id | — | — | 1 (2026-05) |
+| `service-worker` | 2015-01 | `www.chromestatus.com/feature/6561526227927040` | ChromeStatus # | Y | Y | 0 |
+| `pmid-25592156-hydrogel-immunoprotection` | 2015-02-09 | `pubmed.ncbi.nlm.nih.gov/25592156/` | PubMed id | — | — | 0 |
+| `fetch-api` | 2015-03 | `chromestatus.com/feature/6730533392351232` | ChromeStatus # | Y | Y | 1 (2026-04) |
+| `arxiv-knowledge-distillation` | 2015-03-09 | `arxiv.org/abs/1503.02531` | arXiv id | — | — | 0 |
+| `arxiv-unet` | 2015-05-18 | `arxiv.org/abs/1505.04597` | arXiv id | — | — | 1 (2026-04) |
+| `doi-deep-learning-nature-review` | 2015-05-27 | `doi.org/10.1038/nature14539` | DOI | — | — | 0 |
+| `arxiv-resnet` | 2015-12-10 | `arxiv.org/abs/1512.03385` | arXiv id | — | — | 2 (2026-04) |
+| `intersection-observer` | 2016-05 | `chromestatus.com/feature/5695342691483648` | ChromeStatus # | Y | Y | 0 |
+| `async-await` | 2016-10 | `chromestatus.com/feature/5643236399906816` | ChromeStatus # | Y | Y | 0 |
+| `arxiv-pate` | 2016-10-18 | `arxiv.org/abs/1610.05755` | arXiv id | — | — | 1 (2025-09) |
+| `css-grid` | 2017-03 | `chromestatus.com/feature/4589636412243968` | ChromeStatus # | Y | Y | 1 (2025-06) |
+| `cve-2017-0144-eternalblue` | 2017-03-17 | `nvd.nist.gov/vuln/detail/CVE-2017-0144` | CVE id | — | — | 1 (2026-04) |
+| `arxiv-attention` | 2017-06 | `arxiv.org/abs/1706.03762` | arXiv id | — | — | 3 (2025-06) |
+| `arxiv-ppo` | 2017-07-20 | `arxiv.org/abs/1707.06347` | arXiv id | — | — | 0 |
+| `pmid-28778026-deep-learning-medical-survey` | 2017-12 | `pubmed.ncbi.nlm.nih.gov/28778026/` | PubMed id | — | — | 0 |
+| `rfc-8259-json` | 2017-12 | `datatracker.ietf.org/doc/rfc8259/` | RFC id | — | — | 0 |
+| `cve-2018-7600-drupalgeddon2` | 2018-03-29 | `nvd.nist.gov/vuln/detail/CVE-2018-7600` | CVE id | — | — | 1 (2025-12) |
+| `arxiv-bert` | 2018-10-11 | `arxiv.org/abs/1810.04805` | arXiv id | — | — | 1 (2025-06) |
+| `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | CVE id | — | — | 1 (2026-04) |
+| `doi-optuna-kdd` | 2019-07-25 | `doi.org/10.1145/3292500.3330701` | DOI | — | — | 1 (2026-02) |
+| `arxiv-gpt3` | 2020-05-28 | `arxiv.org/abs/2005.14165` | arXiv id | — | — | 1 (2025-09) |
+| `doi-alphafold-nature` | 2021-07-15 | `doi.org/10.1038/s41586-021-03819-2` | DOI | — | — | 0 |
+| `cve-2021-44228-log4shell` | 2021-12-10 | `nvd.nist.gov/vuln/detail/CVE-2021-44228` | CVE id | — | — | 3 (2026-02) |
+| `rfc-9110-http-semantics` | 2022-06 | `datatracker.ietf.org/doc/rfc9110/` | RFC id | — | — | 1 (2025-12) |
+| `rfc-9114-http3` | 2022-06 | `datatracker.ietf.org/doc/rfc9114/` | RFC id | — | — | 1 (2026-02) |
+| `rfc-9293-tcp` | 2022-08 | `datatracker.ietf.org/doc/rfc9293/` | RFC id | — | — | 2 (2026-02) |
+| `fedcm` | 2022-12 | `chromestatus.com/feature/6438627087220736` | ChromeStatus # | Y | Y | 1 (2026-04) |
+| `view-transitions` | 2023-03 | `chromestatus.com/feature/5193009714954240` | ChromeStatus # | Y | Y | 2 (2025-06) |
+| `arxiv-mamba` | 2023-12 | `arxiv.org/abs/2312.00752` | arXiv id | — | — | 1 (2026-05) |
+| `so-78084814-coredump-file-mapping` | 2024-02-29 | `stackoverflow.com/questions/78084814` | Stack Overflow # | — | — | 0 |
+| `cve-2024-3094-xz-backdoor` | 2024-03-29 | `nvd.nist.gov/vuln/detail/CVE-2024-3094` | CVE id | — | — | 1 (2026-02) |
+| `popover-api` | 2024-04 | `chromestatus.com/feature/5463833265045504` | ChromeStatus # | Y | Y | 2 (2025-09) |
+| `css-anchor-positioning` | 2024-08 | `chromestatus.com/feature/5124922471874560` | ChromeStatus # | Y | Y | 1 (2025-12) |
+| `view-transitions-cross-doc` | 2024-09 | `chromestatus.com/feature/5118874666663936` | ChromeStatus # | Y | Y | 3 (2025-09) |
+| `arxiv-deepseek-r1` | 2025-01 | `arxiv.org/abs/2501.12948` | arXiv id | — | — | 0 |
+| `rfc-9700-oauth-security-bcp` | 2025-01 | `datatracker.ietf.org/doc/rfc9700/` | RFC id | — | — | 0 |
+| `rfc-9701-jwt-oauth-introspection` | 2025-01 | `datatracker.ietf.org/doc/rfc9701/` | RFC id | — | — | 0 |
+| `css-scroll-state-container-queries` | 2025-02 | `chromestatus.com/feature/5072263730167808` | ChromeStatus # | Y | Y | 0 |
+| `arxiv-gemma-3` | 2025-03 | `arxiv.org/abs/2503.19786` | arXiv id | — | — | 2 (2025-06) |
+| `customizable-select` | 2025-03 | `chromestatus.com/feature/5737365999976448` | ChromeStatus # | Y | Y | 1 (2025-12) |
+| `css-shape-function` | 2025-04 | `chromestatus.com/feature/5172258539307008` | ChromeStatus # | Y | Y | 2 (2025-06) |
+| `translator-api` | 2025-06 | `chromestatus.com/feature/5172811302961152` | ChromeStatus # | Y | Y | 3 (2025-06) |
+| `language-detector-api` | 2025-06 | `chromestatus.com/feature/6494349985841152` | ChromeStatus # | Y | Y | 2 (2025-09) |
+| `arxiv-kimi-k2` | 2025-07 | `arxiv.org/abs/2507.20534` | arXiv id | — | — | 1 (2026-04) |
+| `corner-shape-squircle` | 2025-08 | `chromestatus.com/feature/5357329815699456` | ChromeStatus # | Y | Y | 1 (2026-05) |
+| `uint8array-base64-hex` | 2025-09 | `chromestatus.com/feature/6281131254874112` | ChromeStatus # | Y | Y | 0 |
+| `arxiv-gpt5-system-card` | 2025-12 | `arxiv.org/abs/2601.03267` | arXiv id | — | — | 0 |
+| `temporal-api` | 2026-01 | `chromestatus.com/feature/5668291307634688` | ChromeStatus # | Y | Y | 1 (2025-06) |
+| `scroll-triggered-animations` | 2026-02 | `chromestatus.com/feature/5181996801982464` | ChromeStatus # | Y | Y | 1 (2026-04) |
+| `html-in-canvas` | 2026-02 | `chromestatus.com/feature/5114053285249024` | ChromeStatus # | Y | — | 0 |
+| `text-justify-css-property` | 2026-02 | `chromestatus.com/feature/5079678972985344` | ChromeStatus # | Y | Y | 0 |
+| `so-79886234-java25-file-exists` | 2026-02-10 | `stackoverflow.com/questions/79886234` | Stack Overflow # | — | — | 0 |
+| `so-79890462-reinterpret-cast-structs` | 2026-02-16 | `stackoverflow.com/questions/79890462` | Stack Overflow # | — | — | 0 |
+| `cve-2026-25000-wheel-of-life` | 2026-02-19 | `nvd.nist.gov/vuln/detail/CVE-2026-25000` | CVE id | — | — | 0 |
+| `hf-qwen3-5-4b` | 2026-02-27 | `huggingface.co/Qwen/Qwen3.5-4B` | HuggingFace id | — | — | 0 |
+| `css-text-indent-hanging` | 2026-03 | `chromestatus.com/feature/5084062739988480` | ChromeStatus # | Y | Y | 0 |
+| `named-feature-supports` | 2026-03 | `chromestatus.com/feature/5153932394102784` | ChromeStatus # | Y | — | 0 |
+| `cve-2026-3000-idexpert-rce` | 2026-03-02 | `nvd.nist.gov/vuln/detail/CVE-2026-3000` | CVE id | — | — | 1 (2026-04) |
+| `hf-gemma-4-26b-a4b-it` | 2026-03-11 | `huggingface.co/google/gemma-4-26B-A4B-it` | HuggingFace id | — | — | 1 (2026-04) |
+| `element-scoped-view-transitions` | 2026-04 | `chromestatus.com/feature/5109852273377280` | ChromeStatus # | Y | Y | 1 (2026-04) |
+| `math-sumprecise` | 2026-04 | `chromestatus.com/feature/4790090146643968` | ChromeStatus # | Y | Y | 1 (2026-04) |
+| `gamepad-event-driven-input` | 2026-04 | `chromestatus.com/feature/5989275208253440` | ChromeStatus # | — | — | 0 |
+| `doi-biorxiv-endomesoderm-grn` | 2026-04-01 | `doi.org/10.64898/2026.03.31.715602` | DOI | — | — | 0 |
+| `hf-qwen3-6-27b` | 2026-04-21 | `huggingface.co/Qwen/Qwen3.6-27B` | HuggingFace id | — | — | 1 (2026-05) |
+| `arxiv-future-fake-real-id` | 2026-05 | `arxiv.org/abs/2605.04567` | arXiv id | — | — | 0 |
+| `prompt-api-shape` | 2026-05 | `chromestatus.com/feature/5134603979063296` | ChromeStatus # | Y | Y | 0 |
+| `text-decoration-skip-ink-all` | 2026-05 | `chromestatus.com/feature/5077600085082112` | ChromeStatus # | Y | Y | 1 (2026-05) |
+| `pmid-42224782-crispr-echinococcus` | 2026-05-25 | `pubmed.ncbi.nlm.nih.gov/42224782/` | PubMed id | — | — | 0 |
+| `baseline-has-status` | 2026-06 | `caniuse.com/css-has` | caniuse | Y | Y | 3 (2025-09) |
+| `css-gap-decorations` | 2026-06 | `chromestatus.com/feature/5157805733183488` | ChromeStatus # | Y | Y | 2 (2025-06) |
+| `css-image-color-function` | 2026-06 | `chromestatus.com/feature/5121011285622784` | ChromeStatus # | Y | Y | 0 |
+| `arxiv-diffusiongemma-transparency` | 2026-06-18 | `arxiv.org/abs/2606.20560` | arXiv id | — | — | 0 |
+| `arxiv-lie-algebra-attention` | 2026-06-18 | `arxiv.org/abs/2606.20547` | arXiv id | — | — | 0 |
+| `arxiv-multitask-bayesian-icl` | 2026-06-18 | `arxiv.org/abs/2606.20538` | arXiv id | — | — | 0 |
+
+*CC = number of Common Crawl monthly snapshots (of 6 checked, 2025-06 .. 2026-05) that captured the opaque URL; first-seen month in parens. `0` = absent from all (e.g. StackOverflow blocks the crawler); `—` = item has no opaque URL. CC presence is a noisy, incomplete training-inclusion covariate — a URL absent here may still be in training via other routes, and presence does not guarantee recall.*
+
+### Opaque-URL recall vs Common Crawl presence
+
+| CC presence | items | mean `url-only` (opaque) correctness |
+|---|---|---|
+| present in ≥1 crawl | 50 | 0.46 |
+| absent from all crawls | 43 | 0.18 |
+
+Present-in-CC items decode higher on average, but the gap is **confounded with fame** (famous URLs are both more crawled and more memorised) and the signal is noisy: e.g. StackOverflow URLs are absent from CC (the crawler is blocked) yet still partially decode, while many ChromeStatus URLs are present in CC yet decode ~0. Treat CC as one weak covariate, not the mechanism — repetition/fame across all routes is.
 
 ## Per-item results — name-only vs opaque vs canonical id
 

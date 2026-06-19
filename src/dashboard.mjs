@@ -41,9 +41,25 @@ async function main() {
     return "other";
   };
 
-  // Item metadata (track, source scheme, popularity, the human task).
+  // Optional Common Crawl presence covariate (results/common-crawl.json).
+  let ccById = {};
+  try {
+    const cc = JSON.parse(await readFile("results/common-crawl.json", "utf8"));
+    for (const x of cc.items || []) {
+      ccById[x.itemId] = {
+        present: x.anyPresent,
+        n: x.presentIn.length,
+        firstSeen: x.firstSeen,
+      };
+    }
+  } catch {
+    // CC data optional.
+  }
+
+  // Item metadata (track, source scheme, popularity, CC presence, human task).
   const items = {};
   for (const it of CORPUS) {
+    const ccE = ccById[it.id];
     items[it.id] = {
       id: it.id,
       kind: it.kind,
@@ -53,6 +69,10 @@ async function main() {
       opaqueRole: it.validation?.opaqueRole || "real",
       source: sourceOf(it),
       popularity: it.popularity || null,
+      // cc: "present" | "absent" (in Common Crawl) | null (no opaque URL / no data)
+      cc: it.urls?.opaque && ccE ? (ccE.present ? "present" : "absent") : null,
+      ccN: ccE ? ccE.n : null,
+      ccFirstSeen: ccE ? ccE.firstSeen : null,
     };
   }
 
@@ -205,6 +225,12 @@ const HTML = `<!doctype html>
       </select>
     </fieldset>
     <fieldset>
+      <legend>Common Crawl</legend>
+      <label class="row"><input type="radio" name="cc" value="all" checked> All</label>
+      <label class="row"><input type="radio" name="cc" value="present"> In Common Crawl</label>
+      <label class="row"><input type="radio" name="cc" value="absent"> Not in Common Crawl</label>
+    </fieldset>
+    <fieldset>
       <legend>Item track</legend>
       <label class="row"><input type="radio" name="track" value="all"> All</label>
       <label class="row"><input type="radio" name="track" value="api-usage" checked> API-usage only</label>
@@ -271,7 +297,7 @@ function getRadio(n){ return document.querySelector('input[name="'+n+'"]:checked
 
 function filtered(){
   const track=getRadio("track"), bucket=getRadio("bucket"), conds=new Set(activeConds());
-  const opaque=getRadio("opaque");
+  const opaque=getRadio("opaque"), cc=getRadio("cc");
   const source=$("#source").value, popularity=$("#popularity").value;
   const pass=parseFloat($("#pass").value), failonly=$("#failonly").checked;
   return D.cells.filter(c=>{
@@ -279,6 +305,7 @@ function filtered(){
     const it=D.items[c.itemId];
     if(source!=="all" && it.source!==source) return false;
     if(popularity!=="all" && it.popularity!==popularity) return false;
+    if(cc!=="all" && it.cc!==cc) return false;
     if(track!=="all" && it.track!==track) return false;
     if(opaque==="real" && it.opaqueRole==="structural-control") return false;
     if(opaque==="structural-control" && it.opaqueRole!=="structural-control") return false;
@@ -325,7 +352,8 @@ function render(){
   itemIds.forEach(id=>{
     const it=D.items[id];
     const side = (mc.find(c=>c.itemId===id)||{}).preCutoff ? "pre":"post";
-    t+='<tr><td class="item">'+id+'<div class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+' · '+it.contentDate+' · '+side+'-cutoff</div></td>';
+    const ccTag=it.cc==="present"?(" · CC "+it.ccN+(it.ccFirstSeen?"/"+it.ccFirstSeen:"")):(it.cc==="absent"?" · not in CC":"");
+    t+='<tr><td class="item">'+id+'<div class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+ccTag+' · '+it.contentDate+' · '+side+'-cutoff</div></td>';
     conds.forEach(c=>{
       const cell=mc.find(x=>x.itemId===id&&x.condition===c);
       if(!cell){ t+='<td><div class="cellbtn null">·</div></td>'; return; }

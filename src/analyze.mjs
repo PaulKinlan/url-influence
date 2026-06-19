@@ -195,11 +195,31 @@ async function main() {
   const models = MODELS.filter((m) => present.has(m.key));
   const skippedModels = MODELS.filter((m) => !present.has(m.key));
 
+  // Optional Common Crawl presence covariate (results/common-crawl.json from
+  // `node src/cc-check.mjs`). Empirical "is this opaque URL in a major training
+  // source" signal — noisy (CC is a sample), used as a covariate, not a label.
+  let ccMap = null;
+  let ccCrawls = 0;
+  try {
+    const cc = await readJson("results/common-crawl.json");
+    ccCrawls = (cc.crawls || []).length;
+    ccMap = Object.fromEntries(
+      (cc.items || []).map((x) => [
+        x.itemId,
+        { n: x.presentIn.length, present: x.anyPresent, firstSeen: x.firstSeen },
+      ]),
+    );
+  } catch {
+    // CC data optional; skip the covariate if absent.
+  }
+
   const summary = {
     generatedAt: nowIso(),
     judgeModel: data.judgeModel,
     calibrationItems: [...CALIB],
     opaqueStructuralControlItems: [...OPAQUE_STRUCTURAL_CONTROLS],
+    ccMap,
+    ccCrawls,
     skippedModels: skippedModels.map((m) => ({
       key: m.key,
       label: m.label,
@@ -569,16 +589,66 @@ async function writeReport(summary, models, data, skippedModels) {
       "descriptive/canonical ids it also carries.",
   );
   L.push("");
-  L.push("| item | contentDate | `url-only` (opaque) id | type | spec? | bcd? |");
-  L.push("|---|---|---|---|---|---|");
+  const cc = summary.ccMap;
+  const ccCol = cc ? ` CC (/${summary.ccCrawls}) |` : "";
+  const ccSep = cc ? "---|" : "";
+  const ccCell = (id) => {
+    if (!cc) return "";
+    const e = cc[id];
+    if (!e) return " — |";
+    return ` ${e.present ? `${e.n}${e.firstSeen ? ` (${e.firstSeen})` : ""}` : "0"} |`;
+  };
+  L.push(
+    `| item | contentDate | \`url-only\` (opaque) id | type | spec? | bcd? |${ccCol}`,
+  );
+  L.push(`|---|---|---|---|---|---|${ccSep}`);
   for (const it of [...CORPUS].sort((a, b) =>
     a.contentDate.localeCompare(b.contentDate),
   )) {
     L.push(
-      `| \`${it.id}\` | ${it.contentDate} | \`${shortId(it)}\` | ${opaqueIdType(it)} | ${it.urls?.specUrl ? "Y" : "—"} | ${it.bcdKey ? "Y" : "—"} |`,
+      `| \`${it.id}\` | ${it.contentDate} | \`${shortId(it)}\` | ${opaqueIdType(it)} | ${it.urls?.specUrl ? "Y" : "—"} | ${it.bcdKey ? "Y" : "—"} |${ccCell(it.id)}`,
     );
   }
   L.push("");
+  if (cc) {
+    L.push(
+      `*CC = number of Common Crawl monthly snapshots (of ${summary.ccCrawls} ` +
+        `checked, 2025-06 .. 2026-05) that captured the opaque URL; first-seen ` +
+        `month in parens. \`0\` = absent from all (e.g. StackOverflow blocks the ` +
+        `crawler); \`—\` = item has no opaque URL. CC presence is a noisy, ` +
+        `incomplete training-inclusion covariate — a URL absent here may still be ` +
+        `in training via other routes, and presence does not guarantee recall.*`,
+    );
+    L.push("");
+    // CC-present vs CC-absent decode rate (url-only / opaque condition).
+    const recallItems = CORPUS.filter(
+      (i) => !i.groundTruth.expectUnknown && cc[i.id],
+    );
+    const present = recallItems.filter((i) => cc[i.id].present);
+    const absent = recallItems.filter((i) => !cc[i.id].present);
+    const meanOf = (items) => {
+      const vals = items
+        .map((i) => icMean(i.id, "url-only"))
+        .filter((v) => v != null);
+      return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+    };
+    L.push("### Opaque-URL recall vs Common Crawl presence");
+    L.push("");
+    L.push("| CC presence | items | mean `url-only` (opaque) correctness |");
+    L.push("|---|---|---|");
+    L.push(`| present in ≥1 crawl | ${present.length} | ${fmt(meanOf(present))} |`);
+    L.push(`| absent from all crawls | ${absent.length} | ${fmt(meanOf(absent))} |`);
+    L.push("");
+    L.push(
+      "Present-in-CC items decode higher on average, but the gap is **confounded " +
+        "with fame** (famous URLs are both more crawled and more memorised) and " +
+        "the signal is noisy: e.g. StackOverflow URLs are absent from CC (the " +
+        "crawler is blocked) yet still partially decode, while many ChromeStatus " +
+        "URLs are present in CC yet decode ~0. Treat CC as one weak covariate, " +
+        "not the mechanism — repetition/fame across all routes is.",
+    );
+    L.push("");
+  }
 
   // ---- Per-item results: name vs opaque vs canonical ----
   L.push("## Per-item results — name-only vs opaque vs canonical id");
