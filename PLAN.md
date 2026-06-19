@@ -22,6 +22,13 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
+- (2026-06-19, opus corpus-agent) **Balanced opaque-id corpus expansion** — adding
+  ~40-50 NEW `kind:"recall"` items as a popularity × cutoff grid across CVE / arXiv /
+  PMID / RFC / Stack Overflow / DOI / GitHub-SHA / HuggingFace schemes. Every id
+  REAL + VERIFIED via the scheme's API/page (title + date) before adding; adds new
+  top-level `popularity` tag. CORPUS-ONLY: appending to `src/corpus.mjs`, no matrix
+  run (`npm run validate` only). Working around the methodology-review agent's
+  uncommitted changes (touching only the corpus array tail + this file).
 - (2026-06-19, opus agent) Working through the methodology review end-to-end.
   Order: land ALL protocol-changing fixes (B1 temperature/seed, B2 retry-all,
   A3 framing-matched control, A4 opaque-shaped fake control, A2 judge calibration,
