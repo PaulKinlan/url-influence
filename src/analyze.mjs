@@ -1,20 +1,26 @@
 // Analysis: read results/scores.json and produce results/summary.json + a
 // readable results/REPORT.md.
 //
-// Two DISTINCT tracks are measured separately, because they answer different
+// THREE DISTINCT tracks are measured separately, because they answer different
 // questions and must not be averaged together:
 //
-//   1. API-USAGE items (kind !== expectUnknown): the model is asked to USE a
-//      real API / recall real content. Correctness = did it produce the right
-//      surface. The LIFT metric (url-only vs name-only) is computed ONLY on
-//      these — this is the actual "can a bare URL make it use the thing" test.
+//   1. `code` / API-USAGE items: the model is asked to USE a real web API; the
+//      opaque URL is a ChromeStatus id. name-only is a real task description, so
+//      the LIFT metric (url-only − name-only) is a clean "opaque pointer vs
+//      description" contrast. The LIFT is computed ONLY on these.
 //
-//   2. KNOWLEDGE-CALIBRATION items (groundTruth.expectUnknown): the content
+//   2. `recall` items (OPAQUE-ID DECODING): arXiv/RFC/CVE/SO/PMID/DOI/SHA/HF
+//      ids. name-only here is the work's TITLE (≈ the answer for famous works),
+//      so url-only − name-only is NOT the same metric and is kept OUT of the
+//      lift. These are analysed on their own — by id-type, by popularity, and
+//      pre/post cutoff — to ask whether the bare opaque id decodes the content.
+//
+//   3. KNOWLEDGE-CALIBRATION items (groundTruth.expectUnknown): the content
 //      post-dates every model, so the CORRECT answer is "I can't determine
-//      this". Here a bare opaque URL tends to score HIGH precisely because it
-//      gives the model nothing, so it correctly refuses. Mixing these into the
-//      lift average creates a fake "post-cutoff url-only helps" signal. They
-//      are reported on their own as a refusal-calibration view.
+//      this". A bare opaque URL tends to score HIGH precisely because it gives
+//      the model nothing, so it correctly refuses. Mixing these into the lift
+//      creates a fake "post-cutoff url-only helps" signal — reported on their
+//      own as a refusal-calibration view.
 
 import { MODELS } from "./models.mjs";
 import {
@@ -45,6 +51,14 @@ const OPAQUE_STRUCTURAL_CONTROLS = new Set(
   ),
 );
 const isOpaqueStructuralControl = (id) => OPAQUE_STRUCTURAL_CONTROLS.has(id);
+// Item KIND drives which TRACK a row belongs to. The headline lift
+// (url-only − name-only) is meaningful only for `code`/API-usage items, where
+// name-only is a genuine task description. For `recall` items name-only is the
+// work's TITLE (≈ the answer for famous works), so mixing them into the lift
+// conflates two different phenomena — they get their own opaque-id-decoding
+// tables instead. (codex audit, 2026-06-19.)
+const isCodeItem = (id) => ITEM.get(id)?.kind === "code";
+const isRecallItem = (id) => ITEM.get(id)?.kind === "recall";
 
 // contentDate is baked into each raw cell at run time, but the corpus's dates
 // can be corrected after a run (e.g. wrong ship dates fixed). Always classify
@@ -230,11 +244,15 @@ async function main() {
 
   for (const model of models) {
     const all = scores.filter((s) => s.model === model.key);
+    // API-USAGE track = `code` items only (real pointers). The lift lives here:
+    // name-only is a genuine task description, so url-only − name-only is a clean
+    // "opaque pointer vs description" contrast. Recall items are a SEPARATE track
+    // (opaque-id decoding), reported in the per-id-type / popularity tables.
     const api = all.filter(
-      (r) => !isCalib(r.itemId) && !isOpaqueStructuralControl(r.itemId),
+      (r) => isCodeItem(r.itemId) && !isOpaqueStructuralControl(r.itemId),
     );
     const apiOpaqueControls = all.filter(
-      (r) => !isCalib(r.itemId) && isOpaqueStructuralControl(r.itemId),
+      (r) => isCodeItem(r.itemId) && isOpaqueStructuralControl(r.itemId),
     );
     const calib = all.filter((r) => isCalib(r.itemId));
 
@@ -345,16 +363,24 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   L.push(
-    "**Two tracks, measured separately (this is important).** The corpus has " +
-      "two kinds of item and they must NOT be averaged together:",
+    "**Three tracks, measured separately (this is important).** The corpus has " +
+      "three kinds of item and they must NOT be averaged together:",
   );
   L.push("");
   L.push(
-    "- **API-usage items with real opaque pointers** — the model is asked to " +
-      "USE a real API or recall real content, and the opaque URL is intended " +
-      "to point at that content. Correctness = did it produce the right " +
-      "surface. **The LIFT metric below is computed on these only.** This is " +
-      "the real test.",
+    "- **`code` / API-usage items** — the model is asked to USE a real web API, " +
+      "and the opaque URL (a ChromeStatus id) points at that feature. name-only " +
+      "is a genuine task description, so url-only − name-only is a clean " +
+      "\"opaque pointer vs description\" contrast. **The LIFT metric is computed " +
+      "on these only.**",
+  );
+  L.push(
+    "- **`recall` items (opaque-id decoding)** — arXiv/RFC/CVE/SO/PMID/DOI/SHA/" +
+      "HF ids. Here name-only is the work's TITLE, which ≈ the answer for famous " +
+      "works, so url-only − name-only is NOT comparable to the API-usage lift " +
+      "and is kept OUT of it. These are analysed on their own — by id-type, by " +
+      "popularity (famous/moderate/obscure), and pre/post cutoff — to ask " +
+      "whether the bare opaque id decodes into the real content.",
   );
   L.push(
     "- **Knowledge-calibration items** (`" +
