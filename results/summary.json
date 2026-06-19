@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T16:39:43.126Z",
+  "generatedAt": "2026-06-19T20:42:35.349Z",
   "judgeModel": "claude-sonnet-4-5",
   "calibrationItems": [
     "scroll-triggered-animations",
@@ -498,8 +498,8 @@
       "label": "Claude Opus 4.8",
       "cutoff": "2026-01-31",
       "byConditionAll": {
-        "name-only": 0.2973958333333333,
-        "name-framed": 0.30364583333333334,
+        "name-only": 0.8564516129032257,
+        "name-framed": 0.8435483870967743,
         "url-only": 0.3822916666666667,
         "mdn-url-only": 0.5947916666666667,
         "spec-url-only": 0.8327586206896551,
@@ -512,8 +512,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.27499999999999997,
-          "name-framed": 0.2896739130434782,
+          "name-only": 0.8678571428571428,
+          "name-framed": 0.8803571428571428,
           "url-only": 0.366304347826087,
           "mdn-url-only": 0.5945652173913044,
           "spec-url-only": 0.8403846153846153,
@@ -525,14 +525,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.09130434782608704,
-          "pre": 0.2159420289855073,
-          "post": -0.2826086956521739
+          "overall": -0.5015527950310558,
+          "pre": -0.5004830917874397,
+          "post": -0.65
         },
         "split": {
           "pre": {
-            "name-only": 0.27246376811594203,
-            "name-framed": 0.26956521739130435,
+            "name-only": 0.9888888888888889,
+            "name-framed": 0.9777777777777779,
             "url-only": 0.4884057971014493,
             "mdn-url-only": 0.6855072463768117,
             "spec-url-only": 0.8812500000000001,
@@ -544,8 +544,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.2826086956521739,
-            "name-framed": 0.35000000000000003,
+            "name-only": 0.65,
+            "name-framed": 0.7050000000000001,
             "url-only": 0,
             "mdn-url-only": 0.3217391304347826,
             "spec-url-only": 0.775,
@@ -566,8 +566,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.75,
-          "name-framed": 0.5,
+          "name-only": 0.625,
+          "name-framed": 0.25,
           "url-only": 1,
           "mdn-url-only": 0.46666666666666673,
           "spec-url-only": 0.65,
@@ -586,8 +586,8 @@
       "label": "Claude Sonnet 4.6",
       "cutoff": "2026-01-31",
       "byConditionAll": {
-        "name-only": 0.2791666666666666,
-        "name-framed": 0.2859375,
+        "name-only": 0.7999999999999999,
+        "name-framed": 0.7887096774193548,
         "url-only": 0.35000000000000003,
         "mdn-url-only": 0.6036458333333333,
         "spec-url-only": 0.7241935483870966,
@@ -600,8 +600,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.2695652173913043,
-          "name-framed": 0.2657608695652174,
+          "name-only": 0.8499999999999999,
+          "name-framed": 0.8017857142857142,
           "url-only": 0.35434782608695653,
           "mdn-url-only": 0.5972826086956521,
           "spec-url-only": 0.7196428571428571,
@@ -613,14 +613,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.08478260869565224,
-          "pre": 0.18913043478260871,
-          "post": -0.2282608695652174
+          "overall": -0.49565217391304334,
+          "pre": -0.4923913043478261,
+          "post": -0.6154347826086956
         },
         "split": {
           "pre": {
-            "name-only": 0.26014492753623186,
-            "name-framed": 0.23840579710144932,
+            "name-only": 0.9416666666666667,
+            "name-framed": 0.8583333333333334,
             "url-only": 0.4492753623188406,
             "mdn-url-only": 0.6833333333333332,
             "spec-url-only": 0.7388888888888889,
@@ -632,10 +632,10 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.29782608695652174,
-            "name-framed": 0.34782608695652173,
+            "name-only": 0.6849999999999999,
+            "name-framed": 0.7,
             "url-only": 0.06956521739130435,
-            "mdn-url-only": 0.33913043478260874,
+            "mdn-url-only": 0.3391304347826087,
             "spec-url-only": 0.6849999999999999,
             "bcd-key-only": 0.6888888888888889,
             "url+name": 0.3456521739130435,
@@ -654,8 +654,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.3333333333333333,
-          "name-framed": 0.6666666666666666,
+          "name-only": 0,
+          "name-framed": 0.5,
           "url-only": 0.3333333333333333,
           "mdn-url-only": 0.6666666666666666,
           "spec-url-only": 1,
@@ -674,8 +674,8 @@
       "label": "Claude Opus 4.6",
       "cutoff": "2025-08-31",
       "byConditionAll": {
-        "name-only": 0.278125,
-        "name-framed": 0.2776041666666666,
+        "name-only": 0.7967741935483871,
+        "name-framed": 0.7629032258064515,
         "url-only": 0.3541666666666667,
         "mdn-url-only": 0.6078125,
         "spec-url-only": 0.5903225806451613,
@@ -688,8 +688,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.25706521739130433,
-          "name-framed": 0.26793478260869563,
+          "name-only": 0.8089285714285713,
+          "name-framed": 0.8089285714285713,
           "url-only": 0.358695652173913,
           "mdn-url-only": 0.6005434782608695,
           "spec-url-only": 0.6464285714285715,
@@ -701,14 +701,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.10163043478260869,
-          "pre": 0.2606060606060606,
-          "post": -0.30192307692307696
+          "overall": -0.4502329192546583,
+          "pre": -0.37765151515151507,
+          "post": -0.6990384615384615
         },
         "split": {
           "pre": {
-            "name-only": 0.22424242424242422,
-            "name-framed": 0.22424242424242422,
+            "name-only": 0.8624999999999999,
+            "name-framed": 0.8624999999999999,
             "url-only": 0.48484848484848486,
             "mdn-url-only": 0.6931818181818182,
             "spec-url-only": 0.634375,
@@ -720,8 +720,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.3403846153846154,
-            "name-framed": 0.3788461538461539,
+            "name-only": 0.7374999999999999,
+            "name-framed": 0.7375000000000002,
             "url-only": 0.038461538461538464,
             "mdn-url-only": 0.36538461538461536,
             "spec-url-only": 0.6625,
@@ -742,8 +742,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.6833333333333332,
-          "name-framed": 0.3333333333333333,
+          "name-only": 0.525,
+          "name-framed": 0,
           "url-only": 0.3333333333333333,
           "mdn-url-only": 0.7000000000000001,
           "spec-url-only": 0.1,
@@ -762,13 +762,13 @@
       "label": "Claude Sonnet 4.5",
       "cutoff": "2025-07-31",
       "byConditionAll": {
-        "name-only": 0.2546875,
-        "name-framed": 0.21875000000000003,
+        "name-only": 0.7241935483870967,
+        "name-framed": 0.6129032258064517,
         "url-only": 0.28750000000000003,
         "mdn-url-only": 0.4557291666666667,
         "spec-url-only": 0.5677419354838709,
         "bcd-key-only": 0.7051724137931036,
-        "url+name": 0.5177083333333334,
+        "url+name": 0.5177083333333333,
         "full-content": 0.8390625000000002,
         "fake-structural-url": 0.13749999999999998,
         "fake-opaque-url": 0.03125,
@@ -776,8 +776,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.24293478260869564,
-          "name-framed": 0.2065217391304348,
+          "name-only": 0.7625,
+          "name-framed": 0.6428571428571429,
           "url-only": 0.2782608695652174,
           "mdn-url-only": 0.4418478260869565,
           "spec-url-only": 0.5857142857142856,
@@ -789,14 +789,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.03532608695652176,
-          "pre": 0.15615384615384617,
-          "post": -0.25555555555555554
+          "overall": -0.48423913043478256,
+          "pre": -0.48743589743589744,
+          "post": -0.5945868945868946
         },
         "split": {
           "pre": {
-            "name-only": 0.21307692307692308,
-            "name-framed": 0.2076923076923077,
+            "name-only": 0.8566666666666667,
+            "name-framed": 0.8333333333333334,
             "url-only": 0.36923076923076925,
             "mdn-url-only": 0.5292307692307692,
             "spec-url-only": 0.7,
@@ -808,8 +808,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.3148148148148148,
-            "name-framed": 0.2037037037037037,
+            "name-only": 0.6538461538461539,
+            "name-framed": 0.4230769230769231,
             "url-only": 0.05925925925925926,
             "mdn-url-only": 0.23148148148148148,
             "spec-url-only": 0.4538461538461538,
@@ -830,8 +830,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.3666666666666667,
-          "name-framed": 0.3333333333333333,
+          "name-only": 0.05,
+          "name-framed": 0,
           "url-only": 0.6666666666666666,
           "mdn-url-only": 0.7000000000000001,
           "spec-url-only": 0.6,
@@ -850,8 +850,8 @@
       "label": "Gemini 3.1 Pro",
       "cutoff": "2025-01-31",
       "byConditionAll": {
-        "name-only": 0.24531250000000002,
-        "name-framed": 0.23854166666666665,
+        "name-only": 0.6951612903225807,
+        "name-framed": 0.6419354838709677,
         "url-only": 0.3687500000000001,
         "mdn-url-only": 0.5151041666666666,
         "spec-url-only": 0.45645161290322583,
@@ -864,8 +864,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.21467391304347827,
-          "name-framed": 0.20597826086956522,
+          "name-only": 0.6696428571428571,
+          "name-framed": 0.6053571428571428,
           "url-only": 0.35217391304347834,
           "mdn-url-only": 0.49619565217391304,
           "spec-url-only": 0.43392857142857144,
@@ -877,14 +877,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.13750000000000007,
-          "pre": 0.36896551724137944,
-          "post": -0.25735294117647056
+          "overall": -0.31746894409937876,
+          "pre": -0.44137931034482747,
+          "post": -0.4861111111111111
         },
         "split": {
           "pre": {
-            "name-only": 0.1896551724137931,
-            "name-framed": 0.18448275862068964,
+            "name-only": 1,
+            "name-framed": 0.97,
             "url-only": 0.5586206896551725,
             "mdn-url-only": 0.7163793103448277,
             "spec-url-only": 0.755,
@@ -896,8 +896,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.25735294117647056,
-            "name-framed": 0.2426470588235294,
+            "name-only": 0.4861111111111111,
+            "name-framed": 0.4027777777777778,
             "url-only": 0,
             "mdn-url-only": 0.12058823529411763,
             "spec-url-only": 0.25555555555555554,
@@ -918,8 +918,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.9333333333333332,
-          "name-framed": 0.9833333333333334,
+          "name-only": 0.9,
+          "name-framed": 0.975,
           "url-only": 1,
           "mdn-url-only": 0.9333333333333332,
           "spec-url-only": 1,
@@ -938,8 +938,8 @@
       "label": "Gemini 3.5 Flash",
       "cutoff": "2025-01-31",
       "byConditionAll": {
-        "name-only": 0.19374999999999998,
-        "name-framed": 0.2432291666666667,
+        "name-only": 0.5354838709677419,
+        "name-framed": 0.6241935483870968,
         "url-only": 0.3645833333333333,
         "mdn-url-only": 0.46458333333333335,
         "spec-url-only": 0.27903225806451615,
@@ -952,8 +952,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.1782608695652174,
-          "name-framed": 0.22880434782608697,
+          "name-only": 0.5499999999999999,
+          "name-framed": 0.6446428571428572,
           "url-only": 0.34782608695652173,
           "mdn-url-only": 0.45,
           "spec-url-only": 0.27321428571428574,
@@ -965,14 +965,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.16956521739130434,
-          "pre": 0.36379310344827587,
-          "post": -0.16176470588235298
+          "overall": -0.2021739130434782,
+          "pre": -0.4382758620689655,
+          "post": -0.3055555555555556
         },
         "split": {
           "pre": {
-            "name-only": 0.18793103448275864,
-            "name-framed": 0.2043103448275862,
+            "name-only": 0.99,
+            "name-framed": 0.985,
             "url-only": 0.5517241379310345,
             "mdn-url-only": 0.6362068965517241,
             "spec-url-only": 0.485,
@@ -984,8 +984,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.16176470588235298,
-            "name-framed": 0.27058823529411763,
+            "name-only": 0.3055555555555556,
+            "name-framed": 0.4555555555555555,
             "url-only": 0,
             "mdn-url-only": 0.1323529411764706,
             "spec-url-only": 0.15555555555555556,
@@ -1006,8 +1006,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.39999999999999997,
-          "name-framed": 0.43333333333333335,
+          "name-only": 0.1,
+          "name-framed": 0.15,
           "url-only": 1,
           "mdn-url-only": 0.7333333333333334,
           "spec-url-only": 0.5,
@@ -1026,8 +1026,8 @@
       "label": "GPT-5.5",
       "cutoff": "2025-12-01",
       "byConditionAll": {
-        "name-only": 0.31145833333333334,
-        "name-framed": 0.3098958333333333,
+        "name-only": 0.8999999999999999,
+        "name-framed": 0.8629032258064515,
         "url-only": 0.42083333333333334,
         "mdn-url-only": 0.6130208333333333,
         "spec-url-only": 0.8032258064516129,
@@ -1040,8 +1040,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.2891304347826087,
-          "name-framed": 0.2994565217391304,
+          "name-only": 0.9142857142857143,
+          "name-framed": 0.9124999999999999,
           "url-only": 0.40652173913043477,
           "mdn-url-only": 0.6179347826086957,
           "spec-url-only": 0.8178571428571428,
@@ -1053,14 +1053,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.11739130434782608,
-          "pre": 0.2895522388059702,
-          "post": -0.344
+          "overall": -0.5077639751552795,
+          "pre": -0.4242317822651447,
+          "post": -0.8021818181818182
         },
         "split": {
           "pre": {
-            "name-only": 0.2626865671641791,
-            "name-framed": 0.2634328358208955,
+            "name-only": 0.976470588235294,
+            "name-framed": 0.9794117647058823,
             "url-only": 0.5522388059701493,
             "mdn-url-only": 0.7291044776119403,
             "spec-url-only": 0.8823529411764706,
@@ -1072,8 +1072,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.36,
-            "name-framed": 0.396,
+            "name-only": 0.8181818181818182,
+            "name-framed": 0.8090909090909091,
             "url-only": 0.016,
             "mdn-url-only": 0.32,
             "spec-url-only": 0.7181818181818183,
@@ -1094,8 +1094,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.7666666666666666,
-          "name-framed": 0.39999999999999997,
+          "name-only": 0.65,
+          "name-framed": 0.1,
           "url-only": 1,
           "mdn-url-only": 0.3333333333333333,
           "spec-url-only": 0.5,
@@ -1114,8 +1114,8 @@
       "label": "GPT-5.2",
       "cutoff": "2025-08-31",
       "byConditionAll": {
-        "name-only": 0.30572916666666666,
-        "name-framed": 0.2697916666666667,
+        "name-only": 0.8500000000000001,
+        "name-framed": 0.7387096774193548,
         "url-only": 0.25,
         "mdn-url-only": 0.37604166666666666,
         "spec-url-only": 0.49354838709677423,
@@ -1128,8 +1128,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.27771739130434786,
-          "name-framed": 0.25869565217391305,
+          "name-only": 0.8410714285714286,
+          "name-framed": 0.7785714285714286,
           "url-only": 0.22826086956521738,
           "mdn-url-only": 0.3565217391304348,
           "spec-url-only": 0.43928571428571433,
@@ -1141,14 +1141,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": -0.04945652173913048,
-          "pre": 0.08787878787878786,
-          "post": -0.3980769230769231
+          "overall": -0.6128105590062112,
+          "pre": -0.5693181818181818,
+          "post": -0.7791666666666668
         },
         "split": {
           "pre": {
-            "name-only": 0.23030303030303031,
-            "name-framed": 0.22424242424242424,
+            "name-only": 0.8875000000000001,
+            "name-framed": 0.8625,
             "url-only": 0.3181818181818182,
             "mdn-url-only": 0.4590909090909091,
             "spec-url-only": 0.5625,
@@ -1160,8 +1160,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.3980769230769231,
-            "name-framed": 0.34615384615384615,
+            "name-only": 0.7791666666666668,
+            "name-framed": 0.6666666666666666,
             "url-only": 0,
             "mdn-url-only": 0.09615384615384616,
             "spec-url-only": 0.27499999999999997,
@@ -1182,8 +1182,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.9333333333333332,
-          "name-framed": 0.3666666666666667,
+          "name-only": 0.9,
+          "name-framed": 0.05,
           "url-only": 1,
           "mdn-url-only": 0.7666666666666666,
           "spec-url-only": 1,
@@ -1202,8 +1202,8 @@
       "label": "GPT-5",
       "cutoff": "2024-09-30",
       "byConditionAll": {
-        "name-only": 0.22968750000000004,
-        "name-framed": 0.2354166666666667,
+        "name-only": 0.614516129032258,
+        "name-framed": 0.6322580645161291,
         "url-only": 0.36354166666666665,
         "mdn-url-only": 0.5184210526315789,
         "spec-url-only": 0.5258064516129033,
@@ -1216,8 +1216,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.21684782608695655,
-          "name-framed": 0.21358695652173915,
+          "name-only": 0.6410714285714286,
+          "name-framed": 0.630357142857143,
           "url-only": 0.3467391304347826,
           "mdn-url-only": 0.5027173913043478,
           "spec-url-only": 0.47500000000000003,
@@ -1229,14 +1229,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.12989130434782606,
-          "pre": 0.36727272727272725,
-          "post": -0.22297297297297297
+          "overall": -0.294332298136646,
+          "pre": -0.41636363636363627,
+          "post": -0.4284534534534534
         },
         "split": {
           "pre": {
-            "name-only": 0.19636363636363635,
-            "name-framed": 0.18999999999999997,
+            "name-only": 0.9799999999999999,
+            "name-framed": 0.945,
             "url-only": 0.5636363636363636,
             "mdn-url-only": 0.7227272727272728,
             "spec-url-only": 0.8300000000000001,
@@ -1248,8 +1248,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.2472972972972973,
-            "name-framed": 0.24864864864864863,
+            "name-only": 0.4527777777777777,
+            "name-framed": 0.4555555555555555,
             "url-only": 0.024324324324324326,
             "mdn-url-only": 0.17567567567567569,
             "spec-url-only": 0.2777777777777778,
@@ -1270,8 +1270,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.3666666666666667,
-          "name-framed": 0.65,
+          "name-only": 0.05,
+          "name-framed": 0.475,
           "url-only": 1,
           "mdn-url-only": 1,
           "spec-url-only": 1,
@@ -1290,8 +1290,8 @@
       "label": "Grok 4.3",
       "cutoff": "2025-12-31",
       "byConditionAll": {
-        "name-only": 0.2890625,
-        "name-framed": 0.2916666666666667,
+        "name-only": 0.7983870967741935,
+        "name-framed": 0.8064516129032259,
         "url-only": 0.32083333333333336,
         "mdn-url-only": 0.525,
         "spec-url-only": 0.5129032258064515,
@@ -1304,8 +1304,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.27065217391304347,
-          "name-framed": 0.27173913043478265,
+          "name-only": 0.8178571428571428,
+          "name-framed": 0.8214285714285714,
           "url-only": 0.3021739130434783,
           "mdn-url-only": 0.5152173913043478,
           "spec-url-only": 0.49642857142857133,
@@ -1317,14 +1317,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.03152173913043482,
-          "pre": 0.17279411764705885,
-          "post": -0.3687500000000001
+          "overall": -0.5156832298136645,
+          "pre": -0.4764705882352941,
+          "post": -0.7136363636363637
         },
         "split": {
           "pre": {
-            "name-only": 0.23602941176470585,
-            "name-framed": 0.23823529411764705,
+            "name-only": 0.8852941176470588,
+            "name-framed": 0.8941176470588236,
             "url-only": 0.4088235294117647,
             "mdn-url-only": 0.6198529411764707,
             "spec-url-only": 0.5882352941176471,
@@ -1336,8 +1336,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.3687500000000001,
-            "name-framed": 0.3666666666666667,
+            "name-only": 0.7136363636363637,
+            "name-framed": 0.7090909090909091,
             "url-only": 0,
             "mdn-url-only": 0.21875,
             "spec-url-only": 0.35454545454545455,
@@ -1358,8 +1358,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.6166666666666667,
-          "name-framed": 0.6666666666666666,
+          "name-only": 0.425,
+          "name-framed": 0.5,
           "url-only": 1,
           "mdn-url-only": 0.6666666666666666,
           "spec-url-only": 1,
@@ -1378,8 +1378,8 @@
       "label": "Grok 4",
       "cutoff": "2024-11-30",
       "byConditionAll": {
-        "name-only": 0.27499999999999997,
-        "name-framed": 0.2671875,
+        "name-only": 0.7548387096774192,
+        "name-framed": 0.7306451612903225,
         "url-only": 0.3260416666666667,
         "mdn-url-only": 0.5265624999999999,
         "spec-url-only": 0.6096774193548385,
@@ -1392,8 +1392,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.2652173913043478,
-          "name-framed": 0.2559782608695652,
+          "name-only": 0.7999999999999998,
+          "name-framed": 0.7696428571428572,
           "url-only": 0.3184782608695652,
           "mdn-url-only": 0.5157608695652174,
           "spec-url-only": 0.5678571428571428,
@@ -1405,14 +1405,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.05326086956521742,
-          "pre": 0.35,
-          "post": -0.3878378378378378
+          "overall": -0.4815217391304346,
+          "pre": -0.3722727272727273,
+          "post": -0.7416666666666667
         },
         "split": {
           "pre": {
-            "name-only": 0.1827272727272727,
-            "name-framed": 0.17818181818181816,
+            "name-only": 0.905,
+            "name-framed": 0.8799999999999999,
             "url-only": 0.5327272727272727,
             "mdn-url-only": 0.7227272727272728,
             "spec-url-only": 0.8800000000000001,
@@ -1424,8 +1424,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.3878378378378378,
-            "name-framed": 0.3716216216216216,
+            "name-only": 0.7416666666666667,
+            "name-framed": 0.7083333333333334,
             "url-only": 0,
             "mdn-url-only": 0.20810810810810812,
             "spec-url-only": 0.3944444444444445,
@@ -1446,8 +1446,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.3333333333333333,
-          "name-framed": 0.3666666666666667,
+          "name-only": 0,
+          "name-framed": 0.05,
           "url-only": 0.6666666666666666,
           "mdn-url-only": 0.7000000000000001,
           "spec-url-only": 1,
@@ -1466,8 +1466,8 @@
       "label": "GLM-5.2",
       "cutoff": "2025-10-31",
       "byConditionAll": {
-        "name-only": 0.28281249999999997,
-        "name-framed": 0.28229166666666666,
+        "name-only": 0.7919354838709677,
+        "name-framed": 0.7774193548387097,
         "url-only": 0.32187499999999997,
         "mdn-url-only": 0.5411458333333333,
         "spec-url-only": 0.685185185185185,
@@ -1480,8 +1480,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.25163043478260866,
-          "name-framed": 0.2608695652173913,
+          "name-only": 0.7696428571428571,
+          "name-framed": 0.7857142857142857,
           "url-only": 0.30326086956521736,
           "mdn-url-only": 0.5320652173913044,
           "spec-url-only": 0.694,
@@ -1493,14 +1493,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.0516304347826087,
-          "pre": 0.18432835820895518,
-          "post": -0.304
+          "overall": -0.4663819875776397,
+          "pre": -0.4394644424934154,
+          "post": -0.6363636363636364
         },
         "split": {
           "pre": {
-            "name-only": 0.23208955223880598,
-            "name-framed": 0.208955223880597,
+            "name-only": 0.8558823529411765,
+            "name-framed": 0.7647058823529411,
             "url-only": 0.41641791044776116,
             "mdn-url-only": 0.6276119402985075,
             "spec-url-only": 0.6593749999999999,
@@ -1512,8 +1512,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.304,
-            "name-framed": 0.4,
+            "name-only": 0.6363636363636364,
+            "name-framed": 0.8181818181818182,
             "url-only": 0,
             "mdn-url-only": 0.276,
             "spec-url-only": 0.7555555555555555,
@@ -1535,7 +1535,7 @@
       "calib": {
         "byCondition": {
           "name-only": 1,
-          "name-framed": 0.7000000000000001,
+          "name-framed": 0.55,
           "url-only": 1,
           "mdn-url-only": 0.6666666666666666,
           "spec-url-only": 0.575,
@@ -1554,8 +1554,8 @@
       "label": "GLM-5.1",
       "cutoff": "2025-10-31",
       "byConditionAll": {
-        "name-only": 0.2838541666666667,
-        "name-framed": 0.25885416666666666,
+        "name-only": 0.782258064516129,
+        "name-framed": 0.7048387096774192,
         "url-only": 0.3625,
         "mdn-url-only": 0.5317708333333334,
         "spec-url-only": 0.7449999999999999,
@@ -1568,8 +1568,8 @@
       },
       "api": {
         "byCondition": {
-          "name-only": 0.26304347826086955,
-          "name-framed": 0.24728260869565213,
+          "name-only": 0.7928571428571427,
+          "name-framed": 0.7410714285714285,
           "url-only": 0.3532608695652174,
           "mdn-url-only": 0.5211956521739131,
           "spec-url-only": 0.7611111111111112,
@@ -1581,14 +1581,14 @@
           "random-url": 0
         },
         "lift": {
-          "overall": 0.09021739130434786,
-          "pre": 0.25820895522388065,
-          "post": -0.36
+          "overall": -0.4395962732919253,
+          "pre": -0.3502194907813871,
+          "post": -0.7272727272727273
         },
         "split": {
           "pre": {
-            "name-only": 0.22686567164179103,
-            "name-framed": 0.22089552238805968,
+            "name-only": 0.8352941176470587,
+            "name-framed": 0.8117647058823528,
             "url-only": 0.48507462686567165,
             "mdn-url-only": 0.6261194029850746,
             "spec-url-only": 0.8058823529411764,
@@ -1600,8 +1600,8 @@
             "random-url": 0
           },
           "post": {
-            "name-only": 0.36,
-            "name-framed": 0.318,
+            "name-only": 0.7272727272727273,
+            "name-framed": 0.6318181818181818,
             "url-only": 0,
             "mdn-url-only": 0.24,
             "spec-url-only": 0.685,
@@ -1622,8 +1622,8 @@
       },
       "calib": {
         "byCondition": {
-          "name-only": 0.6833333333333332,
-          "name-framed": 0.3666666666666667,
+          "name-only": 0.525,
+          "name-framed": 0.05,
           "url-only": 0.6666666666666666,
           "mdn-url-only": 0.7000000000000001,
           "spec-url-only": 0.39999999999999997,

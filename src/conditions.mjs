@@ -137,6 +137,13 @@ export function buildPrompt(item, condition, fetched) {
   switch (condition) {
     case "name-only":
       // Control: task described by name, NO url at all.
+      // N/A for `recall` items: their target references an external identifier
+      // ("the paper at this arXiv id") that this condition does not supply, so
+      // the prompt is incoherent — the model correctly asks for the missing id.
+      // A pure opaque-id recall task has no verbal description that isn't the
+      // answer itself, so the "describe in words" baseline is undefined here
+      // (cf. a future descriptive-title baseline). Skip rather than emit garbage.
+      if (item.kind === "recall") return null;
       return {
         system,
         user: `Task: ${item.target}\n\n${taskVerb}`,
@@ -146,6 +153,8 @@ export function buildPrompt(item, condition, fetched) {
       // Framing-matched baseline: same "do whatever this describes" framing as
       // url-only, but with the plain task description instead of a URL. Lets us
       // net out the "vaguer instruction" cost of url-only's framing.
+      // N/A for `recall` items for the same reason as name-only (see above).
+      if (item.kind === "recall") return null;
       return {
         system,
         user: `Do whatever the following describes:\n\n${item.target}\n\n${taskVerb}`,

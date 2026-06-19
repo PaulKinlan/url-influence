@@ -45,6 +45,23 @@ test("buildPrompt: name-framed uses the description in url-only framing, no URL"
   assert.ok(!/http/.test(p.user), "name-framed carries no URL");
 });
 
+test("buildPrompt: name baselines are N/A for recall items (no id to attach)", () => {
+  // Regression: a recall task references an external identifier the name
+  // conditions don't supply ("the paper at this arXiv id"), so the prompt would
+  // be incoherent. They must skip (null), not emit a garbage prompt the model
+  // rightly refuses. url-only (the treatment) still carries the real id.
+  const item = {
+    id: "r",
+    kind: "recall",
+    target: "Recall the paper at this arXiv id: what is its main contribution?",
+    urls: { opaque: "https://arxiv.org/abs/1706.03762" },
+  };
+  assert.equal(buildPrompt(item, "name-only", null), null);
+  assert.equal(buildPrompt(item, "name-framed", null), null);
+  const u = buildPrompt(item, "url-only", null);
+  assert.ok(/arxiv\.org\/abs\/1706\.03762/.test(u.user), "url-only keeps the id");
+});
+
 test("buildPrompt: url-only is opaque (only the id, no task name)", () => {
   const item = {
     id: "x",

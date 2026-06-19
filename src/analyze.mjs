@@ -386,6 +386,20 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   L.push(
+    "> **Lift applies only to `code`/API-usage items, NOT the opaque-id " +
+      "`recall` items** (arXiv/RFC/CVE/SO/PMID/DOI/…). A recall task's only " +
+      "identifier *is* the opaque id, so there is no coherent \"describe it in " +
+      "words\" baseline that isn't the answer itself — `name-only`/`name-framed` " +
+      "are therefore **N/A (skipped)** for recall items and their `name` columns " +
+      "read `-`. Recall items are judged on the **cutoff axis** (does the bare " +
+      "id decode pre- vs post-cutoff?) and against the **`full-content` " +
+      "ceiling**, not against a name baseline. (Earlier builds emitted a broken " +
+      "`name-only` prompt for these — \"recall the paper at this arXiv id\" with " +
+      "no id attached — which the models correctly refused, manufacturing a " +
+      "spurious `name≈0`; that data has been removed.)",
+  );
+  L.push("");
+  L.push(
     "**Correctness** is 0..1 from an LLM-as-judge; every judge prompt + raw " +
       "verdict is in [transcript.jsonl.gz](transcript.jsonl.gz) and " +
       "[dashboard.html](dashboard.html) so each score " +
