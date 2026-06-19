@@ -50,9 +50,15 @@ decisions made, and what we have learned about the URLs and methodology.
   repetition across all routes is the mechanism.
 - **Dashboard source/popularity filter** added. **File-size fix:** transcript
   gzipped (70→9MB), RUNLOG.md gitignored, dashboard-data clipped (under 100MB).
+- **CC covariate surfaced (Paul):** report now has a CC-snapshots column in the
+  per-item identifier table (+ first-seen month) and a present-vs-absent decode
+  table (present 0.46 / absent 0.18); dashboard has an "In/Not in Common Crawl"
+  filter + per-row CC badge. analysis-only, no rerun.
 - PENDING (lower priority): A2 full (cross-vendor judge), B3 (k-samples variance),
-  C2 (url-resolution dedupe), fix GitHub-SHA negative to obscure commits, optional
-  CC covariate column in report/dashboard, README "opaque spectrum" minor tidy.
+  C2 (url-resolution dedupe), fix GitHub-SHA negative to obscure commits, README
+  "opaque spectrum" minor tidy. WATCH: dashboard-data.js now 55MB (past GitHub's
+  50MB soft warning, under the 100MB hard limit) — may need stronger clipping or
+  gzip soon as the matrix grows.
 
 ### Next / open
 - DONE (2026-06-19): committed results regenerated for the current protocol —
