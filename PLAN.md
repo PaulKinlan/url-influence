@@ -54,10 +54,11 @@ decisions made, and what we have learned about the URLs and methodology.
   per-item identifier table (+ first-seen month) and a present-vs-absent decode
   table (present 0.46 / absent 0.18); dashboard has an "In/Not in Common Crawl"
   filter + per-row CC badge. analysis-only, no rerun.
-- **Dashboard data gzipped (Paul):** dashboard-data.js now ships
-  `window.__URLINFLUENCE_GZ` = base64 of gzipped JSON (57.5→9.1MB, 6.3x); browser
-  inflates on boot with DecompressionStream. Inlined (not a fetched .gz) so
-  file:// still works — no fetch/CORS. Size-warning resolved.
+- **Dashboard data gzipped (Paul):** ships as `results/dashboard-data.json.gz`
+  (real gzip file, 57.5→6.9MB); page fetches it and streams through
+  DecompressionStream on boot. NOT base64-in-page (that bloats 33%). Tradeoff:
+  needs http to view (`python3 -m http.server` / GitHub Pages), not file://.
+  Old dashboard-data.js removed. Size-warning resolved.
 - PENDING (lower priority): A2 full (cross-vendor judge), B3 (k-samples variance),
   C2 (url-resolution dedupe), fix GitHub-SHA negative to obscure commits, README
   "opaque spectrum" minor tidy.
