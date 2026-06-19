@@ -21,6 +21,7 @@ import { CORPUS } from "./corpus.mjs";
 import { CONDITIONS } from "./conditions.mjs";
 import { listJson, readJson, nowIso } from "./util.mjs";
 import { writeFile } from "node:fs/promises";
+import { gzipSync } from "node:zlib";
 
 const RAW_DIR = "results/raw";
 
@@ -266,10 +267,16 @@ async function main() {
     md.push("");
   }
 
-  await writeFile("results/transcript.jsonl", jsonl.join("\n") + "\n");
+  // transcript.jsonl is the committed full record; gzip it so it stays well
+  // under GitHub's 100MB file limit as the matrix grows (it is downloaded, not
+  // browsed inline). RUNLOG.md (the human-browsable mirror) is generated for
+  // local use but gitignored — same content, and it would otherwise blow past
+  // the limit. The interactive dashboard is the committed browse surface.
+  const jsonlText = jsonl.join("\n") + "\n";
+  await writeFile("results/transcript.jsonl.gz", gzipSync(jsonlText));
   await writeFile("results/RUNLOG.md", md.join("\n"));
   console.log(
-    `[transcript] wrote results/transcript.jsonl (${jsonl.length} cells) + results/RUNLOG.md`,
+    `[transcript] wrote results/transcript.jsonl.gz (${jsonl.length} cells, gzipped) + results/RUNLOG.md (local-only)`,
   );
 }
 

@@ -78,8 +78,12 @@ function opaqueIdType(item) {
   const o = item?.urls?.opaque || "";
   if (/arxiv\.org/.test(o)) return "arXiv id";
   if (/rfc-editor|ietf|datatracker/.test(o)) return "RFC id";
+  if (/nvd\.nist\.gov|cve\.org|cveawg/.test(o) || /CVE-\d/.test(o)) return "CVE id";
+  if (/pubmed\.ncbi|ncbi\.nlm/.test(o)) return "PubMed id";
   if (/chromestatus\.com/.test(o)) return "ChromeStatus #";
   if (/stackoverflow\.com/.test(o)) return "Stack Overflow #";
+  if (/github\.com\/.+\/commit\//.test(o)) return "GitHub commit SHA";
+  if (/huggingface\.co/.test(o)) return "HuggingFace id";
   if (/doi\.org/.test(o)) return "DOI";
   if (/caniuse\.com/.test(o)) return "caniuse";
   return o ? "other" : "—";
@@ -363,8 +367,8 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("");
   L.push(
     "**Correctness** is 0..1 from an LLM-as-judge; every judge prompt + raw " +
-      "verdict is in [transcript.jsonl](transcript.jsonl) / " +
-      "[RUNLOG.md](RUNLOG.md) / [dashboard.html](dashboard.html) so each score " +
+      "verdict is in [transcript.jsonl.gz](transcript.jsonl.gz) and " +
+      "[dashboard.html](dashboard.html) so each score " +
       "is checkable.",
   );
   L.push("");
@@ -644,12 +648,13 @@ async function writeReport(summary, models, data, skippedModels) {
       "reasoning**. (Live: https://paulkinlan.github.io/url-influence/ )",
   );
   L.push(
-    "- **[RUNLOG.md](RUNLOG.md)** — browsable per-cell record (every prompt, " +
-      "output, judge prompt + raw verdict).",
+    "- **RUNLOG.md** — a human-browsable mirror of the transcript (every prompt, " +
+      "output, judge prompt + raw verdict); too large to commit, regenerate " +
+      "locally with `npm run transcript`.",
   );
   L.push(
-    "- **[transcript.jsonl](transcript.jsonl)** — one JSON line per cell with " +
-      "everything, machine-readable. This is the committed full run data; " +
+    "- **[transcript.jsonl.gz](transcript.jsonl.gz)** — one gzipped JSON line per " +
+      "cell with everything, machine-readable. This is the committed full run data; " +
       "`results/raw/` is the gitignored intermediate it is built from.",
   );
   L.push("");
@@ -764,7 +769,7 @@ async function writeReport(summary, models, data, skippedModels) {
       "API bucket is especially thin and is the main reason for expanding the " +
       "corpus. Cutoff dates are the vendors' published values (see " +
       "SOURCES.md). Every prompt, output, and judge prompt + raw verdict is in " +
-      "[transcript.jsonl](transcript.jsonl), [RUNLOG.md](RUNLOG.md), and " +
+      "[transcript.jsonl.gz](transcript.jsonl.gz) and " +
       "[dashboard.html](dashboard.html)._",
   );
 

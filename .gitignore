@@ -2,9 +2,14 @@ node_modules/
 .env
 .env.*
 # results/raw/ is the intermediate (one JSON per model call). It stays OUT of the
-# repo; the committed results/transcript.jsonl is the complete, auditable record.
+# repo; the committed results/transcript.jsonl.gz is the complete, auditable record.
 results/raw/
 results/judge-cache/
+# RUNLOG.md is the human-browsable mirror of transcript.jsonl.gz — same content,
+# but too large to commit. Generated locally via `npm run transcript`.
+results/RUNLOG.md
+# The uncompressed transcript is replaced by the committed .gz.
+results/transcript.jsonl
 *.log
 .DS_Store
 

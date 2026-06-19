@@ -37,8 +37,22 @@ async function main() {
     };
   }
 
+  // Clip long text so dashboard-data.js (served to the browser, and committed)
+  // stays well under GitHub's 100MB file limit as the matrix grows. The FULL,
+  // untruncated prompt/output/judge for every cell remains in transcript.jsonl.
+  const CLIP = 2500;
+  const clip = (s) =>
+    typeof s === "string" && s.length > CLIP
+      ? s.slice(0, CLIP) +
+        `\n…[clipped ${s.length - CLIP} chars — full record in transcript.jsonl]`
+      : s;
+  const clipPrompt = (p) =>
+    p && typeof p === "object"
+      ? { system: p.system, user: clip(p.user) }
+      : clip(p);
+
   // Trim each cell to the fields the UI needs (keeps everything that lets a
-  // human validate a verdict; drops nothing load-bearing).
+  // human validate a verdict; clips only very long bodies).
   const slim = cells.map((c) => ({
     model: c.model,
     label: c.label,
@@ -53,8 +67,8 @@ async function main() {
     runError: c.runError,
     skipped: c.skipped ?? false,
     skipReason: c.skipReason ?? null,
-    prompt: c.prompt,
-    output: c.output,
+    prompt: clipPrompt(c.prompt),
+    output: clip(c.output),
     judge: c.judge
       ? {
           correctness: c.judge.correctness,
@@ -62,8 +76,8 @@ async function main() {
           hallucinated: c.judge.hallucinated,
           reason: c.judge.reason,
           judgeError: c.judge.judgeError,
-          judgePrompt: c.judge.judgePrompt,
-          judgeRaw: c.judge.judgeRaw,
+          judgePrompt: clipPrompt(c.judge.judgePrompt),
+          judgeRaw: clip(c.judge.judgeRaw),
         }
       : null,
   }));

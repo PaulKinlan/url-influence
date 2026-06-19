@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-19T15:09:56.173Z
+Report generated: 2026-06-19T15:16:47.345Z
 Data run / scored: 2026-06-19T15:09:54.692Z
-Code + data commit: [`1b3d423b31`](https://github.com/PaulKinlan/url-influence/commit/1b3d423b3124d9b7e421cc34f08bfd5fe6790e5d)
+Code + data commit: [`d65814e040`](https://github.com/PaulKinlan/url-influence/commit/d65814e0409323fc71840129b71f6260411035da)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 11992 (judge failures: 2)
 
@@ -21,7 +21,7 @@ Judged outputs: 11992 (judge failures: 2)
 
 **LIFT** (API-usage items with real opaque pointers) `= mean(correctness | url-only) − mean(correctness | name-only)`. Positive = the bare URL alone beat naming the task. The hypothesis predicts **positive lift pre-cutoff, ~zero post-cutoff**.
 
-**Correctness** is 0..1 from an LLM-as-judge; every judge prompt + raw verdict is in [transcript.jsonl](transcript.jsonl) / [RUNLOG.md](RUNLOG.md) / [dashboard.html](dashboard.html) so each score is checkable.
+**Correctness** is 0..1 from an LLM-as-judge; every judge prompt + raw verdict is in [transcript.jsonl.gz](transcript.jsonl.gz) and [dashboard.html](dashboard.html) so each score is checkable.
 
 **Controls.** `fake-structural-url` (plausible but nonexistent, same shape) and `random-url` (unrelated real URL) should collapse toward name-only / zero — if URL shape or merely having a URL did the work, these would lift too.
 
@@ -76,10 +76,13 @@ The single averaged "lift" below is misleading: the effect is **categorical, not
 | Opaque id type (`url-only`) | items | mean url-only | mean name-only |
 |---|---|---|---|
 | RFC id | 9 | 0.79 | 0.11 |
+| CVE id | 8 | 0.77 | 0.00 |
 | arXiv id | 20 | 0.64 | 0.02 |
-| other | 20 | 0.49 | 0.00 |
+| GitHub commit SHA | 3 | 0.60 | 0.00 |
+| HuggingFace id | 3 | 0.41 | 0.00 |
 | Stack Overflow # | 8 | 0.35 | 0.01 |
 | DOI | 6 | 0.33 | 0.00 |
+| PubMed id | 6 | 0.10 | 0.00 |
 | control (synthetic, not a real pointer) | 1 | 0.02 | 1.00 |
 | ChromeStatus # | 28 | 0.01 | 0.78 |
 | caniuse | 1 | 0.00 | 0.62 |
@@ -117,30 +120,30 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 
 | item | contentDate | `url-only` (opaque) id | type | spec? | bcd? |
 |---|---|---|---|---|---|
-| `pmid-7466396-evolution-cooperation` | 1981-03-27 | `pubmed.ncbi.nlm.nih.gov/7466396/` | other | — | — |
+| `pmid-7466396-evolution-cooperation` | 1981-03-27 | `pubmed.ncbi.nlm.nih.gov/7466396/` | PubMed id | — | — |
 | `rfc-791-ip` | 1981-09 | `datatracker.ietf.org/doc/rfc791/` | RFC id | — | — |
 | `rfc-1149-avian-carriers` | 1990-04 | `datatracker.ietf.org/doc/rfc1149/` | RFC id | — | — |
 | `rfc-2616-http11` | 1999-05 | `datatracker.ietf.org/doc/rfc2616/` | RFC id | — | — |
-| `pmid-10676951-dlbcl-gene-expression` | 2000-02-03 | `pubmed.ncbi.nlm.nih.gov/10676951/` | other | — | — |
-| `pmid-11237011-human-genome` | 2001-02-15 | `pubmed.ncbi.nlm.nih.gov/11237011/` | other | — | — |
+| `pmid-10676951-dlbcl-gene-expression` | 2000-02-03 | `pubmed.ncbi.nlm.nih.gov/10676951/` | PubMed id | — | — |
+| `pmid-11237011-human-genome` | 2001-02-15 | `pubmed.ncbi.nlm.nih.gov/11237011/` | PubMed id | — | — |
 | `doi-human-genome-science` | 2001-02-16 | `doi.org/10.1126/science.1058040` | DOI | — | — |
-| `gh-sha-git-initial-commit` | 2005-04-07 | `github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290` | other | — | — |
-| `gh-sha-linux-initial-git` | 2005-04-16 | `github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2` | other | — | — |
+| `gh-sha-git-initial-commit` | 2005-04-07 | `github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290` | GitHub commit SHA | — | — |
+| `gh-sha-linux-initial-git` | 2005-04-16 | `github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2` | GitHub commit SHA | — | — |
 | `so-111102-javascript-closures` | 2008-09-21 | `stackoverflow.com/questions/111102` | Stack Overflow # | — | — |
 | `so-178325-jquery-element-hidden` | 2008-10-07 | `stackoverflow.com/questions/178325` | Stack Overflow # | — | — |
 | `so-503093-redirect-webpage` | 2009-02-02 | `stackoverflow.com/questions/503093` | Stack Overflow # | — | — |
 | `so-1335851-use-strict` | 2009-08-26 | `stackoverflow.com/questions/1335851` | Stack Overflow # | — | — |
-| `gh-sha-bitcoin-first-commit` | 2009-08-30 | `github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898` | other | — | — |
+| `gh-sha-bitcoin-first-commit` | 2009-08-30 | `github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898` | GitHub commit SHA | — | — |
 | `doi-corn-seed-traits-pricing` | 2010-07-19 | `doi.org/10.1093/ajae/aaq063` | DOI | — | — |
 | `so-11227809-branch-prediction` | 2012-06-27 | `stackoverflow.com/questions/11227809` | Stack Overflow # | — | — |
 | `arxiv-word2vec` | 2013-01-16 | `arxiv.org/abs/1301.3781` | arXiv id | — | — |
 | `js-promise` | 2014-01 | `stackoverflow.com/questions/30564053` | control (synthetic, not a real pointer) | Y | Y |
-| `cve-2014-0160-heartbleed` | 2014-04-07 | `nvd.nist.gov/vuln/detail/CVE-2014-0160` | other | — | — |
+| `cve-2014-0160-heartbleed` | 2014-04-07 | `nvd.nist.gov/vuln/detail/CVE-2014-0160` | CVE id | — | — |
 | `arxiv-gan` | 2014-06-10 | `arxiv.org/abs/1406.2661` | arXiv id | — | — |
 | `arxiv-vgg` | 2014-09-04 | `arxiv.org/abs/1409.1556` | arXiv id | — | — |
 | `arxiv-adam` | 2014-12-22 | `arxiv.org/abs/1412.6980` | arXiv id | — | — |
 | `service-worker` | 2015-01 | `www.chromestatus.com/feature/6561526227927040` | ChromeStatus # | Y | Y |
-| `pmid-25592156-hydrogel-immunoprotection` | 2015-02-09 | `pubmed.ncbi.nlm.nih.gov/25592156/` | other | — | — |
+| `pmid-25592156-hydrogel-immunoprotection` | 2015-02-09 | `pubmed.ncbi.nlm.nih.gov/25592156/` | PubMed id | — | — |
 | `fetch-api` | 2015-03 | `chromestatus.com/feature/6730533392351232` | ChromeStatus # | Y | Y |
 | `arxiv-knowledge-distillation` | 2015-03-09 | `arxiv.org/abs/1503.02531` | arXiv id | — | — |
 | `arxiv-unet` | 2015-05-18 | `arxiv.org/abs/1505.04597` | arXiv id | — | — |
@@ -150,18 +153,18 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `async-await` | 2016-10 | `chromestatus.com/feature/5643236399906816` | ChromeStatus # | Y | Y |
 | `arxiv-pate` | 2016-10-18 | `arxiv.org/abs/1610.05755` | arXiv id | — | — |
 | `css-grid` | 2017-03 | `chromestatus.com/feature/4589636412243968` | ChromeStatus # | Y | Y |
-| `cve-2017-0144-eternalblue` | 2017-03-17 | `nvd.nist.gov/vuln/detail/CVE-2017-0144` | other | — | — |
+| `cve-2017-0144-eternalblue` | 2017-03-17 | `nvd.nist.gov/vuln/detail/CVE-2017-0144` | CVE id | — | — |
 | `arxiv-attention` | 2017-06 | `arxiv.org/abs/1706.03762` | arXiv id | — | — |
 | `arxiv-ppo` | 2017-07-20 | `arxiv.org/abs/1707.06347` | arXiv id | — | — |
-| `pmid-28778026-deep-learning-medical-survey` | 2017-12 | `pubmed.ncbi.nlm.nih.gov/28778026/` | other | — | — |
+| `pmid-28778026-deep-learning-medical-survey` | 2017-12 | `pubmed.ncbi.nlm.nih.gov/28778026/` | PubMed id | — | — |
 | `rfc-8259-json` | 2017-12 | `datatracker.ietf.org/doc/rfc8259/` | RFC id | — | — |
-| `cve-2018-7600-drupalgeddon2` | 2018-03-29 | `nvd.nist.gov/vuln/detail/CVE-2018-7600` | other | — | — |
+| `cve-2018-7600-drupalgeddon2` | 2018-03-29 | `nvd.nist.gov/vuln/detail/CVE-2018-7600` | CVE id | — | — |
 | `arxiv-bert` | 2018-10-11 | `arxiv.org/abs/1810.04805` | arXiv id | — | — |
-| `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | other | — | — |
+| `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | CVE id | — | — |
 | `doi-optuna-kdd` | 2019-07-25 | `doi.org/10.1145/3292500.3330701` | DOI | — | — |
 | `arxiv-gpt3` | 2020-05-28 | `arxiv.org/abs/2005.14165` | arXiv id | — | — |
 | `doi-alphafold-nature` | 2021-07-15 | `doi.org/10.1038/s41586-021-03819-2` | DOI | — | — |
-| `cve-2021-44228-log4shell` | 2021-12-10 | `nvd.nist.gov/vuln/detail/CVE-2021-44228` | other | — | — |
+| `cve-2021-44228-log4shell` | 2021-12-10 | `nvd.nist.gov/vuln/detail/CVE-2021-44228` | CVE id | — | — |
 | `rfc-9110-http-semantics` | 2022-06 | `datatracker.ietf.org/doc/rfc9110/` | RFC id | — | — |
 | `rfc-9114-http3` | 2022-06 | `datatracker.ietf.org/doc/rfc9114/` | RFC id | — | — |
 | `rfc-9293-tcp` | 2022-08 | `datatracker.ietf.org/doc/rfc9293/` | RFC id | — | — |
@@ -169,7 +172,7 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `view-transitions` | 2023-03 | `chromestatus.com/feature/5193009714954240` | ChromeStatus # | Y | Y |
 | `arxiv-mamba` | 2023-12 | `arxiv.org/abs/2312.00752` | arXiv id | — | — |
 | `so-78084814-coredump-file-mapping` | 2024-02-29 | `stackoverflow.com/questions/78084814` | Stack Overflow # | — | — |
-| `cve-2024-3094-xz-backdoor` | 2024-03-29 | `nvd.nist.gov/vuln/detail/CVE-2024-3094` | other | — | — |
+| `cve-2024-3094-xz-backdoor` | 2024-03-29 | `nvd.nist.gov/vuln/detail/CVE-2024-3094` | CVE id | — | — |
 | `popover-api` | 2024-04 | `chromestatus.com/feature/5463833265045504` | ChromeStatus # | Y | Y |
 | `css-anchor-positioning` | 2024-08 | `chromestatus.com/feature/5124922471874560` | ChromeStatus # | Y | Y |
 | `view-transitions-cross-doc` | 2024-09 | `chromestatus.com/feature/5118874666663936` | ChromeStatus # | Y | Y |
@@ -192,21 +195,21 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 | `text-justify-css-property` | 2026-02 | `chromestatus.com/feature/5079678972985344` | ChromeStatus # | Y | Y |
 | `so-79886234-java25-file-exists` | 2026-02-10 | `stackoverflow.com/questions/79886234` | Stack Overflow # | — | — |
 | `so-79890462-reinterpret-cast-structs` | 2026-02-16 | `stackoverflow.com/questions/79890462` | Stack Overflow # | — | — |
-| `cve-2026-25000-wheel-of-life` | 2026-02-19 | `nvd.nist.gov/vuln/detail/CVE-2026-25000` | other | — | — |
-| `hf-qwen3-5-4b` | 2026-02-27 | `huggingface.co/Qwen/Qwen3.5-4B` | other | — | — |
+| `cve-2026-25000-wheel-of-life` | 2026-02-19 | `nvd.nist.gov/vuln/detail/CVE-2026-25000` | CVE id | — | — |
+| `hf-qwen3-5-4b` | 2026-02-27 | `huggingface.co/Qwen/Qwen3.5-4B` | HuggingFace id | — | — |
 | `css-text-indent-hanging` | 2026-03 | `chromestatus.com/feature/5084062739988480` | ChromeStatus # | Y | Y |
 | `named-feature-supports` | 2026-03 | `chromestatus.com/feature/5153932394102784` | ChromeStatus # | Y | — |
-| `cve-2026-3000-idexpert-rce` | 2026-03-02 | `nvd.nist.gov/vuln/detail/CVE-2026-3000` | other | — | — |
-| `hf-gemma-4-26b-a4b-it` | 2026-03-11 | `huggingface.co/google/gemma-4-26B-A4B-it` | other | — | — |
+| `cve-2026-3000-idexpert-rce` | 2026-03-02 | `nvd.nist.gov/vuln/detail/CVE-2026-3000` | CVE id | — | — |
+| `hf-gemma-4-26b-a4b-it` | 2026-03-11 | `huggingface.co/google/gemma-4-26B-A4B-it` | HuggingFace id | — | — |
 | `element-scoped-view-transitions` | 2026-04 | `chromestatus.com/feature/5109852273377280` | ChromeStatus # | Y | Y |
 | `math-sumprecise` | 2026-04 | `chromestatus.com/feature/4790090146643968` | ChromeStatus # | Y | Y |
 | `gamepad-event-driven-input` | 2026-04 | `chromestatus.com/feature/5989275208253440` | ChromeStatus # | — | — |
 | `doi-biorxiv-endomesoderm-grn` | 2026-04-01 | `doi.org/10.64898/2026.03.31.715602` | DOI | — | — |
-| `hf-qwen3-6-27b` | 2026-04-21 | `huggingface.co/Qwen/Qwen3.6-27B` | other | — | — |
+| `hf-qwen3-6-27b` | 2026-04-21 | `huggingface.co/Qwen/Qwen3.6-27B` | HuggingFace id | — | — |
 | `arxiv-future-fake-real-id` | 2026-05 | `arxiv.org/abs/2605.04567` | arXiv id | — | — |
 | `prompt-api-shape` | 2026-05 | `chromestatus.com/feature/5134603979063296` | ChromeStatus # | Y | Y |
 | `text-decoration-skip-ink-all` | 2026-05 | `chromestatus.com/feature/5077600085082112` | ChromeStatus # | Y | Y |
-| `pmid-42224782-crispr-echinococcus` | 2026-05-25 | `pubmed.ncbi.nlm.nih.gov/42224782/` | other | — | — |
+| `pmid-42224782-crispr-echinococcus` | 2026-05-25 | `pubmed.ncbi.nlm.nih.gov/42224782/` | PubMed id | — | — |
 | `baseline-has-status` | 2026-06 | `caniuse.com/css-has` | caniuse | Y | Y |
 | `css-gap-decorations` | 2026-06 | `chromestatus.com/feature/5157805733183488` | ChromeStatus # | Y | Y |
 | `css-image-color-function` | 2026-06 | `chromestatus.com/feature/5121011285622784` | ChromeStatus # | Y | Y |
@@ -220,30 +223,30 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 
 | item | opaque id type | name | opaque | mdn | spec | bcd | full |
 |---|---|---|---|---|---|---|---|
-| `pmid-7466396-evolution-cooperation` | other | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.99 |
+| `pmid-7466396-evolution-cooperation` | PubMed id | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.99 |
 | `rfc-791-ip` | RFC id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `rfc-1149-avian-carriers` | RFC id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `rfc-2616-http11` | RFC id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `pmid-10676951-dlbcl-gene-expression` | other | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.99 |
-| `pmid-11237011-human-genome` | other | 0.00 | 0.45 | 0.45 |   -   |   -   | 0.91 |
+| `pmid-10676951-dlbcl-gene-expression` | PubMed id | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.99 |
+| `pmid-11237011-human-genome` | PubMed id | 0.00 | 0.45 | 0.45 |   -   |   -   | 0.91 |
 | `doi-human-genome-science` | DOI | 0.00 | 0.38 | 0.46 |   -   |   -   | 0.00 |
-| `gh-sha-git-initial-commit` | other | 0.00 | 0.85 | 0.76 |   -   |   -   | 1.00 |
-| `gh-sha-linux-initial-git` | other | 0.00 | 0.95 | 0.99 |   -   |   -   | 1.00 |
+| `gh-sha-git-initial-commit` | GitHub commit SHA | 0.00 | 0.85 | 0.76 |   -   |   -   | 1.00 |
+| `gh-sha-linux-initial-git` | GitHub commit SHA | 0.00 | 0.95 | 0.99 |   -   |   -   | 1.00 |
 | `so-111102-javascript-closures` | Stack Overflow # | 0.00 | 0.15 | 0.23 |   -   |   -   | 0.81 |
 | `so-178325-jquery-element-hidden` | Stack Overflow # | 0.00 | 0.00 | 0.01 |   -   |   -   | 0.85 |
 | `so-503093-redirect-webpage` | Stack Overflow # | 0.00 | 0.77 | 0.79 |   -   |   -   | 0.92 |
 | `so-1335851-use-strict` | Stack Overflow # | 0.00 | 0.31 | 0.15 |   -   |   -   | 0.94 |
-| `gh-sha-bitcoin-first-commit` | other | 0.00 | 0.00 | 0.07 |   -   |   -   | 0.83 |
+| `gh-sha-bitcoin-first-commit` | GitHub commit SHA | 0.00 | 0.00 | 0.07 |   -   |   -   | 0.83 |
 | `doi-corn-seed-traits-pricing` | DOI | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.00 |
 | `so-11227809-branch-prediction` | Stack Overflow # | 0.00 | 0.83 | 0.78 |   -   |   -   | 1.00 |
 | `arxiv-word2vec` | arXiv id | 0.00 | 0.84 | 0.84 |   -   |   -   | 0.99 |
 | `js-promise` | control (synthetic, not a real pointer) | 1.00 | 0.02 | 1.00 | 0.53 | 1.00 | 1.00 |
-| `cve-2014-0160-heartbleed` | other | 0.00 | 0.92 | 0.98 |   -   |   -   | 1.00 |
+| `cve-2014-0160-heartbleed` | CVE id | 0.00 | 0.92 | 0.98 |   -   |   -   | 1.00 |
 | `arxiv-gan` | arXiv id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `arxiv-vgg` | arXiv id | 0.00 | 0.92 | 0.92 |   -   |   -   | 1.00 |
 | `arxiv-adam` | arXiv id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `service-worker` | ChromeStatus # | 1.00 | 0.00 | 0.97 | 0.95 | 0.74 | 1.00 |
-| `pmid-25592156-hydrogel-immunoprotection` | other | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.99 |
+| `pmid-25592156-hydrogel-immunoprotection` | PubMed id | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.99 |
 | `fetch-api` | ChromeStatus # | 0.96 | 0.00 | 0.95 | 0.61 | 1.00 | 0.98 |
 | `arxiv-knowledge-distillation` | arXiv id | 0.00 | 0.69 | 0.69 |   -   |   -   | 1.00 |
 | `arxiv-unet` | arXiv id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
@@ -253,18 +256,18 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 | `async-await` | ChromeStatus # | 0.88 | 0.07 | 0.80 | 0.55 | 0.86 | 0.65 |
 | `arxiv-pate` | arXiv id | 0.00 | 0.08 | 0.08 |   -   |   -   | 1.00 |
 | `css-grid` | ChromeStatus # | 1.00 | 0.00 | 0.92 | 0.91 | 0.85 | 1.00 |
-| `cve-2017-0144-eternalblue` | other | 0.00 | 0.99 | 0.99 |   -   |   -   | 0.98 |
+| `cve-2017-0144-eternalblue` | CVE id | 0.00 | 0.99 | 0.99 |   -   |   -   | 0.98 |
 | `arxiv-attention` | arXiv id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `arxiv-ppo` | arXiv id | 0.00 | 0.77 | 0.68 |   -   |   -   | 1.00 |
-| `pmid-28778026-deep-learning-medical-survey` | other | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `pmid-28778026-deep-learning-medical-survey` | PubMed id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
 | `rfc-8259-json` | RFC id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `cve-2018-7600-drupalgeddon2` | other | 0.00 | 0.98 | 0.99 |   -   |   -   | 1.00 |
+| `cve-2018-7600-drupalgeddon2` | CVE id | 0.00 | 0.98 | 0.99 |   -   |   -   | 1.00 |
 | `arxiv-bert` | arXiv id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `cve-2019-0708-bluekeep` | other | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2019-0708-bluekeep` | CVE id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `doi-optuna-kdd` | DOI | 0.00 | 0.00 | 0.02 |   -   |   -   | 0.00 |
 | `arxiv-gpt3` | arXiv id | 0.00 | 0.92 | 0.92 |   -   |   -   | 1.00 |
 | `doi-alphafold-nature` | DOI | 0.00 | 0.82 | 0.82 |   -   |   -   | 0.00 |
-| `cve-2021-44228-log4shell` | other | 0.00 | 1.00 | 0.98 |   -   |   -   | 1.00 |
+| `cve-2021-44228-log4shell` | CVE id | 0.00 | 1.00 | 0.98 |   -   |   -   | 1.00 |
 | `rfc-9110-http-semantics` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `rfc-9114-http3` | RFC id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
 | `rfc-9293-tcp` | RFC id | 0.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
@@ -272,7 +275,7 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 | `view-transitions` | ChromeStatus # | 0.98 | 0.08 | 0.94 | 0.90 | 0.97 | 0.90 |
 | `arxiv-mamba` | arXiv id | 0.00 | 0.46 | 0.38 |   -   |   -   | 1.00 |
 | `so-78084814-coredump-file-mapping` | Stack Overflow # | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `cve-2024-3094-xz-backdoor` | other | 0.00 | 1.00 | 0.99 |   -   |   -   | 1.00 |
+| `cve-2024-3094-xz-backdoor` | CVE id | 0.00 | 1.00 | 0.99 |   -   |   -   | 1.00 |
 | `popover-api` | ChromeStatus # | 0.96 | 0.15 | 0.97 | 0.92 | 0.95 | 0.92 |
 | `css-anchor-positioning` | ChromeStatus # | 0.98 | 0.08 | 0.93 | 0.81 | 0.94 | 0.97 |
 | `view-transitions-cross-doc` | ChromeStatus # | 0.96 | 0.00 | 0.88 | 0.77 | 0.89 | 0.91 |
@@ -293,20 +296,20 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 | `text-justify-css-property` | ChromeStatus # | 0.97 | 0.00 | 1.00 | 0.97 | 1.00 | 0.99 |
 | `so-79886234-java25-file-exists` | Stack Overflow # | 0.00 | 0.23 | 0.23 |   -   |   -   | 1.00 |
 | `so-79890462-reinterpret-cast-structs` | Stack Overflow # | 0.08 | 0.54 | 0.38 |   -   |   -   | 1.00 |
-| `cve-2026-25000-wheel-of-life` | other | 0.00 | 0.08 | 0.00 |   -   |   -   | 1.00 |
-| `hf-qwen3-5-4b` | other | 0.00 | 0.37 | 0.28 |   -   |   -   | 0.95 |
+| `cve-2026-25000-wheel-of-life` | CVE id | 0.00 | 0.08 | 0.00 |   -   |   -   | 1.00 |
+| `hf-qwen3-5-4b` | HuggingFace id | 0.00 | 0.37 | 0.28 |   -   |   -   | 0.95 |
 | `css-text-indent-hanging` | ChromeStatus # | 0.88 | 0.00 | 0.77 | 0.78 | 0.73 | 1.00 |
 | `named-feature-supports` | ChromeStatus # | 0.20 | 0.00 | 0.00 | 0.00 |   -   | 0.95 |
-| `cve-2026-3000-idexpert-rce` | other | 0.00 | 0.15 | 0.23 |   -   |   -   | 1.00 |
-| `hf-gemma-4-26b-a4b-it` | other | 0.00 | 0.36 | 0.25 |   -   |   -   | 0.69 |
+| `cve-2026-3000-idexpert-rce` | CVE id | 0.00 | 0.15 | 0.23 |   -   |   -   | 1.00 |
+| `hf-gemma-4-26b-a4b-it` | HuggingFace id | 0.00 | 0.36 | 0.25 |   -   |   -   | 0.69 |
 | `element-scoped-view-transitions` | ChromeStatus # | 0.75 | 0.00 | 0.40 | 0.53 | 0.85 | 0.95 |
 | `math-sumprecise` | ChromeStatus # | 0.77 | 0.00 | 0.48 | 0.47 | 0.82 | 0.93 |
 | `gamepad-event-driven-input` | ChromeStatus # | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.00 |
 | `doi-biorxiv-endomesoderm-grn` | DOI | 0.00 | 0.53 | 0.54 |   -   |   -   | 0.15 |
-| `hf-qwen3-6-27b` | other | 0.00 | 0.51 | 0.26 |   -   |   -   | 0.79 |
+| `hf-qwen3-6-27b` | HuggingFace id | 0.00 | 0.51 | 0.26 |   -   |   -   | 0.79 |
 | `prompt-api-shape` | ChromeStatus # | 0.15 | 0.00 | 0.38 | 0.38 | 0.40 | 0.84 |
 | `text-decoration-skip-ink-all` | ChromeStatus # | 0.92 | 0.00 | 0.73 | 0.92 | 0.95 | 1.00 |
-| `pmid-42224782-crispr-echinococcus` | other | 0.00 | 0.15 | 0.31 |   -   |   -   | 1.00 |
+| `pmid-42224782-crispr-echinococcus` | PubMed id | 0.00 | 0.15 | 0.31 |   -   |   -   | 1.00 |
 | `baseline-has-status` | caniuse | 0.62 | 0.00 | 0.00 | 0.00 | 0.00 | 0.17 |
 | `css-gap-decorations` | ChromeStatus # | 0.75 | 0.00 | 0.56 | 0.53 | 0.53 | 0.88 |
 | `css-image-color-function` | ChromeStatus # | 0.96 | 0.00 | 0.36 | 0.33 | 0.10 | 0.97 |
@@ -328,8 +331,8 @@ A few representative cells with the judge's one-line verdict. The judge's FULL p
 ## Run data — inspect every cell
 
 - **[dashboard.html](dashboard.html)** — interactive: filter by model / condition / cutoff / pass-fail, and CLICK any cell to read the exact prompt, the model output, and the **judge's full prompt + raw verdict + reasoning**. (Live: https://paulkinlan.github.io/url-influence/ )
-- **[RUNLOG.md](RUNLOG.md)** — browsable per-cell record (every prompt, output, judge prompt + raw verdict).
-- **[transcript.jsonl](transcript.jsonl)** — one JSON line per cell with everything, machine-readable. This is the committed full run data; `results/raw/` is the gitignored intermediate it is built from.
+- **RUNLOG.md** — a human-browsable mirror of the transcript (every prompt, output, judge prompt + raw verdict); too large to commit, regenerate locally with `npm run transcript`.
+- **[transcript.jsonl.gz](transcript.jsonl.gz)** — one gzipped JSON line per cell with everything, machine-readable. This is the committed full run data; `results/raw/` is the gitignored intermediate it is built from.
 
 ## Averaged lift table (context — see the per-item finding above)
 
@@ -510,4 +513,4 @@ Per model (real opaque API-usage items):
 
 ---
 
-_Small scale (a handful of API-usage items per pre/post bucket), so treat these as directional, not statistically significant — the post-cutoff API bucket is especially thin and is the main reason for expanding the corpus. Cutoff dates are the vendors' published values (see SOURCES.md). Every prompt, output, and judge prompt + raw verdict is in [transcript.jsonl](transcript.jsonl), [RUNLOG.md](RUNLOG.md), and [dashboard.html](dashboard.html)._
+_Small scale (a handful of API-usage items per pre/post bucket), so treat these as directional, not statistically significant — the post-cutoff API bucket is especially thin and is the main reason for expanding the corpus. Cutoff dates are the vendors' published values (see SOURCES.md). Every prompt, output, and judge prompt + raw verdict is in [transcript.jsonl.gz](transcript.jsonl.gz) and [dashboard.html](dashboard.html)._
