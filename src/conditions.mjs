@@ -6,6 +6,8 @@
 // or by a bare URL string. We never tell the model to browse, and the harness
 // never fetches a page except in the full-content (ceiling) condition.
 
+import { DESCRIPTIVE_NAMES } from "./corpus.mjs";
+
 export const CONDITION_DEFS = [
   {
     key: "name-only",
@@ -129,6 +131,16 @@ export function buildPrompt(item, condition, fetched) {
       ? "Produce the code. Output the actual code, with the real API names."
       : "Recall the content. State what it is and its key facts.";
 
+  // For `recall` items the only pointer is the opaque id, so the name baselines
+  // describe the work by its human NAME (the descriptive identifier) instead.
+  // `code` items already have a self-contained descriptive target.
+  const nameTask =
+    item.kind === "recall"
+      ? DESCRIPTIVE_NAMES[item.id]
+        ? `Recall ${DESCRIPTIVE_NAMES[item.id]}: what is it about, and what are its key facts / main contribution?`
+        : null // no descriptive name authored -> name baseline is N/A (skip)
+      : item.target;
+
   const system =
     "You are a precise technical assistant. Be concrete and use exact, real " +
     "API names / identifiers / facts. If you do not actually know something, " +
@@ -136,28 +148,24 @@ export function buildPrompt(item, condition, fetched) {
 
   switch (condition) {
     case "name-only":
-      // Control: task described by name, NO url at all.
-      // N/A for `recall` items: their target references an external identifier
-      // ("the paper at this arXiv id") that this condition does not supply, so
-      // the prompt is incoherent — the model correctly asks for the missing id.
-      // A pure opaque-id recall task has no verbal description that isn't the
-      // answer itself, so the "describe in words" baseline is undefined here
-      // (cf. a future descriptive-title baseline). Skip rather than emit garbage.
-      if (item.kind === "recall") return null;
+      // Control: task described by NAME, no URL. For recall items the name is
+      // the descriptive identifier (title / common name); url-only gives the
+      // opaque id for the SAME target, so url-only − name-only = opaque-id
+      // penalty. Skip only if no descriptive name was authored.
+      if (nameTask == null) return null;
       return {
         system,
-        user: `Task: ${item.target}\n\n${taskVerb}`,
+        user: `Task: ${nameTask}\n\n${taskVerb}`,
       };
 
     case "name-framed":
       // Framing-matched baseline: same "do whatever this describes" framing as
-      // url-only, but with the plain task description instead of a URL. Lets us
-      // net out the "vaguer instruction" cost of url-only's framing.
-      // N/A for `recall` items for the same reason as name-only (see above).
-      if (item.kind === "recall") return null;
+      // url-only, but with the plain task description (by name) instead of a URL.
+      // Lets us net out the "vaguer instruction" cost of url-only's framing.
+      if (nameTask == null) return null;
       return {
         system,
-        user: `Do whatever the following describes:\n\n${item.target}\n\n${taskVerb}`,
+        user: `Do whatever the following describes:\n\n${nameTask}\n\n${taskVerb}`,
       };
 
     case "url-only":

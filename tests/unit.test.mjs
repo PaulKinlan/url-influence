@@ -10,6 +10,7 @@ import {
   urlForCondition,
   CONDITIONS,
 } from "../src/conditions.mjs";
+import { CORPUS } from "../src/corpus.mjs";
 
 test("htmlToText: strips chrome, preserves code blocks with newlines", () => {
   const html =
@@ -45,21 +46,42 @@ test("buildPrompt: name-framed uses the description in url-only framing, no URL"
   assert.ok(!/http/.test(p.user), "name-framed carries no URL");
 });
 
-test("buildPrompt: name baselines are N/A for recall items (no id to attach)", () => {
-  // Regression: a recall task references an external identifier the name
-  // conditions don't supply ("the paper at this arXiv id"), so the prompt would
-  // be incoherent. They must skip (null), not emit a garbage prompt the model
-  // rightly refuses. url-only (the treatment) still carries the real id.
+test("buildPrompt: recall name baselines describe by NAME, never a dangling id", () => {
+  // Regression: a recall task references an external identifier ("the paper at
+  // this arXiv id"). The name baselines must NOT echo that dangling reference;
+  // they describe the work by its human name (DESCRIPTIVE_NAMES). url-only (the
+  // treatment) still carries the real opaque id and no name.
+  const item = CORPUS.find((i) => i.id === "arxiv-attention");
+  for (const cond of ["name-only", "name-framed"]) {
+    const p = buildPrompt(item, cond, null);
+    assert.ok(p, `${cond} should build for a mapped recall item`);
+    assert.ok(
+      /Attention Is All You Need/.test(p.user),
+      `${cond} names the work`,
+    );
+    assert.ok(
+      !/this arXiv id/i.test(p.user),
+      `${cond} must not echo the dangling 'this arXiv id'`,
+    );
+    assert.ok(!/http/.test(p.user), `${cond} carries no URL`);
+  }
+  const u = buildPrompt(item, "url-only", null);
+  assert.ok(/arxiv\.org\/abs/.test(u.user), "url-only keeps the opaque id");
+  assert.ok(
+    !/Attention Is All You Need/.test(u.user),
+    "no descriptive name leaks into url-only",
+  );
+});
+
+test("buildPrompt: recall name baseline skips only when no descriptive name", () => {
   const item = {
-    id: "r",
+    id: "unmapped-recall",
     kind: "recall",
-    target: "Recall the paper at this arXiv id: what is its main contribution?",
-    urls: { opaque: "https://arxiv.org/abs/1706.03762" },
+    target: "Recall the thing at this id.",
+    urls: { opaque: "https://example.com/x" },
   };
   assert.equal(buildPrompt(item, "name-only", null), null);
   assert.equal(buildPrompt(item, "name-framed", null), null);
-  const u = buildPrompt(item, "url-only", null);
-  assert.ok(/arxiv\.org\/abs\/1706\.03762/.test(u.user), "url-only keeps the id");
 });
 
 test("buildPrompt: url-only is opaque (only the id, no task name)", () => {

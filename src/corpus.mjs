@@ -2409,6 +2409,130 @@ export const CORPUS = [
   },
 ];
 
+// Descriptive-title baseline for `recall` items.
+//
+// A recall task's only pointer is its opaque id (arXiv number, CVE id, SHA, …),
+// so name-only/name-framed have no coherent description UNLESS we give the work's
+// human NAME. This map provides that descriptive identifier — the title / common
+// name a person would use — WITHOUT the opaque number. It is the proper baseline
+// the opaque-id treatment is measured against: if the model can't produce the
+// content even when NAMED (obscure / post-cutoff), then url-only failing is mere
+// ignorance, not an opaque-decoding failure; if NAMING works but the bare id does
+// not, that is the pure "can't decode the opaque pointer" signal.
+//
+// Authored from each item's groundTruth.notes (real identities, not invented).
+export const DESCRIPTIVE_NAMES = {
+  "rfc-9110-http-semantics": "the IETF 'HTTP Semantics' specification",
+  "arxiv-attention":
+    "the paper 'Attention Is All You Need' (Vaswani et al., 2017)",
+  "arxiv-mamba":
+    "the paper 'Mamba: Linear-Time Sequence Modeling with Selective State Spaces' (Gu & Dao, 2023)",
+  "arxiv-deepseek-r1": "the DeepSeek-R1 technical report (Jan 2025)",
+  "arxiv-gemma-3": "the 'Gemma 3 Technical Report' (Google DeepMind, Mar 2025)",
+  "arxiv-kimi-k2": "the paper 'Kimi K2: Open Agentic Intelligence' (Moonshot AI, Jul 2025)",
+  "arxiv-gpt5-system-card": "the 'OpenAI GPT-5 System Card'",
+  "baseline-has-status":
+    "the Baseline / cross-browser support status of the CSS :has() selector",
+  "cve-2014-0160-heartbleed": "the Heartbleed OpenSSL vulnerability",
+  "cve-2021-44228-log4shell": "the Log4Shell Apache Log4j2 vulnerability",
+  "cve-2024-3094-xz-backdoor": "the xz/liblzma supply-chain backdoor (2024)",
+  "cve-2017-0144-eternalblue": "the EternalBlue SMBv1 vulnerability",
+  "cve-2019-0708-bluekeep": "the BlueKeep Windows RDP vulnerability",
+  "cve-2018-7600-drupalgeddon2": "the Drupalgeddon2 Drupal remote-code-execution vulnerability",
+  "cve-2026-25000-wheel-of-life":
+    "the Broken Access Control vulnerability in the WordPress 'Wheel of Life' plugin (Kraft Plugins)",
+  "cve-2026-3000-idexpert-rce":
+    "the remote-code-execution vulnerability in the IDExpert Windows Logon Agent (Changing)",
+  "arxiv-resnet":
+    "the paper 'Deep Residual Learning for Image Recognition' (ResNet; He et al., 2015)",
+  "arxiv-bert":
+    "the paper 'BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding' (Devlin et al., 2018)",
+  "arxiv-gan": "the paper 'Generative Adversarial Networks' (Goodfellow et al., 2014)",
+  "arxiv-unet":
+    "the paper 'U-Net: Convolutional Networks for Biomedical Image Segmentation' (Ronneberger et al., 2015)",
+  "arxiv-adam":
+    "the paper 'Adam: A Method for Stochastic Optimization' (Kingma & Ba, 2014)",
+  "arxiv-vgg":
+    "the paper 'Very Deep Convolutional Networks for Large-Scale Image Recognition' (VGG; Simonyan & Zisserman, 2014)",
+  "arxiv-gpt3":
+    "the paper 'Language Models are Few-Shot Learners' (GPT-3; Brown et al., 2020)",
+  "arxiv-word2vec":
+    "the paper 'Efficient Estimation of Word Representations in Vector Space' (word2vec; Mikolov et al., 2013)",
+  "arxiv-ppo":
+    "the paper 'Proximal Policy Optimization Algorithms' (Schulman et al., 2017)",
+  "arxiv-knowledge-distillation":
+    "the paper 'Distilling the Knowledge in a Neural Network' (Hinton et al., 2015)",
+  "arxiv-pate":
+    "the paper 'Semi-supervised Knowledge Transfer for Deep Learning from Private Training Data' (PATE; Papernot et al., 2016)",
+  "arxiv-diffusiongemma-transparency":
+    "the paper 'How Transparent is DiffusionGemma?' (June 2026)",
+  "arxiv-lie-algebra-attention":
+    "the paper 'The Token Is a Group Element: On Lie-Algebra Attention over Matrix Lie Groups' (June 2026)",
+  "arxiv-multitask-bayesian-icl":
+    "the paper 'Multi-Task Bayesian In-Context Learning' (June 2026)",
+  "pmid-11237011-human-genome":
+    "the paper 'Initial sequencing and analysis of the human genome' (Nature, 2001)",
+  "pmid-7466396-evolution-cooperation":
+    "the paper 'The evolution of cooperation' (Axelrod & Hamilton, Science, 1981)",
+  "pmid-10676951-dlbcl-gene-expression":
+    "the paper 'Distinct types of diffuse large B-cell lymphoma identified by gene expression profiling' (Alizadeh et al., Nature, 2000)",
+  "pmid-28778026-deep-learning-medical-survey":
+    "the paper 'A survey on deep learning in medical image analysis' (Litjens et al., 2017)",
+  "pmid-25592156-hydrogel-immunoprotection":
+    "the paper 'Characterization of molecular transport in ultrathin hydrogel coatings for cellular immunoprotection' (Biomacromolecules, 2015)",
+  "pmid-42224782-crispr-echinococcus":
+    "the paper on rapid multiplex detection of Echinococcus granulosus and multilocularis using one-pot RPA-assisted CRISPR-Cas12a/Cas13a (2026)",
+  "rfc-2616-http11": "the IETF 'HTTP/1.1' specification (the long-canonical HTTP/1.1 RFC)",
+  "rfc-8259-json": "the IETF 'JavaScript Object Notation (JSON) Data Interchange Format' standard",
+  "rfc-791-ip": "the IETF 'Internet Protocol' (IPv4) specification",
+  "rfc-9114-http3": "the IETF 'HTTP/3' specification",
+  "rfc-9293-tcp": "the IETF 'Transmission Control Protocol (TCP)' specification (the consolidated TCP RFC)",
+  "rfc-1149-avian-carriers":
+    "the April Fools' RFC 'A Standard for the Transmission of IP Datagrams on Avian Carriers'",
+  "rfc-9700-oauth-security-bcp":
+    "the IETF 'Best Current Practice for OAuth 2.0 Security' document",
+  "rfc-9701-jwt-oauth-introspection":
+    "the IETF 'JSON Web Token (JWT) Response for OAuth Token Introspection' specification",
+  "so-11227809-branch-prediction":
+    "the Stack Overflow question 'Why is processing a sorted array faster than processing an unsorted array?'",
+  "so-111102-javascript-closures":
+    "the Stack Overflow question 'How do JavaScript closures work?'",
+  "so-1335851-use-strict":
+    "the Stack Overflow question 'What does \"use strict\" do in JavaScript, and what is the reasoning behind it?'",
+  "so-503093-redirect-webpage":
+    "the Stack Overflow question 'How do I redirect to another webpage?'",
+  "so-178325-jquery-element-hidden":
+    "the Stack Overflow question 'How do I check if an element is hidden in jQuery?'",
+  "so-78084814-coredump-file-mapping":
+    "the Stack Overflow question 'How can I set the path of a file-backed mapping for a core dump in GDB?'",
+  "so-79886234-java25-file-exists":
+    "the Stack Overflow question \"Why does Java 25's File.exists() return true for an empty string?\"",
+  "so-79890462-reinterpret-cast-structs":
+    "the Stack Overflow question 'reinterpret_cast between unrelated structs with the same layout'",
+  "doi-alphafold-nature":
+    "the paper 'Highly accurate protein structure prediction with AlphaFold' (Jumper et al., Nature, 2021)",
+  "doi-human-genome-science":
+    "the paper 'The Sequence of the Human Genome' (Venter et al., Science, 2001)",
+  "doi-deep-learning-nature-review":
+    "the Nature review 'Deep learning' (LeCun, Bengio & Hinton, 2015)",
+  "doi-optuna-kdd":
+    "the paper 'Optuna: A Next-generation Hyperparameter Optimization Framework' (Akiba et al., KDD 2019)",
+  "doi-corn-seed-traits-pricing":
+    "the paper 'An Analysis of the Pricing of Traits in the U.S. Corn Seed Market' (Am. J. Agricultural Economics, 2010)",
+  "doi-biorxiv-endomesoderm-grn":
+    "the bioRxiv preprint 'Evolutionary rewiring of an ancient gene regulatory network specifies the endomesoderm' (2026)",
+  "gh-sha-linux-initial-git":
+    "the initial git import of the Linux kernel tree (Linux-2.6.12-rc2, April 2005)",
+  "gh-sha-git-initial-commit":
+    "the initial commit of Git ('Initial revision of git, the information manager from hell', Torvalds, 2005)",
+  "gh-sha-bitcoin-first-commit":
+    "the first commit of the Bitcoin reference client (2009)",
+  "hf-gemma-4-26b-a4b-it":
+    "the Google Gemma 4 26B (A4B) instruction-tuned model",
+  "hf-qwen3-5-4b": "Alibaba's Qwen3.5-4B model",
+  "hf-qwen3-6-27b": "Alibaba's Qwen3.6-27B model",
+};
+
 // Default pilot selection: a cheaper subset that still spans the cutoff
 // boundaries. The FULL run (no --pilot) uses the whole corpus, which is what
 // the report is built from.
