@@ -22,12 +22,7 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (2026-06-19, opus agent) **spec/bcd top-up** (parallel runner): cleared the
-  546 stale `skipped` spec-url-only/bcd-key-only cells for the 22 newly-enriched
-  features (the regen run marked them n/a because it loaded the corpus pre-
-  enrichment) and re-running ONLY those across all 13 models via `--concurrency`,
-  then score→transcript→analyze→dashboard→commit. Tests whether the canonical-id
-  effect (BCD/spec decode) holds for the recent + POST-cutoff features too.
+- (none claimed)
 
 ### Next / open
 - DONE (2026-06-19): committed results regenerated for the current protocol —
@@ -212,6 +207,24 @@ rerun → **A2 / A3 / A4 / B3** (protocol-changing, next cycle) → **C1–C4**
 (code-only, any time).
 
 ### Done
+- (2026-06-19, opus agent) **spec/bcd top-up complete + scored** for all 23
+  spec/bcd-capable items (parallel runner; then fixed a judge-cache trap where
+  score reused stale `skipped` cache for the re-run cells → cleared cache +
+  re-judged, no model re-run). RESULT (mean across 13 models): three tiers —
+  (1) opaque numeric id (chromestatus#, un-famous SO#) ≈ 0.00 everywhere, pre OR
+  post-cutoff; (2) famous memorised opaque id (arXiv 1706.03762 = 1.00 from the
+  bare id vs 0.00 from naming; RFC 9110 = 1.00) → pure memorised retrieval;
+  (3) canonical web id (BCD key / spec URL) → 0.6-1.0. **CAVEAT (methodology
+  review A3/A4):** BCD keys + spec URLs are SEMI-DESCRIPTIVE (`api.fetch`,
+  `css.properties.text-justify` name the feature), so their decode is partly
+  reading the name, not pure opaque retrieval. BCD decode drops 0.79 (pre) → 0.60
+  (post-cutoff): the descriptive-hint part is cutoff-independent, so that ~0.19
+  drop is the plausible genuine "saw the BCD↔feature mapping in training"
+  signal — small n, noisy. Bottom line: a model builds a feature from an id when
+  the id is a famous memorised opaque key OR names/describes the feature; a
+  truly-opaque un-famous id gives ~nothing even for well-known features.
+  REPORT.md still leads with the misleading averaged lift — A1 reframe (per-item
+  + id-type tiers) pending.
 - (2026-06-18, opus agent) **Runner now runs vendors in PARALLEL** (`run.mjs`):
   cells are grouped by vendor and vendors run concurrently (independent
   endpoints + rate limits — no reason to serialize across them), each bounded to
