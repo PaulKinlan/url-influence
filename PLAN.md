@@ -27,9 +27,17 @@ decisions made, and what we have learned about the URLs and methodology.
   A3 framing-matched control, A4 opaque-shaped fake control, A2 judge calibration,
   B4 ceiling extraction) + free items (A5 cutoff granularity, C1-C4 code) FIRST,
   then ONE clean parallel rerun (avoid per-change reruns). Committing each piece.
-  DONE so far: providers.mjs refactor — B2 shared retry/backoff on all 5
-  adapters, B1 temperature:0 (Google; Anthropic REJECTS it — removed) + seed
-  (Google/OpenAI), C1 single VENDORS map. Smoke-tested all 5 vendors live.
+  DONE: providers.mjs (B2 retry-all, B1 temperature/seed where supported, C1
+  VENDORS map; smoke-tested 5 vendors — caught Anthropic temperature-400); A5
+  (mid-month + boundary caveat); A3 `name-framed` (framing-matched baseline) +
+  A4 `fake-opaque-url` (opaque-shaped fake) conditions; B4 better full-content
+  extraction (preserve code, strip chrome). RERUN IN FLIGHT (bn51y9feu, parallel):
+  fills name-framed + fake-opaque-url + re-runs full-content (B4); resume-skips
+  the rest. NOTE: existing cells predate the temperature/seed change (mixed
+  determinism — acceptable; the change is for reproducibility going forward).
+  PENDING after rerun: A2 (cross-vendor judge re-judge), B3 (k-samples subset),
+  C2/C3/C4 (code — delegated). analyze framing-adjusted-lift view (uses
+  name-framed) to add.
 
 ### Next / open
 - DONE (2026-06-19): committed results regenerated for the current protocol —
