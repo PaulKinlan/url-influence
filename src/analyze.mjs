@@ -517,6 +517,46 @@ async function writeReport(summary, models, data, skippedModels) {
   }
   L.push("");
 
+  // ---- Controls: framing + opaque shape (A3/A4) ----
+  const condMeanAll = (c) =>
+    mean(
+      CORPUS.filter((i) => !i.groundTruth.expectUnknown)
+        .map((i) => icMean(i.id, c))
+        .filter((x) => x != null),
+    );
+  const _no = condMeanAll("name-only");
+  const _nf = condMeanAll("name-framed");
+  const _uo = condMeanAll("url-only");
+  const _fo = condMeanAll("fake-opaque-url");
+  const _fs = condMeanAll("fake-structural-url");
+  if (_no != null && _nf != null && _uo != null) {
+    L.push("## Controls — is the url-only result a framing or shape artifact?");
+    L.push("");
+    L.push(
+      "Two controls test whether the `url-only` collapse is real or an artifact:",
+    );
+    L.push("");
+    L.push(
+      `- **Framing.** \`name-framed\` puts the plain task description in the SAME ` +
+        `"do whatever this describes" wording as \`url-only\`. Framing cost = ` +
+        `name-framed − name-only = **${sign(_nf - _no)}** (≈0): the framing does ` +
+        `NOT explain url-only's low score. So the **framing-adjusted lift** ` +
+        `(url-only − name-framed = **${sign(_uo - _nf)}**) equals the raw lift — ` +
+        `the opaque id genuinely fails, it is not vaguer instruction.`,
+    );
+    if (_fo != null && _fs != null) {
+      L.push(
+        `- **Opaque shape.** \`fake-opaque-url\` (an OPAQUE-shaped fake id) scores ` +
+          `**${fmt(_fo)}**, vs \`fake-structural-url\` **${fmt(_fs)}**. An opaque ` +
+          `fake steers nothing; the higher fake-structural number is only because ` +
+          `that fake is *descriptive* for web items (the fake path still names an ` +
+          `API). So opaque URL SHAPE alone does not steer output — only real, ` +
+          `memorised content does.`,
+      );
+    }
+    L.push("");
+  }
+
   // ---- Per-item identifier reference ----
   L.push("## Per-item identifier reference");
   L.push("");

@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-19T08:24:35.761Z
+Report generated: 2026-06-19T08:26:13.722Z
 Data run / scored: 2026-06-19T08:24:35.034Z
-Code + data commit: [`a03d55b84c`](https://github.com/PaulKinlan/url-influence/commit/a03d55b84cbe22cfde7a046f72057b135557d70d)
+Code + data commit: [`636c58bd57`](https://github.com/PaulKinlan/url-influence/commit/636c58bd576d1629141ef449cda54f06a4bf5bea)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 5443 (judge failures: 0)
 
@@ -100,6 +100,13 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 | `fake-structural-url` | CONTROL | 0.24 |
 | `fake-opaque-url` | CONTROL | 0.00 |
 | `random-url` | CONTROL | 0.00 |
+
+## Controls — is the url-only result a framing or shape artifact?
+
+Two controls test whether the `url-only` collapse is real or an artifact:
+
+- **Framing.** `name-framed` puts the plain task description in the SAME "do whatever this describes" wording as `url-only`. Framing cost = name-framed − name-only = **-0.01** (≈0): the framing does NOT explain url-only's low score. So the **framing-adjusted lift** (url-only − name-framed = **-0.57**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
+- **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.24**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
 
 ## Per-item identifier reference
 
