@@ -24,6 +24,16 @@ import {
 } from "./conditions.mjs";
 import { CORPUS } from "./corpus.mjs";
 import { readJson, writeJson, nowIso } from "./util.mjs";
+import { execSync } from "node:child_process";
+
+const REPO = "https://github.com/PaulKinlan/url-influence";
+function gitCommit() {
+  try {
+    return execSync("git rev-parse HEAD", { encoding: "utf8" }).trim();
+  } catch {
+    return null;
+  }
+}
 
 const CALIB = new Set(
   CORPUS.filter((i) => i.groundTruth.expectUnknown).map((i) => i.id),
@@ -42,6 +52,42 @@ const isOpaqueStructuralControl = (id) => OPAQUE_STRUCTURAL_CONTROLS.has(id);
 // to the analysis without re-running the (paid) matrix.
 const CONTENT_DATE = new Map(CORPUS.map((i) => [i.id, i.contentDate]));
 const cdOf = (id, fallback) => CONTENT_DATE.get(id) ?? fallback;
+const ITEM = new Map(CORPUS.map((i) => [i.id, i]));
+
+// What KIND of identifier each condition's prompt carries — the opaque-vs-
+// descriptive distinction that makes the numbers interpretable.
+const CONDITION_OPACITY = {
+  "name-only": "— (no identifier; baseline)",
+  "url-only": "OPAQUE — bare id, does NOT name the content",
+  "mdn-url-only": "DESCRIPTIVE — MDN path names the API",
+  "spec-url-only": "CANONICAL — spec URL (usually names the feature)",
+  "bcd-key-only": "CANONICAL, SEMI-DESCRIPTIVE — BCD dotted key often contains the name",
+  "url+name": "OPAQUE id + the task name",
+  "full-content": "— (real page pasted in; ceiling)",
+  "fake-structural-url": "CONTROL — nonexistent same-shape URL",
+  "random-url": "CONTROL — unrelated real URL",
+};
+
+// Classify an item's OPAQUE id (urls.opaque) so the reader sees exactly what
+// the `url-only` condition was for that item.
+function opaqueIdType(item) {
+  if (item?.validation?.opaqueRole === "structural-control")
+    return "control (synthetic, not a real pointer)";
+  const o = item?.urls?.opaque || "";
+  if (/arxiv\.org/.test(o)) return "arXiv id";
+  if (/rfc-editor|ietf|datatracker/.test(o)) return "RFC id";
+  if (/chromestatus\.com/.test(o)) return "ChromeStatus #";
+  if (/stackoverflow\.com/.test(o)) return "Stack Overflow #";
+  if (/doi\.org/.test(o)) return "DOI";
+  if (/caniuse\.com/.test(o)) return "caniuse";
+  return o ? "other" : "—";
+}
+
+// Short display form of an opaque id (strip scheme; keep the meaningful tail).
+function shortId(item) {
+  const o = item?.urls?.opaque || "";
+  return o.replace(/^https?:\/\//, "");
+}
 
 function relativeToCutoff(contentDate, cutoff) {
   const norm = (s) => {
@@ -232,7 +278,14 @@ async function writeReport(summary, models, data, skippedModels) {
   const L = [];
   L.push("# URL Influence: Results");
   L.push("");
-  L.push(`Generated: ${summary.generatedAt}`);
+  L.push(`Report generated: ${summary.generatedAt}`);
+  L.push(`Data run / scored: ${data.generatedAt || "(unknown)"}`);
+  const commit = gitCommit();
+  if (commit) {
+    L.push(
+      `Code + data commit: [\`${commit.slice(0, 10)}\`](${REPO}/commit/${commit})`,
+    );
+  }
   L.push(`Judge model: \`${data.judgeModel || "(none / structural-only)"}\``);
   L.push(`Judged outputs: ${data.judged} (judge failures: ${data.judgeFails})`);
   L.push("");
@@ -322,13 +375,20 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
 
-  L.push("## Conditions");
+  L.push("## Conditions — what identifier each one carries");
   L.push("");
-  L.push("| Condition | Group | Required | Meaning |");
+  L.push(
+    "The single most important thing for reading the numbers: **which conditions " +
+      "give an OPAQUE id (a bare string that does not name the content) vs a " +
+      "DESCRIPTIVE/CANONICAL id (that names or describes the feature).** Only " +
+      "`url-only` is opaque; `mdn/spec/bcd` all name the feature to some degree.",
+  );
+  L.push("");
+  L.push("| Condition | Identifier opacity | Group | Meaning |");
   L.push("|---|---|---|---|");
   for (const c of CONDITION_DEFS) {
     L.push(
-      `| ${c.key} | ${c.group} | ${c.required ? "yes" : "no"} | ${c.description} |`,
+      `| \`${c.key}\` | ${CONDITION_OPACITY[c.key] || "—"} | ${c.group} | ${c.description} |`,
     );
   }
   L.push("");
@@ -356,8 +416,191 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("See [SOURCES.md](SOURCES.md) for the full model -> cutoff -> source table.");
   L.push("");
 
-  // HEADLINE — lift on real opaque API-usage items only, split pre/post.
-  L.push("## Headline: lift (real opaque API-usage items only), split by cutoff");
+  // ---- Cross-model per-(item,condition) aggregation for the per-item views.
+  const icSum = {};
+  const judgeReason = {};
+  for (const s of data.scores) {
+    if (typeof s.correctness === "number") {
+      const k = s.itemId + "|" + s.condition;
+      (icSum[k] = icSum[k] || []).push(s.correctness);
+    }
+    const jk = s.itemId + "|" + s.condition;
+    if (s.judge && s.judge.reason && !judgeReason[jk]) {
+      judgeReason[jk] = {
+        model: s.model,
+        reason: s.judge.reason,
+        c: s.judge.correctness,
+      };
+    }
+  }
+  const icMean = (id, c) => mean(icSum[id + "|" + c] || []);
+
+  // ---- Headline finding: which identifiers work (by id type) ----
+  L.push("## Headline finding — which identifiers actually work");
+  L.push("");
+  L.push(
+    "The single averaged \"lift\" below is misleading: the effect is " +
+      "**categorical, not continuous** — it depends on WHICH identifier, not how " +
+      "far the content is from the cutoff. Mean `url-only` (OPAQUE) correctness " +
+      "across all models, grouped by the kind of opaque id:",
+  );
+  L.push("");
+  const byType = {};
+  for (const it of CORPUS) {
+    if (it.groundTruth.expectUnknown) continue;
+    const uo = icMean(it.id, "url-only");
+    if (uo == null) continue;
+    const t = opaqueIdType(it);
+    (byType[t] = byType[t] || []).push({ uo, no: icMean(it.id, "name-only") });
+  }
+  L.push("| Opaque id type (`url-only`) | items | mean url-only | mean name-only |");
+  L.push("|---|---|---|---|");
+  for (const [t, rows] of Object.entries(byType).sort(
+    (a, b) => (mean(b[1].map((r) => r.uo)) || 0) - (mean(a[1].map((r) => r.uo)) || 0),
+  )) {
+    L.push(
+      `| ${t} | ${rows.length} | ${fmt(mean(rows.map((r) => r.uo)))} | ${fmt(mean(rows.map((r) => r.no)))} |`,
+    );
+  }
+  L.push("");
+  L.push(
+    "**Read:** a bare OPAQUE id works only when it is a *famous, memorised* id " +
+      "(landmark arXiv / RFC). Opaque numeric ids the model never memorised " +
+      "(ChromeStatus #, un-famous Stack Overflow #) decode to ~0 — even for " +
+      "features the model knows cold by name. The canonical web-id probes " +
+      "(`bcd-key-only`, `spec-url-only`) DO work, but they are semi-descriptive " +
+      "(the BCD key / spec path usually contains the feature name), so that is " +
+      "partly a *hint*, not pure opaque retrieval. See the per-item table below.",
+  );
+  L.push("");
+
+  // ---- Overall by condition (all models, all API-usage items) ----
+  L.push("## All-models view — mean correctness by condition");
+  L.push("");
+  L.push(
+    "Every condition, averaged across ALL models and ALL API-usage items " +
+      "(knowledge-calibration items excluded). The clearest one-look summary:",
+  );
+  L.push("");
+  L.push("| condition | identifier | mean (all models) |");
+  L.push("|---|---|---|");
+  for (const c of CONDITIONS) {
+    const vals = [];
+    for (const it of CORPUS) {
+      if (it.groundTruth.expectUnknown) continue;
+      const v = icMean(it.id, c);
+      if (v != null) vals.push(v);
+    }
+    const opacity = (CONDITION_OPACITY[c] || "—").split(" —")[0];
+    L.push(`| \`${c}\` | ${opacity} | ${fmt(mean(vals))} |`);
+  }
+  L.push("");
+
+  // ---- Per-item identifier reference ----
+  L.push("## Per-item identifier reference");
+  L.push("");
+  L.push(
+    "Exactly what the `url-only` (OPAQUE) id is for each item, and which " +
+      "descriptive/canonical ids it also carries.",
+  );
+  L.push("");
+  L.push("| item | contentDate | `url-only` (opaque) id | type | spec? | bcd? |");
+  L.push("|---|---|---|---|---|---|");
+  for (const it of [...CORPUS].sort((a, b) =>
+    a.contentDate.localeCompare(b.contentDate),
+  )) {
+    L.push(
+      `| \`${it.id}\` | ${it.contentDate} | \`${shortId(it)}\` | ${opaqueIdType(it)} | ${it.urls?.specUrl ? "Y" : "—"} | ${it.bcdKey ? "Y" : "—"} |`,
+    );
+  }
+  L.push("");
+
+  // ---- Per-item results: name vs opaque vs canonical ----
+  L.push("## Per-item results — name-only vs opaque vs canonical id");
+  L.push("");
+  L.push(
+    "Mean correctness across all models, by item (sorted by date). `opaque` = " +
+      "`url-only`. Watch the **opaque** column collapse to ~0 except for famous " +
+      "arXiv/RFC ids, while **bcd/spec/mdn** (which name the feature) track " +
+      "`name`. Blank = n/a or no data.",
+  );
+  L.push("");
+  L.push("| item | opaque id type | name | opaque | mdn | spec | bcd | full |");
+  L.push("|---|---|---|---|---|---|---|---|");
+  for (const it of [...CORPUS]
+    .filter((i) => !i.groundTruth.expectUnknown)
+    .sort((a, b) => a.contentDate.localeCompare(b.contentDate))) {
+    const g = (c) => fmt(icMean(it.id, c));
+    L.push(
+      `| \`${it.id}\` | ${opaqueIdType(it)} | ${g("name-only")} | ${g("url-only")} | ${g("mdn-url-only")} | ${g("spec-url-only")} | ${g("bcd-key-only")} | ${g("full-content")} |`,
+    );
+  }
+  L.push("");
+
+  // ---- Worked judge examples ----
+  L.push("## Worked judge examples — how cells were scored");
+  L.push("");
+  L.push(
+    "A few representative cells with the judge's one-line verdict. The judge's " +
+      "FULL prompt + raw response for EVERY cell is in the run data linked at the " +
+      "bottom (and clickable in the dashboard).",
+  );
+  L.push("");
+  const examples = [
+    ["arxiv-attention", "url-only"],
+    ["rfc-9110-http-semantics", "url-only"],
+    ["css-anchor-positioning", "url-only"],
+    ["fetch-api", "bcd-key-only"],
+    ["fetch-api", "url-only"],
+    ["css-gap-decorations", "bcd-key-only"],
+  ];
+  const condIdLabel = (id, c) =>
+    c === "url-only"
+      ? `opaque ${opaqueIdType(ITEM.get(id))}`
+      : c === "bcd-key-only"
+        ? "BCD key"
+        : c === "spec-url-only"
+          ? "spec URL"
+          : c === "mdn-url-only"
+            ? "MDN URL"
+            : c;
+  for (const [id, c] of examples) {
+    const jr = judgeReason[id + "|" + c];
+    if (!jr) continue;
+    L.push(
+      `- **${id} / ${c}** (${condIdLabel(id, c)}) — mean ${fmt(icMean(id, c))}; judge on \`${jr.model}\`: _"${jr.reason}"_ (score ${fmt(jr.c)})`,
+    );
+  }
+  L.push("");
+
+  // ---- Run data links ----
+  L.push("## Run data — inspect every cell");
+  L.push("");
+  L.push(
+    "- **[dashboard.html](dashboard.html)** — interactive: filter by model / " +
+      "condition / cutoff / pass-fail, and CLICK any cell to read the exact " +
+      "prompt, the model output, and the **judge's full prompt + raw verdict + " +
+      "reasoning**. (Live: https://paulkinlan.github.io/url-influence/ )",
+  );
+  L.push(
+    "- **[RUNLOG.md](RUNLOG.md)** — browsable per-cell record (every prompt, " +
+      "output, judge prompt + raw verdict).",
+  );
+  L.push(
+    "- **[transcript.jsonl](transcript.jsonl)** — one JSON line per cell with " +
+      "everything, machine-readable. This is the committed full run data; " +
+      "`results/raw/` is the gitignored intermediate it is built from.",
+  );
+  L.push("");
+
+  // Averaged lift — kept for context; the per-item finding above is the real story.
+  L.push("## Averaged lift table (context — see the per-item finding above)");
+  L.push("");
+  L.push(
+    "_This averages a sharply bimodal, item-specific signal, so a single " +
+      "\"lift −0.5\" hides the categorical pattern. Use the per-item tables above " +
+      "for the real result; this section is kept for continuity._",
+  );
   L.push("");
   L.push(
     "`LIFT = mean(url-only) − mean(name-only)` over API-usage items whose " +
