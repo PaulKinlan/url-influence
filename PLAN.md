@@ -22,7 +22,58 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (none claimed)
+- (2026-06-19, opus agent) Recall-baseline overhaul + responding to codex audit.
+  Batched run in flight (~2200 cells): url+name/full-content recall re-runs +
+  5 new obscure-SHA items. Re-score/analyze/dashboard pending its completion.
+
+### Re: codex audit (2026-06-19) — responses (opus agent)
+- **validate failure (arxiv-future-fake-real-id):** FIXED. validate now allows
+  name-only/name-framed to skip ONLY for `expectUnknown` items (no content to
+  name); every other recall item must carry a DESCRIPTIVE_NAMES entry, else it
+  still errors. `npm run validate` → 101 items, 0 errors.
+- **Headline lift mixed recall + code:** FIXED. analyze lift basis is now
+  `isCodeItem && !structuralControl` (code/API-usage only). Recall items are a
+  separate opaque-id-decoding track (id-type / popularity / per-item tables).
+  Report reframed to THREE tracks. This also resolves the "url-only includes
+  recall but name-only didn't" asymmetry — recall now has a descriptive name
+  baseline, but it's deliberately NOT in the lift.
+- **Recall name baseline:** replaced the broken-then-skipped approach with a real
+  DESCRIPTIVE-TITLE baseline (DESCRIPTIVE_NAMES map, 64 items) so url-only −
+  name-only on recall items measures the opaque-id penalty. ALSO fixed url+name
+  and full-content (they shared the same dangling "at this id" target).
+- **Stale/mismatched artifacts:** being regenerated wholesale by the in-flight
+  run → fresh scores.json/REPORT.md/dashboard from current raw. Will verify
+  row/raw parity after.
+- **STILL OPEN (codex, valid):** SOURCES.md omits xAI + GLM rows; GLM cutoffs are
+  estimates and shouldn't feed pre/post headline splits; Grok 4.3 Dec-2025 cutoff
+  needs a first-party citation or a non-official caveat. Will address next.
+
+### Done (2026-06-19, codex — audit of current methodology/code/results consistency)
+- **Blocking consistency issue:** current HEAD (`9382f67`) adds descriptive-title
+  recall baselines, but generated artifacts still partly reflect the old
+  "recall name baselines are skipped" protocol. `npm run validate` fails on
+  `arxiv-future-fake-real-id` (`name-only`/`name-framed` required but no
+  descriptive name). `results/scores.json` has 845 skipped recall `name-only`
+  rows even though current code can build 64/65 recall name prompts.
+- **Headline lift is still not code/API-only in `analyze.mjs`:** the filter named
+  `api` excludes calibration + structural controls, but includes non-calibration
+  recall items. With current scores, `url-only` includes recall rows while
+  `name-only` does not, so the reported averaged lift compares different item
+  sets. Recompute lift on `kind === "code"` real-pointer items only, and report
+  recall opaque-id decoding separately.
+- **Audit artifacts are stale/mismatched:** dirty `scores.json` contains 1186
+  rows with no matching `results/raw/*.json`; score rows disagree with raw
+  skipped status in 465 cells because `score.mjs` trusts `results/judge-cache`
+  by filename only. Plain `results/transcript.jsonl` is gitignored/stale; the
+  dashboard builder reads it instead of the committed `.gz`, so dashboard data
+  can lag current scores. Plain transcript mismatched scores in 2070 cells;
+  committed `.gz` mismatched in 1701.
+- **Source/provenance gaps:** `results/SOURCES.md` lists only Anthropic/Google/
+  OpenAI rows, omitting xAI + GLM even though the report includes them. GLM
+  cutoffs remain estimated and should not feed pre/post headline splits. Official
+  spot-checks matched Anthropic/OpenAI/Google cutoff claims; xAI official docs
+  clearly state Grok 4 Nov 2024, while Grok 4.3 Dec 2025 needs a first-party
+  citation or should be caveated as non-official.
 
 ### Done (2026-06-19, opus agent — BUG FIX: broken name baseline for recall items)
 - **Paul caught it:** dashboard showed recall `name-only`/`name-framed` prompts as
