@@ -107,28 +107,47 @@
 </div>
 <script src="dashboard-data.js"></script>
 <script>
-const D = window.URLINFLUENCE;
+// Data is shipped gzipped+base64 in window.__URLINFLUENCE_GZ (keeps the committed
+// file small + file://-openable). Inflate it client-side with DecompressionStream.
+let D, modelSel;
 const $ = (s)=>document.querySelector(s);
-document.getElementById("sub").textContent =
-  D.cells.length + " cells \u00b7 " + D.models.length + " models \u00b7 generated " + (D.meta.generatedAt||"");
 
-const modelSel = $("#model");
-D.models.forEach(m=>{ const o=document.createElement("option"); o.value=m.key; o.textContent=m.label+" (cut "+m.cutoff+")"; modelSel.appendChild(o); });
+async function boot(){
+  document.getElementById("sub").textContent = "decompressing results\u2026";
+  const b64 = window.__URLINFLUENCE_GZ;
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+  D = JSON.parse(await new Response(stream).text());
+  init();
+}
 
-const condsBox = $("#conds");
-D.conditions.forEach(c=>{
-  const l=document.createElement("label"); l.className="row";
-  l.innerHTML='<input type="checkbox" class="cond" value="'+c+'" checked> '+c;
-  l.title=D.meta.conditionNotes[c]||"";
-  condsBox.appendChild(l);
-});
-$("#pass").value = D.meta.passDefault;
+function init(){
+  document.getElementById("sub").textContent =
+    D.cells.length + " cells \u00b7 " + D.models.length + " models \u00b7 generated " + (D.meta.generatedAt||"");
 
-// Populate the Source dropdown from the items' schemes (sorted, with counts).
-const srcSel = $("#source");
-const srcCounts = {};
-for(const id in D.items){ const s=D.items[id].source||"other"; srcCounts[s]=(srcCounts[s]||0)+1; }
-Object.keys(srcCounts).sort().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s+" ("+srcCounts[s]+")"; srcSel.appendChild(o); });
+  modelSel = $("#model");
+  D.models.forEach(m=>{ const o=document.createElement("option"); o.value=m.key; o.textContent=m.label+" (cut "+m.cutoff+")"; modelSel.appendChild(o); });
+
+  const condsBox = $("#conds");
+  D.conditions.forEach(c=>{
+    const l=document.createElement("label"); l.className="row";
+    l.innerHTML='<input type="checkbox" class="cond" value="'+c+'" checked> '+c;
+    l.title=D.meta.conditionNotes[c]||"";
+    condsBox.appendChild(l);
+  });
+  $("#pass").value = D.meta.passDefault;
+
+  // Populate the Source dropdown from the items' schemes (sorted, with counts).
+  const srcSel = $("#source");
+  const srcCounts = {};
+  for(const id in D.items){ const s=D.items[id].source||"other"; srcCounts[s]=(srcCounts[s]||0)+1; }
+  Object.keys(srcCounts).sort().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s+" ("+srcCounts[s]+")"; srcSel.appendChild(o); });
+
+  document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", render));
+  render();
+}
 
 function color(v){
   if(v==null) return null;
@@ -256,8 +275,7 @@ function showDetail(c){
   const d=$("#detail"); d.innerHTML=h; d.classList.add("open");
 }
 
-document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", render));
-render();
+boot().catch(e=>{ document.getElementById("sub").textContent = "failed to load data: "+e; });
 </script>
 </body>
 </html>

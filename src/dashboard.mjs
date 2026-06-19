@@ -1,19 +1,33 @@
 // Build a standalone interactive dashboard from results/transcript.jsonl.
 //
 // Emits two committed files:
-//   results/dashboard-data.js  - window.URLINFLUENCE = { meta, items, cells }
+//   results/dashboard-data.js  - window.__URLINFLUENCE_GZ = "<base64 of gzipped
+//     JSON { meta, items, cells }>". The browser inflates it on boot with
+//     DecompressionStream; inlining (not a fetched .gz) keeps file:// working and
+//     shrinks the committed file ~6-8x.
 //   results/dashboard.html     - vanilla-JS UI (no deps, no server needed):
-//     filter by model / condition / pre-vs-post cutoff / item-track / pass-fail,
-//     an interactive item x condition matrix per model, a live per-condition
-//     mean + lift strip for the current filter, and click-through to each cell's
-//     exact prompt, model output, and the judge's full prompt + raw verdict.
+//     filter by model / condition / pre-vs-post cutoff / item-track / Common
+//     Crawl / pass-fail, an interactive item x condition matrix per model, a live
+//     per-condition mean + lift strip for the current filter, and click-through
+//     to each cell's exact prompt, model output, and the judge's full verdict.
 //
 // Open results/dashboard.html directly in a browser (it loads dashboard-data.js
 // via a relative <script>, so file:// works — no fetch/CORS issue).
 
 import { readFile, writeFile } from "node:fs/promises";
+import { gzipSync } from "node:zlib";
 import { CORPUS } from "./corpus.mjs";
 import { CONDITION_DEFS, CONDITIONS } from "./conditions.mjs";
+
+// Uint8Array -> base64 without Node Buffer (chunked to stay under arg limits).
+function toBase64(u8) {
+  let bin = "";
+  const CH = 0x8000;
+  for (let i = 0; i < u8.length; i += CH) {
+    bin += String.fromCharCode.apply(null, u8.subarray(i, i + CH));
+  }
+  return btoa(bin);
+}
 
 const PASS_DEFAULT = 0.5;
 
@@ -144,13 +158,22 @@ async function main() {
     cells: slim,
   };
 
+  // Gzip the payload and inline it as base64. The browser inflates it with
+  // DecompressionStream on boot (see HTML). Inlining (vs a fetched .gz) keeps the
+  // dashboard openable directly via file:// — no fetch/CORS. Shrinks the committed
+  // file ~6-8x (well under GitHub's 50MB warning) as the matrix grows.
+  const json = JSON.stringify(data);
+  const gz = gzipSync(json, { level: 9 }); // accepts a utf8 string directly
+  const b64 = toBase64(gz);
   await writeFile(
     "results/dashboard-data.js",
-    "window.URLINFLUENCE = " + JSON.stringify(data) + ";\n",
+    "window.__URLINFLUENCE_GZ = " + JSON.stringify(b64) + ";\n",
   );
   await writeFile("results/dashboard.html", HTML);
   console.log(
-    `[dashboard] wrote results/dashboard.html + results/dashboard-data.js (${slim.length} cells)`,
+    `[dashboard] wrote results/dashboard.html + results/dashboard-data.js ` +
+      `(${slim.length} cells; json ${(json.length / 1e6).toFixed(1)}MB ` +
+      `-> gz+b64 ${(b64.length / 1e6).toFixed(1)}MB)`,
   );
 }
 
@@ -263,28 +286,47 @@ const HTML = `<!doctype html>
 </div>
 <script src="dashboard-data.js"></script>
 <script>
-const D = window.URLINFLUENCE;
+// Data is shipped gzipped+base64 in window.__URLINFLUENCE_GZ (keeps the committed
+// file small + file://-openable). Inflate it client-side with DecompressionStream.
+let D, modelSel;
 const $ = (s)=>document.querySelector(s);
-document.getElementById("sub").textContent =
-  D.cells.length + " cells \\u00b7 " + D.models.length + " models \\u00b7 generated " + (D.meta.generatedAt||"");
 
-const modelSel = $("#model");
-D.models.forEach(m=>{ const o=document.createElement("option"); o.value=m.key; o.textContent=m.label+" (cut "+m.cutoff+")"; modelSel.appendChild(o); });
+async function boot(){
+  document.getElementById("sub").textContent = "decompressing results\\u2026";
+  const b64 = window.__URLINFLUENCE_GZ;
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+  D = JSON.parse(await new Response(stream).text());
+  init();
+}
 
-const condsBox = $("#conds");
-D.conditions.forEach(c=>{
-  const l=document.createElement("label"); l.className="row";
-  l.innerHTML='<input type="checkbox" class="cond" value="'+c+'" checked> '+c;
-  l.title=D.meta.conditionNotes[c]||"";
-  condsBox.appendChild(l);
-});
-$("#pass").value = D.meta.passDefault;
+function init(){
+  document.getElementById("sub").textContent =
+    D.cells.length + " cells \\u00b7 " + D.models.length + " models \\u00b7 generated " + (D.meta.generatedAt||"");
 
-// Populate the Source dropdown from the items' schemes (sorted, with counts).
-const srcSel = $("#source");
-const srcCounts = {};
-for(const id in D.items){ const s=D.items[id].source||"other"; srcCounts[s]=(srcCounts[s]||0)+1; }
-Object.keys(srcCounts).sort().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s+" ("+srcCounts[s]+")"; srcSel.appendChild(o); });
+  modelSel = $("#model");
+  D.models.forEach(m=>{ const o=document.createElement("option"); o.value=m.key; o.textContent=m.label+" (cut "+m.cutoff+")"; modelSel.appendChild(o); });
+
+  const condsBox = $("#conds");
+  D.conditions.forEach(c=>{
+    const l=document.createElement("label"); l.className="row";
+    l.innerHTML='<input type="checkbox" class="cond" value="'+c+'" checked> '+c;
+    l.title=D.meta.conditionNotes[c]||"";
+    condsBox.appendChild(l);
+  });
+  $("#pass").value = D.meta.passDefault;
+
+  // Populate the Source dropdown from the items' schemes (sorted, with counts).
+  const srcSel = $("#source");
+  const srcCounts = {};
+  for(const id in D.items){ const s=D.items[id].source||"other"; srcCounts[s]=(srcCounts[s]||0)+1; }
+  Object.keys(srcCounts).sort().forEach(s=>{ const o=document.createElement("option"); o.value=s; o.textContent=s+" ("+srcCounts[s]+")"; srcSel.appendChild(o); });
+
+  document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", render));
+  render();
+}
 
 function color(v){
   if(v==null) return null;
@@ -412,8 +454,7 @@ function showDetail(c){
   const d=$("#detail"); d.innerHTML=h; d.classList.add("open");
 }
 
-document.querySelectorAll("input,select").forEach(el=> el.addEventListener("change", render));
-render();
+boot().catch(e=>{ document.getElementById("sub").textContent = "failed to load data: "+e; });
 </script>
 </body>
 </html>
