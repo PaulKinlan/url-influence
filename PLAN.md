@@ -24,6 +24,27 @@ decisions made, and what we have learned about the URLs and methodology.
 ### In progress
 - (none claimed)
 
+### Done (2026-06-19, opus agent — BUG FIX: broken name baseline for recall items)
+- **Paul caught it:** dashboard showed recall `name-only`/`name-framed` prompts as
+  "Recall the paper at this arXiv id: …" with **no id attached** → models rightly
+  refused ("no arXiv ID in your message"). Root cause: recall `target` references
+  an external identifier those two conditions don't supply. **The treatment
+  (`url-only`) was NEVER broken** — it builds from `urls.opaque` directly. Only the
+  name baselines for the 65 recall items were garbage; the earlier "1.00 from id
+  vs 0.00 from naming" headline was thus partly an artifact (the 0.00 = refusal to
+  the broken prompt).
+- **Fix:** a pure opaque-id recall task has no verbal description that isn't the
+  answer, so `name-only`/`name-framed` now return null (skip) for `kind==="recall"`
+  — same pattern as `spec-url-only` skipping when there's no spec. Purged 1690
+  stale broken cells (raw+cache), re-ran (null→skip, **zero model calls**),
+  re-scored/analyzed/dashboarded. Added regression test (10 tests pass). Report
+  LIFT section now states lift is code/API-items only; recall items judged on the
+  cutoff axis + full-content ceiling, name cols read `-`.
+- **OPEN / proposed to Paul:** a richer *descriptive-title* baseline for recall
+  items (give the paper/CVE/RFC title, ask to summarize) would separate "model
+  doesn't know this work at all" from "knows it but can't decode the opaque
+  number". Costs ~1690 model calls (65×2×13) — awaiting Paul's go/no-go.
+
 ### Done (2026-06-19, opus agent — methodology review + new directions)
 - **Methodology review almost fully cleared:** B1 temperature/seed + B2 retry-all
   + C1 VENDORS map (providers.mjs; caught Anthropic temperature-400 live); A5
