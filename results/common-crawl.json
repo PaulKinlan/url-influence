@@ -1,0 +1,1097 @@
+{
+  "generatedAt": "2026-06-19T16:33:32.799Z",
+  "crawls": [
+    "CC-MAIN-2025-26",
+    "CC-MAIN-2025-38",
+    "CC-MAIN-2025-51",
+    "CC-MAIN-2026-08",
+    "CC-MAIN-2026-17",
+    "CC-MAIN-2026-21"
+  ],
+  "items": [
+    {
+      "itemId": "view-transitions",
+      "opaque": "https://chromestatus.com/feature/5193009714954240",
+      "idType": "ChromeStatus",
+      "contentDate": "2023-03",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "popover-api",
+      "opaque": "https://chromestatus.com/feature/5463833265045504",
+      "idType": "ChromeStatus",
+      "contentDate": "2024-04",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "view-transitions-cross-doc",
+      "opaque": "https://chromestatus.com/feature/5118874666663936",
+      "idType": "ChromeStatus",
+      "contentDate": "2024-09",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-08",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "css-anchor-positioning",
+      "opaque": "https://chromestatus.com/feature/5124922471874560",
+      "idType": "ChromeStatus",
+      "contentDate": "2024-08",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "rfc-9110-http-semantics",
+      "opaque": "https://datatracker.ietf.org/doc/rfc9110/",
+      "idType": "RFC",
+      "contentDate": "2022-06",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "arxiv-attention",
+      "opaque": "https://arxiv.org/abs/1706.03762",
+      "idType": "arXiv",
+      "contentDate": "2017-06",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2026-08",
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "arxiv-mamba",
+      "opaque": "https://arxiv.org/abs/2312.00752",
+      "idType": "arXiv",
+      "contentDate": "2023-12",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-05"
+    },
+    {
+      "itemId": "arxiv-deepseek-r1",
+      "opaque": "https://arxiv.org/abs/2501.12948",
+      "idType": "arXiv",
+      "contentDate": "2025-01",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "temporal-api",
+      "opaque": "https://chromestatus.com/feature/5668291307634688",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-01",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "arxiv-gemma-3",
+      "opaque": "https://arxiv.org/abs/2503.19786",
+      "idType": "arXiv",
+      "contentDate": "2025-03",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "customizable-select",
+      "opaque": "https://chromestatus.com/feature/5737365999976448",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-03",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "arxiv-kimi-k2",
+      "opaque": "https://arxiv.org/abs/2507.20534",
+      "idType": "arXiv",
+      "contentDate": "2025-07",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "element-scoped-view-transitions",
+      "opaque": "https://chromestatus.com/feature/5109852273377280",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-04",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "arxiv-gpt5-system-card",
+      "opaque": "https://arxiv.org/abs/2601.03267",
+      "idType": "arXiv",
+      "contentDate": "2025-12",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "scroll-triggered-animations",
+      "opaque": "https://chromestatus.com/feature/5181996801982464",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-02",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "arxiv-future-fake-real-id",
+      "opaque": "https://arxiv.org/abs/2605.04567",
+      "idType": "arXiv",
+      "contentDate": "2026-05",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "html-in-canvas",
+      "opaque": "https://chromestatus.com/feature/5114053285249024",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-02",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "prompt-api-shape",
+      "opaque": "https://chromestatus.com/feature/5134603979063296",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-05",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "fedcm",
+      "opaque": "https://chromestatus.com/feature/6438627087220736",
+      "idType": "ChromeStatus",
+      "contentDate": "2022-12",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "baseline-has-status",
+      "opaque": "https://caniuse.com/css-has",
+      "idType": "caniuse",
+      "contentDate": "2026-06",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-08",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "text-justify-css-property",
+      "opaque": "https://chromestatus.com/feature/5079678972985344",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-02",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "css-text-indent-hanging",
+      "opaque": "https://chromestatus.com/feature/5084062739988480",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-03",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "named-feature-supports",
+      "opaque": "https://chromestatus.com/feature/5153932394102784",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-03",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "corner-shape-squircle",
+      "opaque": "https://chromestatus.com/feature/5357329815699456",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-08",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-05"
+    },
+    {
+      "itemId": "math-sumprecise",
+      "opaque": "https://chromestatus.com/feature/4790090146643968",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-04",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "gamepad-event-driven-input",
+      "opaque": "https://chromestatus.com/feature/5989275208253440",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-04",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "translator-api",
+      "opaque": "https://chromestatus.com/feature/5172811302961152",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-06",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "language-detector-api",
+      "opaque": "https://chromestatus.com/feature/6494349985841152",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-06",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "text-decoration-skip-ink-all",
+      "opaque": "https://chromestatus.com/feature/5077600085082112",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-05",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-05"
+    },
+    {
+      "itemId": "css-gap-decorations",
+      "opaque": "https://chromestatus.com/feature/5157805733183488",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-06",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2025-38"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "css-shape-function",
+      "opaque": "https://chromestatus.com/feature/5172258539307008",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-04",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "uint8array-base64-hex",
+      "opaque": "https://chromestatus.com/feature/6281131254874112",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-09",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "css-scroll-state-container-queries",
+      "opaque": "https://chromestatus.com/feature/5072263730167808",
+      "idType": "ChromeStatus",
+      "contentDate": "2025-02",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "css-image-color-function",
+      "opaque": "https://chromestatus.com/feature/5121011285622784",
+      "idType": "ChromeStatus",
+      "contentDate": "2026-06",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "fetch-api",
+      "opaque": "https://chromestatus.com/feature/6730533392351232",
+      "idType": "ChromeStatus",
+      "contentDate": "2015-03",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "intersection-observer",
+      "opaque": "https://chromestatus.com/feature/5695342691483648",
+      "idType": "ChromeStatus",
+      "contentDate": "2016-05",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "js-promise",
+      "opaque": "https://stackoverflow.com/questions/30564053",
+      "idType": "StackOverflow",
+      "contentDate": "2014-01",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "service-worker",
+      "opaque": "https://www.chromestatus.com/feature/6561526227927040",
+      "idType": "ChromeStatus",
+      "contentDate": "2015-01",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "css-grid",
+      "opaque": "https://chromestatus.com/feature/4589636412243968",
+      "idType": "ChromeStatus",
+      "contentDate": "2017-03",
+      "popularity": null,
+      "presentIn": [
+        "CC-MAIN-2025-26"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "async-await",
+      "opaque": "https://chromestatus.com/feature/5643236399906816",
+      "idType": "ChromeStatus",
+      "contentDate": "2016-10",
+      "popularity": null,
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "cve-2014-0160-heartbleed",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2014-0160",
+      "idType": "CVE",
+      "contentDate": "2014-04-07",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-17",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "cve-2021-44228-log4shell",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+      "idType": "CVE",
+      "contentDate": "2021-12-10",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-08",
+        "CC-MAIN-2026-17",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-02"
+    },
+    {
+      "itemId": "cve-2024-3094-xz-backdoor",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+      "idType": "CVE",
+      "contentDate": "2024-03-29",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-08"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-02"
+    },
+    {
+      "itemId": "cve-2017-0144-eternalblue",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2017-0144",
+      "idType": "CVE",
+      "contentDate": "2017-03-17",
+      "popularity": "moderate",
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "cve-2019-0708-bluekeep",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2019-0708",
+      "idType": "CVE",
+      "contentDate": "2019-05-16",
+      "popularity": "moderate",
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "cve-2018-7600-drupalgeddon2",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2018-7600",
+      "idType": "CVE",
+      "contentDate": "2018-03-29",
+      "popularity": "obscure",
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "cve-2026-25000-wheel-of-life",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2026-25000",
+      "idType": "CVE",
+      "contentDate": "2026-02-19",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "cve-2026-3000-idexpert-rce",
+      "opaque": "https://nvd.nist.gov/vuln/detail/CVE-2026-3000",
+      "idType": "CVE",
+      "contentDate": "2026-03-02",
+      "popularity": "obscure",
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "arxiv-resnet",
+      "opaque": "https://arxiv.org/abs/1512.03385",
+      "idType": "arXiv",
+      "contentDate": "2015-12-10",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-17",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "arxiv-bert",
+      "opaque": "https://arxiv.org/abs/1810.04805",
+      "idType": "arXiv",
+      "contentDate": "2018-10-11",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-26"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "arxiv-gan",
+      "opaque": "https://arxiv.org/abs/1406.2661",
+      "idType": "arXiv",
+      "contentDate": "2014-06-10",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-26",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-06"
+    },
+    {
+      "itemId": "arxiv-unet",
+      "opaque": "https://arxiv.org/abs/1505.04597",
+      "idType": "arXiv",
+      "contentDate": "2015-05-18",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "arxiv-adam",
+      "opaque": "https://arxiv.org/abs/1412.6980",
+      "idType": "arXiv",
+      "contentDate": "2014-12-22",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-05"
+    },
+    {
+      "itemId": "arxiv-vgg",
+      "opaque": "https://arxiv.org/abs/1409.1556",
+      "idType": "arXiv",
+      "contentDate": "2014-09-04",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "arxiv-gpt3",
+      "opaque": "https://arxiv.org/abs/2005.14165",
+      "idType": "arXiv",
+      "contentDate": "2020-05-28",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-38"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "arxiv-word2vec",
+      "opaque": "https://arxiv.org/abs/1301.3781",
+      "idType": "arXiv",
+      "contentDate": "2013-01-16",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-08"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-02"
+    },
+    {
+      "itemId": "arxiv-ppo",
+      "opaque": "https://arxiv.org/abs/1707.06347",
+      "idType": "arXiv",
+      "contentDate": "2017-07-20",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "arxiv-knowledge-distillation",
+      "opaque": "https://arxiv.org/abs/1503.02531",
+      "idType": "arXiv",
+      "contentDate": "2015-03-09",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "arxiv-pate",
+      "opaque": "https://arxiv.org/abs/1610.05755",
+      "idType": "arXiv",
+      "contentDate": "2016-10-18",
+      "popularity": "moderate",
+      "presentIn": [
+        "CC-MAIN-2025-38"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "arxiv-diffusiongemma-transparency",
+      "opaque": "https://arxiv.org/abs/2606.20560",
+      "idType": "arXiv",
+      "contentDate": "2026-06-18",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "arxiv-lie-algebra-attention",
+      "opaque": "https://arxiv.org/abs/2606.20547",
+      "idType": "arXiv",
+      "contentDate": "2026-06-18",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "arxiv-multitask-bayesian-icl",
+      "opaque": "https://arxiv.org/abs/2606.20538",
+      "idType": "arXiv",
+      "contentDate": "2026-06-18",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "pmid-11237011-human-genome",
+      "opaque": "https://pubmed.ncbi.nlm.nih.gov/11237011/",
+      "idType": "PubMed",
+      "contentDate": "2001-02-15",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "pmid-7466396-evolution-cooperation",
+      "opaque": "https://pubmed.ncbi.nlm.nih.gov/7466396/",
+      "idType": "PubMed",
+      "contentDate": "1981-03-27",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-05"
+    },
+    {
+      "itemId": "pmid-10676951-dlbcl-gene-expression",
+      "opaque": "https://pubmed.ncbi.nlm.nih.gov/10676951/",
+      "idType": "PubMed",
+      "contentDate": "2000-02-03",
+      "popularity": "moderate",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "pmid-28778026-deep-learning-medical-survey",
+      "opaque": "https://pubmed.ncbi.nlm.nih.gov/28778026/",
+      "idType": "PubMed",
+      "contentDate": "2017-12",
+      "popularity": "moderate",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "pmid-25592156-hydrogel-immunoprotection",
+      "opaque": "https://pubmed.ncbi.nlm.nih.gov/25592156/",
+      "idType": "PubMed",
+      "contentDate": "2015-02-09",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "pmid-42224782-crispr-echinococcus",
+      "opaque": "https://pubmed.ncbi.nlm.nih.gov/42224782/",
+      "idType": "PubMed",
+      "contentDate": "2026-05-25",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "rfc-2616-http11",
+      "opaque": "https://datatracker.ietf.org/doc/rfc2616/",
+      "idType": "RFC",
+      "contentDate": "1999-05",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "rfc-8259-json",
+      "opaque": "https://datatracker.ietf.org/doc/rfc8259/",
+      "idType": "RFC",
+      "contentDate": "2017-12",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "rfc-791-ip",
+      "opaque": "https://datatracker.ietf.org/doc/rfc791/",
+      "idType": "RFC",
+      "contentDate": "1981-09",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-38",
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-09"
+    },
+    {
+      "itemId": "rfc-9114-http3",
+      "opaque": "https://datatracker.ietf.org/doc/rfc9114/",
+      "idType": "RFC",
+      "contentDate": "2022-06",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2026-08"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-02"
+    },
+    {
+      "itemId": "rfc-9293-tcp",
+      "opaque": "https://datatracker.ietf.org/doc/rfc9293/",
+      "idType": "RFC",
+      "contentDate": "2022-08",
+      "popularity": "moderate",
+      "presentIn": [
+        "CC-MAIN-2026-08",
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-02"
+    },
+    {
+      "itemId": "rfc-1149-avian-carriers",
+      "opaque": "https://datatracker.ietf.org/doc/rfc1149/",
+      "idType": "RFC",
+      "contentDate": "1990-04",
+      "popularity": "obscure",
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "rfc-9700-oauth-security-bcp",
+      "opaque": "https://datatracker.ietf.org/doc/rfc9700/",
+      "idType": "RFC",
+      "contentDate": "2025-01",
+      "popularity": "moderate",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "rfc-9701-jwt-oauth-introspection",
+      "opaque": "https://datatracker.ietf.org/doc/rfc9701/",
+      "idType": "RFC",
+      "contentDate": "2025-01",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-11227809-branch-prediction",
+      "opaque": "https://stackoverflow.com/questions/11227809",
+      "idType": "StackOverflow",
+      "contentDate": "2012-06-27",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-111102-javascript-closures",
+      "opaque": "https://stackoverflow.com/questions/111102",
+      "idType": "StackOverflow",
+      "contentDate": "2008-09-21",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-1335851-use-strict",
+      "opaque": "https://stackoverflow.com/questions/1335851",
+      "idType": "StackOverflow",
+      "contentDate": "2009-08-26",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-503093-redirect-webpage",
+      "opaque": "https://stackoverflow.com/questions/503093",
+      "idType": "StackOverflow",
+      "contentDate": "2009-02-02",
+      "popularity": "moderate",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-178325-jquery-element-hidden",
+      "opaque": "https://stackoverflow.com/questions/178325",
+      "idType": "StackOverflow",
+      "contentDate": "2008-10-07",
+      "popularity": "moderate",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-78084814-coredump-file-mapping",
+      "opaque": "https://stackoverflow.com/questions/78084814",
+      "idType": "StackOverflow",
+      "contentDate": "2024-02-29",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-79886234-java25-file-exists",
+      "opaque": "https://stackoverflow.com/questions/79886234",
+      "idType": "StackOverflow",
+      "contentDate": "2026-02-10",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "so-79890462-reinterpret-cast-structs",
+      "opaque": "https://stackoverflow.com/questions/79890462",
+      "idType": "StackOverflow",
+      "contentDate": "2026-02-16",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "doi-alphafold-nature",
+      "opaque": "https://doi.org/10.1038/s41586-021-03819-2",
+      "idType": "DOI",
+      "contentDate": "2021-07-15",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "doi-human-genome-science",
+      "opaque": "https://doi.org/10.1126/science.1058040",
+      "idType": "DOI",
+      "contentDate": "2001-02-16",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "doi-deep-learning-nature-review",
+      "opaque": "https://doi.org/10.1038/nature14539",
+      "idType": "DOI",
+      "contentDate": "2015-05-27",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "doi-optuna-kdd",
+      "opaque": "https://doi.org/10.1145/3292500.3330701",
+      "idType": "DOI",
+      "contentDate": "2019-07-25",
+      "popularity": "moderate",
+      "presentIn": [
+        "CC-MAIN-2026-08"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-02"
+    },
+    {
+      "itemId": "doi-corn-seed-traits-pricing",
+      "opaque": "https://doi.org/10.1093/ajae/aaq063",
+      "idType": "DOI",
+      "contentDate": "2010-07-19",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "doi-biorxiv-endomesoderm-grn",
+      "opaque": "https://doi.org/10.64898/2026.03.31.715602",
+      "idType": "DOI",
+      "contentDate": "2026-04-01",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "gh-sha-linux-initial-git",
+      "opaque": "https://github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2",
+      "idType": "GitHub-SHA",
+      "contentDate": "2005-04-16",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "gh-sha-git-initial-commit",
+      "opaque": "https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290",
+      "idType": "GitHub-SHA",
+      "contentDate": "2005-04-07",
+      "popularity": "famous",
+      "presentIn": [
+        "CC-MAIN-2025-51"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2025-12"
+    },
+    {
+      "itemId": "gh-sha-bitcoin-first-commit",
+      "opaque": "https://github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898",
+      "idType": "GitHub-SHA",
+      "contentDate": "2009-08-30",
+      "popularity": "famous",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "hf-gemma-4-26b-a4b-it",
+      "opaque": "https://huggingface.co/google/gemma-4-26B-A4B-it",
+      "idType": "HuggingFace",
+      "contentDate": "2026-03-11",
+      "popularity": "obscure",
+      "presentIn": [
+        "CC-MAIN-2026-17"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-04"
+    },
+    {
+      "itemId": "hf-qwen3-5-4b",
+      "opaque": "https://huggingface.co/Qwen/Qwen3.5-4B",
+      "idType": "HuggingFace",
+      "contentDate": "2026-02-27",
+      "popularity": "obscure",
+      "presentIn": [],
+      "anyPresent": false,
+      "firstSeen": null
+    },
+    {
+      "itemId": "hf-qwen3-6-27b",
+      "opaque": "https://huggingface.co/Qwen/Qwen3.6-27B",
+      "idType": "HuggingFace",
+      "contentDate": "2026-04-21",
+      "popularity": "obscure",
+      "presentIn": [
+        "CC-MAIN-2026-21"
+      ],
+      "anyPresent": true,
+      "firstSeen": "2026-05"
+    }
+  ]
+}
