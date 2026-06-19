@@ -52,6 +52,23 @@ decisions made, and what we have learned about the URLs and methodology.
   spec URL. The honest reframe: "canonical memorised ids work (arXiv/RFC/BCD/
   spec); opaque numeric ids don't" — see methodology review A1 for the per-item
   table to add to REPORT/dashboard.
+- **Balanced opaque-id corpus (BIG — the real fix; Paul 2026-06-19).** The
+  opaque-id sample is thin/unbalanced (RFC 1, arXiv 6, SO ~1, caniuse 1, vs 28
+  ChromeStatus), so pre/post CAN'T be tested *within* an opaque-id type, and fame
+  can't be separated from recency. Build a **popularity × cutoff grid** across
+  MULTIPLE independent id schemes so the result isn't an arXiv artifact. Sources
+  (date-stamped-in-id schemes are best): **CVE** (`CVE-YYYY-NNNN` — year in the
+  id; NVD-indexed; Heartbleed/Log4Shell famous vs obscure) ~8; **arXiv** ~16-20
+  (famous-pre / obscure-pre / post-2026); **PMID** (PubMed, numeric, time-
+  monotonic) ~6; **RFC** ~8 (famous-old / obscure-old / 2024-26); **Stack
+  Overflow** ~8 (old+upvoted / recent / obscure); **DOI** (CrossRef/bioRxiv) ~6;
+  **GitHub commit SHA** a few (guaranteed-NOT-memorised negative); **Hugging Face
+  model ids** a few (semi-descriptive, clean post-cutoff). Each item: REAL
+  verified id + groundTruth (title/contribution/date) + `popularity` +
+  `contentDate` tags. Every cell of pre/post × fame gets real n. Build via a
+  verify-every-id agent (no guessing), then run only the new items (parallel).
+  Do AFTER the protocol rerun commits (editing corpus mid-pipeline corrupts the
+  in-flight report).
 - **Task 3 (the thesis-prover):** source post-cutoff features where `name-only`
   itself FAILS. Current post-cutoff items are too guessable (high `name-only`),
   so they show "opaque id gives nothing", not "model can't build it".
