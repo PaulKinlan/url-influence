@@ -1178,6 +1178,1235 @@ export const CORPUS = [
     fakeUrl:
       "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/defer_function",
   },
+
+  // ==========================================================================
+  // BALANCED OPAQUE-ID GRID (added 2026-06-19). A popularity x cutoff grid
+  // across MULTIPLE independent opaque-id schemes so the url-memory effect can
+  // be tested WITHIN a scheme (pre/post-cutoff) and the "decodes because FAMOUS"
+  // vs "decodes because PRE-CUTOFF" confound can be separated. Every id below is
+  // REAL and was VERIFIED against the scheme's API/page (title + date) before
+  // adding. Each item carries a top-level `popularity` tag
+  // ("famous" | "moderate" | "obscure"). Post-cutoff = content published AFTER
+  // 2026-01-31 (after the latest model cutoff, Jan 2026). These are name-only-
+  // fair recall items: the id IS the content, so name-only correctly scores ~0
+  // and url-only supplies the id.
+  // ==========================================================================
+
+  // ---- CVE (year-in-the-id; NVD-indexed) ----
+  {
+    id: "cve-2014-0160-heartbleed",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2014-04-07", // CVE-2014-0160 published 2014-04-07 (NVD/MITRE)
+    groundTruth: {
+      mustMention: ["Heartbleed", "OpenSSL", "Heartbeat", "TLS"],
+      notes:
+        "CVE-2014-0160 is Heartbleed: the TLS/DTLS Heartbeat Extension in OpenSSL 1.0.1 before 1.0.1g does not properly bound-check Heartbeat packets, letting a remote attacker read sensitive process memory via crafted packets. Correct recall names Heartbleed / OpenSSL Heartbeat.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2014-0160",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2014-0160",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2014-0160",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2014-0160",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2014-99999",
+  },
+  {
+    id: "cve-2021-44228-log4shell",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2021-12-10", // CVE-2021-44228 published 2021-12-10 (NVD/MITRE)
+    groundTruth: {
+      mustMention: ["Log4Shell", "Log4j", "JNDI", "remote code execution"],
+      notes:
+        "CVE-2021-44228 is Log4Shell: Apache Log4j2 2.0-beta9 through 2.15.0 JNDI features used in configuration/log messages do not protect against attacker-controlled LDAP and other JNDI endpoints, enabling remote code execution. Correct recall names Log4j/Log4Shell and JNDI/LDAP RCE.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2021-44228",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2021-99999",
+  },
+  {
+    id: "cve-2024-3094-xz-backdoor",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2024-03-29", // CVE-2024-3094 published 2024-03-29 (MITRE)
+    groundTruth: {
+      mustMention: ["xz", "liblzma", "backdoor", "5.6.0"],
+      notes:
+        "CVE-2024-3094 is the xz/liblzma supply-chain backdoor: malicious code in xz upstream tarballs starting with version 5.6.0; the liblzma build extracts a prebuilt obfuscated object enabling unauthorized SSH access. Correct recall names xz/liblzma and the supply-chain backdoor.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2024-3094",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2024-99999",
+  },
+  {
+    id: "cve-2017-0144-eternalblue",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2017-03-17", // CVE-2017-0144 published 2017-03-17 (MITRE)
+    groundTruth: {
+      mustMention: ["EternalBlue", "SMBv1", "Windows", "remote code execution"],
+      notes:
+        "CVE-2017-0144 is EternalBlue: the SMBv1 server in Microsoft Windows (Vista through Windows 10 / Server 2016) mishandles crafted packets, allowing remote code execution. It was used by WannaCry/NotPetya. Correct recall names SMBv1 / EternalBlue RCE.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2017-0144",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2017-0144",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2017-0144",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2017-0144",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2017-09999",
+  },
+  {
+    id: "cve-2019-0708-bluekeep",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2019-05-16", // CVE-2019-0708 published 2019-05-16 (MITRE)
+    groundTruth: {
+      mustMention: ["BlueKeep", "Remote Desktop", "RDP", "remote code execution"],
+      notes:
+        "CVE-2019-0708 is BlueKeep: a pre-authentication remote code execution flaw in Windows Remote Desktop Services (RDP) reachable by an unauthenticated attacker, wormable. Correct recall names RDP / Remote Desktop Services and BlueKeep RCE.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2019-0708",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2019-0708",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2019-0708",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2019-0708",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2019-09999",
+  },
+  {
+    id: "cve-2018-7600-drupalgeddon2",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2018-03-29", // CVE-2018-7600 published 2018-03-29 (MITRE)
+    groundTruth: {
+      mustMention: ["Drupal", "Drupalgeddon2", "remote code execution", "7.58"],
+      notes:
+        "CVE-2018-7600 is Drupalgeddon2: Drupal before 7.58 / 8.x before 8.3.9 / 8.4.x before 8.4.6 / 8.5.x before 8.5.1 allows remote attackers to execute arbitrary code due to insufficient input sanitization across multiple subsystems. Correct recall names Drupal RCE / Drupalgeddon2.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2018-7600",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2018-7600",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2018-7600",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2018-7600",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2018-79999",
+  },
+  {
+    id: "cve-2026-25000-wheel-of-life",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2026-02-19", // CVE-2026-25000 published 2026-02-19 (MITRE) — POST-cutoff
+    groundTruth: {
+      mustMention: ["Wheel of Life", "WordPress", "Broken Access Control", "1.2.0"],
+      notes:
+        "CVE-2026-25000 is a Broken Access Control / Missing Authorization vulnerability in the WordPress 'Wheel of Life' plugin (Kraft Plugins) versions <= 1.2.0, allowing exploitation of incorrectly configured access-control levels. Published 2026-02-19, after the Jan-2026 model cutoff.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2026-25000",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2026-25000",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2026-25000",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2026-25000",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2026-99999",
+  },
+  {
+    id: "cve-2026-3000-idexpert-rce",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the CVE at this identifier: what software/component does it affect and what is the vulnerability?",
+    contentDate: "2026-03-02", // CVE-2026-3000 published 2026-03-02 (MITRE) — POST-cutoff
+    groundTruth: {
+      mustMention: ["IDExpert", "Windows Logon Agent", "Remote Code Execution", "Changing"],
+      notes:
+        "CVE-2026-3000 is a Remote Code Execution vulnerability in the IDExpert Windows Logon Agent (developed by Changing), allowing unauthenticated remote attackers to force the system to download arbitrary DLLs. Published 2026-03-02, after the Jan-2026 model cutoff.",
+    },
+    urls: {
+      descriptive: "https://nvd.nist.gov/vuln/detail/CVE-2026-3000",
+      semiOpaque: "https://cveawg.mitre.org/api/cve/CVE-2026-3000",
+      opaque: "https://nvd.nist.gov/vuln/detail/CVE-2026-3000",
+      fullContentUrl: "https://nvd.nist.gov/vuln/detail/CVE-2026-3000",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://nvd.nist.gov/vuln/detail/CVE-2026-39999",
+  },
+
+  // ---- arXiv (beyond the existing 6) ----
+  {
+    id: "arxiv-resnet",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2015-12-10", // 1512.03385, verified via arXiv API
+    groundTruth: {
+      mustMention: ["ResNet", "residual", "Deep Residual Learning", "image recognition"],
+      notes:
+        "arXiv 1512.03385 is 'Deep Residual Learning for Image Recognition' (He et al., 2015), introducing ResNet and residual (skip/shortcut) connections that allow training of very deep networks. Correct recall names ResNet / residual learning.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1512.03385",
+      semiOpaque: "https://github.com/KaimingHe/deep-residual-networks",
+      opaque: "https://arxiv.org/abs/1512.03385",
+      fullContentUrl: "https://arxiv.org/abs/1512.03385",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1512.99999",
+  },
+  {
+    id: "arxiv-bert",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2018-10-11", // 1810.04805, verified via arXiv API
+    groundTruth: {
+      mustMention: ["BERT", "bidirectional", "pre-training", "Transformers"],
+      notes:
+        "arXiv 1810.04805 is 'BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding' (Devlin et al., 2018), introducing masked-language-model pretraining of bidirectional Transformers. Correct recall names BERT.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1810.04805",
+      semiOpaque: "https://github.com/google-research/bert",
+      opaque: "https://arxiv.org/abs/1810.04805",
+      fullContentUrl: "https://arxiv.org/abs/1810.04805",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1810.99999",
+  },
+  {
+    id: "arxiv-gan",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2014-06-10", // 1406.2661, verified via arXiv API
+    groundTruth: {
+      mustMention: ["Generative Adversarial Networks", "GAN", "generator", "discriminator"],
+      notes:
+        "arXiv 1406.2661 is 'Generative Adversarial Networks' (Goodfellow et al., 2014), introducing GANs: a generator and discriminator trained adversarially in a minimax game. Correct recall names GANs / generator-discriminator.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1406.2661",
+      semiOpaque: "https://github.com/goodfeli/adversarial",
+      opaque: "https://arxiv.org/abs/1406.2661",
+      fullContentUrl: "https://arxiv.org/abs/1406.2661",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1406.99999",
+  },
+  {
+    id: "arxiv-unet",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2015-05-18", // 1505.04597, verified via arXiv API
+    groundTruth: {
+      mustMention: ["U-Net", "segmentation", "biomedical", "encoder-decoder"],
+      notes:
+        "arXiv 1505.04597 is 'U-Net: Convolutional Networks for Biomedical Image Segmentation' (Ronneberger et al., 2015), introducing the U-shaped encoder-decoder with skip connections for segmentation. Correct recall names U-Net / biomedical segmentation.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1505.04597",
+      semiOpaque: "https://github.com/milesial/Pytorch-UNet",
+      opaque: "https://arxiv.org/abs/1505.04597",
+      fullContentUrl: "https://arxiv.org/abs/1505.04597",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1505.99999",
+  },
+  {
+    id: "arxiv-adam",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2014-12-22", // 1412.6980, verified via arXiv API
+    groundTruth: {
+      mustMention: ["Adam", "stochastic optimization", "adaptive", "moment"],
+      notes:
+        "arXiv 1412.6980 is 'Adam: A Method for Stochastic Optimization' (Kingma & Ba, 2014), introducing the Adam optimizer using adaptive estimates of first and second moments of the gradients. Correct recall names Adam optimizer.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1412.6980",
+      semiOpaque: "https://github.com/pytorch/pytorch",
+      opaque: "https://arxiv.org/abs/1412.6980",
+      fullContentUrl: "https://arxiv.org/abs/1412.6980",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1412.99999",
+  },
+  {
+    id: "arxiv-vgg",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2014-09-04", // 1409.1556, verified via arXiv API
+    groundTruth: {
+      mustMention: ["VGG", "Very Deep Convolutional Networks", "3x3", "large-scale"],
+      notes:
+        "arXiv 1409.1556 is 'Very Deep Convolutional Networks for Large-Scale Image Recognition' (Simonyan & Zisserman, 2014), introducing the VGG networks built from stacks of small 3x3 convolutions. Correct recall names VGG / very deep ConvNets.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1409.1556",
+      semiOpaque: "https://github.com/pytorch/vision",
+      opaque: "https://arxiv.org/abs/1409.1556",
+      fullContentUrl: "https://arxiv.org/abs/1409.1556",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1409.99999",
+  },
+  {
+    id: "arxiv-gpt3",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2020-05-28", // 2005.14165, verified via arXiv API
+    groundTruth: {
+      mustMention: ["GPT-3", "Few-Shot", "Language Models", "175 billion"],
+      notes:
+        "arXiv 2005.14165 is 'Language Models are Few-Shot Learners' (Brown et al., 2020), the GPT-3 paper showing a 175B-parameter LM performs tasks via in-context few-shot prompting without fine-tuning. Correct recall names GPT-3 / few-shot in-context learning.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/2005.14165",
+      semiOpaque: "https://github.com/openai/gpt-3",
+      opaque: "https://arxiv.org/abs/2005.14165",
+      fullContentUrl: "https://arxiv.org/abs/2005.14165",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/2005.99999",
+  },
+  {
+    id: "arxiv-word2vec",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2013-01-16", // 1301.3781, verified via arXiv API
+    groundTruth: {
+      mustMention: ["word2vec", "word representations", "vector space", "skip-gram"],
+      notes:
+        "arXiv 1301.3781 is 'Efficient Estimation of Word Representations in Vector Space' (Mikolov et al., 2013), the word2vec paper introducing the CBOW and skip-gram models for learning word embeddings. Correct recall names word2vec / word embeddings.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1301.3781",
+      semiOpaque: "https://github.com/tmikolov/word2vec",
+      opaque: "https://arxiv.org/abs/1301.3781",
+      fullContentUrl: "https://arxiv.org/abs/1301.3781",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1301.99999",
+  },
+  {
+    id: "arxiv-ppo",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2017-07-20", // 1707.06347, verified via arXiv API
+    groundTruth: {
+      mustMention: ["PPO", "Proximal Policy Optimization", "policy gradient", "clipped"],
+      notes:
+        "arXiv 1707.06347 is 'Proximal Policy Optimization Algorithms' (Schulman et al., 2017), introducing PPO, a policy-gradient RL method using a clipped surrogate objective. Correct recall names PPO / proximal policy optimization.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1707.06347",
+      semiOpaque: "https://github.com/openai/baselines",
+      opaque: "https://arxiv.org/abs/1707.06347",
+      fullContentUrl: "https://arxiv.org/abs/1707.06347",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1707.99999",
+  },
+  {
+    id: "arxiv-knowledge-distillation",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2015-03-09", // 1503.02531, verified via arXiv API
+    groundTruth: {
+      mustMention: ["distillation", "Distilling the Knowledge", "soft targets", "teacher"],
+      notes:
+        "arXiv 1503.02531 is 'Distilling the Knowledge in a Neural Network' (Hinton et al., 2015), introducing knowledge distillation: training a smaller student model on the soft-target outputs (softened logits) of a larger teacher. Correct recall names knowledge distillation / soft targets.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1503.02531",
+      semiOpaque: "https://github.com/peterliht/knowledge-distillation-pytorch",
+      opaque: "https://arxiv.org/abs/1503.02531",
+      fullContentUrl: "https://arxiv.org/abs/1503.02531",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1503.99999",
+  },
+  {
+    id: "arxiv-pate",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2016-10-18", // 1610.05755, verified via arXiv API
+    groundTruth: {
+      mustMention: ["PATE", "private", "teacher", "differential privacy"],
+      notes:
+        "arXiv 1610.05755 is 'Semi-supervised Knowledge Transfer for Deep Learning from Private Training Data' (Papernot et al., 2016), introducing PATE (Private Aggregation of Teacher Ensembles) for differentially private training. Correct recall names PATE / private teacher aggregation.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/1610.05755",
+      semiOpaque: "https://github.com/tensorflow/privacy",
+      opaque: "https://arxiv.org/abs/1610.05755",
+      fullContentUrl: "https://arxiv.org/abs/1610.05755",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/1610.99999",
+  },
+  {
+    id: "arxiv-diffusiongemma-transparency",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2026-06-18", // 2606.20560, verified via arXiv API — POST-cutoff
+    groundTruth: {
+      mustMention: ["DiffusionGemma", "transparency", "reasoning", "latent space"],
+      notes:
+        "arXiv 2606.20560 is 'How Transparent is DiffusionGemma?' (June 2026), examining reasoning transparency in DiffusionGemma, which performs a larger fraction of its computation in a continuous latent space. Published 2026-06-18, after every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/2606.20560",
+      semiOpaque: "https://arxiv.org/abs/2606.20560",
+      opaque: "https://arxiv.org/abs/2606.20560",
+      fullContentUrl: "https://arxiv.org/abs/2606.20560",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/2606.99999",
+  },
+  {
+    id: "arxiv-lie-algebra-attention",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2026-06-18", // 2606.20547, verified via arXiv API — POST-cutoff
+    groundTruth: {
+      mustMention: ["Lie", "group element", "attention", "matrix Lie group"],
+      notes:
+        "arXiv 2606.20547 is 'The Token Is a Group Element: On Lie-Algebra Attention over Matrix Lie Groups' (June 2026), placing each attention token as an element of a matrix Lie group. Published 2026-06-18, after every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/2606.20547",
+      semiOpaque: "https://arxiv.org/abs/2606.20547",
+      opaque: "https://arxiv.org/abs/2606.20547",
+      fullContentUrl: "https://arxiv.org/abs/2606.20547",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/2606.99998",
+  },
+  {
+    id: "arxiv-multitask-bayesian-icl",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the paper at this arXiv id: what is it about and what is its main contribution?",
+    contentDate: "2026-06-18", // 2606.20538, verified via arXiv API — POST-cutoff
+    groundTruth: {
+      mustMention: ["Multi-Task", "Bayesian", "In-Context Learning", "uncertainty"],
+      notes:
+        "arXiv 2606.20538 is 'Multi-Task Bayesian In-Context Learning' (June 2026), on Bayesian predictive inference for in-context learning across tasks (uncertainty quantification, data efficiency). Published 2026-06-18, after every current model's cutoff.",
+    },
+    urls: {
+      descriptive: "https://arxiv.org/abs/2606.20538",
+      semiOpaque: "https://arxiv.org/abs/2606.20538",
+      opaque: "https://arxiv.org/abs/2606.20538",
+      fullContentUrl: "https://arxiv.org/abs/2606.20538",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://arxiv.org/abs/2606.99997",
+  },
+
+  // ---- PMID (PubMed numeric ids, time-monotonic) ----
+  {
+    id: "pmid-11237011-human-genome",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this PubMed id: what is it about and what is its main finding?",
+    contentDate: "2001-02-15", // PMID 11237011, verified via NCBI eutils
+    groundTruth: {
+      mustMention: ["human genome", "sequencing", "Nature", "draft"],
+      notes:
+        "PMID 11237011 is 'Initial sequencing and analysis of the human genome' (Nature, Feb 2001), the International Human Genome Sequencing Consortium's draft human genome. Correct recall names the human genome draft sequence.",
+    },
+    urls: {
+      descriptive: "https://pubmed.ncbi.nlm.nih.gov/11237011/",
+      semiOpaque:
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=11237011&retmode=json",
+      opaque: "https://pubmed.ncbi.nlm.nih.gov/11237011/",
+      fullContentUrl: "https://pubmed.ncbi.nlm.nih.gov/11237011/",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://pubmed.ncbi.nlm.nih.gov/99999999991/",
+  },
+  {
+    id: "pmid-7466396-evolution-cooperation",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the paper at this PubMed id: what is it about and what is its main finding?",
+    contentDate: "1981-03-27", // PMID 7466396, verified via NCBI eutils
+    groundTruth: {
+      mustMention: ["evolution of cooperation", "Axelrod", "reciprocity", "Science"],
+      notes:
+        "PMID 7466396 is 'The evolution of cooperation' (Axelrod & Hamilton, Science, March 1981), on how cooperation can evolve via reciprocity (e.g. tit-for-tat in the iterated prisoner's dilemma). Correct recall names the evolution of cooperation / reciprocity.",
+    },
+    urls: {
+      descriptive: "https://pubmed.ncbi.nlm.nih.gov/7466396/",
+      semiOpaque:
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=7466396&retmode=json",
+      opaque: "https://pubmed.ncbi.nlm.nih.gov/7466396/",
+      fullContentUrl: "https://pubmed.ncbi.nlm.nih.gov/7466396/",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://pubmed.ncbi.nlm.nih.gov/99999999992/",
+  },
+  {
+    id: "pmid-10676951-dlbcl-gene-expression",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the paper at this PubMed id: what is it about and what is its main finding?",
+    contentDate: "2000-02-03", // PMID 10676951, verified via NCBI eutils
+    groundTruth: {
+      mustMention: ["diffuse large B-cell lymphoma", "gene expression", "profiling", "subtypes"],
+      notes:
+        "PMID 10676951 is 'Distinct types of diffuse large B-cell lymphoma identified by gene expression profiling' (Alizadeh et al., Nature, Feb 2000), identifying molecular subtypes (germinal-centre vs activated B-cell-like) of DLBCL. Correct recall names DLBCL gene-expression subtypes.",
+    },
+    urls: {
+      descriptive: "https://pubmed.ncbi.nlm.nih.gov/10676951/",
+      semiOpaque:
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=10676951&retmode=json",
+      opaque: "https://pubmed.ncbi.nlm.nih.gov/10676951/",
+      fullContentUrl: "https://pubmed.ncbi.nlm.nih.gov/10676951/",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://pubmed.ncbi.nlm.nih.gov/99999999993/",
+  },
+  {
+    id: "pmid-28778026-deep-learning-medical-survey",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the paper at this PubMed id: what is it about and what is its main finding?",
+    contentDate: "2017-12", // PMID 28778026, verified via NCBI eutils (pubdate 2017 Dec)
+    groundTruth: {
+      mustMention: ["deep learning", "medical image analysis", "survey", "CNN"],
+      notes:
+        "PMID 28778026 is 'A survey on deep learning in medical image analysis' (Litjens et al., Medical Image Analysis, Dec 2017), reviewing deep-learning (mainly CNN) methods across medical-imaging tasks. Correct recall names the deep-learning medical-imaging survey.",
+    },
+    urls: {
+      descriptive: "https://pubmed.ncbi.nlm.nih.gov/28778026/",
+      semiOpaque:
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=28778026&retmode=json",
+      opaque: "https://pubmed.ncbi.nlm.nih.gov/28778026/",
+      fullContentUrl: "https://pubmed.ncbi.nlm.nih.gov/28778026/",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://pubmed.ncbi.nlm.nih.gov/99999999994/",
+  },
+  {
+    id: "pmid-25592156-hydrogel-immunoprotection",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the paper at this PubMed id: what is it about and what is its main finding?",
+    contentDate: "2015-02-09", // PMID 25592156, verified via NCBI eutils
+    groundTruth: {
+      mustMention: ["hydrogel", "molecular transport", "cellular immunoprotection", "ultrathin"],
+      notes:
+        "PMID 25592156 is 'Characterization of molecular transport in ultrathin hydrogel coatings for cellular immunoprotection' (Biomacromolecules, Feb 2015), on transport through thin hydrogel coatings used to immunoprotect encapsulated cells. Correct recall names the ultrathin hydrogel immunoprotection coating study.",
+    },
+    urls: {
+      descriptive: "https://pubmed.ncbi.nlm.nih.gov/25592156/",
+      semiOpaque:
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=25592156&retmode=json",
+      opaque: "https://pubmed.ncbi.nlm.nih.gov/25592156/",
+      fullContentUrl: "https://pubmed.ncbi.nlm.nih.gov/25592156/",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://pubmed.ncbi.nlm.nih.gov/99999999995/",
+  },
+  {
+    id: "pmid-42224782-crispr-echinococcus",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the paper at this PubMed id: what is it about and what is its main finding?",
+    contentDate: "2026-05-25", // PMID 42224782, verified via NCBI eutils — POST-cutoff
+    groundTruth: {
+      mustMention: ["Echinococcus", "CRISPR", "Cas12a", "RPA"],
+      notes:
+        "PMID 42224782 is 'Rapid multiplex detection of Echinococcus granulosus and Echinococcus multilocularis using a one-pot RPA-assisted CRISPR-Cas12a/Cas13a assay' (Biosens Bioelectron, May 2026). Published 2026-05-25, after every current model's cutoff. Correct recall names the RPA + CRISPR-Cas12a/Cas13a Echinococcus assay.",
+    },
+    urls: {
+      descriptive: "https://pubmed.ncbi.nlm.nih.gov/42224782/",
+      semiOpaque:
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=42224782&retmode=json",
+      opaque: "https://pubmed.ncbi.nlm.nih.gov/42224782/",
+      fullContentUrl: "https://pubmed.ncbi.nlm.nih.gov/42224782/",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://pubmed.ncbi.nlm.nih.gov/99999999996/",
+  },
+
+  // ---- RFC (beyond the existing RFC 9110) ----
+  {
+    id: "rfc-2616-http11",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "1999-05", // RFC 2616 published May 1999 (rfc-editor)
+    groundTruth: {
+      mustMention: ["HTTP/1.1", "Hypertext Transfer Protocol", "method", "status code"],
+      notes:
+        "RFC 2616 is 'Hypertext Transfer Protocol -- HTTP/1.1' (June 1999), the long-canonical HTTP/1.1 spec (later obsoleted by RFC 7230-7235 and then RFC 9110/9112). It defines HTTP methods, status codes, headers, and connection handling. Correct recall names HTTP/1.1.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc2616",
+      semiOpaque: "https://github.com/httpwg/http-core",
+      opaque: "https://datatracker.ietf.org/doc/rfc2616/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc2616",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc26161",
+  },
+  {
+    id: "rfc-8259-json",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "2017-12", // RFC 8259 published December 2017 (rfc-editor)
+    groundTruth: {
+      mustMention: ["JSON", "JavaScript Object Notation", "data interchange", "Internet Standard"],
+      notes:
+        "RFC 8259 is 'The JavaScript Object Notation (JSON) Data Interchange Format' (Dec 2017), the Internet Standard (STD 90) for JSON, obsoleting RFC 7159. It defines JSON grammar: objects, arrays, numbers, strings, true/false/null. Correct recall names JSON.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc8259",
+      semiOpaque: "https://github.com/json/json-spec",
+      opaque: "https://datatracker.ietf.org/doc/rfc8259/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc8259",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc82591",
+  },
+  {
+    id: "rfc-791-ip",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "1981-09", // RFC 791 published September 1981 (rfc-editor)
+    groundTruth: {
+      mustMention: ["Internet Protocol", "IPv4", "datagram", "fragmentation"],
+      notes:
+        "RFC 791 is 'Internet Protocol' (Sept 1981), the foundational IPv4 specification: the IP datagram format, addressing, fragmentation/reassembly, and the connectionless best-effort delivery model. Correct recall names IP / IPv4.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc791",
+      semiOpaque: "https://datatracker.ietf.org/wg/intarea/documents/",
+      opaque: "https://datatracker.ietf.org/doc/rfc791/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc791",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc7911",
+  },
+  {
+    id: "rfc-9114-http3",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "2022-06", // RFC 9114 published June 2022 (rfc-editor)
+    groundTruth: {
+      mustMention: ["HTTP/3", "QUIC", "Hypertext Transfer Protocol", "UDP"],
+      notes:
+        "RFC 9114 is 'HTTP/3' (June 2022), mapping HTTP semantics onto the QUIC transport (over UDP), replacing the TCP+TLS+HTTP/2 stack. Correct recall names HTTP/3 over QUIC.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc9114",
+      semiOpaque: "https://github.com/quicwg/base-drafts",
+      opaque: "https://datatracker.ietf.org/doc/rfc9114/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc9114",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc91141",
+  },
+  {
+    id: "rfc-9293-tcp",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "2022-08", // RFC 9293 published August 2022 (rfc-editor)
+    groundTruth: {
+      mustMention: ["Transmission Control Protocol", "TCP", "three-way handshake", "Internet Standard"],
+      notes:
+        "RFC 9293 is 'Transmission Control Protocol (TCP)' (Aug 2022), the consolidated/updated TCP specification obsoleting RFC 793 (and updates). It defines reliable, ordered, connection-oriented byte-stream transport, the three-way handshake, and flow/congestion control hooks. Correct recall names TCP.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc9293",
+      semiOpaque: "https://datatracker.ietf.org/wg/tcpm/documents/",
+      opaque: "https://datatracker.ietf.org/doc/rfc9293/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc9293",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc92931",
+  },
+  {
+    id: "rfc-1149-avian-carriers",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "1990-04", // RFC 1149 published 1 April 1990 (rfc-editor)
+    groundTruth: {
+      mustMention: ["avian carriers", "IP datagrams", "pigeon", "April 1"],
+      notes:
+        "RFC 1149 is 'A Standard for the Transmission of IP Datagrams on Avian Carriers' (1 April 1990), the joke April Fools RFC specifying IP over carrier pigeons. Correct recall names the avian-carrier (carrier pigeon) IP RFC.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc1149",
+      semiOpaque: "https://datatracker.ietf.org/doc/rfc1149/",
+      opaque: "https://datatracker.ietf.org/doc/rfc1149/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc1149",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc11491",
+  },
+  {
+    id: "rfc-9700-oauth-security-bcp",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "2025-01", // RFC 9700 published January 2025 (rfc-editor)
+    groundTruth: {
+      mustMention: ["OAuth 2.0", "Best Current Practice", "security", "BCP"],
+      notes:
+        "RFC 9700 is 'Best Current Practice for OAuth 2.0 Security' (Jan 2025), consolidating current security guidance/threat mitigations for OAuth 2.0 (e.g. PKCE, redirect-URI handling, token leakage). Correct recall names the OAuth 2.0 Security BCP.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc9700",
+      semiOpaque: "https://datatracker.ietf.org/wg/oauth/documents/",
+      opaque: "https://datatracker.ietf.org/doc/rfc9700/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc9700",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc97001",
+  },
+  {
+    id: "rfc-9701-jwt-oauth-introspection",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall what the RFC at this identifier specifies and summarise its scope.",
+    contentDate: "2025-01", // RFC 9701 published January 2025 (rfc-editor)
+    groundTruth: {
+      mustMention: ["JWT", "OAuth", "token introspection", "JSON Web Token"],
+      notes:
+        "RFC 9701 is 'JSON Web Token (JWT) Response for OAuth Token Introspection' (Jan 2025), defining a JWT-formatted, signed response for the OAuth 2.0 token-introspection endpoint. Correct recall names JWT introspection response for OAuth.",
+    },
+    urls: {
+      descriptive: "https://www.rfc-editor.org/info/rfc9701",
+      semiOpaque: "https://datatracker.ietf.org/wg/oauth/documents/",
+      opaque: "https://datatracker.ietf.org/doc/rfc9701/",
+      fullContentUrl: "https://datatracker.ietf.org/doc/html/rfc9701",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://www.rfc-editor.org/rfc/rfc97011",
+  },
+
+  // ---- Stack Overflow (real verified question ids; opaque numeric) ----
+  {
+    id: "so-11227809-branch-prediction",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask and what is the accepted explanation?",
+    contentDate: "2012-06-27", // SO question 11227809, verified via Stack Exchange API
+    groundTruth: {
+      mustMention: ["branch prediction", "sorted array", "unsorted", "pipeline"],
+      notes:
+        "SO question 11227809 is 'Why is processing a sorted array faster than processing an unsorted array?' (2012, score >27k). The accepted answer attributes it to CPU branch prediction: the sorted data makes a branch highly predictable, avoiding pipeline-flush mispredictions. Correct recall names branch prediction / sorted vs unsorted array.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/11227809",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/11227809?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/11227809",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/11227809?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999991",
+  },
+  {
+    id: "so-111102-javascript-closures",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask and what is the accepted explanation?",
+    contentDate: "2008-09-21", // SO question 111102, verified via Stack Exchange API
+    groundTruth: {
+      mustMention: ["closures", "JavaScript", "scope", "lexical"],
+      notes:
+        "SO question 111102 is 'How do JavaScript closures work?' (2008, score >7k). The canonical answer explains a closure as a function bundled with references to its surrounding lexical scope, so inner functions retain access to outer variables after the outer function returns. Correct recall names JavaScript closures / lexical scope.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/111102",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/111102?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/111102",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/111102?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999992",
+  },
+  {
+    id: "so-1335851-use-strict",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask and what is the accepted explanation?",
+    contentDate: "2009-08-26", // SO question 1335851, verified via Stack Exchange API
+    groundTruth: {
+      mustMention: ["use strict", "strict mode", "JavaScript", "ECMAScript 5"],
+      notes:
+        "SO question 1335851 is 'What does \"use strict\" do in JavaScript, and what is the reasoning behind it?' (2009, score >8k). The answer explains strict mode (ES5): it changes silent errors to throws, forbids some unsafe/deprecated syntax, and disables features. Correct recall names \"use strict\" / strict mode.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/1335851",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/1335851?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/1335851",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/1335851?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999993",
+  },
+  {
+    id: "so-503093-redirect-webpage",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask and what is the accepted explanation?",
+    contentDate: "2009-02-02", // SO question 503093, verified via Stack Exchange API
+    groundTruth: {
+      mustMention: ["redirect", "window.location", "JavaScript", "another webpage"],
+      notes:
+        "SO question 503093 is 'How do I redirect to another webpage?' (2009, score >7k). The accepted answer uses window.location.href / window.location.replace / window.location.assign to navigate. Correct recall names client-side redirect via window.location.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/503093",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/503093?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/503093",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/503093?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999994",
+  },
+  {
+    id: "so-178325-jquery-element-hidden",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask and what is the accepted explanation?",
+    contentDate: "2008-10-07", // SO question 178325, verified via Stack Exchange API
+    groundTruth: {
+      mustMention: ["jQuery", "hidden", ":visible", "is("],
+      notes:
+        "SO question 178325 is 'How do I check if an element is hidden in jQuery?' (2008, score >8k). The accepted answer uses the jQuery :visible / :hidden selectors, e.g. $(el).is(':visible'). Correct recall names jQuery :visible/:hidden / .is(':visible').",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/178325",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/178325?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/178325",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/178325?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999995",
+  },
+  {
+    id: "so-78084814-coredump-file-mapping",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2024-02-29", // SO question 78084814, verified via Stack Exchange API (score 1)
+    groundTruth: {
+      mustMention: ["core dump", "file-backed mapping", "GDB", "path"],
+      notes:
+        "SO question 78084814 is 'How can I set the path of a file-backed mapping for a core dump in GDB?' (Feb 2024, low score; tags debugging/gdb/coredump/cross-compiling). An obscure GDB core-dump file-mapping path question. Correct recall names the GDB core-dump file-backed mapping path question.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/78084814",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/78084814?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/78084814",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/78084814?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999996",
+  },
+  {
+    id: "so-79886234-java25-file-exists",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2026-02-10", // SO question 79886234, verified via Stack Exchange API — POST-cutoff
+    groundTruth: {
+      mustMention: ["Java 25", "File.exists", "empty string", "true"],
+      notes:
+        "SO question 79886234 is 'Why does Java 25's File.exists() method return true for an empty string while File.exists() in prior Java versions returned false?' (Feb 2026; tags java/file-io/java-25). Created 2026-02-10, after every current model's cutoff. Correct recall names the Java 25 File.exists() empty-string behaviour-change question.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/79886234",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/79886234?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/79886234",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/79886234?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999997",
+  },
+  {
+    id: "so-79890462-reinterpret-cast-structs",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2026-02-16", // SO question 79890462, verified via Stack Exchange API — POST-cutoff
+    groundTruth: {
+      mustMention: ["reinterpret_cast", "structs", "same layout", "type-punning"],
+      notes:
+        "SO question 79890462 is '`reinterpret_cast` between unrelated structs with the same layout' (Feb 2026; tags c++/reinterpret-cast/type-punning). Created 2026-02-16, after every current model's cutoff. Correct recall names the C++ reinterpret_cast same-layout / type-punning question.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/79890462",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/79890462?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/79890462",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/79890462?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999998",
+  },
+
+  // ---- DOI (CrossRef / bioRxiv) ----
+  {
+    id: "doi-alphafold-nature",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the work at this DOI: what is it about and what is its main contribution?",
+    contentDate: "2021-07-15", // DOI 10.1038/s41586-021-03819-2, verified via CrossRef
+    groundTruth: {
+      mustMention: ["AlphaFold", "protein structure prediction", "Nature", "DeepMind"],
+      notes:
+        "DOI 10.1038/s41586-021-03819-2 is 'Highly accurate protein structure prediction with AlphaFold' (Jumper et al., Nature, July 2021), the AlphaFold2 method. Correct recall names AlphaFold / protein structure prediction.",
+    },
+    urls: {
+      descriptive: "https://doi.org/10.1038/s41586-021-03819-2",
+      semiOpaque: "https://api.crossref.org/works/10.1038/s41586-021-03819-2",
+      opaque: "https://doi.org/10.1038/s41586-021-03819-2",
+      fullContentUrl: "https://www.nature.com/articles/s41586-021-03819-2",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://doi.org/10.1038/s41586-021-99999-9",
+  },
+  {
+    id: "doi-human-genome-science",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the work at this DOI: what is it about and what is its main contribution?",
+    contentDate: "2001-02-16", // DOI 10.1126/science.1058040, verified via CrossRef
+    groundTruth: {
+      mustMention: ["human genome", "sequence", "Science", "Celera"],
+      notes:
+        "DOI 10.1126/science.1058040 is 'The Sequence of the Human Genome' (Venter et al., Science, Feb 2001), the Celera draft human genome sequence (the companion to the public consortium's Nature paper). Correct recall names the human genome sequence (Celera / Science 2001).",
+    },
+    urls: {
+      descriptive: "https://doi.org/10.1126/science.1058040",
+      semiOpaque: "https://api.crossref.org/works/10.1126/science.1058040",
+      opaque: "https://doi.org/10.1126/science.1058040",
+      fullContentUrl: "https://www.science.org/doi/10.1126/science.1058040",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://doi.org/10.1126/science.99999999",
+  },
+  {
+    id: "doi-deep-learning-nature-review",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the work at this DOI: what is it about and what is its main contribution?",
+    contentDate: "2015-05-27", // DOI 10.1038/nature14539, verified via CrossRef
+    groundTruth: {
+      mustMention: ["deep learning", "Nature", "LeCun", "review"],
+      notes:
+        "DOI 10.1038/nature14539 is 'Deep learning' (LeCun, Bengio & Hinton, Nature, May 2015), the canonical Nature review of deep learning (representation learning, backprop, CNNs, RNNs). Correct recall names the LeCun/Bengio/Hinton deep-learning Nature review.",
+    },
+    urls: {
+      descriptive: "https://doi.org/10.1038/nature14539",
+      semiOpaque: "https://api.crossref.org/works/10.1038/nature14539",
+      opaque: "https://doi.org/10.1038/nature14539",
+      fullContentUrl: "https://www.nature.com/articles/nature14539",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://doi.org/10.1038/nature99999",
+  },
+  {
+    id: "doi-optuna-kdd",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the work at this DOI: what is it about and what is its main contribution?",
+    contentDate: "2019-07-25", // DOI 10.1145/3292500.3330701, verified via CrossRef
+    groundTruth: {
+      mustMention: ["Optuna", "hyperparameter optimization", "KDD", "framework"],
+      notes:
+        "DOI 10.1145/3292500.3330701 is 'Optuna: A Next-generation Hyperparameter Optimization Framework' (Akiba et al., KDD 2019), introducing the Optuna define-by-run hyperparameter-optimization framework. Correct recall names Optuna / hyperparameter optimization.",
+    },
+    urls: {
+      descriptive: "https://doi.org/10.1145/3292500.3330701",
+      semiOpaque: "https://api.crossref.org/works/10.1145/3292500.3330701",
+      opaque: "https://doi.org/10.1145/3292500.3330701",
+      fullContentUrl: "https://dl.acm.org/doi/10.1145/3292500.3330701",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://doi.org/10.1145/3292500.9999999",
+  },
+  {
+    id: "doi-corn-seed-traits-pricing",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the work at this DOI: what is it about and what is its main contribution?",
+    contentDate: "2010-07-19", // DOI 10.1093/ajae/aaq063, verified via CrossRef
+    groundTruth: {
+      mustMention: ["corn seed", "traits", "pricing", "agricultural economics"],
+      notes:
+        "DOI 10.1093/ajae/aaq063 is 'An Analysis of the Pricing of Traits in the U.S. Corn Seed Market' (American Journal of Agricultural Economics, 2010), a hedonic analysis of how genetic/biotech traits are priced in U.S. corn seed. Correct recall names the U.S. corn-seed trait pricing study.",
+    },
+    urls: {
+      descriptive: "https://doi.org/10.1093/ajae/aaq063",
+      semiOpaque: "https://api.crossref.org/works/10.1093/ajae/aaq063",
+      opaque: "https://doi.org/10.1093/ajae/aaq063",
+      fullContentUrl: "https://academic.oup.com/ajae/article-abstract/93/1/151/52924",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://doi.org/10.1093/ajae/aaq999",
+  },
+  {
+    id: "doi-biorxiv-endomesoderm-grn",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the work at this DOI: what is it about and what is its main contribution?",
+    contentDate: "2026-04-01", // DOI 10.64898/2026.03.31.715602, verified via CrossRef — POST-cutoff
+    groundTruth: {
+      mustMention: ["gene regulatory network", "endomesoderm", "bioRxiv", "evolutionary"],
+      notes:
+        "DOI 10.64898/2026.03.31.715602 is a bioRxiv preprint, 'Evolutionary rewiring of an ancient gene regulatory network specifies the endomesoderm' (posted 2026-04-01), on rewiring of the endomesoderm gene regulatory network. Posted after every current model's cutoff. Correct recall names the endomesoderm gene-regulatory-network rewiring preprint.",
+    },
+    urls: {
+      descriptive: "https://doi.org/10.64898/2026.03.31.715602",
+      semiOpaque: "https://api.crossref.org/works/10.64898/2026.03.31.715602",
+      opaque: "https://doi.org/10.64898/2026.03.31.715602",
+      fullContentUrl: "https://www.biorxiv.org/content/10.64898/2026.03.31.715602",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://doi.org/10.64898/2026.03.31.999999",
+  },
+
+  // ---- GitHub commit SHA (the guaranteed-NOT-memorised-by-SHA negative) ----
+  // A 40-hex SHA names nothing; even when the commit is historically famous, the
+  // SHA string itself is not a memorised key. These probe whether url-only can
+  // decode an opaque hash to its content (expected ~0).
+  {
+    id: "gh-sha-linux-initial-git",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2005-04-16", // verified via GitHub API (commit 1da177e..., torvalds/linux)
+    groundTruth: {
+      mustMention: ["Linux", "2.6.12-rc2", "initial", "kernel"],
+      notes:
+        "Commit 1da177e4c3f41524e886b7f1b8a0c1fc7321cac2 in torvalds/linux is 'Linux-2.6.12-rc2' — the initial git import of the Linux kernel tree (April 2005), the root commit of the kernel's git history. Correct recall names the initial Linux kernel git import (2.6.12-rc2).",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2",
+      semiOpaque:
+        "https://api.github.com/repos/torvalds/linux/commits/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2",
+      opaque:
+        "https://github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2",
+      fullContentUrl:
+        "https://api.github.com/repos/torvalds/linux/commits/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/torvalds/linux/commit/0000000000000000000000000000000000000000",
+  },
+  {
+    id: "gh-sha-git-initial-commit",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2005-04-07", // verified via GitHub API (commit e83c516..., git/git)
+    groundTruth: {
+      mustMention: ["git", "information manager from hell", "initial revision", "Torvalds"],
+      notes:
+        "Commit e83c5163316f89bfbde7d9ab23ca2e25604af290 in git/git is 'Initial revision of \"git\", the information manager from hell' (Torvalds, April 2005) — the very first commit of git itself. Correct recall names git's initial 'information manager from hell' commit.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290",
+      semiOpaque:
+        "https://api.github.com/repos/git/git/commits/e83c5163316f89bfbde7d9ab23ca2e25604af290",
+      opaque:
+        "https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290",
+      fullContentUrl:
+        "https://api.github.com/repos/git/git/commits/e83c5163316f89bfbde7d9ab23ca2e25604af290",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/git/git/commit/1111111111111111111111111111111111111111",
+  },
+  {
+    id: "gh-sha-bitcoin-first-commit",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the git commit at this identifier (owner/repo + SHA): what change does it contain?",
+    contentDate: "2009-08-30", // verified via GitHub API (commit 4405b78..., bitcoin/bitcoin)
+    groundTruth: {
+      mustMention: ["Bitcoin", "First commit", "Satoshi", "initial"],
+      notes:
+        "Commit 4405b78d6059e536c36974088a8ed4d9f0f29898 in bitcoin/bitcoin is 'First commit' (Aug 2009) — the initial commit of the Bitcoin reference client (by Satoshi Nakamoto). Correct recall names the initial Bitcoin source commit.",
+    },
+    urls: {
+      descriptive:
+        "https://github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898",
+      semiOpaque:
+        "https://api.github.com/repos/bitcoin/bitcoin/commits/4405b78d6059e536c36974088a8ed4d9f0f29898",
+      opaque:
+        "https://github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898",
+      fullContentUrl:
+        "https://api.github.com/repos/bitcoin/bitcoin/commits/4405b78d6059e536c36974088a8ed4d9f0f29898",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl:
+      "https://github.com/bitcoin/bitcoin/commit/2222222222222222222222222222222222222222",
+  },
+
+  // ---- Hugging Face model ids (semi-descriptive, clean post-cutoff) ----
+  {
+    id: "hf-gemma-4-26b-a4b-it",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the model at this Hugging Face id: what model is it, who released it, and what are its key facts?",
+    contentDate: "2026-03-11", // HF model created 2026-03-11, verified via HF API — POST-cutoff
+    groundTruth: {
+      mustMention: ["Gemma 4", "Google", "instruction-tuned", "mixture-of-experts"],
+      notes:
+        "google/gemma-4-26B-A4B-it is a Google Gemma 4 instruction-tuned model (a 26B mixture-of-experts with ~4B active params, image-text-to-text). Created on Hugging Face 2026-03-11, after every current model's cutoff. Correct recall names Gemma 4 (Google) instruction-tuned MoE.",
+    },
+    urls: {
+      descriptive: "https://huggingface.co/google/gemma-4-26B-A4B-it",
+      semiOpaque: "https://huggingface.co/api/models/google/gemma-4-26B-A4B-it",
+      opaque: "https://huggingface.co/google/gemma-4-26B-A4B-it",
+      fullContentUrl: "https://huggingface.co/google/gemma-4-26B-A4B-it",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://huggingface.co/google/gemma-4-26B-A4B-nonexistent",
+  },
+  {
+    id: "hf-qwen3-5-4b",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the model at this Hugging Face id: what model is it, who released it, and what are its key facts?",
+    contentDate: "2026-02-27", // HF model created 2026-02-27, verified via HF API — POST-cutoff
+    groundTruth: {
+      mustMention: ["Qwen3.5", "Qwen", "Alibaba", "4B"],
+      notes:
+        "Qwen/Qwen3.5-4B is a ~4B-parameter model in Alibaba's Qwen3.5 family (image-text-to-text). Created on Hugging Face 2026-02-27, after every current model's cutoff. Correct recall names Qwen3.5 (Alibaba/Qwen) 4B.",
+    },
+    urls: {
+      descriptive: "https://huggingface.co/Qwen/Qwen3.5-4B",
+      semiOpaque: "https://huggingface.co/api/models/Qwen/Qwen3.5-4B",
+      opaque: "https://huggingface.co/Qwen/Qwen3.5-4B",
+      fullContentUrl: "https://huggingface.co/Qwen/Qwen3.5-4B",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://huggingface.co/Qwen/Qwen3.5-4B-nonexistent",
+  },
+  {
+    id: "hf-qwen3-6-27b",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the model at this Hugging Face id: what model is it, who released it, and what are its key facts?",
+    contentDate: "2026-04-21", // HF model created 2026-04-21, verified via HF API — POST-cutoff
+    groundTruth: {
+      mustMention: ["Qwen3.6", "Qwen", "Alibaba", "27B"],
+      notes:
+        "Qwen/Qwen3.6-27B is a ~27B-parameter model in Alibaba's Qwen3.6 family (image-text-to-text). Created on Hugging Face 2026-04-21, after every current model's cutoff. Correct recall names Qwen3.6 (Alibaba/Qwen) 27B.",
+    },
+    urls: {
+      descriptive: "https://huggingface.co/Qwen/Qwen3.6-27B",
+      semiOpaque: "https://huggingface.co/api/models/Qwen/Qwen3.6-27B",
+      opaque: "https://huggingface.co/Qwen/Qwen3.6-27B",
+      fullContentUrl: "https://huggingface.co/Qwen/Qwen3.6-27B",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://huggingface.co/Qwen/Qwen3.6-27B-nonexistent",
+  },
 ];
 
 // Default pilot selection: a cheaper subset that still spans the cutoff

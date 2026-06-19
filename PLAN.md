@@ -22,13 +22,6 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (2026-06-19, opus corpus-agent) **Balanced opaque-id corpus expansion** — adding
-  ~40-50 NEW `kind:"recall"` items as a popularity × cutoff grid across CVE / arXiv /
-  PMID / RFC / Stack Overflow / DOI / GitHub-SHA / HuggingFace schemes. Every id
-  REAL + VERIFIED via the scheme's API/page (title + date) before adding; adds new
-  top-level `popularity` tag. CORPUS-ONLY: appending to `src/corpus.mjs`, no matrix
-  run (`npm run validate` only). Working around the methodology-review agent's
-  uncommitted changes (touching only the corpus array tail + this file).
 - (2026-06-19, opus agent) Working through the methodology review end-to-end.
   Order: land ALL protocol-changing fixes (B1 temperature/seed, B2 retry-all,
   A3 framing-matched control, A4 opaque-shaped fake control, A2 judge calibration,
@@ -246,6 +239,31 @@ rerun → **A2 / A3 / A4 / B3** (protocol-changing, next cycle) → **C1–C4**
 (code-only, any time).
 
 ### Done
+- (2026-06-19, opus corpus-agent) **Balanced opaque-id corpus expansion landed.**
+  Added **56 NEW `kind:"recall"` items** (corpus now 96 total) as a popularity ×
+  cutoff grid across 8 independent opaque-id schemes, each id REAL + VERIFIED
+  against the scheme's API/page (title + date) BEFORE adding — no guessing.
+  Per scheme: **CVE 8** (NVD/MITRE — Heartbleed/Log4Shell/xz famous, EternalBlue/
+  BlueKeep/Drupalgeddon2 moderate-obscure, 2x 2026-post), **arXiv 14** (beyond the
+  existing 6 — ResNet/BERT/GAN/U-Net/Adam/VGG/GPT-3/word2vec/PPO/distillation
+  famous, PATE moderate, 3x post-2026 verified via export.arxiv.org), **PMID 6**
+  (human-genome/cooperation/DLBCL famous, DL-survey/hydrogel moderate-obscure, 1x
+  2026-post via NCBI eutils), **RFC 8** (HTTP/1.1 2616, JSON 8259, IP 791, HTTP/3
+  9114 famous; TCP 9293, avian-1149 obscure; OAuth-BCP 9700, JWT-9701 recent-2025
+  — via rfc-editor/datatracker), **Stack Overflow 8** (branch-prediction/closures/
+  use-strict famous, redirect/jquery moderate, coredump obscure, 2x 2026-post —
+  all ids verified via Stack Exchange API), **DOI 6** (AlphaFold/human-genome/
+  deep-learning-review famous, Optuna moderate, corn-seed obscure, 1x bioRxiv
+  2026-post — via CrossRef), **GitHub commit SHA 3** (linux/git/bitcoin initial
+  commits — the guaranteed-not-memorised-by-SHA negative, via GitHub API), **HF
+  model ids 3** (gemma-4 / qwen3.5 / qwen3.6, all clean post-cutoff, via HF API).
+  Spread: famous 28 / moderate 10 / obscure 18; pre-2026-01-31 44 / post 12. New
+  top-level `popularity` tag on every added item; targets are name-only-fair (the
+  id IS the content). `npm run validate` → 96 items / 11 conditions / 0 errors /
+  0 warnings. CORPUS-ONLY: matrix NOT run (post-cutoff items left without
+  `expectUnknown` so the score reflects failure-to-recall). Next: run ONLY these
+  56 new items (parallel), and `npm run validate:live` when network is acceptable
+  to confirm the opaque URLs resolve.
 - (2026-06-19, opus agent) **REPORT.md rewritten (A1 largely addressed)** via
   `analyze.mjs`: explicit OPAQUE-vs-descriptive column per condition; headline
   finding by opaque-id TYPE (arXiv/RFC work, ChromeStatus# ≈0) + an all-models-
