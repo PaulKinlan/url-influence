@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Generated: 2026-06-18T23:47:26.989Z
+Generated: 2026-06-19T00:51:25.482Z
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 3868 (judge failures: 3)
+Judged outputs: 4403 (judge failures: 0)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -89,92 +89,92 @@ Knowledge-calibration items and intentional opaque structural controls excluded.
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.75 | 0.15 | 0.81 | 0.91 | 1.00 | 0.87 | 0.99 | 0.47 | 0.00 |
-| post-cutoff | 0.64 | 0.00 | 0.67 | — (n/a) | — (n/a) | 0.76 | 0.69 | 0.37 | 0.00 |
+| pre-cutoff | 0.75 | 0.15 | 0.81 | 0.88 | 0.98 | 0.87 | 0.99 | 0.47 | 0.00 |
+| post-cutoff | 0.64 | 0.00 | 0.67 | 0.78 | 0.75 | 0.76 | 0.69 | 0.37 | 0.00 |
 
 ### Claude Sonnet 4.6 (cutoff 2026-01-31) — 25 pre / 11 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.72 | 0.16 | 0.77 | 0.83 | 0.99 | 0.79 | 0.98 | 0.30 | 0.00 |
-| post-cutoff | 0.67 | 0.00 | 0.54 | — (n/a) | — (n/a) | 0.63 | 0.80 | 0.25 | 0.00 |
+| pre-cutoff | 0.72 | 0.16 | 0.77 | 0.74 | 0.94 | 0.79 | 0.98 | 0.30 | 0.00 |
+| post-cutoff | 0.67 | 0.00 | 0.54 | 0.68 | 0.69 | 0.63 | 0.80 | 0.25 | 0.00 |
 
 ### Claude Opus 4.6 (cutoff 2025-08-31) — 22 pre / 14 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.67 | 0.14 | 0.68 | 0.77 | 1.00 | 0.75 | 0.98 | 0.45 | 0.00 |
-| post-cutoff | 0.65 | 0.00 | 0.61 | — (n/a) | — (n/a) | 0.71 | 0.85 | 0.38 | 0.00 |
+| pre-cutoff | 0.67 | 0.14 | 0.68 | 0.63 | 0.98 | 0.75 | 0.98 | 0.45 | 0.00 |
+| post-cutoff | 0.65 | 0.00 | 0.61 | 0.66 | 0.69 | 0.71 | 0.85 | 0.38 | 0.00 |
 
 ### Claude Sonnet 4.5 (cutoff 2025-07-31) — 21 pre / 15 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.66 | 0.10 | 0.59 | 0.91 | 0.97 | 0.69 | 0.99 | 0.25 | 0.00 |
-| post-cutoff | 0.58 | 0.00 | 0.36 | — (n/a) | — (n/a) | 0.58 | 0.71 | 0.19 | 0.00 |
+| pre-cutoff | 0.66 | 0.10 | 0.59 | 0.70 | 0.79 | 0.69 | 0.99 | 0.25 | 0.00 |
+| post-cutoff | 0.58 | 0.00 | 0.36 | 0.45 | 0.55 | 0.58 | 0.71 | 0.19 | 0.00 |
 
 ### Gemini 3.1 Pro (cutoff 2025-01-31) — 14 pre / 22 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.79 | 0.21 | 0.93 | 0.71 | 0.96 | 0.84 | 0.94 | 0.35 | 0.00 |
-| post-cutoff | 0.42 | 0.00 | 0.19 | — (n/a) | — (n/a) | 0.46 | 0.75 | 0.23 | 0.00 |
+| pre-cutoff | 0.79 | 0.21 | 0.93 | 0.76 | 0.93 | 0.84 | 0.94 | 0.35 | 0.00 |
+| post-cutoff | 0.42 | 0.00 | 0.19 | 0.26 | 0.48 | 0.46 | 0.75 | 0.23 | 0.00 |
 
 ### Gemini 3.5 Flash (cutoff 2025-01-31) — 14 pre / 22 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.78 | 0.29 | 0.64 | 0.48 | 0.95 | 0.89 | 0.96 | 0.19 | 0.00 |
-| post-cutoff | 0.25 | 0.00 | 0.20 | — (n/a) | — (n/a) | 0.45 | 0.83 | 0.12 | 0.00 |
+| pre-cutoff | 0.78 | 0.29 | 0.64 | 0.48 | 0.96 | 0.89 | 0.96 | 0.19 | 0.00 |
+| post-cutoff | 0.25 | 0.00 | 0.20 | 0.16 | 0.45 | 0.45 | 0.83 | 0.12 | 0.00 |
 
 ### GPT-5.5 (cutoff 2025-12-01) — 23 pre / 13 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.77 | 0.22 | 0.78 | 0.88 | 0.93 | 0.97 | 0.98 | 0.32 | 0.00 |
-| post-cutoff | 0.73 | 0.00 | 0.62 | — (n/a) | — (n/a) | 0.84 | 0.91 | 0.23 | 0.00 |
+| pre-cutoff | 0.77 | 0.22 | 0.78 | 0.88 | 0.90 | 0.97 | 0.98 | 0.32 | 0.00 |
+| post-cutoff | 0.73 | 0.00 | 0.62 | 0.72 | 0.71 | 0.84 | 0.91 | 0.23 | 0.00 |
 
 ### GPT-5.2 (cutoff 2025-08-31) — 22 pre / 14 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.69 | 0.09 | 0.53 | 1.00 | 0.99 | 0.60 | 0.98 | 0.13 | 0.00 |
-| post-cutoff | 0.74 | 0.00 | 0.18 | — (n/a) | — (n/a) | 0.63 | 0.90 | 0.09 | 0.00 |
+| pre-cutoff | 0.69 | 0.09 | 0.53 | 0.56 | 0.75 | 0.60 | 0.98 | 0.13 | 0.00 |
+| post-cutoff | 0.74 | 0.00 | 0.18 | 0.27 | 0.43 | 0.63 | 0.90 | 0.09 | 0.00 |
 
 ### GPT-5 (cutoff 2024-09-30) — 13 pre / 23 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.83 | 0.23 | 0.91 | 1.00 | 0.82 | 0.90 | 1.00 | 0.15 | 0.00 |
-| post-cutoff | 0.40 | 0.00 | 0.24 | — (n/a) | — (n/a) | 0.47 | 0.85 | 0.13 | 0.00 |
+| pre-cutoff | 0.83 | 0.23 | 0.91 | 0.83 | 0.85 | 0.90 | 1.00 | 0.15 | 0.00 |
+| post-cutoff | 0.40 | 0.00 | 0.24 | 0.28 | 0.33 | 0.47 | 0.85 | 0.13 | 0.00 |
 
 ### Grok 4.3 (cutoff 2025-12-31) — 24 pre / 12 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.67 | 0.10 | 0.61 | 0.86 | 0.74 | 0.69 | 0.96 | 0.04 | 0.00 |
-| post-cutoff | 0.74 | 0.00 | 0.35 | — (n/a) | — (n/a) | 0.83 | 0.81 | 0.07 | 0.00 |
+| pre-cutoff | 0.67 | 0.10 | 0.61 | 0.59 | 0.65 | 0.69 | 0.96 | 0.04 | 0.00 |
+| post-cutoff | 0.74 | 0.00 | 0.35 | 0.35 | 0.59 | 0.83 | 0.81 | 0.07 | 0.00 |
 
 ### Grok 4 (cutoff 2024-11-30) — 13 pre / 23 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.77 | 0.15 | 0.91 | 0.89 | 0.74 | 0.94 | 0.93 | 0.00 | 0.00 |
-| post-cutoff | 0.62 | 0.00 | 0.33 | — (n/a) | — (n/a) | 0.69 | 0.85 | 0.07 | 0.00 |
+| pre-cutoff | 0.77 | 0.15 | 0.91 | 0.88 | 0.77 | 0.94 | 0.93 | 0.00 | 0.00 |
+| post-cutoff | 0.62 | 0.00 | 0.33 | 0.39 | 0.47 | 0.69 | 0.85 | 0.07 | 0.00 |
 
 ### GLM-5.2 (cutoff 2025-10-31) — 23 pre / 13 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.68 | 0.09 | 0.61 | 0.77 | 0.89 | 0.80 | 0.98 | 0.25 | 0.00 |
-| post-cutoff | 0.58 | 0.00 | 0.53 | — (n/a) | — (n/a) | 0.83 | 0.87 | 0.43 | 0.00 |
+| pre-cutoff | 0.68 | 0.09 | 0.61 | 0.66 | 0.82 | 0.80 | 0.98 | 0.25 | 0.00 |
+| post-cutoff | 0.58 | 0.00 | 0.53 | 0.76 | 0.89 | 0.83 | 0.87 | 0.43 | 0.00 |
 
 ### GLM-5.1 (cutoff 2025-10-31) — 23 pre / 13 post API items
 
 | bucket | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.66 | 0.20 | 0.61 | 1.00 | 0.96 | 0.72 | 0.98 | 0.21 | 0.00 |
-| post-cutoff | 0.69 | 0.00 | 0.46 | — (n/a) | — (n/a) | 0.72 | 0.90 | 0.20 | 0.00 |
+| pre-cutoff | 0.66 | 0.20 | 0.61 | 0.81 | 0.79 | 0.72 | 0.98 | 0.21 | 0.00 |
+| post-cutoff | 0.69 | 0.00 | 0.46 | 0.69 | 0.61 | 0.72 | 0.90 | 0.20 | 0.00 |
 
 ## Knowledge-calibration items: correct-refusal rate per condition
 
@@ -182,19 +182,19 @@ These items (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-i
 
 | Model | name-only | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|
-| Claude Opus 4.8 | 0.75 | 1.00 | 0.47 | — (n/a) | — (n/a) | 0.77 | 0.68 | 0.43 | 0.33 |
-| Claude Sonnet 4.6 | 0.33 | 0.33 | 0.67 | — (n/a) | — (n/a) | 0.98 | 0.32 | 0.70 | 0.00 |
-| Claude Opus 4.6 | 0.68 | 0.33 | 0.70 | — (n/a) | — (n/a) | 0.42 | 0.37 | 0.70 | 0.00 |
-| Claude Sonnet 4.5 | 0.37 | 0.67 | 0.70 | — (n/a) | — (n/a) | 0.63 | 0.07 | 0.70 | 0.00 |
-| Gemini 3.1 Pro | 0.93 | 1.00 | 0.93 | — (n/a) | — (n/a) | 1.00 | 0.10 | 0.70 | 0.00 |
-| Gemini 3.5 Flash | 0.40 | 1.00 | 0.73 | — (n/a) | — (n/a) | 0.57 | 0.32 | 0.47 | 0.00 |
-| GPT-5.5 | 0.77 | 1.00 | 0.33 | — (n/a) | — (n/a) | 0.43 | 0.37 | 0.33 | 0.00 |
-| GPT-5.2 | 0.93 | 1.00 | 0.77 | — (n/a) | — (n/a) | 0.70 | 0.03 | 0.73 | 0.00 |
-| GPT-5 | 0.37 | 1.00 | 1.00 | — (n/a) | — (n/a) | 0.37 | 0.03 | 0.63 | 0.00 |
-| Grok 4.3 | 0.62 | 1.00 | 0.67 | — (n/a) | — (n/a) | 0.70 | 0.10 | 0.95 | 0.00 |
-| Grok 4 | 0.33 | 0.67 | 0.70 | — (n/a) | — (n/a) | 0.33 | 0.10 | 0.87 | 0.00 |
-| GLM-5.2 | 1.00 | 1.00 | 0.67 | — (n/a) | — (n/a) | 0.77 | 0.07 | 0.73 | 0.00 |
-| GLM-5.1 | 0.68 | 0.67 | 0.70 | — (n/a) | — (n/a) | 0.40 | 0.05 | 0.75 | 0.00 |
+| Claude Opus 4.8 | 0.75 | 1.00 | 0.47 | 0.65 | 1.00 | 0.77 | 0.68 | 0.43 | 0.33 |
+| Claude Sonnet 4.6 | 0.33 | 0.33 | 0.67 | 1.00 | 0.85 | 0.98 | 0.32 | 0.70 | 0.00 |
+| Claude Opus 4.6 | 0.68 | 0.33 | 0.70 | 0.10 | 0.20 | 0.42 | 0.37 | 0.70 | 0.00 |
+| Claude Sonnet 4.5 | 0.37 | 0.67 | 0.70 | 0.60 | 1.00 | 0.63 | 0.07 | 0.70 | 0.00 |
+| Gemini 3.1 Pro | 0.93 | 1.00 | 0.93 | 1.00 | 0.95 | 1.00 | 0.10 | 0.70 | 0.00 |
+| Gemini 3.5 Flash | 0.40 | 1.00 | 0.73 | 0.50 | 0.10 | 0.57 | 0.32 | 0.47 | 0.00 |
+| GPT-5.5 | 0.77 | 1.00 | 0.33 | 0.50 | 0.10 | 0.43 | 0.37 | 0.33 | 0.00 |
+| GPT-5.2 | 0.93 | 1.00 | 0.77 | 1.00 | 1.00 | 0.70 | 0.03 | 0.73 | 0.00 |
+| GPT-5 | 0.37 | 1.00 | 1.00 | 1.00 | 0.95 | 0.37 | 0.03 | 0.63 | 0.00 |
+| Grok 4.3 | 0.62 | 1.00 | 0.67 | 1.00 | 1.00 | 0.70 | 0.10 | 0.95 | 0.00 |
+| Grok 4 | 0.33 | 0.67 | 0.70 | 1.00 | 1.00 | 0.33 | 0.10 | 0.87 | 0.00 |
+| GLM-5.2 | 1.00 | 1.00 | 0.67 | 0.57 | 1.00 | 0.77 | 0.07 | 0.73 | 0.00 |
+| GLM-5.1 | 0.68 | 0.67 | 0.70 | 0.40 | 0.80 | 0.40 | 0.05 | 0.75 | 0.00 |
 
 ## All items, mean correctness by condition x model
 
@@ -205,8 +205,8 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 | name-only | 0.73 | 0.68 | 0.68 | 0.62 | 0.60 | 0.46 | 0.76 | 0.73 | 0.55 | 0.69 | 0.66 | 0.68 | 0.68 |
 | url-only | 0.17 | 0.13 | 0.10 | 0.10 | 0.15 | 0.17 | 0.20 | 0.13 | 0.15 | 0.14 | 0.10 | 0.13 | 0.17 |
 | mdn-url-only | 0.75 | 0.70 | 0.66 | 0.52 | 0.52 | 0.41 | 0.70 | 0.44 | 0.52 | 0.55 | 0.57 | 0.60 | 0.58 |
-| spec-url-only | 0.92 | 0.77 | 0.68 | 0.81 | 0.63 | 0.43 | 0.89 | 1.00 | 1.00 | 0.76 | 0.90 | 0.77 | 1.00 |
-| bcd-key-only | 1.00 | 0.99 | 1.00 | 0.97 | 0.97 | 0.96 | 0.93 | 0.99 | 0.84 | 0.77 | 0.77 | 0.90 | 0.97 |
+| spec-url-only | 0.83 | 0.72 | 0.59 | 0.57 | 0.46 | 0.28 | 0.80 | 0.49 | 0.53 | 0.51 | 0.61 | 0.69 | 0.74 |
+| bcd-key-only | 0.91 | 0.86 | 0.84 | 0.71 | 0.67 | 0.63 | 0.81 | 0.64 | 0.55 | 0.66 | 0.61 | 0.86 | 0.73 |
 | url+name | 0.83 | 0.77 | 0.72 | 0.65 | 0.65 | 0.63 | 0.89 | 0.63 | 0.62 | 0.74 | 0.75 | 0.81 | 0.70 |
 | full-content | 0.89 | 0.88 | 0.89 | 0.81 | 0.77 | 0.84 | 0.92 | 0.89 | 0.84 | 0.85 | 0.82 | 0.87 | 0.88 |
 | fake-structural-url | 0.43 | 0.31 | 0.46 | 0.28 | 0.33 | 0.19 | 0.31 | 0.18 | 0.17 | 0.14 | 0.11 | 0.36 | 0.27 |
