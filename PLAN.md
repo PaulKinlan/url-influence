@@ -22,22 +22,37 @@ decisions made, and what we have learned about the URLs and methodology.
 ## Status board
 
 ### In progress
-- (2026-06-19, opus agent) Working through the methodology review end-to-end.
-  Order: land ALL protocol-changing fixes (B1 temperature/seed, B2 retry-all,
-  A3 framing-matched control, A4 opaque-shaped fake control, A2 judge calibration,
-  B4 ceiling extraction) + free items (A5 cutoff granularity, C1-C4 code) FIRST,
-  then ONE clean parallel rerun (avoid per-change reruns). Committing each piece.
-  DONE: providers.mjs (B2 retry-all, B1 temperature/seed where supported, C1
-  VENDORS map; smoke-tested 5 vendors — caught Anthropic temperature-400); A5
-  (mid-month + boundary caveat); A3 `name-framed` (framing-matched baseline) +
-  A4 `fake-opaque-url` (opaque-shaped fake) conditions; B4 better full-content
-  extraction (preserve code, strip chrome). RERUN IN FLIGHT (bn51y9feu, parallel):
-  fills name-framed + fake-opaque-url + re-runs full-content (B4); resume-skips
-  the rest. NOTE: existing cells predate the temperature/seed change (mixed
-  determinism — acceptable; the change is for reproducibility going forward).
-  PENDING after rerun: A2 (cross-vendor judge re-judge), B3 (k-samples subset),
-  C2/C3/C4 (code — delegated). analyze framing-adjusted-lift view (uses
-  name-framed) to add.
+- (none claimed)
+
+### Done (2026-06-19, opus agent — methodology review + new directions)
+- **Methodology review almost fully cleared:** B1 temperature/seed + B2 retry-all
+  + C1 VENDORS map (providers.mjs; caught Anthropic temperature-400 live); A5
+  mid-month cutoff + boundary caveat; A3 `name-framed` + A4 `fake-opaque-url`
+  control conditions; B4 full-content extraction (preserve code/strip chrome);
+  C3 unit tests + `npm test`; C4 scoreMode flag. Protocol RERUN done (5720 cells)
+  — controls STRENGTHEN the headline: framing cost ≈0 (url-only collapse is real,
+  not vaguer framing) and fake-opaque-url ≈0 (opaque SHAPE alone steers nothing).
+- **A2 (partial) + parallel scoring:** judge now told for recall items that
+  "declined/beyond-cutoff without reproducing facts = 0 (no recall)" — fixed the
+  inconsistency that inflated the post-cutoff opaque cell (0.39→0.04 after
+  re-judge). score.mjs parallelized (SCORE_CONCURRENCY, default 8) — re-judges ~8x
+  faster. REPORT.md rewritten: opacity column, per-item/by-id-type tiers,
+  all-models view, worked judge examples, run-data links, provenance header.
+- **Balanced opaque-id grid (Paul):** +56 verified recall items (corpus 96) across
+  CVE/arXiv/PMID/RFC/SO/DOI/GitHub-SHA/HF with popularity tags. Run → opaque-id
+  recall is driven by FAME: famous 0.75 / moderate 0.40 / obscure 0.33; obscure
+  POST collapses to 0.04 (cutoff bites). NB GitHub-SHA negative contaminated
+  (git/linux initial commits ARE memorised) — should use obscure SHAs.
+- **Common Crawl pass (Paul):** cc-check.mjs → results/common-crawl.json (96 items
+  × 6 crawls). CC-present decode 0.46 vs CC-absent 0.21 (confounded w/ fame). Key:
+  StackOverflow 0/9 in CC (blocked) yet decodes 0.35 (other routes); ChromeStatus
+  18/30 in CC yet ~0. → CC presence is a noisy, incomplete covariate; fame/
+  repetition across all routes is the mechanism.
+- **Dashboard source/popularity filter** added. **File-size fix:** transcript
+  gzipped (70→9MB), RUNLOG.md gitignored, dashboard-data clipped (under 100MB).
+- PENDING (lower priority): A2 full (cross-vendor judge), B3 (k-samples variance),
+  C2 (url-resolution dedupe), fix GitHub-SHA negative to obscure commits, optional
+  CC covariate column in report/dashboard, README "opaque spectrum" minor tidy.
 
 ### Next / open
 - DONE (2026-06-19): committed results regenerated for the current protocol —
