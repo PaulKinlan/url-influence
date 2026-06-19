@@ -207,6 +207,17 @@ rerun → **A2 / A3 / A4 / B3** (protocol-changing, next cycle) → **C1–C4**
 (code-only, any time).
 
 ### Done
+- (2026-06-19, opus agent) **REPORT.md rewritten (A1 largely addressed)** via
+  `analyze.mjs`: explicit OPAQUE-vs-descriptive column per condition; headline
+  finding by opaque-id TYPE (arXiv/RFC work, ChromeStatus# ≈0) + an all-models-
+  by-condition table, replacing the misleading averaged lift as the lead (old
+  lift table demoted/labelled bimodal); per-item identifier reference (actual
+  url-only id + type + spec/bcd flags) and per-item results (name vs opaque vs
+  mdn/spec/bcd/full, all-models mean); worked judge examples with the judge's
+  reasoning inline; provenance header (report + data-run dates + linked commit);
+  run-data section linking dashboard/RUNLOG/transcript for per-cell judge
+  inspection. REMAINING from A1: optional sign-test / bootstrap CI on per-item
+  lift. (analysis-only, free.)
 - (2026-06-19, opus agent) **spec/bcd top-up complete + scored** for all 23
   spec/bcd-capable items (parallel runner; then fixed a judge-cache trap where
   score reused stale `skipped` cache for the re-run cells → cleared cache +
