@@ -105,21 +105,20 @@
   <div class="main" id="main"></div>
   <div class="detail" id="detail"></div>
 </div>
-<script src="dashboard-data.js"></script>
 <script>
-// Data is shipped gzipped+base64 in window.__URLINFLUENCE_GZ (keeps the committed
-// file small + file://-openable). Inflate it client-side with DecompressionStream.
+// Data is shipped as dashboard-data.json.gz (a real gzip file). Fetch it and
+// stream it straight through DecompressionStream — no base64, no giant inline
+// string. NB fetch() needs http(s): serve the folder (e.g. `python3 -m
+// http.server` or GitHub Pages), not file://.
 let D, modelSel;
 const $ = (s)=>document.querySelector(s);
 
 async function boot(){
-  document.getElementById("sub").textContent = "decompressing results\u2026";
-  const b64 = window.__URLINFLUENCE_GZ;
-  const bin = atob(b64);
-  const bytes = new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
-  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-  D = JSON.parse(await new Response(stream).text());
+  document.getElementById("sub").textContent = "loading results\u2026";
+  const res = await fetch("dashboard-data.json.gz");
+  if(!res.ok) throw new Error("fetch dashboard-data.json.gz: "+res.status);
+  const stream = res.body.pipeThrough(new DecompressionStream("gzip"));
+  D = await new Response(stream).json();
   init();
 }
 

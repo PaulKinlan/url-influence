@@ -1,33 +1,23 @@
 // Build a standalone interactive dashboard from results/transcript.jsonl.
 //
 // Emits two committed files:
-//   results/dashboard-data.js  - window.__URLINFLUENCE_GZ = "<base64 of gzipped
-//     JSON { meta, items, cells }>". The browser inflates it on boot with
-//     DecompressionStream; inlining (not a fetched .gz) keeps file:// working and
-//     shrinks the committed file ~6-8x.
-//   results/dashboard.html     - vanilla-JS UI (no deps, no server needed):
+//   results/dashboard-data.json.gz - gzipped JSON { meta, items, cells }. The
+//     page fetches it and streams it through DecompressionStream on boot (~6-8x
+//     smaller than raw JSON, well under GitHub's 50MB warning).
+//   results/dashboard.html         - vanilla-JS UI (no deps, no build):
 //     filter by model / condition / pre-vs-post cutoff / item-track / Common
 //     Crawl / pass-fail, an interactive item x condition matrix per model, a live
 //     per-condition mean + lift strip for the current filter, and click-through
 //     to each cell's exact prompt, model output, and the judge's full verdict.
 //
-// Open results/dashboard.html directly in a browser (it loads dashboard-data.js
-// via a relative <script>, so file:// works — no fetch/CORS issue).
+// Serve the results/ folder over http (e.g. `python3 -m http.server` in results/,
+// or GitHub Pages) and open dashboard.html — fetch() of the .gz needs http(s),
+// not file://.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { gzipSync } from "node:zlib";
 import { CORPUS } from "./corpus.mjs";
 import { CONDITION_DEFS, CONDITIONS } from "./conditions.mjs";
-
-// Uint8Array -> base64 without Node Buffer (chunked to stay under arg limits).
-function toBase64(u8) {
-  let bin = "";
-  const CH = 0x8000;
-  for (let i = 0; i < u8.length; i += CH) {
-    bin += String.fromCharCode.apply(null, u8.subarray(i, i + CH));
-  }
-  return btoa(bin);
-}
 
 const PASS_DEFAULT = 0.5;
 
@@ -158,22 +148,17 @@ async function main() {
     cells: slim,
   };
 
-  // Gzip the payload and inline it as base64. The browser inflates it with
-  // DecompressionStream on boot (see HTML). Inlining (vs a fetched .gz) keeps the
-  // dashboard openable directly via file:// — no fetch/CORS. Shrinks the committed
-  // file ~6-8x (well under GitHub's 50MB warning) as the matrix grows.
+  // Write the payload as a real gzip file the page fetches and streams through
+  // DecompressionStream. No base64 inlining (that bloats the page 33%). The
+  // committed binary is ~6-8x smaller than raw JSON.
   const json = JSON.stringify(data);
   const gz = gzipSync(json, { level: 9 }); // accepts a utf8 string directly
-  const b64 = toBase64(gz);
-  await writeFile(
-    "results/dashboard-data.js",
-    "window.__URLINFLUENCE_GZ = " + JSON.stringify(b64) + ";\n",
-  );
+  await writeFile("results/dashboard-data.json.gz", gz);
   await writeFile("results/dashboard.html", HTML);
   console.log(
-    `[dashboard] wrote results/dashboard.html + results/dashboard-data.js ` +
+    `[dashboard] wrote results/dashboard.html + results/dashboard-data.json.gz ` +
       `(${slim.length} cells; json ${(json.length / 1e6).toFixed(1)}MB ` +
-      `-> gz+b64 ${(b64.length / 1e6).toFixed(1)}MB)`,
+      `-> gz ${(gz.length / 1e6).toFixed(1)}MB)`,
   );
 }
 
@@ -284,21 +269,20 @@ const HTML = `<!doctype html>
   <div class="main" id="main"></div>
   <div class="detail" id="detail"></div>
 </div>
-<script src="dashboard-data.js"></script>
 <script>
-// Data is shipped gzipped+base64 in window.__URLINFLUENCE_GZ (keeps the committed
-// file small + file://-openable). Inflate it client-side with DecompressionStream.
+// Data is shipped as dashboard-data.json.gz (a real gzip file). Fetch it and
+// stream it straight through DecompressionStream — no base64, no giant inline
+// string. NB fetch() needs http(s): serve the folder (e.g. \`python3 -m
+// http.server\` or GitHub Pages), not file://.
 let D, modelSel;
 const $ = (s)=>document.querySelector(s);
 
 async function boot(){
-  document.getElementById("sub").textContent = "decompressing results\\u2026";
-  const b64 = window.__URLINFLUENCE_GZ;
-  const bin = atob(b64);
-  const bytes = new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
-  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-  D = JSON.parse(await new Response(stream).text());
+  document.getElementById("sub").textContent = "loading results\\u2026";
+  const res = await fetch("dashboard-data.json.gz");
+  if(!res.ok) throw new Error("fetch dashboard-data.json.gz: "+res.status);
+  const stream = res.body.pipeThrough(new DecompressionStream("gzip"));
+  D = await new Response(stream).json();
   init();
 }
 
