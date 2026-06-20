@@ -1,0 +1,15 @@
+{
+  "note": "raw Common Crawl WARC HTTP-response bodies for these URLs",
+  "saved": {
+    "chromestatus-css-gap-decorations": {
+      "crawl": "CC-MAIN-2025-26",
+      "bytes": 3215,
+      "visible": 22
+    },
+    "arxiv-attention": {
+      "crawl": "CC-MAIN-2026-08",
+      "bytes": 48023,
+      "visible": 5330
+    }
+  }
+}
