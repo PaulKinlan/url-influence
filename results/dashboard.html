@@ -46,6 +46,8 @@
   .close { float:right; background:none; border:1px solid var(--line); color:var(--fg); border-radius:6px; cursor:pointer; padding:3px 9px; }
   .legend { font-size:11px; color:var(--mut); margin-top:6px; }
   .swatch { display:inline-block; width:11px; height:11px; border-radius:3px; vertical-align:-1px; margin:0 3px 0 8px; }
+  .drillhead { margin:2px 0 8px; font-size:13px; }
+  .drillhead .tk { color:var(--mut); font-size:11px; }
 </style>
 </head>
 <body>
@@ -56,6 +58,10 @@
 </header>
 <div class="wrap">
   <div class="controls">
+    <fieldset>
+      <legend>Per-test drill-down</legend>
+      <select id="drilltest"><option value="">— per-model matrix —</option></select>
+    </fieldset>
     <fieldset>
       <legend>Model (matrix)</legend>
       <select id="model"></select>
@@ -143,6 +149,12 @@ function init(){
   });
   $("#pass").value = D.meta.passDefault;
 
+  // Populate the per-test drill-down selector (all items, date-sorted).
+  const drillSel = $("#drilltest");
+  Object.values(D.items)
+    .sort((a,b)=> a.contentDate<b.contentDate?-1:a.contentDate>b.contentDate?1:0)
+    .forEach(it=>{ const o=document.createElement("option"); o.value=it.id; o.textContent=it.id+" ("+it.contentDate+")"; drillSel.appendChild(o); });
+
   // Populate the Source dropdown from the items' schemes (sorted, with counts).
   const srcSel = $("#source");
   const srcCounts = {};
@@ -168,6 +180,7 @@ const cellKeyOf = (c)=> c.model+"|"+c.itemId+"|"+c.condition;
 function serializeState(){
   const p = new URLSearchParams();
   p.set("model", modelSel.value);
+  p.set("test", $("#drilltest").value);
   p.set("source", $("#source").value);
   p.set("pop", $("#popularity").value);
   p.set("cc", getRadio("cc"));
@@ -191,7 +204,7 @@ function applyState(){
   const p = new URLSearchParams(location.hash.replace(/^#/,""));
   const setVal=(sel,key)=>{ if(p.has(key)) $(sel).value=p.get(key); };
   const setRadio=(name,key)=>{ if(p.has(key)){ const el=document.querySelector('input[name="'+name+'"][value="'+CSS.escape(p.get(key))+'"]'); if(el) el.checked=true; } };
-  setVal("#model","model"); setVal("#source","source"); setVal("#popularity","pop"); setVal("#pass","pass");
+  setVal("#model","model"); setVal("#drilltest","test"); setVal("#source","source"); setVal("#popularity","pop"); setVal("#pass","pass");
   setRadio("track","track"); setRadio("opaque","opaque"); setRadio("bucket","bucket"); setRadio("cc","cc");
   if(p.has("fail")) $("#failonly").checked = p.get("fail")==="1";
   if(p.has("conds")){
@@ -257,7 +270,52 @@ function meanBy(cells, cond){
   return v.length? v.reduce((a,b)=>a+b,0)/v.length : null;
 }
 
+// A single matrix cell -> <td>. Shared by the per-model and per-test views.
+function cellTd(cell){
+  if(!cell) return '<td><div class="cellbtn null">·</div></td>';
+  const v=cell.correctness;
+  if(v==null){
+    const lbl=cell.skipped?"n/a":(cell.runError?"err":"—");
+    const title=cell.skipReason||cell.runError||"no score";
+    return '<td><div class="cellbtn null" title="'+esc(title)+'">'+lbl+'</div></td>';
+  }
+  const idx=D.cells.indexOf(cell);
+  return '<td><button class="cellbtn" style="background:'+color(v)+'" data-i="'+idx+'">'+v.toFixed(2)+'</button></td>';
+}
+
+// Per-test drill-down: one item, ALL models side-by-side across conditions.
+function renderDrill(itemId){
+  const it=D.items[itemId];
+  const conds=activeConds();
+  const cellOf=(m,c)=>D.cells.find(x=>x.itemId===itemId&&x.model===m&&x.condition===c);
+  const meanCond=(c)=>{ const v=D.models.map(m=>cellOf(m.key,c)).filter(x=>x&&typeof x.correctness==="number").map(x=>x.correctness); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; };
+  const ccTag=it.cc==="present"?(" · CC "+it.ccN+(it.ccFirstSeen?"/"+it.ccFirstSeen:"")):(it.cc==="absent"?" · not in CC":"");
+  const refusal=it.track==="calibration"?'<span class="refusal">refusal test</span> ':'';
+  let head='<div class="drillhead">'+refusal+'<b>'+itemId+'</b> <span class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+ccTag+' · '+it.contentDate+' · '+it.track+'</span></div>';
+  // per-condition mean ACROSS models for this test
+  let stats='<div class="stats">';
+  ["described","opaque-url","content-only","full-content"].filter(c=>conds.includes(c)).forEach(c=> stats+=stat(c+" (all models)", fmt(meanCond(c))));
+  stats+='</div>';
+  let t='<table><thead><tr><th class="item">model (cutoff)</th>';
+  conds.forEach(c=> t+='<th title="'+(D.meta.conditionNotes[c]||"")+'">'+c+'</th>');
+  t+='</tr></thead><tbody>';
+  const models=[...D.models].sort((a,b)=> a.cutoff<b.cutoff?-1:a.cutoff>b.cutoff?1:0);
+  models.forEach(m=>{
+    const any=cellOf(m.key,conds[0]);
+    const side=any&&any.preCutoff?"pre":"post";
+    t+='<tr><td class="item">'+esc(m.label)+'<div class="tk">cut '+m.cutoff+' · '+side+'-cutoff</div></td>';
+    conds.forEach(c=> t+=cellTd(cellOf(m.key,c)));
+    t+='</tr>';
+  });
+  t+='</tbody></table>';
+  t+='<div class="legend">per-test view: every model on <b>'+esc(itemId)+'</b> side-by-side · click a cell for its prompt, output and judge verdict</div>';
+  $("#main").innerHTML=head+stats+t;
+  document.querySelectorAll(".cellbtn[data-i]").forEach(b=> b.onclick=()=>showDetail(D.cells[+b.dataset.i]));
+}
+
 function render(){
+  const drill=$("#drilltest")?$("#drilltest").value:"";
+  if(drill){ renderDrill(drill); return; }
   const model=modelSel.value;
   const all=filtered();
   const mc=all.filter(c=>c.model===model);
@@ -291,19 +349,7 @@ function render(){
     const ccTag=it.cc==="present"?(" · CC "+it.ccN+(it.ccFirstSeen?"/"+it.ccFirstSeen:"")):(it.cc==="absent"?" · not in CC":"");
     const refusal=it.track==="calibration"?'<span class="refusal" title="Calibration item: the content post-dates every model, so the CORRECT behaviour is to admit it does not know. A green cell here means correctly REFUSED, not correctly produced.">refusal test</span> ':'';
     t+='<tr><td class="item">'+refusal+id+'<div class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+ccTag+' · '+it.contentDate+' · '+side+'-cutoff</div></td>';
-    conds.forEach(c=>{
-      const cell=mc.find(x=>x.itemId===id&&x.condition===c);
-      if(!cell){ t+='<td><div class="cellbtn null">·</div></td>'; return; }
-      const v=cell.correctness;
-      if(v==null){
-        const lbl=cell.skipped?"n/a":(cell.runError?"err":"—");
-        const title=cell.skipReason||cell.runError||"no score";
-        t+='<td><div class="cellbtn null" title="'+esc(title)+'">'+lbl+'</div></td>';
-        return;
-      }
-      const idx=D.cells.indexOf(cell);
-      t+='<td><button class="cellbtn" style="background:'+color(v)+'" data-i="'+idx+'">'+v.toFixed(2)+'</button></td>';
-    });
+    conds.forEach(c=> t+=cellTd(mc.find(x=>x.itemId===id&&x.condition===c)));
     t+='</tr>';
   });
   t+='</tbody></table>';
