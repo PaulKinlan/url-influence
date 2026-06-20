@@ -24,6 +24,25 @@ decisions made, and what we have learned about the URLs and methodology.
 ### In progress
 - (none claimed)
 
+### Done (2026-06-20, opus agent — labels, content-only, refusal markers, opaque-url)
+- **Relabel for accuracy** (Paul): name-only→`described`, name-framed→
+  `described-framed`, url+name→`url+described`, and url-only→`opaque-url`
+  (clearer vs the mdn/spec/bcd probes). All via in-place data migration of
+  raw+cache (rename + condition field), ZERO model calls.
+- **content-only condition added** (Paul) alongside full-content. Answers "is the
+  Task: line too influential?": code content-only 0.73 vs full-content 0.91
+  (task text adds ~0.18); recall 0.86 vs 0.95 (~0.09). opaque-url=0.01 for code
+  confirms the bare pointer does ~nothing; the clean ceiling still towers over it.
+- **Refusal/calibration items flagged in dashboard** (Paul): the 3 expectUnknown
+  items (html-in-canvas, scroll-triggered-animations, arxiv-future-fake-real-id)
+  now show a "refusal test" badge + a detail-panel banner + legend note, so a
+  green cell reads as "correctly declined", not "produced the API".
+- **mdn-url-only gating fix** earlier: only real developer.mozilla.org URLs;
+  recall items reusing their arXiv/DOI link as `descriptive` are now n/a.
+- WATCH: results/scores.json now 51MB (>GitHub 50MB soft warning). Should gzip it
+  and have analyze read the .gz (same pattern as transcript/dashboard-data).
+- Blog: refined aifoc.us post in PR PaulKinlan/aifocus#27 (draft).
+
 ### Done (2026-06-19, opus agent — recall-baseline overhaul RESULTS, 14443 cells)
 - **Descriptive-title recall baseline + url+name/full-content fix shipped & run.**
   Recall opaque-id by popularity (url-only opaque vs name-only descriptive vs
