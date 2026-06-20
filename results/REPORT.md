@@ -1,10 +1,10 @@
 # URL Influence: Results
 
-Report generated: 2026-06-20T21:45:16.916Z
-Data run / scored: 2026-06-20T20:12:09.352Z
-Code + data commit: [`5d999ef76c`](https://github.com/PaulKinlan/url-influence/commit/5d999ef76c6722420d52d18f901bb1436b0430fc)
+Report generated: 2026-06-20T22:25:55.657Z
+Data run / scored: 2026-06-20T22:25:52.922Z
+Code + data commit: [`16a097b1df`](https://github.com/PaulKinlan/url-influence/commit/16a097b1dfe75fcecb479ab8e4bde88383bae69b)
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 12888 (judge failures: 0)
+Judged outputs: 13941 (judge failures: 0)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -82,14 +82,15 @@ The single averaged "lift" below is misleading: the effect is **categorical, not
 | RFC id | 9 | 0.79 | 0.96 |
 | CVE id | 8 | 0.73 | 0.81 |
 | arXiv id | 20 | 0.55 | 0.71 |
-| Stack Overflow # | 8 | 0.26 | 0.75 |
 | DOI | 6 | 0.24 | 0.83 |
 | GitHub commit SHA | 8 | 0.22 | 0.50 |
+| Stack Overflow # | 12 | 0.17 | 0.69 |
 | HuggingFace id | 3 | 0.14 | 0.04 |
 | PubMed id | 6 | 0.07 | 0.82 |
 | control (synthetic, not a real pointer) | 1 | 0.02 | 1.00 |
 | ChromeStatus # | 28 | 0.01 | 0.78 |
 | caniuse | 1 | 0.00 | 0.08 |
+| other | 5 | 0.00 | 1.00 |
 
 **Read:** a bare OPAQUE id works only when it is a *famous, memorised* id (landmark arXiv / RFC). Opaque numeric ids the model never memorised (ChromeStatus #, un-famous Stack Overflow #) decode to ~0 — even for features the model knows cold by name. The canonical web-id probes (`bcd-key-only`, `spec-url-only`) DO work, but they are semi-descriptive (the BCD key / spec path usually contains the feature name), so that is partly a *hint*, not pure opaque retrieval. See the per-item table below.
 
@@ -100,15 +101,15 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 | condition | identifier | mean (all models) |
 |---|---|---|
 | `described` | — (no identifier; baseline) | 0.74 |
-| `described-framed` | — (no id; framing-matched baseline for opaque-url) | 0.72 |
-| `opaque-url` | OPAQUE | 0.31 |
+| `described-framed` | — (no id; framing-matched baseline for opaque-url) | 0.73 |
+| `opaque-url` | OPAQUE | 0.29 |
 | `mdn-url-only` | DESCRIPTIVE | 0.64 |
 | `spec-url-only` | CANONICAL | 0.59 |
 | `bcd-key-only` | CANONICAL, SEMI-DESCRIPTIVE | 0.73 |
 | `url+described` | OPAQUE id + the task described | 0.74 |
 | `full-content` | — (page pasted + task spelled out; max-info ceiling) | 0.94 |
-| `content-only` | — (page pasted, NO task; clean ceiling parallel to opaque-url) | 0.82 |
-| `fake-structural-url` | CONTROL | 0.12 |
+| `content-only` | — (page pasted, NO task; clean ceiling parallel to opaque-url) | 0.84 |
+| `fake-structural-url` | CONTROL | 0.11 |
 | `fake-opaque-url` | CONTROL | 0.00 |
 | `random-url` | CONTROL | 0.00 |
 
@@ -116,8 +117,8 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 
 Two controls test whether the `opaque-url` collapse is real or an artifact:
 
-- **Framing.** `described-framed` puts the plain task description in the SAME "do whatever this describes" wording as `opaque-url`. Framing cost = described-framed − described = **-0.01** (≈0): the framing does NOT explain opaque-url's low score. So the **framing-adjusted lift** (opaque-url − described-framed = **-0.41**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
-- **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.12**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
+- **Framing.** `described-framed` puts the plain task description in the SAME "do whatever this describes" wording as `opaque-url`. Framing cost = described-framed − described = **-0.02** (≈0): the framing does NOT explain opaque-url's low score. So the **framing-adjusted lift** (opaque-url − described-framed = **-0.44**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
+- **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.11**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
 
 ## Per-item identifier reference
 
@@ -132,6 +133,9 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | `pmid-10676951-dlbcl-gene-expression` | 2000-02-03 | `pubmed.ncbi.nlm.nih.gov/10676951/` | PubMed id | — | — | 0 |
 | `pmid-11237011-human-genome` | 2001-02-15 | `pubmed.ncbi.nlm.nih.gov/11237011/` | PubMed id | — | — | 1 (2025-12) |
 | `doi-human-genome-science` | 2001-02-16 | `doi.org/10.1126/science.1058040` | DOI | — | — | 0 |
+| `wiki-curid-photosynthesis` | 2002-01 | `en.wikipedia.org/?curid=24544` | other | — | — | — |
+| `wiki-curid-mitochondrion` | 2002-01 | `en.wikipedia.org/?curid=19588` | other | — | — | — |
+| `wiki-curid-http-404` | 2003-01 | `en.wikipedia.org/?curid=35507` | other | — | — | — |
 | `gh-sha-git-initial-commit` | 2005-04-07 | `github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290` | GitHub commit SHA | — | — | 1 (2025-12) |
 | `gh-sha-linux-initial-git` | 2005-04-16 | `github.com/torvalds/linux/commit/1da177e4c3f41524e886b7f1b8a0c1fc7321cac2` | GitHub commit SHA | — | — | 1 (2025-12) |
 | `so-111102-javascript-closures` | 2008-09-21 | `stackoverflow.com/questions/111102` | Stack Overflow # | — | — | 0 |
@@ -139,10 +143,14 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | `so-503093-redirect-webpage` | 2009-02-02 | `stackoverflow.com/questions/503093` | Stack Overflow # | — | — | 0 |
 | `so-1335851-use-strict` | 2009-08-26 | `stackoverflow.com/questions/1335851` | Stack Overflow # | — | — | 0 |
 | `gh-sha-bitcoin-first-commit` | 2009-08-30 | `github.com/bitcoin/bitcoin/commit/4405b78d6059e536c36974088a8ed4d9f0f29898` | GitHub commit SHA | — | — | 0 |
+| `wiki-curid-bitcoin` | 2010-01 | `en.wikipedia.org/?curid=28249265` | other | — | — | — |
 | `doi-corn-seed-traits-pricing` | 2010-07-19 | `doi.org/10.1093/ajae/aaq063` | DOI | — | — | 0 |
 | `so-11227809-branch-prediction` | 2012-06-27 | `stackoverflow.com/questions/11227809` | Stack Overflow # | — | — | 0 |
 | `arxiv-word2vec` | 2013-01-16 | `arxiv.org/abs/1301.3781` | arXiv id | — | — | 1 (2026-02) |
 | `js-promise` | 2014-01 | `stackoverflow.com/questions/30564053` | control (synthetic, not a real pointer) | Y | Y | 0 |
+| `so-20864486-creditcard-edges-opencv` | 2014-01-01 | `stackoverflow.com/questions/20864486` | Stack Overflow # | — | — | — |
+| `so-20864752-bmp-fxpt2dot30` | 2014-01-01 | `stackoverflow.com/questions/20864752` | Stack Overflow # | — | — | — |
+| `so-20864579-vectorize-matrix-rows` | 2014-01-01 | `stackoverflow.com/questions/20864579` | Stack Overflow # | — | — | — |
 | `cve-2014-0160-heartbleed` | 2014-04-07 | `nvd.nist.gov/vuln/detail/CVE-2014-0160` | CVE id | — | — | 3 (2025-09) |
 | `arxiv-gan` | 2014-06-10 | `arxiv.org/abs/1406.2661` | arXiv id | — | — | 2 (2025-06) |
 | `arxiv-vgg` | 2014-09-04 | `arxiv.org/abs/1409.1556` | arXiv id | — | — | 1 (2026-04) |
@@ -163,6 +171,7 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | `arxiv-ppo` | 2017-07-20 | `arxiv.org/abs/1707.06347` | arXiv id | — | — | 0 |
 | `pmid-28778026-deep-learning-medical-survey` | 2017-12 | `pubmed.ncbi.nlm.nih.gov/28778026/` | PubMed id | — | — | 0 |
 | `rfc-8259-json` | 2017-12 | `datatracker.ietf.org/doc/rfc8259/` | RFC id | — | — | 0 |
+| `wiki-curid-transformer-dl` | 2018-01 | `en.wikipedia.org/?curid=61603971` | other | — | — | — |
 | `cve-2018-7600-drupalgeddon2` | 2018-03-29 | `nvd.nist.gov/vuln/detail/CVE-2018-7600` | CVE id | — | — | 1 (2025-12) |
 | `arxiv-bert` | 2018-10-11 | `arxiv.org/abs/1810.04805` | arXiv id | — | — | 1 (2025-06) |
 | `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | CVE id | — | — | 1 (2026-04) |
@@ -191,6 +200,7 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | `css-shape-function` | 2025-04 | `chromestatus.com/feature/5172258539307008` | ChromeStatus # | Y | Y | 2 (2025-06) |
 | `translator-api` | 2025-06 | `chromestatus.com/feature/5172811302961152` | ChromeStatus # | Y | Y | 3 (2025-06) |
 | `language-detector-api` | 2025-06 | `chromestatus.com/feature/6494349985841152` | ChromeStatus # | Y | Y | 2 (2025-09) |
+| `so-79679150-malloc-never-fails` | 2025-06-25 | `stackoverflow.com/questions/79679150` | Stack Overflow # | — | — | — |
 | `arxiv-kimi-k2` | 2025-07 | `arxiv.org/abs/2507.20534` | arXiv id | — | — | 1 (2026-04) |
 | `corner-shape-squircle` | 2025-08 | `chromestatus.com/feature/5357329815699456` | ChromeStatus # | Y | Y | 1 (2026-05) |
 | `uint8array-base64-hex` | 2025-09 | `chromestatus.com/feature/6281131254874112` | ChromeStatus # | Y | Y | 0 |
@@ -264,6 +274,9 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `opaque
 | `pmid-10676951-dlbcl-gene-expression` | PubMed id | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `pmid-11237011-human-genome` | PubMed id | 1.00 | 0.45 |   -   |   -   |   -   | 1.00 |
 | `doi-human-genome-science` | DOI | 1.00 | 0.38 |   -   |   -   |   -   | 1.00 |
+| `wiki-curid-photosynthesis` | other | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `wiki-curid-mitochondrion` | other | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `wiki-curid-http-404` | other | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `gh-sha-git-initial-commit` | GitHub commit SHA | 0.86 | 0.85 |   -   |   -   |   -   | 0.97 |
 | `gh-sha-linux-initial-git` | GitHub commit SHA | 1.00 | 0.95 |   -   |   -   |   -   | 1.00 |
 | `so-111102-javascript-closures` | Stack Overflow # | 0.95 | 0.15 |   -   |   -   |   -   | 1.00 |
@@ -271,10 +284,14 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `opaque
 | `so-503093-redirect-webpage` | Stack Overflow # | 0.92 | 0.77 |   -   |   -   |   -   | 0.98 |
 | `so-1335851-use-strict` | Stack Overflow # | 1.00 | 0.31 |   -   |   -   |   -   | 0.97 |
 | `gh-sha-bitcoin-first-commit` | GitHub commit SHA | 0.77 | 0.00 |   -   |   -   |   -   | 0.94 |
+| `wiki-curid-bitcoin` | other | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `doi-corn-seed-traits-pricing` | DOI | 0.92 | 0.00 |   -   |   -   |   -   | 0.67 |
 | `so-11227809-branch-prediction` | Stack Overflow # | 0.97 | 0.85 |   -   |   -   |   -   | 1.00 |
 | `arxiv-word2vec` | arXiv id | 1.00 | 0.84 |   -   |   -   |   -   | 0.98 |
 | `js-promise` | control (synthetic, not a real pointer) | 1.00 | 0.02 | 1.00 | 0.53 | 1.00 | 1.00 |
+| `so-20864486-creditcard-edges-opencv` | Stack Overflow # | 0.67 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `so-20864752-bmp-fxpt2dot30` | Stack Overflow # | 0.99 | 0.00 |   -   |   -   |   -   | 0.97 |
+| `so-20864579-vectorize-matrix-rows` | Stack Overflow # | 0.24 | 0.00 |   -   |   -   |   -   | 0.99 |
 | `cve-2014-0160-heartbleed` | CVE id | 1.00 | 0.92 |   -   |   -   |   -   | 1.00 |
 | `arxiv-gan` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `arxiv-vgg` | arXiv id | 1.00 | 0.92 |   -   |   -   |   -   | 1.00 |
@@ -295,6 +312,7 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `opaque
 | `arxiv-ppo` | arXiv id | 1.00 | 0.77 |   -   |   -   |   -   | 1.00 |
 | `pmid-28778026-deep-learning-medical-survey` | PubMed id | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `rfc-8259-json` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `wiki-curid-transformer-dl` | other | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `cve-2018-7600-drupalgeddon2` | CVE id | 1.00 | 0.95 |   -   |   -   |   -   | 1.00 |
 | `arxiv-bert` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `cve-2019-0708-bluekeep` | CVE id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
@@ -323,6 +341,7 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `opaque
 | `css-shape-function` | ChromeStatus # | 0.67 | 0.00 | 0.54 | 0.21 | 0.72 | 0.88 |
 | `translator-api` | ChromeStatus # | 0.34 | 0.00 | 0.35 | 0.42 | 0.60 | 0.87 |
 | `language-detector-api` | ChromeStatus # | 0.47 | 0.00 | 0.49 | 0.32 | 0.67 | 0.96 |
+| `so-79679150-malloc-never-fails` | Stack Overflow # | 0.40 | 0.00 |   -   |   -   |   -   | 0.94 |
 | `arxiv-kimi-k2` | arXiv id | 0.09 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `corner-shape-squircle` | ChromeStatus # | 0.68 | 0.00 | 0.36 | 0.20 | 0.37 | 1.00 |
 | `uint8array-base64-hex` | ChromeStatus # | 1.00 | 0.00 | 0.53 | 0.43 | 0.40 | 1.00 |
@@ -516,16 +535,16 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 
 | Condition | Claude Opus 4.8 (cut 2026-01-31) | Claude Sonnet 4.6 (cut 2026-01-31) | Claude Opus 4.6 (cut 2025-08-31) | Claude Sonnet 4.5 (cut 2025-07-31) | Gemini 3.1 Pro (cut 2025-01-31) | Gemini 3.5 Flash (cut 2025-01-31) | GPT-5.5 (cut 2025-12-01) | GPT-5.2 (cut 2025-08-31) | GPT-5 (cut 2024-09-30) | Grok 4.3 (cut 2025-12-31) | Grok 4 (cut 2024-11-30) | GLM-5.2 (cut 2025-10-31) | GLM-5.1 (cut 2025-10-31) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| described | 0.73 | 0.76 | 0.80 | 0.70 | 0.68 | 0.64 | 0.87 | 0.75 | 0.69 | 0.69 | 0.70 | 0.74 | 0.72 |
-| described-framed | 0.72 | 0.75 | 0.77 | 0.66 | 0.65 | 0.69 | 0.83 | 0.73 | 0.71 | 0.69 | 0.65 | 0.74 | 0.70 |
-| opaque-url | 0.36 | 0.33 | 0.34 | 0.27 | 0.35 | 0.35 | 0.40 | 0.24 | 0.35 | 0.30 | 0.31 | 0.31 | 0.34 |
+| described | 0.73 | 0.76 | 0.81 | 0.71 | 0.69 | 0.66 | 0.87 | 0.77 | 0.70 | 0.69 | 0.71 | 0.75 | 0.73 |
+| described-framed | 0.72 | 0.76 | 0.78 | 0.68 | 0.65 | 0.71 | 0.83 | 0.73 | 0.71 | 0.69 | 0.63 | 0.73 | 0.71 |
+| opaque-url | 0.33 | 0.31 | 0.31 | 0.25 | 0.32 | 0.32 | 0.37 | 0.22 | 0.32 | 0.28 | 0.28 | 0.28 | 0.32 |
 | mdn-url-only | 0.82 | 0.78 | 0.76 | 0.58 | 0.52 | 0.40 | 0.77 | 0.49 | 0.57 | 0.59 | 0.61 | 0.68 | 0.69 |
 | spec-url-only | 0.83 | 0.72 | 0.59 | 0.57 | 0.46 | 0.28 | 0.80 | 0.49 | 0.53 | 0.51 | 0.61 | 0.69 | 0.74 |
 | bcd-key-only | 0.91 | 0.86 | 0.84 | 0.71 | 0.67 | 0.63 | 0.81 | 0.64 | 0.55 | 0.66 | 0.61 | 0.86 | 0.73 |
-| url+described | 0.79 | 0.78 | 0.75 | 0.70 | 0.68 | 0.68 | 0.85 | 0.69 | 0.70 | 0.73 | 0.70 | 0.77 | 0.73 |
-| full-content | 0.90 | 0.93 | 0.93 | 0.88 | 0.88 | 0.90 | 0.94 | 0.91 | 0.91 | 0.92 | 0.90 | 0.92 | 0.91 |
-| content-only | 0.84 | 0.82 | 0.82 | 0.81 | 0.72 | 0.74 | 0.84 | 0.82 | 0.82 | 0.77 | 0.76 | 0.81 | 0.83 |
-| fake-structural-url | 0.21 | 0.14 | 0.19 | 0.13 | 0.14 | 0.10 | 0.16 | 0.08 | 0.08 | 0.11 | 0.06 | 0.17 | 0.13 |
+| url+described | 0.78 | 0.78 | 0.76 | 0.70 | 0.67 | 0.69 | 0.85 | 0.70 | 0.70 | 0.72 | 0.70 | 0.77 | 0.73 |
+| full-content | 0.91 | 0.94 | 0.93 | 0.89 | 0.89 | 0.90 | 0.95 | 0.92 | 0.92 | 0.92 | 0.91 | 0.93 | 0.92 |
+| content-only | 0.85 | 0.83 | 0.84 | 0.83 | 0.73 | 0.76 | 0.86 | 0.84 | 0.84 | 0.79 | 0.78 | 0.83 | 0.85 |
+| fake-structural-url | 0.19 | 0.13 | 0.18 | 0.12 | 0.13 | 0.10 | 0.15 | 0.07 | 0.07 | 0.10 | 0.06 | 0.16 | 0.12 |
 | fake-opaque-url | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 |
 | random-url | 0.01 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 
