@@ -1,10 +1,10 @@
 # URL Influence: Results
 
-Report generated: 2026-06-19T22:51:58.912Z
-Data run / scored: 2026-06-19T22:51:56.552Z
-Code + data commit: [`1f416e3767`](https://github.com/PaulKinlan/url-influence/commit/1f416e3767ca856299455a6823fd1baed9237fd5)
+Report generated: 2026-06-20T19:31:00.297Z
+Data run / scored: 2026-06-20T19:30:58.061Z
+Code + data commit: [`e3b4c3c21a`](https://github.com/PaulKinlan/url-influence/commit/e3b4c3c21a19fabc17d5352e58bb9c4fba1f2b1d)
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 12546 (judge failures: 4)
+Judged outputs: 11585 (judge failures: 0)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -101,7 +101,7 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 | `name-only` | — (no identifier; baseline) | 0.74 |
 | `name-framed` | — (no id; framing-matched baseline for url-only) | 0.72 |
 | `url-only` | OPAQUE | 0.31 |
-| `mdn-url-only` | DESCRIPTIVE | 0.50 |
+| `mdn-url-only` | DESCRIPTIVE | 0.64 |
 | `spec-url-only` | CANONICAL | 0.59 |
 | `bcd-key-only` | CANONICAL, SEMI-DESCRIPTIVE | 0.73 |
 | `url+name` | OPAQUE id + the task name | 0.74 |
@@ -242,104 +242,104 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 
 | item | opaque id type | name | opaque | mdn | spec | bcd | full |
 |---|---|---|---|---|---|---|---|
-| `pmid-7466396-evolution-cooperation` | PubMed id | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `rfc-791-ip` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-1149-avian-carriers` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-2616-http11` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `pmid-10676951-dlbcl-gene-expression` | PubMed id | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `pmid-11237011-human-genome` | PubMed id | 1.00 | 0.45 | 0.45 |   -   |   -   | 1.00 |
-| `doi-human-genome-science` | DOI | 1.00 | 0.38 | 0.46 |   -   |   -   | 1.00 |
-| `gh-sha-git-initial-commit` | GitHub commit SHA | 0.86 | 0.85 | 0.76 |   -   |   -   | 0.97 |
-| `gh-sha-linux-initial-git` | GitHub commit SHA | 1.00 | 0.95 | 0.98 |   -   |   -   | 1.00 |
-| `so-111102-javascript-closures` | Stack Overflow # | 0.95 | 0.15 | 0.23 |   -   |   -   | 1.00 |
-| `so-178325-jquery-element-hidden` | Stack Overflow # | 0.99 | 0.00 | 0.00 |   -   |   -   | 0.75 |
-| `so-503093-redirect-webpage` | Stack Overflow # | 0.92 | 0.77 | 0.77 |   -   |   -   | 0.98 |
-| `so-1335851-use-strict` | Stack Overflow # | 1.00 | 0.31 | 0.15 |   -   |   -   | 0.97 |
-| `gh-sha-bitcoin-first-commit` | GitHub commit SHA | 0.77 | 0.00 | 0.07 |   -   |   -   | 0.94 |
-| `doi-corn-seed-traits-pricing` | DOI | 0.92 | 0.00 | 0.00 |   -   |   -   | 0.67 |
-| `so-11227809-branch-prediction` | Stack Overflow # | 0.97 | 0.85 | 0.72 |   -   |   -   | 1.00 |
-| `arxiv-word2vec` | arXiv id | 1.00 | 0.84 | 0.85 |   -   |   -   | 0.98 |
+| `pmid-7466396-evolution-cooperation` | PubMed id | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-791-ip` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-1149-avian-carriers` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-2616-http11` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `pmid-10676951-dlbcl-gene-expression` | PubMed id | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `pmid-11237011-human-genome` | PubMed id | 1.00 | 0.45 |   -   |   -   |   -   | 1.00 |
+| `doi-human-genome-science` | DOI | 1.00 | 0.38 |   -   |   -   |   -   | 1.00 |
+| `gh-sha-git-initial-commit` | GitHub commit SHA | 0.86 | 0.85 |   -   |   -   |   -   | 0.97 |
+| `gh-sha-linux-initial-git` | GitHub commit SHA | 1.00 | 0.95 |   -   |   -   |   -   | 1.00 |
+| `so-111102-javascript-closures` | Stack Overflow # | 0.95 | 0.15 |   -   |   -   |   -   | 1.00 |
+| `so-178325-jquery-element-hidden` | Stack Overflow # | 0.99 | 0.00 |   -   |   -   |   -   | 0.75 |
+| `so-503093-redirect-webpage` | Stack Overflow # | 0.92 | 0.77 |   -   |   -   |   -   | 0.98 |
+| `so-1335851-use-strict` | Stack Overflow # | 1.00 | 0.31 |   -   |   -   |   -   | 0.97 |
+| `gh-sha-bitcoin-first-commit` | GitHub commit SHA | 0.77 | 0.00 |   -   |   -   |   -   | 0.94 |
+| `doi-corn-seed-traits-pricing` | DOI | 0.92 | 0.00 |   -   |   -   |   -   | 0.67 |
+| `so-11227809-branch-prediction` | Stack Overflow # | 0.97 | 0.85 |   -   |   -   |   -   | 1.00 |
+| `arxiv-word2vec` | arXiv id | 1.00 | 0.84 |   -   |   -   |   -   | 0.98 |
 | `js-promise` | control (synthetic, not a real pointer) | 1.00 | 0.02 | 1.00 | 0.53 | 1.00 | 1.00 |
-| `cve-2014-0160-heartbleed` | CVE id | 1.00 | 0.92 | 0.98 |   -   |   -   | 1.00 |
-| `arxiv-gan` | arXiv id | 1.00 | 1.00 | 0.99 |   -   |   -   | 1.00 |
-| `arxiv-vgg` | arXiv id | 1.00 | 0.92 | 0.92 |   -   |   -   | 1.00 |
-| `arxiv-adam` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2014-0160-heartbleed` | CVE id | 1.00 | 0.92 |   -   |   -   |   -   | 1.00 |
+| `arxiv-gan` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `arxiv-vgg` | arXiv id | 1.00 | 0.92 |   -   |   -   |   -   | 1.00 |
+| `arxiv-adam` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `service-worker` | ChromeStatus # | 1.00 | 0.00 | 0.97 | 0.95 | 0.74 | 1.00 |
-| `pmid-25592156-hydrogel-immunoprotection` | PubMed id | 0.79 | 0.00 | 0.00 |   -   |   -   | 0.96 |
+| `pmid-25592156-hydrogel-immunoprotection` | PubMed id | 0.79 | 0.00 |   -   |   -   |   -   | 0.96 |
 | `fetch-api` | ChromeStatus # | 0.96 | 0.00 | 0.95 | 0.61 | 1.00 | 0.98 |
-| `arxiv-knowledge-distillation` | arXiv id | 1.00 | 0.69 | 0.69 |   -   |   -   | 1.00 |
-| `arxiv-unet` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `doi-deep-learning-nature-review` | DOI | 1.00 | 0.23 | 0.62 |   -   |   -   | 1.00 |
-| `arxiv-resnet` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `arxiv-knowledge-distillation` | arXiv id | 1.00 | 0.69 |   -   |   -   |   -   | 1.00 |
+| `arxiv-unet` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `doi-deep-learning-nature-review` | DOI | 1.00 | 0.23 |   -   |   -   |   -   | 1.00 |
+| `arxiv-resnet` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `intersection-observer` | ChromeStatus # | 1.00 | 0.00 | 0.99 | 1.00 | 0.99 | 0.99 |
 | `async-await` | ChromeStatus # | 0.88 | 0.07 | 0.80 | 0.55 | 0.86 | 0.65 |
-| `arxiv-pate` | arXiv id | 1.00 | 0.08 | 0.08 |   -   |   -   | 1.00 |
+| `arxiv-pate` | arXiv id | 1.00 | 0.08 |   -   |   -   |   -   | 1.00 |
 | `css-grid` | ChromeStatus # | 1.00 | 0.00 | 0.92 | 0.91 | 0.85 | 1.00 |
-| `cve-2017-0144-eternalblue` | CVE id | 1.00 | 1.00 | 1.00 |   -   |   -   | 0.99 |
-| `arxiv-attention` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `arxiv-ppo` | arXiv id | 1.00 | 0.77 | 0.69 |   -   |   -   | 1.00 |
-| `pmid-28778026-deep-learning-medical-survey` | PubMed id | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `rfc-8259-json` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `cve-2018-7600-drupalgeddon2` | CVE id | 1.00 | 0.95 | 1.00 |   -   |   -   | 1.00 |
-| `arxiv-bert` | arXiv id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `cve-2019-0708-bluekeep` | CVE id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `doi-optuna-kdd` | DOI | 1.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `arxiv-gpt3` | arXiv id | 1.00 | 0.92 | 0.92 |   -   |   -   | 1.00 |
-| `gh-sha-obscure-slugify-empty-separator` | GitHub commit SHA | 0.68 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `doi-alphafold-nature` | DOI | 1.00 | 0.82 | 0.79 |   -   |   -   | 1.00 |
-| `cve-2021-44228-log4shell` | CVE id | 1.00 | 1.00 | 0.97 |   -   |   -   | 1.00 |
-| `rfc-9110-http-semantics` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-9114-http3` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
-| `rfc-9293-tcp` | RFC id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `cve-2017-0144-eternalblue` | CVE id | 1.00 | 1.00 |   -   |   -   |   -   | 0.99 |
+| `arxiv-attention` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `arxiv-ppo` | arXiv id | 1.00 | 0.77 |   -   |   -   |   -   | 1.00 |
+| `pmid-28778026-deep-learning-medical-survey` | PubMed id | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-8259-json` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `cve-2018-7600-drupalgeddon2` | CVE id | 1.00 | 0.95 |   -   |   -   |   -   | 1.00 |
+| `arxiv-bert` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `cve-2019-0708-bluekeep` | CVE id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `doi-optuna-kdd` | DOI | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `arxiv-gpt3` | arXiv id | 1.00 | 0.92 |   -   |   -   |   -   | 1.00 |
+| `gh-sha-obscure-slugify-empty-separator` | GitHub commit SHA | 0.68 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `doi-alphafold-nature` | DOI | 1.00 | 0.82 |   -   |   -   |   -   | 1.00 |
+| `cve-2021-44228-log4shell` | CVE id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-9110-http-semantics` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-9114-http3` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
+| `rfc-9293-tcp` | RFC id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `fedcm` | ChromeStatus # | 1.00 | 0.00 | 0.87 | 0.95 | 1.00 | 1.00 |
 | `view-transitions` | ChromeStatus # | 0.98 | 0.08 | 0.94 | 0.90 | 0.97 | 0.90 |
-| `arxiv-mamba` | arXiv id | 1.00 | 0.46 | 0.38 |   -   |   -   | 1.00 |
-| `so-78084814-coredump-file-mapping` | Stack Overflow # | 0.54 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `cve-2024-3094-xz-backdoor` | CVE id | 1.00 | 1.00 | 1.00 |   -   |   -   | 1.00 |
+| `arxiv-mamba` | arXiv id | 1.00 | 0.46 |   -   |   -   |   -   | 1.00 |
+| `so-78084814-coredump-file-mapping` | Stack Overflow # | 0.54 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `cve-2024-3094-xz-backdoor` | CVE id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `popover-api` | ChromeStatus # | 0.96 | 0.15 | 0.97 | 0.92 | 0.95 | 0.92 |
 | `css-anchor-positioning` | ChromeStatus # | 0.98 | 0.08 | 0.93 | 0.81 | 0.94 | 0.97 |
 | `view-transitions-cross-doc` | ChromeStatus # | 0.96 | 0.00 | 0.88 | 0.77 | 0.89 | 0.91 |
-| `arxiv-deepseek-r1` | arXiv id | 0.77 | 0.28 | 0.15 |   -   |   -   | 1.00 |
-| `rfc-9700-oauth-security-bcp` | RFC id | 0.91 | 0.15 | 0.13 |   -   |   -   | 1.00 |
-| `rfc-9701-jwt-oauth-introspection` | RFC id | 0.75 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-deepseek-r1` | arXiv id | 0.77 | 0.28 |   -   |   -   |   -   | 1.00 |
+| `rfc-9700-oauth-security-bcp` | RFC id | 0.91 | 0.15 |   -   |   -   |   -   | 1.00 |
+| `rfc-9701-jwt-oauth-introspection` | RFC id | 0.75 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `css-scroll-state-container-queries` | ChromeStatus # | 0.80 | 0.00 | 0.00 | 0.55 | 0.58 | 0.90 |
-| `arxiv-gemma-3` | arXiv id | 0.29 | 0.00 | 0.00 |   -   |   -   | 0.99 |
+| `arxiv-gemma-3` | arXiv id | 0.29 | 0.00 |   -   |   -   |   -   | 0.99 |
 | `customizable-select` | ChromeStatus # | 0.77 | 0.00 | 0.38 | 0.25 | 0.47 | 0.87 |
 | `css-shape-function` | ChromeStatus # | 0.67 | 0.00 | 0.54 | 0.21 | 0.72 | 0.88 |
 | `translator-api` | ChromeStatus # | 0.34 | 0.00 | 0.35 | 0.42 | 0.60 | 0.87 |
 | `language-detector-api` | ChromeStatus # | 0.47 | 0.00 | 0.49 | 0.32 | 0.67 | 0.96 |
-| `arxiv-kimi-k2` | arXiv id | 0.09 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-kimi-k2` | arXiv id | 0.09 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `corner-shape-squircle` | ChromeStatus # | 0.68 | 0.00 | 0.36 | 0.20 | 0.37 | 1.00 |
 | `uint8array-base64-hex` | ChromeStatus # | 1.00 | 0.00 | 0.53 | 0.43 | 0.40 | 1.00 |
-| `gh-sha-obscure-slugify-transliterate` | GitHub commit SHA | 0.15 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `arxiv-gpt5-system-card` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `gh-sha-obscure-slugify-transliterate` | GitHub commit SHA | 0.15 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `arxiv-gpt5-system-card` | arXiv id | 0.00 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `temporal-api` | ChromeStatus # | 0.93 | 0.00 | 0.92 | 0.93 | 0.97 | 1.00 |
-| `gh-sha-obscure-execa-prototype-pollution` | GitHub commit SHA | 0.10 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `gh-sha-obscure-execa-prototype-pollution` | GitHub commit SHA | 0.10 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `text-justify-css-property` | ChromeStatus # | 0.97 | 0.00 | 1.00 | 0.97 | 1.00 | 0.99 |
-| `so-79886234-java25-file-exists` | Stack Overflow # | 0.13 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `so-79890462-reinterpret-cast-structs` | Stack Overflow # | 0.46 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `cve-2026-25000-wheel-of-life` | CVE id | 0.34 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `hf-qwen3-5-4b` | HuggingFace id | 0.00 | 0.18 | 0.18 |   -   |   -   | 0.68 |
+| `so-79886234-java25-file-exists` | Stack Overflow # | 0.13 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `so-79890462-reinterpret-cast-structs` | Stack Overflow # | 0.46 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `cve-2026-25000-wheel-of-life` | CVE id | 0.34 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `hf-qwen3-5-4b` | HuggingFace id | 0.00 | 0.18 |   -   |   -   |   -   | 0.68 |
 | `css-text-indent-hanging` | ChromeStatus # | 0.88 | 0.00 | 0.77 | 0.78 | 0.73 | 1.00 |
 | `named-feature-supports` | ChromeStatus # | 0.20 | 0.00 | 0.00 | 0.00 |   -   | 0.95 |
-| `cve-2026-3000-idexpert-rce` | CVE id | 0.17 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `hf-gemma-4-26b-a4b-it` | HuggingFace id | 0.11 | 0.15 | 0.15 |   -   |   -   | 0.58 |
-| `element-scoped-view-transitions` | ChromeStatus # | 0.75 | 0.00 | 0.40 | 0.53 | 0.85 | 0.95 |
+| `cve-2026-3000-idexpert-rce` | CVE id | 0.17 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `hf-gemma-4-26b-a4b-it` | HuggingFace id | 0.11 | 0.15 |   -   |   -   |   -   | 0.58 |
+| `element-scoped-view-transitions` | ChromeStatus # | 0.75 | 0.00 |   -   | 0.53 | 0.85 | 0.95 |
 | `math-sumprecise` | ChromeStatus # | 0.77 | 0.00 | 0.48 | 0.47 | 0.82 | 0.93 |
 | `gamepad-event-driven-input` | ChromeStatus # | 0.00 | 0.00 | 0.00 |   -   |   -   | 0.00 |
-| `doi-biorxiv-endomesoderm-grn` | DOI | 0.07 | 0.00 | 0.00 |   -   |   -   | 0.18 |
-| `gh-sha-obscure-ky-searchparams` | GitHub commit SHA | 0.08 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `hf-qwen3-6-27b` | HuggingFace id | 0.00 | 0.09 | 0.12 |   -   |   -   | 0.72 |
-| `prompt-api-shape` | ChromeStatus # | 0.15 | 0.00 | 0.38 | 0.38 | 0.40 | 0.84 |
+| `doi-biorxiv-endomesoderm-grn` | DOI | 0.07 | 0.00 |   -   |   -   |   -   | 0.18 |
+| `gh-sha-obscure-ky-searchparams` | GitHub commit SHA | 0.08 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `hf-qwen3-6-27b` | HuggingFace id | 0.00 | 0.09 |   -   |   -   |   -   | 0.72 |
+| `prompt-api-shape` | ChromeStatus # | 0.15 | 0.00 |   -   | 0.38 | 0.40 | 0.84 |
 | `text-decoration-skip-ink-all` | ChromeStatus # | 0.92 | 0.00 | 0.73 | 0.92 | 0.95 | 1.00 |
-| `pmid-42224782-crispr-echinococcus` | PubMed id | 0.15 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `pmid-42224782-crispr-echinococcus` | PubMed id | 0.15 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `baseline-has-status` | caniuse | 0.08 | 0.00 | 0.00 | 0.00 | 0.00 | 0.04 |
-| `css-gap-decorations` | ChromeStatus # | 0.75 | 0.00 | 0.56 | 0.53 | 0.53 | 0.88 |
+| `css-gap-decorations` | ChromeStatus # | 0.75 | 0.00 |   -   | 0.53 | 0.53 | 0.88 |
 | `css-image-color-function` | ChromeStatus # | 0.96 | 0.00 | 0.36 | 0.33 | 0.10 | 0.97 |
-| `arxiv-diffusiongemma-transparency` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `arxiv-lie-algebra-attention` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `arxiv-multitask-bayesian-icl` | arXiv id | 0.00 | 0.00 | 0.00 |   -   |   -   | 1.00 |
-| `gh-sha-obscure-hono-bun-native` | GitHub commit SHA | 0.33 | 0.00 | 0.00 |   -   |   -   | 1.00 |
+| `arxiv-diffusiongemma-transparency` | arXiv id | 0.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `arxiv-lie-algebra-attention` | arXiv id | 0.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `arxiv-multitask-bayesian-icl` | arXiv id | 0.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `gh-sha-obscure-hono-bun-native` | GitHub commit SHA | 0.33 | 0.00 |   -   |   -   |   -   | 1.00 |
 
 ## Worked judge examples — how cells were scored
 
@@ -389,91 +389,91 @@ Knowledge-calibration items and intentional opaque structural controls excluded.
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.99 | 0.98 | 0.00 | 0.92 | 0.88 | 0.98 | 0.99 | 0.98 | 0.65 | 0.00 | 0.00 |
-| post-cutoff | 0.65 | 0.63 | 0.17 | 0.65 | 0.82 | 0.89 | 0.72 | 0.70 | 0.37 | 0.17 | 0.08 |
+| post-cutoff | 0.65 | 0.63 | 0.17 | 0.66 | 0.82 | 0.89 | 0.72 | 0.70 | 0.37 | 0.17 | 0.08 |
 
 ### Claude Sonnet 4.6 (cutoff 2026-01-31) — 18 pre / 12 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.94 | 0.86 | 0.00 | 0.84 | 0.74 | 0.94 | 0.88 | 0.97 | 0.41 | 0.00 | 0.00 |
-| post-cutoff | 0.57 | 0.67 | 0.00 | 0.58 | 0.80 | 0.78 | 0.66 | 0.75 | 0.32 | 0.17 | 0.00 |
+| post-cutoff | 0.57 | 0.67 | 0.00 | 0.71 | 0.80 | 0.78 | 0.66 | 0.75 | 0.32 | 0.17 | 0.00 |
 
 ### Claude Opus 4.6 (cutoff 2025-08-31) — 16 pre / 14 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.86 | 0.86 | 0.00 | 0.80 | 0.63 | 0.98 | 0.84 | 0.97 | 0.62 | 0.00 | 0.00 |
-| post-cutoff | 0.71 | 0.63 | 0.00 | 0.69 | 0.63 | 0.70 | 0.66 | 0.76 | 0.46 | 0.14 | 0.00 |
+| post-cutoff | 0.71 | 0.63 | 0.00 | 0.73 | 0.63 | 0.70 | 0.66 | 0.76 | 0.46 | 0.14 | 0.00 |
 
 ### Claude Sonnet 4.5 (cutoff 2025-07-31) — 15 pre / 15 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.86 | 0.83 | 0.00 | 0.69 | 0.70 | 0.79 | 0.83 | 0.91 | 0.35 | 0.00 | 0.00 |
-| post-cutoff | 0.57 | 0.37 | 0.07 | 0.43 | 0.51 | 0.64 | 0.60 | 0.70 | 0.26 | 0.13 | 0.00 |
+| post-cutoff | 0.57 | 0.37 | 0.07 | 0.42 | 0.51 | 0.64 | 0.60 | 0.70 | 0.26 | 0.13 | 0.00 |
 
 ### Gemini 3.1 Pro (cutoff 2025-01-31) — 10 pre / 20 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 1.00 | 0.97 | 0.00 | 0.91 | 0.76 | 0.93 | 0.80 | 0.86 | 0.49 | 0.00 | 0.00 |
-| post-cutoff | 0.53 | 0.46 | 0.10 | 0.30 | 0.35 | 0.54 | 0.56 | 0.78 | 0.31 | 0.10 | 0.00 |
+| post-cutoff | 0.53 | 0.46 | 0.10 | 0.27 | 0.35 | 0.54 | 0.56 | 0.78 | 0.31 | 0.10 | 0.00 |
 
 ### Gemini 3.5 Flash (cutoff 2025-01-31) — 10 pre / 20 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.99 | 0.98 | 0.00 | 0.59 | 0.48 | 0.96 | 0.85 | 0.88 | 0.26 | 0.00 | 0.00 |
-| post-cutoff | 0.29 | 0.42 | 0.10 | 0.29 | 0.20 | 0.45 | 0.47 | 0.75 | 0.15 | 0.10 | 0.00 |
+| post-cutoff | 0.29 | 0.42 | 0.10 | 0.25 | 0.20 | 0.45 | 0.47 | 0.75 | 0.15 | 0.10 | 0.00 |
 
 ### GPT-5.5 (cutoff 2025-12-01) — 17 pre / 13 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.98 | 0.98 | 0.12 | 0.87 | 0.88 | 0.90 | 0.96 | 0.98 | 0.43 | 0.00 | 0.00 |
-| post-cutoff | 0.79 | 0.70 | 0.15 | 0.62 | 0.74 | 0.72 | 0.79 | 0.78 | 0.23 | 0.15 | 0.00 |
+| post-cutoff | 0.79 | 0.70 | 0.15 | 0.63 | 0.74 | 0.72 | 0.79 | 0.78 | 0.23 | 0.15 | 0.00 |
 
 ### GPT-5.2 (cutoff 2025-08-31) — 16 pre / 14 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.89 | 0.86 | 0.00 | 0.60 | 0.56 | 0.75 | 0.70 | 0.97 | 0.18 | 0.00 | 0.00 |
-| post-cutoff | 0.80 | 0.58 | 0.14 | 0.27 | 0.41 | 0.52 | 0.71 | 0.76 | 0.18 | 0.14 | 0.00 |
+| post-cutoff | 0.80 | 0.58 | 0.14 | 0.28 | 0.41 | 0.52 | 0.71 | 0.76 | 0.18 | 0.14 | 0.00 |
 
 ### GPT-5 (cutoff 2024-09-30) — 10 pre / 20 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.98 | 0.94 | 0.00 | 0.98 | 0.83 | 0.85 | 0.88 | 0.89 | 0.20 | 0.00 | 0.00 |
-| post-cutoff | 0.41 | 0.46 | 0.10 | 0.34 | 0.37 | 0.38 | 0.51 | 0.78 | 0.20 | 0.10 | 0.00 |
+| post-cutoff | 0.41 | 0.46 | 0.10 | 0.30 | 0.37 | 0.38 | 0.51 | 0.78 | 0.20 | 0.10 | 0.00 |
 
 ### Grok 4.3 (cutoff 2025-12-31) — 17 pre / 13 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.89 | 0.89 | 0.02 | 0.75 | 0.59 | 0.65 | 0.86 | 0.93 | 0.06 | 0.00 | 0.00 |
-| post-cutoff | 0.67 | 0.68 | 0.15 | 0.40 | 0.49 | 0.70 | 0.78 | 0.77 | 0.21 | 0.15 | 0.00 |
+| post-cutoff | 0.67 | 0.68 | 0.15 | 0.29 | 0.49 | 0.70 | 0.78 | 0.77 | 0.21 | 0.15 | 0.00 |
 
 ### Grok 4 (cutoff 2024-11-30) — 10 pre / 20 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.91 | 0.88 | 0.00 | 0.98 | 0.88 | 0.77 | 0.92 | 0.94 | 0.00 | 0.00 | 0.00 |
-| post-cutoff | 0.67 | 0.64 | 0.05 | 0.44 | 0.48 | 0.53 | 0.74 | 0.78 | 0.16 | 0.10 | 0.00 |
+| post-cutoff | 0.67 | 0.64 | 0.05 | 0.38 | 0.48 | 0.53 | 0.74 | 0.78 | 0.16 | 0.10 | 0.00 |
 
 ### GLM-5.2 (cutoff 2025-10-31) — 17 pre / 13 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.86 | 0.76 | 0.00 | 0.71 | 0.66 | 0.82 | 0.91 | 0.97 | 0.33 | 0.00 | 0.00 |
-| post-cutoff | 0.69 | 0.78 | 0.15 | 0.61 | 0.80 | 0.99 | 0.85 | 0.81 | 0.52 | 0.15 | 0.00 |
+| post-cutoff | 0.69 | 0.78 | 0.15 | 0.65 | 0.80 | 0.99 | 0.85 | 0.81 | 0.52 | 0.15 | 0.00 |
 
 ### GLM-5.1 (cutoff 2025-10-31) — 17 pre / 13 post API items
 
 | bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | pre-cutoff | 0.84 | 0.81 | 0.15 | 0.70 | 0.81 | 0.79 | 0.86 | 0.96 | 0.28 | 0.00 | 0.00 |
-| post-cutoff | 0.70 | 0.54 | 0.08 | 0.55 | 0.70 | 0.69 | 0.65 | 0.76 | 0.30 | 0.15 | 0.00 |
+| post-cutoff | 0.70 | 0.54 | 0.08 | 0.71 | 0.70 | 0.69 | 0.65 | 0.76 | 0.30 | 0.15 | 0.00 |
 
 ## Knowledge-calibration items: correct-refusal rate per condition
 
@@ -481,19 +481,19 @@ These items (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-i
 
 | Model | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Claude Opus 4.8 | 0.63 | 0.25 | 1.00 | 0.47 | 0.65 | 1.00 | 0.77 | 0.42 | 0.43 | 1.00 | 0.33 |
-| Claude Sonnet 4.6 | 0.00 | 0.50 | 0.33 | 0.67 | 1.00 | 0.85 | 0.98 | 0.03 | 0.70 | 1.00 | 0.00 |
-| Claude Opus 4.6 | 0.53 | 0.00 | 0.33 | 0.70 | 0.10 | 0.20 | 0.42 | 0.00 | 0.70 | 1.00 | 0.00 |
-| Claude Sonnet 4.5 | 0.05 | 0.00 | 0.67 | 0.70 | 0.60 | 1.00 | 0.63 | 0.00 | 0.70 | 1.00 | 0.00 |
-| Gemini 3.1 Pro | 0.90 | 0.97 | 1.00 | 0.93 | 1.00 | 0.95 | 1.00 | 0.32 | 0.70 | 1.00 | 0.00 |
-| Gemini 3.5 Flash | 0.10 | 0.15 | 1.00 | 0.73 | 0.50 | 0.10 | 0.57 | 0.03 | 0.47 | 1.00 | 0.00 |
-| GPT-5.5 | 0.65 | 0.10 | 1.00 | 0.33 | 0.50 | 0.10 | 0.43 | 0.05 | 0.33 | 1.00 | 0.00 |
-| GPT-5.2 | 0.90 | 0.05 | 1.00 | 0.77 | 1.00 | 1.00 | 0.70 | 0.03 | 0.73 | 1.00 | 0.00 |
-| GPT-5 | 0.05 | 0.47 | 1.00 | 1.00 | 1.00 | 0.95 | 0.37 | 0.00 | 0.63 | 1.00 | 0.00 |
-| Grok 4.3 | 0.42 | 0.50 | 1.00 | 0.67 | 1.00 | 1.00 | 0.70 | 0.07 | 0.95 | 1.00 | 0.00 |
-| Grok 4 | 0.00 | 0.05 | 0.67 | 0.70 | 1.00 | 1.00 | 0.33 | 0.07 | 0.87 | 1.00 | 0.00 |
-| GLM-5.2 | 1.00 | 0.55 | 1.00 | 0.67 | 0.57 | 1.00 | 0.77 | 0.32 | 0.73 | 1.00 | 0.00 |
-| GLM-5.1 | 0.53 | 0.05 | 0.67 | 0.70 | 0.40 | 0.80 | 0.40 | 0.00 | 0.75 | 1.00 | 0.00 |
+| Claude Opus 4.8 | 0.63 | 0.25 | 1.00 | — (n/a) | 0.65 | 1.00 | 0.77 | 0.42 | 0.43 | 1.00 | 0.33 |
+| Claude Sonnet 4.6 | 0.00 | 0.50 | 0.33 | — (n/a) | 1.00 | 0.85 | 0.98 | 0.03 | 0.70 | 1.00 | 0.00 |
+| Claude Opus 4.6 | 0.53 | 0.00 | 0.33 | — (n/a) | 0.10 | 0.20 | 0.42 | 0.00 | 0.70 | 1.00 | 0.00 |
+| Claude Sonnet 4.5 | 0.05 | 0.00 | 0.67 | — (n/a) | 0.60 | 1.00 | 0.63 | 0.00 | 0.70 | 1.00 | 0.00 |
+| Gemini 3.1 Pro | 0.90 | 0.97 | 1.00 | — (n/a) | 1.00 | 0.95 | 1.00 | 0.32 | 0.70 | 1.00 | 0.00 |
+| Gemini 3.5 Flash | 0.10 | 0.15 | 1.00 | — (n/a) | 0.50 | 0.10 | 0.57 | 0.03 | 0.47 | 1.00 | 0.00 |
+| GPT-5.5 | 0.65 | 0.10 | 1.00 | — (n/a) | 0.50 | 0.10 | 0.43 | 0.05 | 0.33 | 1.00 | 0.00 |
+| GPT-5.2 | 0.90 | 0.05 | 1.00 | — (n/a) | 1.00 | 1.00 | 0.70 | 0.03 | 0.73 | 1.00 | 0.00 |
+| GPT-5 | 0.05 | 0.47 | 1.00 | — (n/a) | 1.00 | 0.95 | 0.37 | 0.00 | 0.63 | 1.00 | 0.00 |
+| Grok 4.3 | 0.42 | 0.50 | 1.00 | — (n/a) | 1.00 | 1.00 | 0.70 | 0.07 | 0.95 | 1.00 | 0.00 |
+| Grok 4 | 0.00 | 0.05 | 0.67 | — (n/a) | 1.00 | 1.00 | 0.33 | 0.07 | 0.87 | 1.00 | 0.00 |
+| GLM-5.2 | 1.00 | 0.55 | 1.00 | — (n/a) | 0.57 | 1.00 | 0.77 | 0.32 | 0.73 | 1.00 | 0.00 |
+| GLM-5.1 | 0.53 | 0.05 | 0.67 | — (n/a) | 0.40 | 0.80 | 0.40 | 0.00 | 0.75 | 1.00 | 0.00 |
 
 ## All items, mean correctness by condition x model
 
@@ -504,7 +504,7 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 | name-only | 0.73 | 0.76 | 0.80 | 0.70 | 0.68 | 0.64 | 0.87 | 0.75 | 0.69 | 0.69 | 0.70 | 0.74 | 0.72 |
 | name-framed | 0.72 | 0.75 | 0.77 | 0.66 | 0.65 | 0.69 | 0.83 | 0.73 | 0.71 | 0.69 | 0.65 | 0.74 | 0.70 |
 | url-only | 0.36 | 0.33 | 0.34 | 0.27 | 0.35 | 0.35 | 0.40 | 0.24 | 0.35 | 0.30 | 0.31 | 0.31 | 0.34 |
-| mdn-url-only | 0.57 | 0.57 | 0.58 | 0.43 | 0.49 | 0.44 | 0.58 | 0.36 | 0.49 | 0.50 | 0.50 | 0.51 | 0.51 |
+| mdn-url-only | 0.82 | 0.78 | 0.76 | 0.58 | 0.52 | 0.40 | 0.77 | 0.49 | 0.57 | 0.59 | 0.61 | 0.68 | 0.69 |
 | spec-url-only | 0.83 | 0.72 | 0.59 | 0.57 | 0.46 | 0.28 | 0.80 | 0.49 | 0.53 | 0.51 | 0.61 | 0.69 | 0.74 |
 | bcd-key-only | 0.91 | 0.86 | 0.84 | 0.71 | 0.67 | 0.63 | 0.81 | 0.64 | 0.55 | 0.66 | 0.61 | 0.86 | 0.73 |
 | url+name | 0.79 | 0.78 | 0.75 | 0.70 | 0.68 | 0.68 | 0.85 | 0.69 | 0.70 | 0.73 | 0.70 | 0.77 | 0.73 |
