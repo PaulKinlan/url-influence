@@ -1000,7 +1000,7 @@ export const CORPUS = [
   // in-training web feature: a real (verified) ChromeStatus feature id as the
   // opaque id, the descriptive MDN URL, the canonical W3C/WHATWG/TC39 spec URL,
   // and the Browser Compat Data (BCD) dotted key — run under the
-  // mdn-url-only / spec-url-only / bcd-key-only probes plus opaque url-only.
+  // mdn-url-only / spec-url-only / bcd-key-only probes plus opaque opaque-url.
   // (Promise has no canonical ChromeStatus base entry, so its opaque id is a
   // structural-control, not real opaque evidence.)
   {
@@ -1189,7 +1189,7 @@ export const CORPUS = [
   // ("famous" | "moderate" | "obscure"). Post-cutoff = content published AFTER
   // 2026-01-31 (after the latest model cutoff, Jan 2026). These are described-
   // fair recall items: the id IS the content, so described correctly scores ~0
-  // and url-only supplies the id.
+  // and opaque-url supplies the id.
   // ==========================================================================
 
   // ---- CVE (year-in-the-id; NVD-indexed) ----
@@ -2262,7 +2262,7 @@ export const CORPUS = [
 
   // ---- GitHub commit SHA (the guaranteed-NOT-memorised-by-SHA negative) ----
   // A 40-hex SHA names nothing; even when the commit is historically famous, the
-  // SHA string itself is not a memorised key. These probe whether url-only can
+  // SHA string itself is not a memorised key. These probe whether opaque-url can
   // decode an opaque hash to its content (expected ~0).
   {
     id: "gh-sha-linux-initial-git",
@@ -2345,10 +2345,10 @@ export const CORPUS = [
 
   // ---- OBSCURE GitHub commit SHAs (the proper opaque-SHA NEGATIVE) ----------
   // The famous first-commit items above are contaminated: milestone commits ARE
-  // memorised, so url-only "works" for them. These are ROUTINE, non-milestone
+  // memorised, so opaque-url "works" for them. These are ROUTINE, non-milestone
   // commits (real SHAs, content verified via the GitHub API) that no model has
   // SHA->diff memorised. Spanning 2020..2026; the 2026 ones are post-cutoff for
-  // every model and are the strongest negatives. Expected: url-only (bare SHA)
+  // every model and are the strongest negatives. Expected: opaque-url (bare SHA)
   // ~0 even when the repo is well-known, while full-content (the pasted diff) is
   // the ceiling — demonstrating fame/notability, not the SHA, drives decoding.
   {
@@ -2555,7 +2555,7 @@ export const CORPUS = [
 // human NAME. This map provides that descriptive identifier — the title / common
 // name a person would use — WITHOUT the opaque number. It is the proper baseline
 // the opaque-id treatment is measured against: if the model can't produce the
-// content even when NAMED (obscure / post-cutoff), then url-only failing is mere
+// content even when NAMED (obscure / post-cutoff), then opaque-url failing is mere
 // ignorance, not an opaque-decoding failure; if NAMING works but the bare id does
 // not, that is the pure "can't decode the opaque pointer" signal.
 //

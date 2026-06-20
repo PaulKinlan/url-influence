@@ -1,10 +1,10 @@
 # URL Influence: Results
 
-Report generated: 2026-06-20T19:31:00.297Z
-Data run / scored: 2026-06-20T19:30:58.061Z
-Code + data commit: [`e3b4c3c21a`](https://github.com/PaulKinlan/url-influence/commit/e3b4c3c21a19fabc17d5352e58bb9c4fba1f2b1d)
+Report generated: 2026-06-20T20:12:12.026Z
+Data run / scored: 2026-06-20T20:12:09.352Z
+Code + data commit: [`7b497b04f2`](https://github.com/PaulKinlan/url-influence/commit/7b497b04f2f3764ab86e88c2afdde29114ff7ecf)
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 11585 (judge failures: 0)
+Judged outputs: 12888 (judge failures: 0)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -14,21 +14,21 @@ Judged outputs: 11585 (judge failures: 0)
 
 **Three tracks, measured separately (this is important).** The corpus has three kinds of item and they must NOT be averaged together:
 
-- **`code` / API-usage items** — the model is asked to USE a real web API, and the opaque URL (a ChromeStatus id) points at that feature. name-only is a genuine task description, so url-only − name-only is a clean "opaque pointer vs description" contrast. **The LIFT metric is computed on these only.**
-- **`recall` items (opaque-id decoding)** — arXiv/RFC/CVE/SO/PMID/DOI/SHA/HF ids. Here name-only is the work's TITLE, which ≈ the answer for famous works, so url-only − name-only is NOT comparable to the API-usage lift and is kept OUT of it. These are analysed on their own — by id-type, by popularity (famous/moderate/obscure), and pre/post cutoff — to ask whether the bare opaque id decodes into the real content.
-- **Knowledge-calibration items** (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) — the content post-dates every model, so the *correct* answer is "I can't determine this". A bare URL scores HIGH here precisely because it hands the model nothing, so it correctly refuses. Averaging these into the lift manufactures a fake "url-only helps post-cutoff" signal — so they are reported on their own (refusal calibration), never in the lift.
+- **`code` / API-usage items** — the model is asked to USE a real web API, and the opaque URL (a ChromeStatus id) points at that feature. described is a genuine task description, so opaque-url − described is a clean "opaque pointer vs description" contrast. **The LIFT metric is computed on these only.**
+- **`recall` items (opaque-id decoding)** — arXiv/RFC/CVE/SO/PMID/DOI/SHA/HF ids. Here described is the work's TITLE, which ≈ the answer for famous works, so opaque-url − described is NOT comparable to the API-usage lift and is kept OUT of it. These are analysed on their own — by id-type, by popularity (famous/moderate/obscure), and pre/post cutoff — to ask whether the bare opaque id decodes into the real content.
+- **Knowledge-calibration items** (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) — the content post-dates every model, so the *correct* answer is "I can't determine this". A bare URL scores HIGH here precisely because it hands the model nothing, so it correctly refuses. Averaging these into the lift manufactures a fake "opaque-url helps post-cutoff" signal — so they are reported on their own (refusal calibration), never in the lift.
 
-- **Intentional opaque structural controls** (`js-promise`) have `validation.opaqueRole = "structural-control"`. Their `url-only` prompt may contain a fake, missing, or unrelated opaque SO/ChromeStatus-shaped URL. They are useful controls, but excluded from headline lift because they are not real URL-to-content pointers.
+- **Intentional opaque structural controls** (`js-promise`) have `validation.opaqueRole = "structural-control"`. Their `opaque-url` prompt may contain a fake, missing, or unrelated opaque SO/ChromeStatus-shaped URL. They are useful controls, but excluded from headline lift because they are not real URL-to-content pointers.
 
-**LIFT** (API-usage items with real opaque pointers) `= mean(correctness | url-only) − mean(correctness | name-only)`. Positive = the bare URL alone beat naming the task. The hypothesis predicts **positive lift pre-cutoff, ~zero post-cutoff**.
+**LIFT** (API-usage items with real opaque pointers) `= mean(correctness | opaque-url) − mean(correctness | described)`. Positive = the bare URL alone beat naming the task. The hypothesis predicts **positive lift pre-cutoff, ~zero post-cutoff**.
 
-> **Lift applies only to `code`/API-usage items, NOT the opaque-id `recall` items** (arXiv/RFC/CVE/SO/PMID/DOI/…). A recall task's only identifier *is* the opaque id, so there is no coherent "describe it in words" baseline that isn't the answer itself — `name-only`/`name-framed` are therefore **N/A (skipped)** for recall items and their `name` columns read `-`. Recall items are judged on the **cutoff axis** (does the bare id decode pre- vs post-cutoff?) and against the **`full-content` ceiling**, not against a name baseline. (Earlier builds emitted a broken `name-only` prompt for these — "recall the paper at this arXiv id" with no id attached — which the models correctly refused, manufacturing a spurious `name≈0`; that data has been removed.)
+> **Lift applies only to `code`/API-usage items, NOT the opaque-id `recall` items** (arXiv/RFC/CVE/SO/PMID/DOI/…). A recall task's only identifier *is* the opaque id, so there is no coherent "describe it in words" baseline that isn't the answer itself — `described`/`described-framed` are therefore **N/A (skipped)** for recall items and their `name` columns read `-`. Recall items are judged on the **cutoff axis** (does the bare id decode pre- vs post-cutoff?) and against the **`full-content` ceiling**, not against a name baseline. (Earlier builds emitted a broken `described` prompt for these — "recall the paper at this arXiv id" with no id attached — which the models correctly refused, manufacturing a spurious `name≈0`; that data has been removed.)
 
 **Correctness** is 0..1 from an LLM-as-judge; every judge prompt + raw verdict is in [transcript.jsonl.gz](transcript.jsonl.gz) and [dashboard.html](dashboard.html) so each score is checkable.
 
-**Controls.** `fake-structural-url` (plausible but nonexistent, same shape) and `random-url` (unrelated real URL) should collapse toward name-only / zero — if URL shape or merely having a URL did the work, these would lift too.
+**Controls.** `fake-structural-url` (plausible but nonexistent, same shape) and `random-url` (unrelated real URL) should collapse toward described / zero — if URL shape or merely having a URL did the work, these would lift too.
 
-**Identifier probes.** Conditions such as `mdn-url-only`, `spec-url-only`, and `bcd-key-only` are exploratory. They are useful for diagnosing which identifiers a model can decode, but the headline lift remains strictly `url-only - name-only`.
+**Identifier probes.** Conditions such as `mdn-url-only`, `spec-url-only`, and `bcd-key-only` are exploratory. They are useful for diagnosing which identifiers a model can decode, but the headline lift remains strictly `opaque-url - described`.
 
 **Cutoff granularity.** Content dates are `YYYY-MM` (padded to mid-month); model cutoffs are month-end. An item in the SAME year-month as a model's cutoff is **boundary-ambiguous** — it could fall either side of the training cut — yet is bucketed `pre`. Treat the pre/post split as fuzzy near the boundary.
 
@@ -36,18 +36,19 @@ Judged outputs: 11585 (judge failures: 0)
 
 ## Conditions — what identifier each one carries
 
-The single most important thing for reading the numbers: **which conditions give an OPAQUE id (a bare string that does not name the content) vs a DESCRIPTIVE/CANONICAL id (that names or describes the feature).** Only `url-only` is opaque; `mdn/spec/bcd` all name the feature to some degree.
+The single most important thing for reading the numbers: **which conditions give an OPAQUE id (a bare string that does not name the content) vs a DESCRIPTIVE/CANONICAL id (that names or describes the feature).** Only `opaque-url` is opaque; `mdn/spec/bcd` all name the feature to some degree.
 
 | Condition | Identifier opacity | Group | Meaning |
 |---|---|---|---|
-| `name-only` | — (no identifier; baseline) | core | task described in words, no URL (baseline) |
-| `name-framed` | — (no id; framing-matched baseline for url-only) | core | the task DESCRIPTION in the SAME 'do whatever this describes' framing as url-only — isolates the framing cost from the identifier (url-only − name-framed = pure opaque-id-vs-description) |
-| `url-only` | OPAQUE — bare id, does NOT name the content | core | only the opaque URL or id; the page is never fetched or pasted |
+| `described` | — (no identifier; baseline) | core | task described in words, no URL (baseline) |
+| `described-framed` | — (no id; framing-matched baseline for opaque-url) | core | the task DESCRIPTION in the SAME 'do whatever this describes' framing as opaque-url — isolates the framing cost from the identifier (opaque-url − described-framed = pure opaque-id-vs-description) |
+| `opaque-url` | OPAQUE — bare id, does NOT name the content | core | only the opaque URL or id; the page is never fetched or pasted |
 | `mdn-url-only` | DESCRIPTIVE — MDN path names the API | identifier-probe | only the descriptive documentation URL; this measures URL text hints |
 | `spec-url-only` | CANONICAL — spec URL (usually names the feature) | identifier-probe | only the canonical spec URL, when the item has one |
 | `bcd-key-only` | CANONICAL, SEMI-DESCRIPTIVE — BCD dotted key often contains the name | identifier-probe | only the Browser Compat Data key, when the item has one |
-| `url+name` | OPAQUE id + the task name | context | opaque URL plus the task name |
-| `full-content` | — (real page pasted in; ceiling) | ceiling | the real page content is fetched and pasted in |
+| `url+described` | OPAQUE id + the task described | context | opaque URL plus the task name |
+| `full-content` | — (page pasted + task spelled out; max-info ceiling) | ceiling | the real page content is pasted in ALONG WITH the spelled-out task (max-info ceiling) |
+| `content-only` | — (page pasted, NO task; clean ceiling parallel to opaque-url) | ceiling | the real page content is pasted in with NO spelled-out task — same minimal framing as opaque-url, so opaque-url vs content-only isolates pointer-vs-content, and full-content vs content-only isolates the task text's contribution |
 | `fake-structural-url` | CONTROL — nonexistent same-shape URL | control | plausible but nonexistent URL of the same shape (structure control); NB descriptive for web items (the fake path still names the API) |
 | `fake-opaque-url` | CONTROL — opaque-SHAPED fake id (uniform) | control | an OPAQUE-shaped fake id (fake ChromeStatus#/arXiv#/SO#, uniform) — does opaque URL *shape* alone steer, independent of any real content? |
 | `random-url` | CONTROL — unrelated real URL | control | unrelated real URL (off-target control) |
@@ -74,9 +75,9 @@ See [SOURCES.md](SOURCES.md) for the full model -> cutoff -> source table.
 
 ## Headline finding — which identifiers actually work
 
-The single averaged "lift" below is misleading: the effect is **categorical, not continuous** — it depends on WHICH identifier, not how far the content is from the cutoff. Mean `url-only` (OPAQUE) correctness across all models, grouped by the kind of opaque id:
+The single averaged "lift" below is misleading: the effect is **categorical, not continuous** — it depends on WHICH identifier, not how far the content is from the cutoff. Mean `opaque-url` (OPAQUE) correctness across all models, grouped by the kind of opaque id:
 
-| Opaque id type (`url-only`) | items | mean url-only | mean name-only |
+| Opaque id type (`opaque-url`) | items | mean opaque-url | mean described |
 |---|---|---|---|
 | RFC id | 9 | 0.79 | 0.96 |
 | CVE id | 8 | 0.73 | 0.81 |
@@ -98,30 +99,31 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 
 | condition | identifier | mean (all models) |
 |---|---|---|
-| `name-only` | — (no identifier; baseline) | 0.74 |
-| `name-framed` | — (no id; framing-matched baseline for url-only) | 0.72 |
-| `url-only` | OPAQUE | 0.31 |
+| `described` | — (no identifier; baseline) | 0.74 |
+| `described-framed` | — (no id; framing-matched baseline for opaque-url) | 0.72 |
+| `opaque-url` | OPAQUE | 0.31 |
 | `mdn-url-only` | DESCRIPTIVE | 0.64 |
 | `spec-url-only` | CANONICAL | 0.59 |
 | `bcd-key-only` | CANONICAL, SEMI-DESCRIPTIVE | 0.73 |
-| `url+name` | OPAQUE id + the task name | 0.74 |
-| `full-content` | — (real page pasted in; ceiling) | 0.94 |
+| `url+described` | OPAQUE id + the task described | 0.74 |
+| `full-content` | — (page pasted + task spelled out; max-info ceiling) | 0.94 |
+| `content-only` | — (page pasted, NO task; clean ceiling parallel to opaque-url) | 0.82 |
 | `fake-structural-url` | CONTROL | 0.12 |
 | `fake-opaque-url` | CONTROL | 0.00 |
 | `random-url` | CONTROL | 0.00 |
 
-## Controls — is the url-only result a framing or shape artifact?
+## Controls — is the opaque-url result a framing or shape artifact?
 
-Two controls test whether the `url-only` collapse is real or an artifact:
+Two controls test whether the `opaque-url` collapse is real or an artifact:
 
-- **Framing.** `name-framed` puts the plain task description in the SAME "do whatever this describes" wording as `url-only`. Framing cost = name-framed − name-only = **-0.01** (≈0): the framing does NOT explain url-only's low score. So the **framing-adjusted lift** (url-only − name-framed = **-0.41**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
+- **Framing.** `described-framed` puts the plain task description in the SAME "do whatever this describes" wording as `opaque-url`. Framing cost = described-framed − described = **-0.01** (≈0): the framing does NOT explain opaque-url's low score. So the **framing-adjusted lift** (opaque-url − described-framed = **-0.41**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
 - **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.12**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
 
 ## Per-item identifier reference
 
-Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/canonical ids it also carries.
+Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptive/canonical ids it also carries.
 
-| item | contentDate | `url-only` (opaque) id | type | spec? | bcd? | CC (/6) |
+| item | contentDate | `opaque-url` (opaque) id | type | spec? | bcd? | CC (/6) |
 |---|---|---|---|---|---|---|
 | `pmid-7466396-evolution-cooperation` | 1981-03-27 | `pubmed.ncbi.nlm.nih.gov/7466396/` | PubMed id | — | — | 1 (2026-05) |
 | `rfc-791-ip` | 1981-09 | `datatracker.ietf.org/doc/rfc791/` | RFC id | — | — | 2 (2025-09) |
@@ -229,16 +231,16 @@ Exactly what the `url-only` (OPAQUE) id is for each item, and which descriptive/
 
 ### Opaque-URL recall vs Common Crawl presence
 
-| CC presence | items | mean `url-only` (opaque) correctness |
+| CC presence | items | mean `opaque-url` (opaque) correctness |
 |---|---|---|
 | present in ≥1 crawl | 50 | 0.46 |
 | absent from all crawls | 43 | 0.18 |
 
 Present-in-CC items decode higher on average, but the gap is **confounded with fame** (famous URLs are both more crawled and more memorised) and the signal is noisy: e.g. StackOverflow URLs are absent from CC (the crawler is blocked) yet still partially decode, while many ChromeStatus URLs are present in CC yet decode ~0. Treat CC as one weak covariate, not the mechanism — repetition/fame across all routes is.
 
-## Per-item results — name-only vs opaque vs canonical id
+## Per-item results — described vs opaque vs canonical id
 
-Mean correctness across all models, by item (sorted by date). `opaque` = `url-only`. Watch the **opaque** column collapse to ~0 except for famous arXiv/RFC ids, while **bcd/spec/mdn** (which name the feature) track `name`. Blank = n/a or no data.
+Mean correctness across all models, by item (sorted by date). `opaque` = `opaque-url`. Watch the **opaque** column collapse to ~0 except for famous arXiv/RFC ids, while **bcd/spec/mdn** (which name the feature) track `name`. Blank = n/a or no data.
 
 | item | opaque id type | name | opaque | mdn | spec | bcd | full |
 |---|---|---|---|---|---|---|---|
@@ -345,11 +347,11 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `url-on
 
 A few representative cells with the judge's one-line verdict. The judge's FULL prompt + raw response for EVERY cell is in the run data linked at the bottom (and clickable in the dashboard).
 
-- **arxiv-attention / url-only** (opaque arXiv id) — mean 1.00; judge on `claude-opus-4-6`: _"The output correctly identifies the paper as 'Attention Is All You Need' by Vaswani et al., accurately describes the Transformer architecture based on self-attention without recurrence/convolution, an"_ (score 1.00)
-- **rfc-9110-http-semantics / url-only** (opaque RFC id) — mean 1.00; judge on `claude-opus-4-6`: _"The output accurately recalls RFC 9110 as HTTP Semantics (June 2022), correctly identifies it obsoletes RFC 7230-7235, and comprehensively covers methods, status codes, header fields, and message sema"_ (score 1.00)
-- **css-anchor-positioning / url-only** (opaque ChromeStatus #) — mean 0.08; judge on `claude-opus-4-6`: _"The model output describes the Document Picture-in-Picture API instead of CSS Anchor Positioning API, completely missing anchor-name, position-anchor, anchor(), and position-area."_ (score 0.00)
+- **arxiv-attention / opaque-url** (opaque arXiv id) — mean 1.00; judge on `claude-opus-4-6`: _"The output correctly identifies the paper as 'Attention Is All You Need' by Vaswani et al., accurately describes the Transformer architecture based on self-attention without recurrence/convolution, an"_ (score 1.00)
+- **rfc-9110-http-semantics / opaque-url** (opaque RFC id) — mean 1.00; judge on `claude-opus-4-6`: _"The output accurately recalls RFC 9110 as HTTP Semantics (June 2022), correctly identifies it obsoletes RFC 7230-7235, and comprehensively covers methods, status codes, header fields, and message sema"_ (score 1.00)
+- **css-anchor-positioning / opaque-url** (opaque ChromeStatus #) — mean 0.08; judge on `claude-opus-4-6`: _"The model output describes the Document Picture-in-Picture API instead of CSS Anchor Positioning API, completely missing anchor-name, position-anchor, anchor(), and position-area."_ (score 0.00)
 - **fetch-api / bcd-key-only** (BCD key) — mean 1.00; judge on `claude-opus-4-6`: _"The model output contains all required identifiers (fetch(), .json(), Response, await) and correctly demonstrates fetching a URL, checking response.ok, and parsing JSON using both Promise and async/aw"_ (score 1.00)
-- **fetch-api / url-only** (opaque ChromeStatus #) — mean 0.00; judge on `claude-opus-4-6`: _"The model output completely ignores the task and instead provides code for the Compute Pressure API rather than demonstrating fetch() with JSON parsing."_ (score 0.00)
+- **fetch-api / opaque-url** (opaque ChromeStatus #) — mean 0.00; judge on `claude-opus-4-6`: _"The model output completely ignores the task and instead provides code for the Compute Pressure API rather than demonstrating fetch() with JSON parsing."_ (score 0.00)
 - **css-gap-decorations / bcd-key-only** (BCD key) — mean 0.53; judge on `claude-opus-4-6`: _"The model correctly demonstrates row-rule and its longhands (row-rule-width, row-rule-style, row-rule-color) but misses column-rule which is also part of CSS gap decorations and sets gap:0 instead of "_ (score 0.85)
 
 ## Run data — inspect every cell
@@ -362,7 +364,7 @@ A few representative cells with the judge's one-line verdict. The judge's FULL p
 
 _This averages a sharply bimodal, item-specific signal, so a single "lift −0.5" hides the categorical pattern. Use the per-item tables above for the real result; this section is kept for continuity._
 
-`LIFT = mean(url-only) − mean(name-only)` over API-usage items whose opaque URL is intended to be a real pointer. Knowledge-calibration items and intentional opaque structural controls are excluded. `n pre/post` = eligible API-usage items each side of this model's cutoff.
+`LIFT = mean(opaque-url) − mean(described)` over API-usage items whose opaque URL is intended to be a real pointer. Knowledge-calibration items and intentional opaque structural controls are excluded. `n pre/post` = eligible API-usage items each side of this model's cutoff.
 
 | Model | cutoff | overall lift | pre-cutoff lift | post-cutoff lift | n pre/post |
 |---|---|---|---|---|---|
@@ -382,118 +384,118 @@ _This averages a sharply bimodal, item-specific signal, so a single "lift −0.5
 
 ## Real opaque API-usage items: pre/post mean correctness per condition
 
-Knowledge-calibration items and intentional opaque structural controls excluded. In **pre** rows, does `url-only` approach `name-only`? In **post** rows, it should not beat `name-only`; controls stay flat.
+Knowledge-calibration items and intentional opaque structural controls excluded. In **pre** rows, does `opaque-url` approach `described`? In **post** rows, it should not beat `described`; controls stay flat.
 
 ### Claude Opus 4.8 (cutoff 2026-01-31) — 18 pre / 12 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.99 | 0.98 | 0.00 | 0.92 | 0.88 | 0.98 | 0.99 | 0.98 | 0.65 | 0.00 | 0.00 |
-| post-cutoff | 0.65 | 0.63 | 0.17 | 0.66 | 0.82 | 0.89 | 0.72 | 0.70 | 0.37 | 0.17 | 0.08 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.99 | 0.98 | 0.00 | 0.92 | 0.88 | 0.98 | 0.99 | 0.98 | 0.92 | 0.65 | 0.00 | 0.00 |
+| post-cutoff | 0.65 | 0.63 | 0.17 | 0.66 | 0.82 | 0.89 | 0.72 | 0.70 | 0.60 | 0.37 | 0.17 | 0.08 |
 
 ### Claude Sonnet 4.6 (cutoff 2026-01-31) — 18 pre / 12 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.94 | 0.86 | 0.00 | 0.84 | 0.74 | 0.94 | 0.88 | 0.97 | 0.41 | 0.00 | 0.00 |
-| post-cutoff | 0.57 | 0.67 | 0.00 | 0.71 | 0.80 | 0.78 | 0.66 | 0.75 | 0.32 | 0.17 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.94 | 0.86 | 0.00 | 0.84 | 0.74 | 0.94 | 0.88 | 0.97 | 0.83 | 0.41 | 0.00 | 0.00 |
+| post-cutoff | 0.57 | 0.67 | 0.00 | 0.71 | 0.80 | 0.78 | 0.66 | 0.75 | 0.53 | 0.32 | 0.17 | 0.00 |
 
 ### Claude Opus 4.6 (cutoff 2025-08-31) — 16 pre / 14 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.86 | 0.86 | 0.00 | 0.80 | 0.63 | 0.98 | 0.84 | 0.97 | 0.62 | 0.00 | 0.00 |
-| post-cutoff | 0.71 | 0.63 | 0.00 | 0.73 | 0.63 | 0.70 | 0.66 | 0.76 | 0.46 | 0.14 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.86 | 0.86 | 0.00 | 0.80 | 0.63 | 0.98 | 0.84 | 0.97 | 0.83 | 0.62 | 0.00 | 0.00 |
+| post-cutoff | 0.71 | 0.63 | 0.00 | 0.73 | 0.63 | 0.70 | 0.66 | 0.76 | 0.55 | 0.46 | 0.14 | 0.00 |
 
 ### Claude Sonnet 4.5 (cutoff 2025-07-31) — 15 pre / 15 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.86 | 0.83 | 0.00 | 0.69 | 0.70 | 0.79 | 0.83 | 0.91 | 0.35 | 0.00 | 0.00 |
-| post-cutoff | 0.57 | 0.37 | 0.07 | 0.42 | 0.51 | 0.64 | 0.60 | 0.70 | 0.26 | 0.13 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.86 | 0.83 | 0.00 | 0.69 | 0.70 | 0.79 | 0.83 | 0.91 | 0.93 | 0.35 | 0.00 | 0.00 |
+| post-cutoff | 0.57 | 0.37 | 0.07 | 0.42 | 0.51 | 0.64 | 0.60 | 0.70 | 0.58 | 0.26 | 0.13 | 0.00 |
 
 ### Gemini 3.1 Pro (cutoff 2025-01-31) — 10 pre / 20 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 1.00 | 0.97 | 0.00 | 0.91 | 0.76 | 0.93 | 0.80 | 0.86 | 0.49 | 0.00 | 0.00 |
-| post-cutoff | 0.53 | 0.46 | 0.10 | 0.27 | 0.35 | 0.54 | 0.56 | 0.78 | 0.31 | 0.10 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 1.00 | 0.97 | 0.00 | 0.91 | 0.76 | 0.93 | 0.80 | 0.86 | 0.63 | 0.49 | 0.00 | 0.00 |
+| post-cutoff | 0.53 | 0.46 | 0.10 | 0.27 | 0.35 | 0.54 | 0.56 | 0.78 | 0.33 | 0.31 | 0.10 | 0.00 |
 
 ### Gemini 3.5 Flash (cutoff 2025-01-31) — 10 pre / 20 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.99 | 0.98 | 0.00 | 0.59 | 0.48 | 0.96 | 0.85 | 0.88 | 0.26 | 0.00 | 0.00 |
-| post-cutoff | 0.29 | 0.42 | 0.10 | 0.25 | 0.20 | 0.45 | 0.47 | 0.75 | 0.15 | 0.10 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.99 | 0.98 | 0.00 | 0.59 | 0.48 | 0.96 | 0.85 | 0.88 | 0.71 | 0.26 | 0.00 | 0.00 |
+| post-cutoff | 0.29 | 0.42 | 0.10 | 0.25 | 0.20 | 0.45 | 0.47 | 0.75 | 0.37 | 0.15 | 0.10 | 0.00 |
 
 ### GPT-5.5 (cutoff 2025-12-01) — 17 pre / 13 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.98 | 0.98 | 0.12 | 0.87 | 0.88 | 0.90 | 0.96 | 0.98 | 0.43 | 0.00 | 0.00 |
-| post-cutoff | 0.79 | 0.70 | 0.15 | 0.63 | 0.74 | 0.72 | 0.79 | 0.78 | 0.23 | 0.15 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.98 | 0.98 | 0.12 | 0.87 | 0.88 | 0.90 | 0.96 | 0.98 | 0.84 | 0.43 | 0.00 | 0.00 |
+| post-cutoff | 0.79 | 0.70 | 0.15 | 0.63 | 0.74 | 0.72 | 0.79 | 0.78 | 0.75 | 0.23 | 0.15 | 0.00 |
 
 ### GPT-5.2 (cutoff 2025-08-31) — 16 pre / 14 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.89 | 0.86 | 0.00 | 0.60 | 0.56 | 0.75 | 0.70 | 0.97 | 0.18 | 0.00 | 0.00 |
-| post-cutoff | 0.80 | 0.58 | 0.14 | 0.28 | 0.41 | 0.52 | 0.71 | 0.76 | 0.18 | 0.14 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.89 | 0.86 | 0.00 | 0.60 | 0.56 | 0.75 | 0.70 | 0.97 | 0.85 | 0.18 | 0.00 | 0.00 |
+| post-cutoff | 0.80 | 0.58 | 0.14 | 0.28 | 0.41 | 0.52 | 0.71 | 0.76 | 0.70 | 0.18 | 0.14 | 0.00 |
 
 ### GPT-5 (cutoff 2024-09-30) — 10 pre / 20 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.98 | 0.94 | 0.00 | 0.98 | 0.83 | 0.85 | 0.88 | 0.89 | 0.20 | 0.00 | 0.00 |
-| post-cutoff | 0.41 | 0.46 | 0.10 | 0.30 | 0.37 | 0.38 | 0.51 | 0.78 | 0.20 | 0.10 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.98 | 0.94 | 0.00 | 0.98 | 0.83 | 0.85 | 0.88 | 0.89 | 0.85 | 0.20 | 0.00 | 0.00 |
+| post-cutoff | 0.41 | 0.46 | 0.10 | 0.30 | 0.37 | 0.38 | 0.51 | 0.78 | 0.76 | 0.20 | 0.10 | 0.00 |
 
 ### Grok 4.3 (cutoff 2025-12-31) — 17 pre / 13 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.89 | 0.89 | 0.02 | 0.75 | 0.59 | 0.65 | 0.86 | 0.93 | 0.06 | 0.00 | 0.00 |
-| post-cutoff | 0.67 | 0.68 | 0.15 | 0.29 | 0.49 | 0.70 | 0.78 | 0.77 | 0.21 | 0.15 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.89 | 0.89 | 0.02 | 0.75 | 0.59 | 0.65 | 0.86 | 0.93 | 0.73 | 0.06 | 0.00 | 0.00 |
+| post-cutoff | 0.67 | 0.68 | 0.15 | 0.29 | 0.49 | 0.70 | 0.78 | 0.77 | 0.42 | 0.21 | 0.15 | 0.00 |
 
 ### Grok 4 (cutoff 2024-11-30) — 10 pre / 20 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.91 | 0.88 | 0.00 | 0.98 | 0.88 | 0.77 | 0.92 | 0.94 | 0.00 | 0.00 | 0.00 |
-| post-cutoff | 0.67 | 0.64 | 0.05 | 0.38 | 0.48 | 0.53 | 0.74 | 0.78 | 0.16 | 0.10 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.91 | 0.88 | 0.00 | 0.98 | 0.88 | 0.77 | 0.92 | 0.94 | 0.81 | 0.00 | 0.00 | 0.00 |
+| post-cutoff | 0.67 | 0.64 | 0.05 | 0.38 | 0.48 | 0.53 | 0.74 | 0.78 | 0.43 | 0.16 | 0.10 | 0.00 |
 
 ### GLM-5.2 (cutoff 2025-10-31) — 17 pre / 13 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.86 | 0.76 | 0.00 | 0.71 | 0.66 | 0.82 | 0.91 | 0.97 | 0.33 | 0.00 | 0.00 |
-| post-cutoff | 0.69 | 0.78 | 0.15 | 0.65 | 0.80 | 0.99 | 0.85 | 0.81 | 0.52 | 0.15 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.86 | 0.76 | 0.00 | 0.71 | 0.66 | 0.82 | 0.91 | 0.97 | 0.78 | 0.33 | 0.00 | 0.00 |
+| post-cutoff | 0.69 | 0.78 | 0.15 | 0.65 | 0.80 | 0.99 | 0.85 | 0.81 | 0.61 | 0.52 | 0.15 | 0.00 |
 
 ### GLM-5.1 (cutoff 2025-10-31) — 17 pre / 13 post API items
 
-| bucket | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| pre-cutoff | 0.84 | 0.81 | 0.15 | 0.70 | 0.81 | 0.79 | 0.86 | 0.96 | 0.28 | 0.00 | 0.00 |
-| post-cutoff | 0.70 | 0.54 | 0.08 | 0.71 | 0.70 | 0.69 | 0.65 | 0.76 | 0.30 | 0.15 | 0.00 |
+| bucket | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| pre-cutoff | 0.84 | 0.81 | 0.15 | 0.70 | 0.81 | 0.79 | 0.86 | 0.96 | 0.86 | 0.28 | 0.00 | 0.00 |
+| post-cutoff | 0.70 | 0.54 | 0.08 | 0.71 | 0.70 | 0.69 | 0.65 | 0.76 | 0.64 | 0.30 | 0.15 | 0.00 |
 
 ## Knowledge-calibration items: correct-refusal rate per condition
 
-These items (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) post-date every model; correctness = the model correctly said it could not determine the answer. NOT part of the lift. The thing to see: a bare `url-only` (and `name-only`) often score HIGH here — refusing is easy when you're handed nothing — which is exactly why these would pollute a lift average if included.
+These items (`scroll-triggered-animations`, `arxiv-future-fake-real-id`, `html-in-canvas`) post-date every model; correctness = the model correctly said it could not determine the answer. NOT part of the lift. The thing to see: a bare `opaque-url` (and `described`) often score HIGH here — refusing is easy when you're handed nothing — which is exactly why these would pollute a lift average if included.
 
-| Model | name-only | name-framed | url-only | mdn-url-only | spec-url-only | bcd-key-only | url+name | full-content | fake-structural-url | fake-opaque-url | random-url |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| Claude Opus 4.8 | 0.63 | 0.25 | 1.00 | — (n/a) | 0.65 | 1.00 | 0.77 | 0.42 | 0.43 | 1.00 | 0.33 |
-| Claude Sonnet 4.6 | 0.00 | 0.50 | 0.33 | — (n/a) | 1.00 | 0.85 | 0.98 | 0.03 | 0.70 | 1.00 | 0.00 |
-| Claude Opus 4.6 | 0.53 | 0.00 | 0.33 | — (n/a) | 0.10 | 0.20 | 0.42 | 0.00 | 0.70 | 1.00 | 0.00 |
-| Claude Sonnet 4.5 | 0.05 | 0.00 | 0.67 | — (n/a) | 0.60 | 1.00 | 0.63 | 0.00 | 0.70 | 1.00 | 0.00 |
-| Gemini 3.1 Pro | 0.90 | 0.97 | 1.00 | — (n/a) | 1.00 | 0.95 | 1.00 | 0.32 | 0.70 | 1.00 | 0.00 |
-| Gemini 3.5 Flash | 0.10 | 0.15 | 1.00 | — (n/a) | 0.50 | 0.10 | 0.57 | 0.03 | 0.47 | 1.00 | 0.00 |
-| GPT-5.5 | 0.65 | 0.10 | 1.00 | — (n/a) | 0.50 | 0.10 | 0.43 | 0.05 | 0.33 | 1.00 | 0.00 |
-| GPT-5.2 | 0.90 | 0.05 | 1.00 | — (n/a) | 1.00 | 1.00 | 0.70 | 0.03 | 0.73 | 1.00 | 0.00 |
-| GPT-5 | 0.05 | 0.47 | 1.00 | — (n/a) | 1.00 | 0.95 | 0.37 | 0.00 | 0.63 | 1.00 | 0.00 |
-| Grok 4.3 | 0.42 | 0.50 | 1.00 | — (n/a) | 1.00 | 1.00 | 0.70 | 0.07 | 0.95 | 1.00 | 0.00 |
-| Grok 4 | 0.00 | 0.05 | 0.67 | — (n/a) | 1.00 | 1.00 | 0.33 | 0.07 | 0.87 | 1.00 | 0.00 |
-| GLM-5.2 | 1.00 | 0.55 | 1.00 | — (n/a) | 0.57 | 1.00 | 0.77 | 0.32 | 0.73 | 1.00 | 0.00 |
-| GLM-5.1 | 0.53 | 0.05 | 0.67 | — (n/a) | 0.40 | 0.80 | 0.40 | 0.00 | 0.75 | 1.00 | 0.00 |
+| Model | described | described-framed | opaque-url | mdn-url-only | spec-url-only | bcd-key-only | url+described | full-content | content-only | fake-structural-url | fake-opaque-url | random-url |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Claude Opus 4.8 | 0.63 | 0.25 | 1.00 | — (n/a) | 0.65 | 1.00 | 0.77 | 0.42 | 0.30 | 0.43 | 1.00 | 0.33 |
+| Claude Sonnet 4.6 | 0.00 | 0.50 | 0.33 | — (n/a) | 1.00 | 0.85 | 0.98 | 0.03 | 0.00 | 0.70 | 1.00 | 0.00 |
+| Claude Opus 4.6 | 0.53 | 0.00 | 0.33 | — (n/a) | 0.10 | 0.20 | 0.42 | 0.00 | 0.00 | 0.70 | 1.00 | 0.00 |
+| Claude Sonnet 4.5 | 0.05 | 0.00 | 0.67 | — (n/a) | 0.60 | 1.00 | 0.63 | 0.00 | 0.37 | 0.70 | 1.00 | 0.00 |
+| Gemini 3.1 Pro | 0.90 | 0.97 | 1.00 | — (n/a) | 1.00 | 0.95 | 1.00 | 0.32 | 0.00 | 0.70 | 1.00 | 0.00 |
+| Gemini 3.5 Flash | 0.10 | 0.15 | 1.00 | — (n/a) | 0.50 | 0.10 | 0.57 | 0.03 | 0.03 | 0.47 | 1.00 | 0.00 |
+| GPT-5.5 | 0.65 | 0.10 | 1.00 | — (n/a) | 0.50 | 0.10 | 0.43 | 0.05 | 0.37 | 0.33 | 1.00 | 0.00 |
+| GPT-5.2 | 0.90 | 0.05 | 1.00 | — (n/a) | 1.00 | 1.00 | 0.70 | 0.03 | 0.33 | 0.73 | 1.00 | 0.00 |
+| GPT-5 | 0.05 | 0.47 | 1.00 | — (n/a) | 1.00 | 0.95 | 0.37 | 0.00 | 0.33 | 0.63 | 1.00 | 0.00 |
+| Grok 4.3 | 0.42 | 0.50 | 1.00 | — (n/a) | 1.00 | 1.00 | 0.70 | 0.07 | 0.07 | 0.95 | 1.00 | 0.00 |
+| Grok 4 | 0.00 | 0.05 | 0.67 | — (n/a) | 1.00 | 1.00 | 0.33 | 0.07 | 0.03 | 0.87 | 1.00 | 0.00 |
+| GLM-5.2 | 1.00 | 0.55 | 1.00 | — (n/a) | 0.57 | 1.00 | 0.77 | 0.32 | 0.03 | 0.73 | 1.00 | 0.00 |
+| GLM-5.1 | 0.53 | 0.05 | 0.67 | — (n/a) | 0.40 | 0.80 | 0.40 | 0.00 | 0.07 | 0.75 | 1.00 | 0.00 |
 
 ## All items, mean correctness by condition x model
 
@@ -501,14 +503,15 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 
 | Condition | Claude Opus 4.8 (cut 2026-01-31) | Claude Sonnet 4.6 (cut 2026-01-31) | Claude Opus 4.6 (cut 2025-08-31) | Claude Sonnet 4.5 (cut 2025-07-31) | Gemini 3.1 Pro (cut 2025-01-31) | Gemini 3.5 Flash (cut 2025-01-31) | GPT-5.5 (cut 2025-12-01) | GPT-5.2 (cut 2025-08-31) | GPT-5 (cut 2024-09-30) | Grok 4.3 (cut 2025-12-31) | Grok 4 (cut 2024-11-30) | GLM-5.2 (cut 2025-10-31) | GLM-5.1 (cut 2025-10-31) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| name-only | 0.73 | 0.76 | 0.80 | 0.70 | 0.68 | 0.64 | 0.87 | 0.75 | 0.69 | 0.69 | 0.70 | 0.74 | 0.72 |
-| name-framed | 0.72 | 0.75 | 0.77 | 0.66 | 0.65 | 0.69 | 0.83 | 0.73 | 0.71 | 0.69 | 0.65 | 0.74 | 0.70 |
-| url-only | 0.36 | 0.33 | 0.34 | 0.27 | 0.35 | 0.35 | 0.40 | 0.24 | 0.35 | 0.30 | 0.31 | 0.31 | 0.34 |
+| described | 0.73 | 0.76 | 0.80 | 0.70 | 0.68 | 0.64 | 0.87 | 0.75 | 0.69 | 0.69 | 0.70 | 0.74 | 0.72 |
+| described-framed | 0.72 | 0.75 | 0.77 | 0.66 | 0.65 | 0.69 | 0.83 | 0.73 | 0.71 | 0.69 | 0.65 | 0.74 | 0.70 |
+| opaque-url | 0.36 | 0.33 | 0.34 | 0.27 | 0.35 | 0.35 | 0.40 | 0.24 | 0.35 | 0.30 | 0.31 | 0.31 | 0.34 |
 | mdn-url-only | 0.82 | 0.78 | 0.76 | 0.58 | 0.52 | 0.40 | 0.77 | 0.49 | 0.57 | 0.59 | 0.61 | 0.68 | 0.69 |
 | spec-url-only | 0.83 | 0.72 | 0.59 | 0.57 | 0.46 | 0.28 | 0.80 | 0.49 | 0.53 | 0.51 | 0.61 | 0.69 | 0.74 |
 | bcd-key-only | 0.91 | 0.86 | 0.84 | 0.71 | 0.67 | 0.63 | 0.81 | 0.64 | 0.55 | 0.66 | 0.61 | 0.86 | 0.73 |
-| url+name | 0.79 | 0.78 | 0.75 | 0.70 | 0.68 | 0.68 | 0.85 | 0.69 | 0.70 | 0.73 | 0.70 | 0.77 | 0.73 |
+| url+described | 0.79 | 0.78 | 0.75 | 0.70 | 0.68 | 0.68 | 0.85 | 0.69 | 0.70 | 0.73 | 0.70 | 0.77 | 0.73 |
 | full-content | 0.90 | 0.93 | 0.93 | 0.88 | 0.88 | 0.90 | 0.94 | 0.91 | 0.91 | 0.92 | 0.90 | 0.92 | 0.91 |
+| content-only | 0.84 | 0.82 | 0.82 | 0.81 | 0.72 | 0.74 | 0.84 | 0.82 | 0.82 | 0.77 | 0.76 | 0.81 | 0.83 |
 | fake-structural-url | 0.21 | 0.14 | 0.19 | 0.13 | 0.14 | 0.10 | 0.16 | 0.08 | 0.08 | 0.11 | 0.06 | 0.17 | 0.13 |
 | fake-opaque-url | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 |
 | random-url | 0.01 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
@@ -517,23 +520,23 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 
 - **Headline (real opaque API-usage items only):** mean lift -0.69 overall — among items whose opaque URL is meant to be a real pointer, a bare opaque URL, with no page content, does NOT beat simply naming the task, and across models it tends to lower the score. The model is more cautious or more error-prone when handed only a context-free URL string than when told plainly what to build.
 - **Boundary (real opaque API-usage items):** mean pre-cutoff lift -0.90, mean post-cutoff lift -0.52. The pre- vs post-cutoff gap on API-usage items is small or noisy at this corpus size, so the boundary effect is not yet demonstrated; the post-cutoff bucket is only one or two real items per model.
-- **Why the earlier read was wrong:** an apparent positive *post-cutoff* url-only score comes from the knowledge-calibration items (scroll-triggered-animations, arxiv-future-fake-real-id, html-in-canvas), where the correct answer is "I don't know". A bare URL elicits exactly that refusal, scoring high — which is the OPPOSITE of the URL helping the model use an API. Those items are now excluded from the lift.
-- **What does work:** `url+name` and the `full-content` ceiling score well across the board, and the controls (`fake-structural-url`, `random-url`) collapse toward name-only / zero, so the harness is measuring real content rather than URL shape.
+- **Why the earlier read was wrong:** an apparent positive *post-cutoff* opaque-url score comes from the knowledge-calibration items (scroll-triggered-animations, arxiv-future-fake-real-id, html-in-canvas), where the correct answer is "I don't know". A bare URL elicits exactly that refusal, scoring high — which is the OPPOSITE of the URL helping the model use an API. Those items are now excluded from the lift.
+- **What does work:** `url+described` and the `full-content` ceiling score well across the board, and the controls (`fake-structural-url`, `random-url`) collapse toward described / zero, so the harness is measuring real content rather than URL shape.
 
 Per model (real opaque API-usage items):
-- **Claude Opus 4.8:** bare URL did not help / hurt (lift -0.78); full-content 0.87 vs name-only 0.85; pre -0.99 / post -0.48 (n 18/12).
-- **Claude Sonnet 4.6:** bare URL did not help / hurt (lift -0.79); full-content 0.88 vs name-only 0.79; pre -0.94 / post -0.57 (n 18/12).
-- **Claude Opus 4.6:** bare URL did not help / hurt (lift -0.79); full-content 0.87 vs name-only 0.79; pre -0.86 / post -0.71 (n 16/14).
-- **Claude Sonnet 4.5:** bare URL did not help / hurt (lift -0.68); full-content 0.81 vs name-only 0.71; pre -0.86 / post -0.51 (n 15/15).
-- **Gemini 3.1 Pro:** bare URL did not help / hurt (lift -0.62); full-content 0.80 vs name-only 0.69; pre -1.00 / post -0.43 (n 10/20).
-- **Gemini 3.5 Flash:** bare URL did not help / hurt (lift -0.45); full-content 0.79 vs name-only 0.52; pre -0.99 / post -0.19 (n 10/20).
-- **GPT-5.5:** bare URL did not help / hurt (lift -0.76); full-content 0.89 vs name-only 0.90; pre -0.86 / post -0.64 (n 17/13).
-- **GPT-5.2:** bare URL did not help / hurt (lift -0.78); full-content 0.87 vs name-only 0.85; pre -0.89 / post -0.65 (n 16/14).
-- **GPT-5:** bare URL did not help / hurt (lift -0.54); full-content 0.82 vs name-only 0.60; pre -0.98 / post -0.31 (n 10/20).
-- **Grok 4.3:** bare URL did not help / hurt (lift -0.71); full-content 0.86 vs name-only 0.79; pre -0.86 / post -0.52 (n 17/13).
-- **Grok 4:** bare URL did not help / hurt (lift -0.71); full-content 0.84 vs name-only 0.75; pre -0.91 / post -0.62 (n 10/20).
-- **GLM-5.2:** bare URL did not help / hurt (lift -0.72); full-content 0.90 vs name-only 0.78; pre -0.86 / post -0.54 (n 17/13).
-- **GLM-5.1:** bare URL did not help / hurt (lift -0.66); full-content 0.87 vs name-only 0.78; pre -0.69 / post -0.62 (n 17/13).
+- **Claude Opus 4.8:** bare URL did not help / hurt (lift -0.78); full-content 0.87 vs described 0.85; pre -0.99 / post -0.48 (n 18/12).
+- **Claude Sonnet 4.6:** bare URL did not help / hurt (lift -0.79); full-content 0.88 vs described 0.79; pre -0.94 / post -0.57 (n 18/12).
+- **Claude Opus 4.6:** bare URL did not help / hurt (lift -0.79); full-content 0.87 vs described 0.79; pre -0.86 / post -0.71 (n 16/14).
+- **Claude Sonnet 4.5:** bare URL did not help / hurt (lift -0.68); full-content 0.81 vs described 0.71; pre -0.86 / post -0.51 (n 15/15).
+- **Gemini 3.1 Pro:** bare URL did not help / hurt (lift -0.62); full-content 0.80 vs described 0.69; pre -1.00 / post -0.43 (n 10/20).
+- **Gemini 3.5 Flash:** bare URL did not help / hurt (lift -0.45); full-content 0.79 vs described 0.52; pre -0.99 / post -0.19 (n 10/20).
+- **GPT-5.5:** bare URL did not help / hurt (lift -0.76); full-content 0.89 vs described 0.90; pre -0.86 / post -0.64 (n 17/13).
+- **GPT-5.2:** bare URL did not help / hurt (lift -0.78); full-content 0.87 vs described 0.85; pre -0.89 / post -0.65 (n 16/14).
+- **GPT-5:** bare URL did not help / hurt (lift -0.54); full-content 0.82 vs described 0.60; pre -0.98 / post -0.31 (n 10/20).
+- **Grok 4.3:** bare URL did not help / hurt (lift -0.71); full-content 0.86 vs described 0.79; pre -0.86 / post -0.52 (n 17/13).
+- **Grok 4:** bare URL did not help / hurt (lift -0.71); full-content 0.84 vs described 0.75; pre -0.91 / post -0.62 (n 10/20).
+- **GLM-5.2:** bare URL did not help / hurt (lift -0.72); full-content 0.90 vs described 0.78; pre -0.86 / post -0.54 (n 17/13).
+- **GLM-5.1:** bare URL did not help / hurt (lift -0.66); full-content 0.87 vs described 0.78; pre -0.69 / post -0.62 (n 17/13).
 
 ---
 

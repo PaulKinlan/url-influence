@@ -56,9 +56,9 @@ canonical** (an id that names or describes the feature).
 
 1. **described** (baseline) - describe the task by name, no URL.
 2. **described-framed** (framing-matched baseline) - the same description, but in the
-   exact "do whatever this describes" framing as `url-only`, so `url-only −
+   exact "do whatever this describes" framing as `opaque-url`, so `opaque-url −
    described-framed` nets out the framing cost and isolates opaque-id-vs-description.
-3. **url-only** (the OPAQUE test) - give ONLY the opaque id string and say "do
+3. **opaque-url** (the OPAQUE test) - give ONLY the opaque id string and say "do
    what is at that URL". Not fetched, not pasted; the model must rely on memory.
 4. **mdn-url-only / spec-url-only / bcd-key-only** - identifier probes (NOT in
    the headline lift). The MDN path, the canonical spec URL, and the Browser
@@ -84,7 +84,7 @@ canonical** (an id that names or describes the feature).
 
 ## Key metric & what we find
 
-The nominal metric is **lift = url-only − described** per model, split pre/post
+The nominal metric is **lift = opaque-url − described** per model, split pre/post
 cutoff. But a single averaged lift is **misleading**, because the effect is
 **categorical, not continuous**: it depends on WHICH identifier, not how far
 the content is from the cutoff. The honest result (see the report) is a set of

@@ -33,7 +33,7 @@ test("b64 round-trips (no Node Buffer)", () => {
   assert.equal(b64decode(b64encode(s)), s);
 });
 
-test("buildPrompt: described-framed uses the description in url-only framing, no URL", () => {
+test("buildPrompt: described-framed uses the description in opaque-url framing, no URL", () => {
   const item = {
     id: "x",
     kind: "code",
@@ -49,7 +49,7 @@ test("buildPrompt: described-framed uses the description in url-only framing, no
 test("buildPrompt: recall name baselines describe by NAME, never a dangling id", () => {
   // Regression: a recall task references an external identifier ("the paper at
   // this arXiv id"). The name baselines must NOT echo that dangling reference;
-  // they describe the work by its human name (DESCRIPTIVE_NAMES). url-only (the
+  // they describe the work by its human name (DESCRIPTIVE_NAMES). opaque-url (the
   // treatment) still carries the real opaque id and no name.
   const item = CORPUS.find((i) => i.id === "arxiv-attention");
   for (const cond of ["described", "described-framed"]) {
@@ -65,11 +65,11 @@ test("buildPrompt: recall name baselines describe by NAME, never a dangling id",
     );
     assert.ok(!/http/.test(p.user), `${cond} carries no URL`);
   }
-  const u = buildPrompt(item, "url-only", null);
-  assert.ok(/arxiv\.org\/abs/.test(u.user), "url-only keeps the opaque id");
+  const u = buildPrompt(item, "opaque-url", null);
+  assert.ok(/arxiv\.org\/abs/.test(u.user), "opaque-url keeps the opaque id");
   assert.ok(
     !/Attention Is All You Need/.test(u.user),
-    "no descriptive name leaks into url-only",
+    "no descriptive name leaks into opaque-url",
   );
 });
 
@@ -84,16 +84,16 @@ test("buildPrompt: recall name baseline skips only when no descriptive name", ()
   assert.equal(buildPrompt(item, "described-framed", null), null);
 });
 
-test("buildPrompt: url-only is opaque (only the id, no task name)", () => {
+test("buildPrompt: opaque-url is opaque (only the id, no task name)", () => {
   const item = {
     id: "x",
     kind: "code",
     target: "Use the Foo API.",
     urls: { opaque: "https://chromestatus.com/feature/123" },
   };
-  const p = buildPrompt(item, "url-only", null);
+  const p = buildPrompt(item, "opaque-url", null);
   assert.ok(/chromestatus\.com\/feature\/123/.test(p.user));
-  assert.ok(!/Use the Foo API/.test(p.user), "no task name leaks into url-only");
+  assert.ok(!/Use the Foo API/.test(p.user), "no task name leaks into opaque-url");
 });
 
 test("buildPrompt: probe conditions return null when the id is absent", () => {
@@ -123,7 +123,7 @@ test("CONDITIONS includes the control + probe conditions", () => {
   for (const c of [
     "described",
     "described-framed",
-    "url-only",
+    "opaque-url",
     "spec-url-only",
     "bcd-key-only",
     "fake-opaque-url",

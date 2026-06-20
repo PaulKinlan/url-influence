@@ -6,12 +6,12 @@
 //
 //   1. `code` / API-USAGE items: the model is asked to USE a real web API; the
 //      opaque URL is a ChromeStatus id. described is a real task description, so
-//      the LIFT metric (url-only − described) is a clean "opaque pointer vs
+//      the LIFT metric (opaque-url − described) is a clean "opaque pointer vs
 //      description" contrast. The LIFT is computed ONLY on these.
 //
 //   2. `recall` items (OPAQUE-ID DECODING): arXiv/RFC/CVE/SO/PMID/DOI/SHA/HF
 //      ids. described here is the work's TITLE (≈ the answer for famous works),
-//      so url-only − described is NOT the same metric and is kept OUT of the
+//      so opaque-url − described is NOT the same metric and is kept OUT of the
 //      lift. These are analysed on their own — by id-type, by popularity, and
 //      pre/post cutoff — to ask whether the bare opaque id decodes the content.
 //
@@ -19,7 +19,7 @@
 //      post-dates every model, so the CORRECT answer is "I can't determine
 //      this". A bare opaque URL tends to score HIGH precisely because it gives
 //      the model nothing, so it correctly refuses. Mixing these into the lift
-//      creates a fake "post-cutoff url-only helps" signal — reported on their
+//      creates a fake "post-cutoff opaque-url helps" signal — reported on their
 //      own as a refusal-calibration view.
 
 import { MODELS } from "./models.mjs";
@@ -52,7 +52,7 @@ const OPAQUE_STRUCTURAL_CONTROLS = new Set(
 );
 const isOpaqueStructuralControl = (id) => OPAQUE_STRUCTURAL_CONTROLS.has(id);
 // Item KIND drives which TRACK a row belongs to. The headline lift
-// (url-only − described) is meaningful only for `code`/API-usage items, where
+// (opaque-url − described) is meaningful only for `code`/API-usage items, where
 // described is a genuine task description. For `recall` items described is the
 // work's TITLE (≈ the answer for famous works), so mixing them into the lift
 // conflates two different phenomena — they get their own opaque-id-decoding
@@ -72,21 +72,21 @@ const ITEM = new Map(CORPUS.map((i) => [i.id, i]));
 // descriptive distinction that makes the numbers interpretable.
 const CONDITION_OPACITY = {
   "described": "— (no identifier; baseline)",
-  "described-framed": "— (no id; framing-matched baseline for url-only)",
+  "described-framed": "— (no id; framing-matched baseline for opaque-url)",
   "fake-opaque-url": "CONTROL — opaque-SHAPED fake id (uniform)",
-  "url-only": "OPAQUE — bare id, does NOT name the content",
+  "opaque-url": "OPAQUE — bare id, does NOT name the content",
   "mdn-url-only": "DESCRIPTIVE — MDN path names the API",
   "spec-url-only": "CANONICAL — spec URL (usually names the feature)",
   "bcd-key-only": "CANONICAL, SEMI-DESCRIPTIVE — BCD dotted key often contains the name",
   "url+described": "OPAQUE id + the task described",
   "full-content": "— (page pasted + task spelled out; max-info ceiling)",
-  "content-only": "— (page pasted, NO task; clean ceiling parallel to url-only)",
+  "content-only": "— (page pasted, NO task; clean ceiling parallel to opaque-url)",
   "fake-structural-url": "CONTROL — nonexistent same-shape URL",
   "random-url": "CONTROL — unrelated real URL",
 };
 
 // Classify an item's OPAQUE id (urls.opaque) so the reader sees exactly what
-// the `url-only` condition was for that item.
+// the `opaque-url` condition was for that item.
 function opaqueIdType(item) {
   if (item?.validation?.opaqueRole === "structural-control")
     return "control (synthetic, not a real pointer)";
@@ -246,7 +246,7 @@ async function main() {
   for (const model of models) {
     const all = scores.filter((s) => s.model === model.key);
     // API-USAGE track = `code` items only (real pointers). The lift lives here:
-    // described is a genuine task description, so url-only − described is a clean
+    // described is a genuine task description, so opaque-url − described is a clean
     // "opaque pointer vs description" contrast. Recall items are a SEPARATE track
     // (opaque-id decoding), reported in the per-id-type / popularity tables.
     const api = all.filter(
@@ -371,14 +371,14 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push(
     "- **`code` / API-usage items** — the model is asked to USE a real web API, " +
       "and the opaque URL (a ChromeStatus id) points at that feature. described " +
-      "is a genuine task description, so url-only − described is a clean " +
+      "is a genuine task description, so opaque-url − described is a clean " +
       "\"opaque pointer vs description\" contrast. **The LIFT metric is computed " +
       "on these only.**",
   );
   L.push(
     "- **`recall` items (opaque-id decoding)** — arXiv/RFC/CVE/SO/PMID/DOI/SHA/" +
       "HF ids. Here described is the work's TITLE, which ≈ the answer for famous " +
-      "works, so url-only − described is NOT comparable to the API-usage lift " +
+      "works, so opaque-url − described is NOT comparable to the API-usage lift " +
       "and is kept OUT of it. These are analysed on their own — by id-type, by " +
       "popularity (famous/moderate/obscure), and pre/post cutoff — to ask " +
       "whether the bare opaque id decodes into the real content.",
@@ -389,7 +389,7 @@ async function writeReport(summary, models, data, skippedModels) {
       "`) — the content post-dates every model, so the *correct* answer is " +
       "\"I can't determine this\". A bare URL scores HIGH here precisely " +
       "because it hands the model nothing, so it correctly refuses. Averaging " +
-      "these into the lift manufactures a fake \"url-only helps post-cutoff\" " +
+      "these into the lift manufactures a fake \"opaque-url helps post-cutoff\" " +
       "signal — so they are reported on their own (refusal calibration), never " +
       "in the lift.",
   );
@@ -399,7 +399,7 @@ async function writeReport(summary, models, data, skippedModels) {
       "- **Intentional opaque structural controls** (`" +
         summary.opaqueStructuralControlItems.join("`, `") +
         "`) have `validation.opaqueRole = \"structural-control\"`. Their " +
-        "`url-only` prompt may contain a fake, missing, or unrelated opaque " +
+        "`opaque-url` prompt may contain a fake, missing, or unrelated opaque " +
         "SO/ChromeStatus-shaped URL. They are useful controls, but excluded " +
         "from headline lift because they are not real URL-to-content pointers.",
     );
@@ -407,7 +407,7 @@ async function writeReport(summary, models, data, skippedModels) {
   }
   L.push(
     "**LIFT** (API-usage items with real opaque pointers) `= " +
-      "mean(correctness | url-only) − mean(correctness | described)`. " +
+      "mean(correctness | opaque-url) − mean(correctness | described)`. " +
       "Positive = the bare URL alone beat naming the task. The hypothesis " +
       "predicts **positive lift pre-cutoff, ~zero post-cutoff**.",
   );
@@ -444,7 +444,7 @@ async function writeReport(summary, models, data, skippedModels) {
     "**Identifier probes.** Conditions such as `mdn-url-only`, " +
       "`spec-url-only`, and `bcd-key-only` are exploratory. They are useful " +
       "for diagnosing which identifiers a model can decode, but the headline " +
-      "lift remains strictly `url-only - described`.",
+      "lift remains strictly `opaque-url - described`.",
   );
   L.push("");
   L.push(
@@ -467,7 +467,7 @@ async function writeReport(summary, models, data, skippedModels) {
     "The single most important thing for reading the numbers: **which conditions " +
       "give an OPAQUE id (a bare string that does not name the content) vs a " +
       "DESCRIPTIVE/CANONICAL id (that names or describes the feature).** Only " +
-      "`url-only` is opaque; `mdn/spec/bcd` all name the feature to some degree.",
+      "`opaque-url` is opaque; `mdn/spec/bcd` all name the feature to some degree.",
   );
   L.push("");
   L.push("| Condition | Identifier opacity | Group | Meaning |");
@@ -527,19 +527,19 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push(
     "The single averaged \"lift\" below is misleading: the effect is " +
       "**categorical, not continuous** — it depends on WHICH identifier, not how " +
-      "far the content is from the cutoff. Mean `url-only` (OPAQUE) correctness " +
+      "far the content is from the cutoff. Mean `opaque-url` (OPAQUE) correctness " +
       "across all models, grouped by the kind of opaque id:",
   );
   L.push("");
   const byType = {};
   for (const it of CORPUS) {
     if (it.groundTruth.expectUnknown) continue;
-    const uo = icMean(it.id, "url-only");
+    const uo = icMean(it.id, "opaque-url");
     if (uo == null) continue;
     const t = opaqueIdType(it);
     (byType[t] = byType[t] || []).push({ uo, no: icMean(it.id, "described") });
   }
-  L.push("| Opaque id type (`url-only`) | items | mean url-only | mean described |");
+  L.push("| Opaque id type (`opaque-url`) | items | mean opaque-url | mean described |");
   L.push("|---|---|---|---|");
   for (const [t, rows] of Object.entries(byType).sort(
     (a, b) => (mean(b[1].map((r) => r.uo)) || 0) - (mean(a[1].map((r) => r.uo)) || 0),
@@ -591,22 +591,22 @@ async function writeReport(summary, models, data, skippedModels) {
     );
   const _no = condMeanAll("described");
   const _nf = condMeanAll("described-framed");
-  const _uo = condMeanAll("url-only");
+  const _uo = condMeanAll("opaque-url");
   const _fo = condMeanAll("fake-opaque-url");
   const _fs = condMeanAll("fake-structural-url");
   if (_no != null && _nf != null && _uo != null) {
-    L.push("## Controls — is the url-only result a framing or shape artifact?");
+    L.push("## Controls — is the opaque-url result a framing or shape artifact?");
     L.push("");
     L.push(
-      "Two controls test whether the `url-only` collapse is real or an artifact:",
+      "Two controls test whether the `opaque-url` collapse is real or an artifact:",
     );
     L.push("");
     L.push(
       `- **Framing.** \`described-framed\` puts the plain task description in the SAME ` +
-        `"do whatever this describes" wording as \`url-only\`. Framing cost = ` +
+        `"do whatever this describes" wording as \`opaque-url\`. Framing cost = ` +
         `described-framed − described = **${sign(_nf - _no)}** (≈0): the framing does ` +
-        `NOT explain url-only's low score. So the **framing-adjusted lift** ` +
-        `(url-only − described-framed = **${sign(_uo - _nf)}**) equals the raw lift — ` +
+        `NOT explain opaque-url's low score. So the **framing-adjusted lift** ` +
+        `(opaque-url − described-framed = **${sign(_uo - _nf)}**) equals the raw lift — ` +
         `the opaque id genuinely fails, it is not vaguer instruction.`,
     );
     if (_fo != null && _fs != null) {
@@ -626,7 +626,7 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("## Per-item identifier reference");
   L.push("");
   L.push(
-    "Exactly what the `url-only` (OPAQUE) id is for each item, and which " +
+    "Exactly what the `opaque-url` (OPAQUE) id is for each item, and which " +
       "descriptive/canonical ids it also carries.",
   );
   L.push("");
@@ -640,7 +640,7 @@ async function writeReport(summary, models, data, skippedModels) {
     return ` ${e.present ? `${e.n}${e.firstSeen ? ` (${e.firstSeen})` : ""}` : "0"} |`;
   };
   L.push(
-    `| item | contentDate | \`url-only\` (opaque) id | type | spec? | bcd? |${ccCol}`,
+    `| item | contentDate | \`opaque-url\` (opaque) id | type | spec? | bcd? |${ccCol}`,
   );
   L.push(`|---|---|---|---|---|---|${ccSep}`);
   for (const it of [...CORPUS].sort((a, b) =>
@@ -661,7 +661,7 @@ async function writeReport(summary, models, data, skippedModels) {
         `in training via other routes, and presence does not guarantee recall.*`,
     );
     L.push("");
-    // CC-present vs CC-absent decode rate (url-only / opaque condition).
+    // CC-present vs CC-absent decode rate (opaque-url / opaque condition).
     const recallItems = CORPUS.filter(
       (i) => !i.groundTruth.expectUnknown && cc[i.id],
     );
@@ -669,13 +669,13 @@ async function writeReport(summary, models, data, skippedModels) {
     const absent = recallItems.filter((i) => !cc[i.id].present);
     const meanOf = (items) => {
       const vals = items
-        .map((i) => icMean(i.id, "url-only"))
+        .map((i) => icMean(i.id, "opaque-url"))
         .filter((v) => v != null);
       return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
     };
     L.push("### Opaque-URL recall vs Common Crawl presence");
     L.push("");
-    L.push("| CC presence | items | mean `url-only` (opaque) correctness |");
+    L.push("| CC presence | items | mean `opaque-url` (opaque) correctness |");
     L.push("|---|---|---|");
     L.push(`| present in ≥1 crawl | ${present.length} | ${fmt(meanOf(present))} |`);
     L.push(`| absent from all crawls | ${absent.length} | ${fmt(meanOf(absent))} |`);
@@ -696,7 +696,7 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("");
   L.push(
     "Mean correctness across all models, by item (sorted by date). `opaque` = " +
-      "`url-only`. Watch the **opaque** column collapse to ~0 except for famous " +
+      "`opaque-url`. Watch the **opaque** column collapse to ~0 except for famous " +
       "arXiv/RFC ids, while **bcd/spec/mdn** (which name the feature) track " +
       "`name`. Blank = n/a or no data.",
   );
@@ -708,7 +708,7 @@ async function writeReport(summary, models, data, skippedModels) {
     .sort((a, b) => a.contentDate.localeCompare(b.contentDate))) {
     const g = (c) => fmt(icMean(it.id, c));
     L.push(
-      `| \`${it.id}\` | ${opaqueIdType(it)} | ${g("described")} | ${g("url-only")} | ${g("mdn-url-only")} | ${g("spec-url-only")} | ${g("bcd-key-only")} | ${g("full-content")} |`,
+      `| \`${it.id}\` | ${opaqueIdType(it)} | ${g("described")} | ${g("opaque-url")} | ${g("mdn-url-only")} | ${g("spec-url-only")} | ${g("bcd-key-only")} | ${g("full-content")} |`,
     );
   }
   L.push("");
@@ -723,15 +723,15 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   const examples = [
-    ["arxiv-attention", "url-only"],
-    ["rfc-9110-http-semantics", "url-only"],
-    ["css-anchor-positioning", "url-only"],
+    ["arxiv-attention", "opaque-url"],
+    ["rfc-9110-http-semantics", "opaque-url"],
+    ["css-anchor-positioning", "opaque-url"],
     ["fetch-api", "bcd-key-only"],
-    ["fetch-api", "url-only"],
+    ["fetch-api", "opaque-url"],
     ["css-gap-decorations", "bcd-key-only"],
   ];
   const condIdLabel = (id, c) =>
-    c === "url-only"
+    c === "opaque-url"
       ? `opaque ${opaqueIdType(ITEM.get(id))}`
       : c === "bcd-key-only"
         ? "BCD key"
@@ -780,7 +780,7 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   L.push(
-    "`LIFT = mean(url-only) − mean(described)` over API-usage items whose " +
+    "`LIFT = mean(opaque-url) − mean(described)` over API-usage items whose " +
       "opaque URL is intended to be a real pointer. Knowledge-calibration " +
       "items and intentional opaque structural controls are excluded. `n " +
       "pre/post` = eligible API-usage items each side of this model's cutoff.",
@@ -794,13 +794,13 @@ async function writeReport(summary, models, data, skippedModels) {
     const preCell =
       a.lift.pre != null
         ? cellSign(a.lift.pre)
-        : cell(null, [...(sr.pre["url-only"] || []), ...(sr.pre["described"] || [])]);
+        : cell(null, [...(sr.pre["opaque-url"] || []), ...(sr.pre["described"] || [])]);
     const postCell =
       a.lift.post != null
         ? cellSign(a.lift.post)
-        : cell(null, [...(sr.post["url-only"] || []), ...(sr.post["described"] || [])]);
+        : cell(null, [...(sr.post["opaque-url"] || []), ...(sr.post["described"] || [])]);
     const ovCell = cellSign(a.lift.overall, [
-      ...(a.byCondRows["url-only"] || []),
+      ...(a.byCondRows["opaque-url"] || []),
       ...(a.byCondRows["described"] || []),
     ]);
     L.push(
@@ -814,7 +814,7 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("");
   L.push(
     "Knowledge-calibration items and intentional opaque structural controls " +
-      "excluded. In **pre** rows, does `url-only` approach `described`? In " +
+      "excluded. In **pre** rows, does `opaque-url` approach `described`? In " +
       "**post** rows, it should not beat `described`; controls stay flat.",
   );
   L.push("");
@@ -840,7 +840,7 @@ async function writeReport(summary, models, data, skippedModels) {
       summary.calibrationItems.join("`, `") +
       "`) post-date every model; correctness = the model correctly said it " +
       "could not determine the answer. NOT part of the lift. The thing to see: " +
-      "a bare `url-only` (and `described`) often score HIGH here — refusing is " +
+      "a bare `opaque-url` (and `described`) often score HIGH here — refusing is " +
       "easy when you're handed nothing — which is exactly why these would " +
       "pollute a lift average if included.",
   );
@@ -925,7 +925,7 @@ function interpret(summary, models) {
   }
   lines.push(
     `- **Why the earlier read was wrong:** an apparent positive *post-cutoff* ` +
-      `url-only score comes from the knowledge-calibration items (` +
+      `opaque-url score comes from the knowledge-calibration items (` +
       `${summary.calibrationItems.join(", ")}`,
   );
   lines[lines.length - 1] +=

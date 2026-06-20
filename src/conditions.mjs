@@ -2,7 +2,7 @@
 //
 // Each condition turns an item into a prompt. The whole point of the experiment
 // lives here, so the prompts are deliberately matched: the ONLY thing that
-// varies between described and url-only is whether the task is described by name
+// varies between described and opaque-url is whether the task is described by name
 // or by a bare URL string. We never tell the model to browse, and the harness
 // never fetches a page except in the full-content (ceiling) condition.
 
@@ -20,10 +20,10 @@ export const CONDITION_DEFS = [
     group: "core",
     required: true,
     description:
-      "the task DESCRIPTION in the SAME 'do whatever this describes' framing as url-only — isolates the framing cost from the identifier (url-only − described-framed = pure opaque-id-vs-description)",
+      "the task DESCRIPTION in the SAME 'do whatever this describes' framing as opaque-url — isolates the framing cost from the identifier (opaque-url − described-framed = pure opaque-id-vs-description)",
   },
   {
-    key: "url-only",
+    key: "opaque-url",
     group: "core",
     required: true,
     urlKind: "opaque",
@@ -75,7 +75,7 @@ export const CONDITION_DEFS = [
     required: true,
     urlKind: "fullContentUrl",
     description:
-      "the real page content is pasted in with NO spelled-out task — same minimal framing as url-only, so url-only vs content-only isolates pointer-vs-content, and full-content vs content-only isolates the task text's contribution",
+      "the real page content is pasted in with NO spelled-out task — same minimal framing as opaque-url, so opaque-url vs content-only isolates pointer-vs-content, and full-content vs content-only isolates the task text's contribution",
   },
   {
     key: "fake-structural-url",
@@ -104,7 +104,7 @@ export const CONDITION_DEFS = [
 
 export const CONDITIONS = CONDITION_DEFS.map((c) => c.key);
 
-export const CORE_LIFT_CONDITIONS = ["described", "url-only"];
+export const CORE_LIFT_CONDITIONS = ["described", "opaque-url"];
 export const IDENTIFIER_PROBE_CONDITIONS = CONDITION_DEFS.filter(
   (c) => c.group === "identifier-probe",
 ).map((c) => c.key);
@@ -170,8 +170,8 @@ export function buildPrompt(item, condition, fetched) {
   switch (condition) {
     case "described":
       // Control: task described by NAME, no URL. For recall items the name is
-      // the descriptive identifier (title / common name); url-only gives the
-      // opaque id for the SAME target, so url-only − described = opaque-id
+      // the descriptive identifier (title / common name); opaque-url gives the
+      // opaque id for the SAME target, so opaque-url − described = opaque-id
       // penalty. Skip only if no descriptive name was authored.
       if (nameTask == null) return null;
       return {
@@ -181,15 +181,15 @@ export function buildPrompt(item, condition, fetched) {
 
     case "described-framed":
       // Framing-matched baseline: same "do whatever this describes" framing as
-      // url-only, but with the plain task description (by name) instead of a URL.
-      // Lets us net out the "vaguer instruction" cost of url-only's framing.
+      // opaque-url, but with the plain task description (by name) instead of a URL.
+      // Lets us net out the "vaguer instruction" cost of opaque-url's framing.
       if (nameTask == null) return null;
       return {
         system,
         user: `Do whatever the following describes:\n\n${nameTask}\n\n${taskVerb}`,
       };
 
-    case "url-only":
+    case "opaque-url":
       // The core opaque condition: ONLY the url string. No description of what
       // it is. We do not fetch it. The model must rely on training memory.
       return {
@@ -263,8 +263,8 @@ export function buildPrompt(item, condition, fetched) {
 
     case "content-only": {
       // CLEAN ceiling: the real content with NO spelled-out task — the SAME
-      // minimal framing as url-only ("do whatever the content describes"), just
-      // with the page inline instead of a bare URL. So url-only vs content-only
+      // minimal framing as opaque-url ("do whatever the content describes"), just
+      // with the page inline instead of a bare URL. So opaque-url vs content-only
       // isolates pointer-string-vs-actual-content, and full-content vs
       // content-only isolates how much the spelled-out task itself contributes.
       const content = (fetched || "(content unavailable)").slice(0, 12000);
@@ -310,13 +310,13 @@ export function buildPrompt(item, condition, fetched) {
   }
 }
 
-// Which opacity level a condition's URL represents (for reporting). The url-only
+// Which opacity level a condition's URL represents (for reporting). The opaque-url
 // / url+described conditions use the OPAQUE url by design; the README documents the
 // full spectrum and the corpus carries descriptive/semiOpaque too for manual
 // extension.
 export function urlForCondition(item, condition) {
   switch (condition) {
-    case "url-only":
+    case "opaque-url":
     case "url+described":
       return item.urls.opaque;
     case "mdn-url-only":

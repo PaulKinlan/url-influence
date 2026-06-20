@@ -209,6 +209,8 @@ const HTML = `<!doctype html>
   .cellbtn.null { background:#3a3f4b; color:var(--mut); cursor:default; }
   .badge { display:inline-block; font-size:10px; padding:1px 6px; border-radius:10px; border:1px solid var(--line); color:var(--mut); }
   .pill { font-size:11px; color:var(--mut); }
+  .refusal { display:inline-block; font-size:10px; padding:1px 6px; border-radius:10px; background:#3a2a12; color:#f2b24b; border:1px solid #6b4a18; margin-right:6px; vertical-align:middle; white-space:nowrap; cursor:help; }
+  .banner { background:#3a2a12; color:#f2d39b; border:1px solid #6b4a18; border-radius:6px; padding:8px 10px; margin:8px 0; font-size:12px; line-height:1.45; }
   pre { background:#0b0d10; border:1px solid var(--line); border-radius:6px; padding:10px; white-space:pre-wrap; word-break:break-word; max-height:280px; overflow:auto; font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace; }
   .kv { display:grid; grid-template-columns:130px 1fr; gap:4px 10px; margin:8px 0; }
   .kv .k { color:var(--mut); }
@@ -434,7 +436,7 @@ function render(){
   const mc=all.filter(c=>c.model===model);
 
   // Stats strip (current model + filter): per-condition mean + lift.
-  const nameM=meanBy(mc,"described"), urlM=meanBy(mc,"url-only");
+  const nameM=meanBy(mc,"described"), urlM=meanBy(mc,"opaque-url");
   const lift=(nameM!=null&&urlM!=null)? (urlM-nameM):null;
   const pass=parseFloat($("#pass").value);
   const passed=mc.filter(c=>typeof c.correctness==="number"&&c.correctness>=pass).length;
@@ -443,7 +445,7 @@ function render(){
   stats+=stat("cells (this model)", mc.length);
   stats+=stat("pass rate", scored? (Math.round(100*passed/scored)+"% ("+passed+"/"+scored+")"):"—");
   stats+=stat("described mean", fmt(nameM));
-  stats+=stat("url-only mean", fmt(urlM));
+  stats+=stat("opaque-url mean", fmt(urlM));
   stats+=stat("lift (url−name)", lift==null?"—":(lift>=0?"+":"")+lift.toFixed(2));
   stats+='</div>';
 
@@ -460,7 +462,8 @@ function render(){
     const it=D.items[id];
     const side = (mc.find(c=>c.itemId===id)||{}).preCutoff ? "pre":"post";
     const ccTag=it.cc==="present"?(" · CC "+it.ccN+(it.ccFirstSeen?"/"+it.ccFirstSeen:"")):(it.cc==="absent"?" · not in CC":"");
-    t+='<tr><td class="item">'+id+'<div class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+ccTag+' · '+it.contentDate+' · '+side+'-cutoff</div></td>';
+    const refusal=it.track==="calibration"?'<span class="refusal" title="Calibration item: the content post-dates every model, so the CORRECT behaviour is to admit it does not know. A green cell here means correctly REFUSED, not correctly produced.">refusal test</span> ':'';
+    t+='<tr><td class="item">'+refusal+id+'<div class="tk">'+it.source+(it.popularity?" · "+it.popularity:"")+ccTag+' · '+it.contentDate+' · '+side+'-cutoff</div></td>';
     conds.forEach(c=>{
       const cell=mc.find(x=>x.itemId===id&&x.condition===c);
       if(!cell){ t+='<td><div class="cellbtn null">·</div></td>'; return; }
@@ -477,7 +480,7 @@ function render(){
     t+='</tr>';
   });
   t+='</tbody></table>';
-  t+='<div class="legend">cell = final correctness 0..1 <span class="swatch" style="background:'+color(0)+'"></span>0 <span class="swatch" style="background:'+color(0.5)+'"></span>.5 <span class="swatch" style="background:'+color(1)+'"></span>1 · "err" = model call failed · "n/a" = condition not applicable · click a cell for the prompt, output and judge verdict</div>';
+  t+='<div class="legend">cell = final correctness 0..1 <span class="swatch" style="background:'+color(0)+'"></span>0 <span class="swatch" style="background:'+color(0.5)+'"></span>.5 <span class="swatch" style="background:'+color(1)+'"></span>1 · "err" = model call failed · "n/a" = condition not applicable · rows tagged <span class="refusal">refusal test</span> are calibration items where a high score means correctly DECLINING (content post-dates the model), not producing the API · click a cell for the prompt, output and judge verdict</div>';
 
   $("#main").innerHTML=stats+t;
   document.querySelectorAll(".cellbtn[data-i]").forEach(b=> b.onclick=()=>showDetail(D.cells[+b.dataset.i]));
@@ -495,6 +498,9 @@ function showDetail(c){
   let h='<button class="close" onclick="closeDetail()">close</button>';
   h+='<button class="close" style="right:64px" title="Copy a link that reopens this cell" onclick="copyLink()">copy link</button>';
   h+='<h3>'+c.itemId+' · '+c.condition+'</h3>';
+  if(it.track==="calibration"){
+    h+='<div class="banner">This is a <b>refusal / calibration item</b>. Its content post-dates every model, so the <b>correct behaviour is to admit it doesn\\'t know</b>. A high score here means the model correctly declined; a confident, specific answer is a hallucination and scores low. Do not read these cells as "produced the API".</div>';
+  }
   h+='<div class="kv">';
   h+='<div class="k">model</div><div>'+esc(c.label)+' (cutoff '+c.cutoff+')</div>';
   h+='<div class="k">item track</div><div>'+it.track+' · '+it.kind+'</div>';
