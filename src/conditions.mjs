@@ -107,6 +107,11 @@ export function conditionInfo(condition) {
 const NO_BROWSE_NOTE =
   "You do not have internet access and cannot open the URL. Answer only from your own knowledge of what is at that URL.";
 
+// The mdn-url-only probe is specifically about MDN documentation URLs. A
+// `descriptive` URL that isn't on developer.mozilla.org (e.g. a recall item's
+// arXiv/DOI link reused as `descriptive`) does NOT count.
+export const isMdnUrl = (u) => /(^|\/\/)([^/]*\.)?developer\.mozilla\.org\//.test(u || "");
+
 // An OPAQUE-shaped fake id matching the item's real opaque id type, so the
 // "does opaque URL SHAPE steer?" control is uniform across item types (unlike
 // `fakeUrl`, which is descriptive for web items). Nonexistent by construction.
@@ -190,7 +195,10 @@ export function buildPrompt(item, condition, fetched) {
     // decode into the right content. Return null when the item carries no such
     // id, so the runner skips the cell rather than inventing one.
     case "mdn-url-only": {
-      const u = item.urls?.descriptive;
+      // ONLY a real MDN documentation URL. Recall items (arXiv/DOI/SO/RFC) carry
+      // a `descriptive` URL that is just the opaque URL again, not MDN — so this
+      // probe is N/A for them (skip → n/a), not "data from a non-MDN link".
+      const u = isMdnUrl(item.urls?.descriptive) ? item.urls.descriptive : null;
       if (!u) return null;
       return {
         system,
@@ -288,7 +296,7 @@ export function urlForCondition(item, condition) {
     case "url+name":
       return item.urls.opaque;
     case "mdn-url-only":
-      return item.urls?.descriptive ?? null;
+      return isMdnUrl(item.urls?.descriptive) ? item.urls.descriptive : null;
     case "spec-url-only":
       return item.urls?.specUrl ?? null;
     case "bcd-key-only":
