@@ -2546,6 +2546,205 @@ export const CORPUS = [
     },
     fakeUrl: "https://huggingface.co/Qwen/Qwen3.6-27B-nonexistent",
   },
+
+  // ---- More StackOverflow (deconfound fame vs cutoff; SO is NOT in Common
+  // Crawl but IS in training via the data dumps) -----------------------------
+  {
+    id: "so-20864486-creditcard-edges-opencv",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2014-01-01", // SO 20864486, verified via Stack Exchange API (score 3)
+    groundTruth: {
+      mustMention: ["OpenCV", "edge", "credit card"],
+      notes:
+        "SO question 20864486 is 'Detecting credit card edges using opencv and python' (Jan 2014, score 3; tags python/opencv). The accepted answer suggests the Canny edge detector followed by HoughLines/HoughLinesP for straight edges. Obscure, old, low-traffic. Correct recall names the OpenCV/Python credit-card edge-detection question.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/20864486",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/20864486?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/20864486",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/20864486?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999991",
+  },
+  {
+    id: "so-20864752-bmp-fxpt2dot30",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2014-01-01", // SO 20864752, verified via Stack Exchange API (score 3)
+    groundTruth: {
+      mustMention: ["FXPT2DOT30", "BMP", "fixed-point"],
+      notes:
+        "SO question 20864752 is 'How is defined the data type FXPT2DOT30 in the BMP file structure?' (Jan 2014, score 3; tag bmp). Answer: FXPT2DOT30 is a fixed-point value with a 2-bit integer part and a 30-bit fractional part (used in CIEXYZ in BMP headers). Very obscure. Correct recall explains the BMP FXPT2DOT30 2.30 fixed-point type.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/20864752",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/20864752?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/20864752",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/20864752?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999992",
+  },
+  {
+    id: "so-20864579-vectorize-matrix-rows",
+    kind: "recall",
+    popularity: "obscure",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2014-01-01", // SO 20864579, verified via Stack Exchange API (score 3)
+    groundTruth: {
+      mustMention: ["vectorize", "matrix", "rows"],
+      notes:
+        "SO question 20864579 is 'How to vectorize comparing each row of matrix with all other rows' (Jan 2014, score 3; tags r/loops/matrix/vectorization). Asks how to count differences of each row vs all others in R without loops. Obscure. Correct recall names the R row-by-row matrix vectorization question.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/20864579",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/20864579?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/20864579",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/20864579?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999993",
+  },
+  {
+    id: "so-79679150-malloc-never-fails",
+    kind: "recall",
+    popularity: "moderate",
+    target:
+      "Recall the Stack Overflow question at this identifier: what does it ask?",
+    contentDate: "2025-06-25", // SO 79679150, verified via Stack Exchange API (score 31)
+    groundTruth: {
+      mustMention: ["malloc", "compiler", "optimization"],
+      notes:
+        "SO question 79679150 is 'Why do modern compilers assume malloc never fails?' (June 2025, score 31; tags c++/gcc/clang/malloc). Answer: under the C++ standard there is no observable effect from a discarded malloc result, so GCC/clang may elide the allocation and the failure branch. Mid-2025 (boundary for several cutoffs). Correct recall explains compilers eliding an unused malloc/its failure check.",
+    },
+    urls: {
+      descriptive: "https://stackoverflow.com/questions/79679150",
+      semiOpaque: "https://api.stackexchange.com/2.3/questions/79679150?site=stackoverflow",
+      opaque: "https://stackoverflow.com/questions/79679150",
+      fullContentUrl: "https://api.stackexchange.com/2.3/questions/79679150?site=stackoverflow&filter=withbody",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://stackoverflow.com/questions/99999999994",
+  },
+
+  // ---- Wikipedia by curid: the clean OPAQUE-id-with-content-in-training test.
+  // The article is server-rendered (full content in Common Crawl) and the topic
+  // is unquestionably in every model. The numeric `curid` is opaque and never
+  // used as a handle in prose. So this isolates "opaque id not memorised as a
+  // handle" from "content not in training" — if these fail, opaque ids don't
+  // decode EVEN when the content is fully in the model. (Paul, 2026-06-20.)
+  {
+    id: "wiki-curid-photosynthesis",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Wikipedia article at this curid: what is it about?",
+    contentDate: "2002-01", // long-standing article, pre-cutoff for all
+    groundTruth: {
+      mustMention: ["photosynthesis", "light", "carbon dioxide"],
+      notes:
+        "en.wikipedia.org/?curid=24544 is the 'Photosynthesis' article. The content is fully server-rendered and in every model; only the opaque numeric curid (24544) is the test. Correct recall identifies Photosynthesis (plants converting light + CO2 + water into glucose/oxygen).",
+    },
+    urls: {
+      descriptive: "https://en.wikipedia.org/wiki/Photosynthesis",
+      semiOpaque: "https://en.wikipedia.org/?curid=24544",
+      opaque: "https://en.wikipedia.org/?curid=24544",
+      fullContentUrl: "https://en.wikipedia.org/wiki/Photosynthesis",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://en.wikipedia.org/?curid=999999991",
+  },
+  {
+    id: "wiki-curid-mitochondrion",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Wikipedia article at this curid: what is it about?",
+    contentDate: "2002-01",
+    groundTruth: {
+      mustMention: ["mitochondri", "ATP", "cell"],
+      notes:
+        "en.wikipedia.org/?curid=19588 is the 'Mitochondrion' article. Content fully in training; the opaque curid (19588) is the test. Correct recall identifies the mitochondrion (the cell organelle producing ATP).",
+    },
+    urls: {
+      descriptive: "https://en.wikipedia.org/wiki/Mitochondrion",
+      semiOpaque: "https://en.wikipedia.org/?curid=19588",
+      opaque: "https://en.wikipedia.org/?curid=19588",
+      fullContentUrl: "https://en.wikipedia.org/wiki/Mitochondrion",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://en.wikipedia.org/?curid=999999992",
+  },
+  {
+    id: "wiki-curid-http-404",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Wikipedia article at this curid: what is it about?",
+    contentDate: "2003-01",
+    groundTruth: {
+      mustMention: ["404", "HTTP", "not found"],
+      notes:
+        "en.wikipedia.org/?curid=35507 is the 'HTTP 404' article. Content fully in training; the opaque curid (35507) is the test. Correct recall identifies the HTTP 404 Not Found status code.",
+    },
+    urls: {
+      descriptive: "https://en.wikipedia.org/wiki/HTTP_404",
+      semiOpaque: "https://en.wikipedia.org/?curid=35507",
+      opaque: "https://en.wikipedia.org/?curid=35507",
+      fullContentUrl: "https://en.wikipedia.org/wiki/HTTP_404",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://en.wikipedia.org/?curid=999999993",
+  },
+  {
+    id: "wiki-curid-bitcoin",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Wikipedia article at this curid: what is it about?",
+    contentDate: "2010-01",
+    groundTruth: {
+      mustMention: ["Bitcoin", "cryptocurrency", "blockchain"],
+      notes:
+        "en.wikipedia.org/?curid=28249265 is the 'Bitcoin' article. Content fully in training; the opaque curid (28249265) is the test. Correct recall identifies Bitcoin (the decentralized cryptocurrency / blockchain).",
+    },
+    urls: {
+      descriptive: "https://en.wikipedia.org/wiki/Bitcoin",
+      semiOpaque: "https://en.wikipedia.org/?curid=28249265",
+      opaque: "https://en.wikipedia.org/?curid=28249265",
+      fullContentUrl: "https://en.wikipedia.org/wiki/Bitcoin",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://en.wikipedia.org/?curid=999999994",
+  },
+  {
+    id: "wiki-curid-transformer-dl",
+    kind: "recall",
+    popularity: "famous",
+    target:
+      "Recall the Wikipedia article at this curid: what is it about?",
+    contentDate: "2018-01",
+    groundTruth: {
+      mustMention: ["Transformer", "attention", "neural"],
+      notes:
+        "en.wikipedia.org/?curid=61603971 is the 'Transformer (deep learning architecture)' article. Content fully in training; the opaque curid (61603971) is the test. Correct recall identifies the Transformer deep-learning architecture (self-attention).",
+    },
+    urls: {
+      descriptive: "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)",
+      semiOpaque: "https://en.wikipedia.org/?curid=61603971",
+      opaque: "https://en.wikipedia.org/?curid=61603971",
+      fullContentUrl: "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://en.wikipedia.org/?curid=999999995",
+  },
 ];
 
 // Descriptive-title baseline for `recall` items.
@@ -2648,6 +2847,20 @@ export const DESCRIPTIVE_NAMES = {
     "the Stack Overflow question \"Why does Java 25's File.exists() return true for an empty string?\"",
   "so-79890462-reinterpret-cast-structs":
     "the Stack Overflow question 'reinterpret_cast between unrelated structs with the same layout'",
+  "so-20864486-creditcard-edges-opencv":
+    "the Stack Overflow question 'Detecting credit card edges using opencv and python'",
+  "so-20864752-bmp-fxpt2dot30":
+    "the Stack Overflow question 'How is defined the data type FXPT2DOT30 in the BMP file structure?'",
+  "so-20864579-vectorize-matrix-rows":
+    "the Stack Overflow question 'How to vectorize comparing each row of matrix with all other rows'",
+  "so-79679150-malloc-never-fails":
+    "the Stack Overflow question 'Why do modern compilers assume malloc never fails?'",
+  "wiki-curid-photosynthesis": "the Wikipedia article on Photosynthesis",
+  "wiki-curid-mitochondrion": "the Wikipedia article on the Mitochondrion",
+  "wiki-curid-http-404": "the Wikipedia article on HTTP 404",
+  "wiki-curid-bitcoin": "the Wikipedia article on Bitcoin",
+  "wiki-curid-transformer-dl":
+    "the Wikipedia article on the Transformer (deep learning architecture)",
   "doi-alphafold-nature":
     "the paper 'Highly accurate protein structure prediction with AlphaFold' (Jumper et al., Nature, 2021)",
   "doi-human-genome-science":
