@@ -54,17 +54,17 @@ For every applicable (item x model) we run matched prompts. The key distinction
 is **opaque** (a bare id that does not name the content) vs **descriptive /
 canonical** (an id that names or describes the feature).
 
-1. **name-only** (baseline) - describe the task by name, no URL.
-2. **name-framed** (framing-matched baseline) - the same description, but in the
+1. **described** (baseline) - describe the task by name, no URL.
+2. **described-framed** (framing-matched baseline) - the same description, but in the
    exact "do whatever this describes" framing as `url-only`, so `url-only −
-   name-framed` nets out the framing cost and isolates opaque-id-vs-description.
+   described-framed` nets out the framing cost and isolates opaque-id-vs-description.
 3. **url-only** (the OPAQUE test) - give ONLY the opaque id string and say "do
    what is at that URL". Not fetched, not pasted; the model must rely on memory.
 4. **mdn-url-only / spec-url-only / bcd-key-only** - identifier probes (NOT in
    the headline lift). The MDN path, the canonical spec URL, and the Browser
    Compat Data key all *name* the feature to some degree, so these diagnose
    whether a descriptive/canonical id steers the model.
-5. **url+name** - the opaque id plus the task name.
+5. **url+described** - the opaque id plus the task name.
 6. **full-content** (ceiling) - fetch the real page and paste it in.
 7. **fake-structural-url** - a plausible but nonexistent URL of the same shape.
    NB for web items this is *descriptive* (the fake path still names an API).
@@ -84,7 +84,7 @@ canonical** (an id that names or describes the feature).
 
 ## Key metric & what we find
 
-The nominal metric is **lift = url-only − name-only** per model, split pre/post
+The nominal metric is **lift = url-only − described** per model, split pre/post
 cutoff. But a single averaged lift is **misleading**, because the effect is
 **categorical, not continuous**: it depends on WHICH identifier, not how far
 the content is from the cutoff. The honest result (see the report) is a set of

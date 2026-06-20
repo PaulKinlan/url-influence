@@ -5,13 +5,13 @@
 // questions and must not be averaged together:
 //
 //   1. `code` / API-USAGE items: the model is asked to USE a real web API; the
-//      opaque URL is a ChromeStatus id. name-only is a real task description, so
-//      the LIFT metric (url-only − name-only) is a clean "opaque pointer vs
+//      opaque URL is a ChromeStatus id. described is a real task description, so
+//      the LIFT metric (url-only − described) is a clean "opaque pointer vs
 //      description" contrast. The LIFT is computed ONLY on these.
 //
 //   2. `recall` items (OPAQUE-ID DECODING): arXiv/RFC/CVE/SO/PMID/DOI/SHA/HF
-//      ids. name-only here is the work's TITLE (≈ the answer for famous works),
-//      so url-only − name-only is NOT the same metric and is kept OUT of the
+//      ids. described here is the work's TITLE (≈ the answer for famous works),
+//      so url-only − described is NOT the same metric and is kept OUT of the
 //      lift. These are analysed on their own — by id-type, by popularity, and
 //      pre/post cutoff — to ask whether the bare opaque id decodes the content.
 //
@@ -52,8 +52,8 @@ const OPAQUE_STRUCTURAL_CONTROLS = new Set(
 );
 const isOpaqueStructuralControl = (id) => OPAQUE_STRUCTURAL_CONTROLS.has(id);
 // Item KIND drives which TRACK a row belongs to. The headline lift
-// (url-only − name-only) is meaningful only for `code`/API-usage items, where
-// name-only is a genuine task description. For `recall` items name-only is the
+// (url-only − described) is meaningful only for `code`/API-usage items, where
+// described is a genuine task description. For `recall` items described is the
 // work's TITLE (≈ the answer for famous works), so mixing them into the lift
 // conflates two different phenomena — they get their own opaque-id-decoding
 // tables instead. (codex audit, 2026-06-19.)
@@ -71,15 +71,16 @@ const ITEM = new Map(CORPUS.map((i) => [i.id, i]));
 // What KIND of identifier each condition's prompt carries — the opaque-vs-
 // descriptive distinction that makes the numbers interpretable.
 const CONDITION_OPACITY = {
-  "name-only": "— (no identifier; baseline)",
-  "name-framed": "— (no id; framing-matched baseline for url-only)",
+  "described": "— (no identifier; baseline)",
+  "described-framed": "— (no id; framing-matched baseline for url-only)",
   "fake-opaque-url": "CONTROL — opaque-SHAPED fake id (uniform)",
   "url-only": "OPAQUE — bare id, does NOT name the content",
   "mdn-url-only": "DESCRIPTIVE — MDN path names the API",
   "spec-url-only": "CANONICAL — spec URL (usually names the feature)",
   "bcd-key-only": "CANONICAL, SEMI-DESCRIPTIVE — BCD dotted key often contains the name",
-  "url+name": "OPAQUE id + the task name",
-  "full-content": "— (real page pasted in; ceiling)",
+  "url+described": "OPAQUE id + the task described",
+  "full-content": "— (page pasted + task spelled out; max-info ceiling)",
+  "content-only": "— (page pasted, NO task; clean ceiling parallel to url-only)",
   "fake-structural-url": "CONTROL — nonexistent same-shape URL",
   "random-url": "CONTROL — unrelated real URL",
 };
@@ -245,7 +246,7 @@ async function main() {
   for (const model of models) {
     const all = scores.filter((s) => s.model === model.key);
     // API-USAGE track = `code` items only (real pointers). The lift lives here:
-    // name-only is a genuine task description, so url-only − name-only is a clean
+    // described is a genuine task description, so url-only − described is a clean
     // "opaque pointer vs description" contrast. Recall items are a SEPARATE track
     // (opaque-id decoding), reported in the per-id-type / popularity tables.
     const api = all.filter(
@@ -369,15 +370,15 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("");
   L.push(
     "- **`code` / API-usage items** — the model is asked to USE a real web API, " +
-      "and the opaque URL (a ChromeStatus id) points at that feature. name-only " +
-      "is a genuine task description, so url-only − name-only is a clean " +
+      "and the opaque URL (a ChromeStatus id) points at that feature. described " +
+      "is a genuine task description, so url-only − described is a clean " +
       "\"opaque pointer vs description\" contrast. **The LIFT metric is computed " +
       "on these only.**",
   );
   L.push(
     "- **`recall` items (opaque-id decoding)** — arXiv/RFC/CVE/SO/PMID/DOI/SHA/" +
-      "HF ids. Here name-only is the work's TITLE, which ≈ the answer for famous " +
-      "works, so url-only − name-only is NOT comparable to the API-usage lift " +
+      "HF ids. Here described is the work's TITLE, which ≈ the answer for famous " +
+      "works, so url-only − described is NOT comparable to the API-usage lift " +
       "and is kept OUT of it. These are analysed on their own — by id-type, by " +
       "popularity (famous/moderate/obscure), and pre/post cutoff — to ask " +
       "whether the bare opaque id decodes into the real content.",
@@ -406,7 +407,7 @@ async function writeReport(summary, models, data, skippedModels) {
   }
   L.push(
     "**LIFT** (API-usage items with real opaque pointers) `= " +
-      "mean(correctness | url-only) − mean(correctness | name-only)`. " +
+      "mean(correctness | url-only) − mean(correctness | described)`. " +
       "Positive = the bare URL alone beat naming the task. The hypothesis " +
       "predicts **positive lift pre-cutoff, ~zero post-cutoff**.",
   );
@@ -415,12 +416,12 @@ async function writeReport(summary, models, data, skippedModels) {
     "> **Lift applies only to `code`/API-usage items, NOT the opaque-id " +
       "`recall` items** (arXiv/RFC/CVE/SO/PMID/DOI/…). A recall task's only " +
       "identifier *is* the opaque id, so there is no coherent \"describe it in " +
-      "words\" baseline that isn't the answer itself — `name-only`/`name-framed` " +
+      "words\" baseline that isn't the answer itself — `described`/`described-framed` " +
       "are therefore **N/A (skipped)** for recall items and their `name` columns " +
       "read `-`. Recall items are judged on the **cutoff axis** (does the bare " +
       "id decode pre- vs post-cutoff?) and against the **`full-content` " +
       "ceiling**, not against a name baseline. (Earlier builds emitted a broken " +
-      "`name-only` prompt for these — \"recall the paper at this arXiv id\" with " +
+      "`described` prompt for these — \"recall the paper at this arXiv id\" with " +
       "no id attached — which the models correctly refused, manufacturing a " +
       "spurious `name≈0`; that data has been removed.)",
   );
@@ -435,7 +436,7 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push(
     "**Controls.** `fake-structural-url` (plausible but nonexistent, same " +
       "shape) and `random-url` (unrelated real URL) should collapse toward " +
-      "name-only / zero — if URL shape or merely having a URL did the work, " +
+      "described / zero — if URL shape or merely having a URL did the work, " +
       "these would lift too.",
   );
   L.push("");
@@ -443,7 +444,7 @@ async function writeReport(summary, models, data, skippedModels) {
     "**Identifier probes.** Conditions such as `mdn-url-only`, " +
       "`spec-url-only`, and `bcd-key-only` are exploratory. They are useful " +
       "for diagnosing which identifiers a model can decode, but the headline " +
-      "lift remains strictly `url-only - name-only`.",
+      "lift remains strictly `url-only - described`.",
   );
   L.push("");
   L.push(
@@ -536,9 +537,9 @@ async function writeReport(summary, models, data, skippedModels) {
     const uo = icMean(it.id, "url-only");
     if (uo == null) continue;
     const t = opaqueIdType(it);
-    (byType[t] = byType[t] || []).push({ uo, no: icMean(it.id, "name-only") });
+    (byType[t] = byType[t] || []).push({ uo, no: icMean(it.id, "described") });
   }
-  L.push("| Opaque id type (`url-only`) | items | mean url-only | mean name-only |");
+  L.push("| Opaque id type (`url-only`) | items | mean url-only | mean described |");
   L.push("|---|---|---|---|");
   for (const [t, rows] of Object.entries(byType).sort(
     (a, b) => (mean(b[1].map((r) => r.uo)) || 0) - (mean(a[1].map((r) => r.uo)) || 0),
@@ -588,8 +589,8 @@ async function writeReport(summary, models, data, skippedModels) {
         .map((i) => icMean(i.id, c))
         .filter((x) => x != null),
     );
-  const _no = condMeanAll("name-only");
-  const _nf = condMeanAll("name-framed");
+  const _no = condMeanAll("described");
+  const _nf = condMeanAll("described-framed");
   const _uo = condMeanAll("url-only");
   const _fo = condMeanAll("fake-opaque-url");
   const _fs = condMeanAll("fake-structural-url");
@@ -601,11 +602,11 @@ async function writeReport(summary, models, data, skippedModels) {
     );
     L.push("");
     L.push(
-      `- **Framing.** \`name-framed\` puts the plain task description in the SAME ` +
+      `- **Framing.** \`described-framed\` puts the plain task description in the SAME ` +
         `"do whatever this describes" wording as \`url-only\`. Framing cost = ` +
-        `name-framed − name-only = **${sign(_nf - _no)}** (≈0): the framing does ` +
+        `described-framed − described = **${sign(_nf - _no)}** (≈0): the framing does ` +
         `NOT explain url-only's low score. So the **framing-adjusted lift** ` +
-        `(url-only − name-framed = **${sign(_uo - _nf)}**) equals the raw lift — ` +
+        `(url-only − described-framed = **${sign(_uo - _nf)}**) equals the raw lift — ` +
         `the opaque id genuinely fails, it is not vaguer instruction.`,
     );
     if (_fo != null && _fs != null) {
@@ -691,7 +692,7 @@ async function writeReport(summary, models, data, skippedModels) {
   }
 
   // ---- Per-item results: name vs opaque vs canonical ----
-  L.push("## Per-item results — name-only vs opaque vs canonical id");
+  L.push("## Per-item results — described vs opaque vs canonical id");
   L.push("");
   L.push(
     "Mean correctness across all models, by item (sorted by date). `opaque` = " +
@@ -707,7 +708,7 @@ async function writeReport(summary, models, data, skippedModels) {
     .sort((a, b) => a.contentDate.localeCompare(b.contentDate))) {
     const g = (c) => fmt(icMean(it.id, c));
     L.push(
-      `| \`${it.id}\` | ${opaqueIdType(it)} | ${g("name-only")} | ${g("url-only")} | ${g("mdn-url-only")} | ${g("spec-url-only")} | ${g("bcd-key-only")} | ${g("full-content")} |`,
+      `| \`${it.id}\` | ${opaqueIdType(it)} | ${g("described")} | ${g("url-only")} | ${g("mdn-url-only")} | ${g("spec-url-only")} | ${g("bcd-key-only")} | ${g("full-content")} |`,
     );
   }
   L.push("");
@@ -779,7 +780,7 @@ async function writeReport(summary, models, data, skippedModels) {
   );
   L.push("");
   L.push(
-    "`LIFT = mean(url-only) − mean(name-only)` over API-usage items whose " +
+    "`LIFT = mean(url-only) − mean(described)` over API-usage items whose " +
       "opaque URL is intended to be a real pointer. Knowledge-calibration " +
       "items and intentional opaque structural controls are excluded. `n " +
       "pre/post` = eligible API-usage items each side of this model's cutoff.",
@@ -793,14 +794,14 @@ async function writeReport(summary, models, data, skippedModels) {
     const preCell =
       a.lift.pre != null
         ? cellSign(a.lift.pre)
-        : cell(null, [...(sr.pre["url-only"] || []), ...(sr.pre["name-only"] || [])]);
+        : cell(null, [...(sr.pre["url-only"] || []), ...(sr.pre["described"] || [])]);
     const postCell =
       a.lift.post != null
         ? cellSign(a.lift.post)
-        : cell(null, [...(sr.post["url-only"] || []), ...(sr.post["name-only"] || [])]);
+        : cell(null, [...(sr.post["url-only"] || []), ...(sr.post["described"] || [])]);
     const ovCell = cellSign(a.lift.overall, [
       ...(a.byCondRows["url-only"] || []),
-      ...(a.byCondRows["name-only"] || []),
+      ...(a.byCondRows["described"] || []),
     ]);
     L.push(
       `| ${m.label} | ${m.cutoff} | ${ovCell} | ${preCell} | ${postCell} | ${a.splitN.pre}/${a.splitN.post} |`,
@@ -813,8 +814,8 @@ async function writeReport(summary, models, data, skippedModels) {
   L.push("");
   L.push(
     "Knowledge-calibration items and intentional opaque structural controls " +
-      "excluded. In **pre** rows, does `url-only` approach `name-only`? In " +
-      "**post** rows, it should not beat `name-only`; controls stay flat.",
+      "excluded. In **pre** rows, does `url-only` approach `described`? In " +
+      "**post** rows, it should not beat `described`; controls stay flat.",
   );
   L.push("");
   for (const m of models) {
@@ -839,7 +840,7 @@ async function writeReport(summary, models, data, skippedModels) {
       summary.calibrationItems.join("`, `") +
       "`) post-date every model; correctness = the model correctly said it " +
       "could not determine the answer. NOT part of the lift. The thing to see: " +
-      "a bare `url-only` (and `name-only`) often score HIGH here — refusing is " +
+      "a bare `url-only` (and `described`) often score HIGH here — refusing is " +
       "easy when you're handed nothing — which is exactly why these would " +
       "pollute a lift average if included.",
   );
@@ -932,9 +933,9 @@ function interpret(summary, models) {
     `that refusal, scoring high — which is the OPPOSITE of the URL helping the ` +
     `model use an API. Those items are now excluded from the lift.`;
   lines.push(
-    `- **What does work:** \`url+name\` and the \`full-content\` ceiling score ` +
+    `- **What does work:** \`url+described\` and the \`full-content\` ceiling score ` +
       `well across the board, and the controls (\`fake-structural-url\`, ` +
-      `\`random-url\`) collapse toward name-only / zero, so the harness is ` +
+      `\`random-url\`) collapse toward described / zero, so the harness is ` +
       `measuring real content rather than URL shape.`,
   );
 
@@ -951,8 +952,8 @@ function interpret(summary, models) {
     else if (lo < -0.02) verdict = `bare URL did not help / hurt (lift ${sign(lo)})`;
     else verdict = `bare URL made little difference (lift ${sign(lo)})`;
     const ceil =
-      bc["full-content"] != null && bc["name-only"] != null
-        ? ` full-content ${fmt(bc["full-content"])} vs name-only ${fmt(bc["name-only"])};`
+      bc["full-content"] != null && bc["described"] != null
+        ? ` full-content ${fmt(bc["full-content"])} vs described ${fmt(bc["described"])};`
         : "";
     const split = `pre ${sign(a.lift.pre)} / post ${sign(a.lift.post)} (n ${a.splitN.pre}/${a.splitN.post}).`;
     lines.push(`- **${m.label}:** ${verdict};${ceil} ${split}`);

@@ -434,7 +434,7 @@ function render(){
   const mc=all.filter(c=>c.model===model);
 
   // Stats strip (current model + filter): per-condition mean + lift.
-  const nameM=meanBy(mc,"name-only"), urlM=meanBy(mc,"url-only");
+  const nameM=meanBy(mc,"described"), urlM=meanBy(mc,"url-only");
   const lift=(nameM!=null&&urlM!=null)? (urlM-nameM):null;
   const pass=parseFloat($("#pass").value);
   const passed=mc.filter(c=>typeof c.correctness==="number"&&c.correctness>=pass).length;
@@ -442,7 +442,7 @@ function render(){
   let stats='<div class="stats">';
   stats+=stat("cells (this model)", mc.length);
   stats+=stat("pass rate", scored? (Math.round(100*passed/scored)+"% ("+passed+"/"+scored+")"):"—");
-  stats+=stat("name-only mean", fmt(nameM));
+  stats+=stat("described mean", fmt(nameM));
   stats+=stat("url-only mean", fmt(urlM));
   stats+=stat("lift (url−name)", lift==null?"—":(lift>=0?"+":"")+lift.toFixed(2));
   stats+='</div>';

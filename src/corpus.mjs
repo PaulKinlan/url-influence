@@ -8,7 +8,7 @@
 //   kind        - "code" (produce code that uses an API surface) or
 //                 "recall" (recall facts about a document / spec / paper).
 //   target      - plain-English description of the task, used by the
-//                 name-only / url+name conditions (the "name" half).
+//                 described / url+described conditions (the "name" half).
 //   contentDate - when the thing behind the URL came to exist (YYYY-MM or
 //                 YYYY-MM-DD). Crossed against each model's cutoff to test the
 //                 pre/post-cutoff boundary.
@@ -1187,8 +1187,8 @@ export const CORPUS = [
   // REAL and was VERIFIED against the scheme's API/page (title + date) before
   // adding. Each item carries a top-level `popularity` tag
   // ("famous" | "moderate" | "obscure"). Post-cutoff = content published AFTER
-  // 2026-01-31 (after the latest model cutoff, Jan 2026). These are name-only-
-  // fair recall items: the id IS the content, so name-only correctly scores ~0
+  // 2026-01-31 (after the latest model cutoff, Jan 2026). These are described-
+  // fair recall items: the id IS the content, so described correctly scores ~0
   // and url-only supplies the id.
   // ==========================================================================
 
@@ -2551,7 +2551,7 @@ export const CORPUS = [
 // Descriptive-title baseline for `recall` items.
 //
 // A recall task's only pointer is its opaque id (arXiv number, CVE id, SHA, …),
-// so name-only/name-framed have no coherent description UNLESS we give the work's
+// so described/described-framed have no coherent description UNLESS we give the work's
 // human NAME. This map provides that descriptive identifier — the title / common
 // name a person would use — WITHOUT the opaque number. It is the proper baseline
 // the opaque-id treatment is measured against: if the model can't produce the

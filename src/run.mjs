@@ -127,7 +127,7 @@ async function main() {
       }
     }
     const fetched =
-      condition === "full-content"
+      condition === "full-content" || condition === "content-only"
         ? fetchedByItem[item.id]?.text || null
         : null;
     const prompt = buildPrompt(item, condition, fetched);

@@ -272,12 +272,12 @@ function validateStatic(problems) {
         optionalCoverage[def.key]++;
       }
       if (def.required && prompt == null) {
-        // The name baselines (name-only/name-framed) legitimately produce no
+        // The name baselines (described/described-framed) legitimately produce no
         // prompt for `expectUnknown` items: those have no real content to name
         // descriptively. Every OTHER recall item must carry a DESCRIPTIVE_NAMES
         // entry, so a null here still errors (catches a forgotten name).
         const nameBaselineSkippable =
-          (def.key === "name-only" || def.key === "name-framed") &&
+          (def.key === "described" || def.key === "described-framed") &&
           item.groundTruth?.expectUnknown === true;
         if (!nameBaselineSkippable) {
           issue(

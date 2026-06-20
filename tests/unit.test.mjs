@@ -33,17 +33,17 @@ test("b64 round-trips (no Node Buffer)", () => {
   assert.equal(b64decode(b64encode(s)), s);
 });
 
-test("buildPrompt: name-framed uses the description in url-only framing, no URL", () => {
+test("buildPrompt: described-framed uses the description in url-only framing, no URL", () => {
   const item = {
     id: "x",
     kind: "code",
     target: "Use the Foo API.",
     urls: { opaque: "https://chromestatus.com/feature/123" },
   };
-  const p = buildPrompt(item, "name-framed", null);
+  const p = buildPrompt(item, "described-framed", null);
   assert.ok(/Do whatever the following describes/.test(p.user));
   assert.ok(/Use the Foo API\./.test(p.user));
-  assert.ok(!/http/.test(p.user), "name-framed carries no URL");
+  assert.ok(!/http/.test(p.user), "described-framed carries no URL");
 });
 
 test("buildPrompt: recall name baselines describe by NAME, never a dangling id", () => {
@@ -52,7 +52,7 @@ test("buildPrompt: recall name baselines describe by NAME, never a dangling id",
   // they describe the work by its human name (DESCRIPTIVE_NAMES). url-only (the
   // treatment) still carries the real opaque id and no name.
   const item = CORPUS.find((i) => i.id === "arxiv-attention");
-  for (const cond of ["name-only", "name-framed"]) {
+  for (const cond of ["described", "described-framed"]) {
     const p = buildPrompt(item, cond, null);
     assert.ok(p, `${cond} should build for a mapped recall item`);
     assert.ok(
@@ -80,8 +80,8 @@ test("buildPrompt: recall name baseline skips only when no descriptive name", ()
     target: "Recall the thing at this id.",
     urls: { opaque: "https://example.com/x" },
   };
-  assert.equal(buildPrompt(item, "name-only", null), null);
-  assert.equal(buildPrompt(item, "name-framed", null), null);
+  assert.equal(buildPrompt(item, "described", null), null);
+  assert.equal(buildPrompt(item, "described-framed", null), null);
 });
 
 test("buildPrompt: url-only is opaque (only the id, no task name)", () => {
@@ -113,16 +113,16 @@ test("fakeOpaqueOf: opaque-shaped per id type, and nonexistent", () => {
   );
 });
 
-test("urlForCondition: name-only / name-framed carry no URL", () => {
+test("urlForCondition: described / described-framed carry no URL", () => {
   const item = { urls: { opaque: "o", randomUrl: "r" }, fakeUrl: "f" };
-  assert.equal(urlForCondition(item, "name-only"), null);
-  assert.equal(urlForCondition(item, "name-framed"), null);
+  assert.equal(urlForCondition(item, "described"), null);
+  assert.equal(urlForCondition(item, "described-framed"), null);
 });
 
 test("CONDITIONS includes the control + probe conditions", () => {
   for (const c of [
-    "name-only",
-    "name-framed",
+    "described",
+    "described-framed",
     "url-only",
     "spec-url-only",
     "bcd-key-only",
