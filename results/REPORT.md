@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-20T20:28:01.749Z
+Report generated: 2026-06-20T21:45:16.916Z
 Data run / scored: 2026-06-20T20:12:09.352Z
-Code + data commit: [`d69bfdb2b3`](https://github.com/PaulKinlan/url-influence/commit/d69bfdb2b3e0c9650dbab5e90229549d20458c7d)
+Code + data commit: [`5d999ef76c`](https://github.com/PaulKinlan/url-influence/commit/5d999ef76c6722420d52d18f901bb1436b0430fc)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 12888 (judge failures: 0)
 
@@ -247,7 +247,9 @@ Present-in-CC items decode higher on average, but the gap is **confounded with f
 
 Among the 50 CC-present items, **22 decode ≥0.50 and 26 decode <0.20** — so being in Common Crawl does not predict whether the bare id decodes.
 
-ChromeStatus pages are crawled at a **comparable** rate to the arXiv papers that decode near-perfectly (see the table), yet they recover ~0. The page being on the web is not the mechanism. What matters is whether the exact id STRING was written next to its content in prose: arXiv ids are cited that way constantly, while ChromeStatus feature numbers essentially never are (the number only appears ON the page, not in citations). The operative variable is **citation co-occurrence of id and content**, not page presence — which also predicts the two gates a URL must pass to act as context: (1) be a citation-style id humans write in text, and (2) name content seen often enough to be memorised.
+ChromeStatus pages are crawled at a **comparable** rate to the arXiv papers that decode near-perfectly (see the table), yet they recover ~0. Pulling the actual WARC bytes (see `cc-content-check.mjs`) shows why: **ChromeStatus is a client-rendered JS app, so the crawl captured an empty shell** — ~3KB of HTML, 22 characters of visible text ("Chrome Platform Status"), zero feature content — for all 4 features checked. The arXiv capture is server-rendered and holds the full abstract (5330 chars). So CDX presence ("the URL was captured") is NOT content presence: for these pages the content was never in the crawl at all, so there is nothing to learn the id->content mapping from.
+
+This is a SPECIFIC mechanism for client-rendered sites, not a universal explanation of every opaque-url failure. Post-cutoff items fail by timing and obscure items by frequency; and several widely-discussed ids (famous CVEs/RFCs/StackOverflow) decode well even though the exact opaque URL is absent from the sampled crawls, because their content is ubiquitous elsewhere. CDX presence of the exact URL is therefore a noisy proxy in general; the clean, decisive case is the empty-SPA-shell one.
 
 ## Per-item results — described vs opaque vs canonical id
 

@@ -728,15 +728,24 @@ async function writeReport(summary, models, data, skippedModels) {
     L.push(
       "ChromeStatus pages are crawled at a **comparable** rate to the arXiv " +
         "papers that decode near-perfectly (see the table), yet they recover ~0. " +
-        "The page being on the " +
-        "web is not the mechanism. What matters is whether the exact id STRING " +
-        "was written next to its content in prose: arXiv ids are cited that way " +
-        "constantly, while ChromeStatus feature numbers essentially never are " +
-        "(the number only appears ON the page, not in citations). The operative " +
-        "variable is **citation co-occurrence of id and content**, not page " +
-        "presence — which also predicts the two gates a URL must pass to act as " +
-        "context: (1) be a citation-style id humans write in text, and (2) name " +
-        "content seen often enough to be memorised.",
+        "Pulling the actual WARC bytes (see `cc-content-check.mjs`) shows why: " +
+        "**ChromeStatus is a client-rendered JS app, so the crawl captured an " +
+        "empty shell** — ~3KB of HTML, 22 characters of visible text (\"Chrome " +
+        "Platform Status\"), zero feature content — for all 4 features checked. " +
+        "The arXiv capture is server-rendered and holds the full abstract (5330 " +
+        "chars). So CDX presence (\"the URL was captured\") is NOT content " +
+        "presence: for these pages the content was never in the crawl at all, so " +
+        "there is nothing to learn the id->content mapping from.",
+    );
+    L.push("");
+    L.push(
+      "This is a SPECIFIC mechanism for client-rendered sites, not a universal " +
+        "explanation of every opaque-url failure. Post-cutoff items fail by " +
+        "timing and obscure items by frequency; and several widely-discussed ids " +
+        "(famous CVEs/RFCs/StackOverflow) decode well even though the exact " +
+        "opaque URL is absent from the sampled crawls, because their content is " +
+        "ubiquitous elsewhere. CDX presence of the exact URL is therefore a noisy " +
+        "proxy in general; the clean, decisive case is the empty-SPA-shell one.",
     );
     L.push("");
   }

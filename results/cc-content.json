@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-06-20T21:43:40.308Z",
+  "crawls": [
+    "CC-MAIN-2026-08",
+    "CC-MAIN-2025-51",
+    "CC-MAIN-2025-38",
+    "CC-MAIN-2025-26",
+    "CC-MAIN-2026-17",
+    "CC-MAIN-2026-21"
+  ],
+  "items": [
+    {
+      "id": "view-transitions",
+      "url": "https://chromestatus.com/feature/5193009714954240",
+      "inCrawl": true,
+      "crawl": "CC-MAIN-2025-51",
+      "visibleChars": 22,
+      "hasContent": false,
+      "sample": "Chrome Platform Status"
+    },
+    {
+      "id": "css-gap-decorations",
+      "url": "https://chromestatus.com/feature/5157805733183488",
+      "inCrawl": true,
+      "crawl": "CC-MAIN-2025-38",
+      "visibleChars": 22,
+      "hasContent": false,
+      "sample": "Chrome Platform Status"
+    },
+    {
+      "id": "popover-api",
+      "url": "https://chromestatus.com/feature/5463833265045504",
+      "inCrawl": true,
+      "crawl": "CC-MAIN-2025-38",
+      "visibleChars": 22,
+      "hasContent": false,
+      "sample": "Chrome Platform Status"
+    },
+    {
+      "id": "fedcm",
+      "url": "https://chromestatus.com/feature/6438627087220736",
+      "inCrawl": true,
+      "crawl": "CC-MAIN-2026-17",
+      "visibleChars": 22,
+      "hasContent": false,
+      "sample": "Chrome Platform Status"
+    },
+    {
+      "id": "arxiv-attention",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "inCrawl": true,
+      "crawl": "CC-MAIN-2026-08",
+      "visibleChars": 5330,
+      "hasContent": true,
+      "sample": "[1706.03762] Attention Is All You Need Skip to main content We gratefully acknow"
+    },
+    {
+      "id": "arxiv-diffusiongemma-transparency",
+      "url": "https://arxiv.org/abs/2606.20560",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    },
+    {
+      "id": "so-111102-javascript-closures",
+      "url": "https://stackoverflow.com/questions/111102",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    },
+    {
+      "id": "so-79890462-reinterpret-cast-structs",
+      "url": "https://stackoverflow.com/questions/79890462",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    },
+    {
+      "id": "cve-2014-0160-heartbleed",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2014-0160",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    },
+    {
+      "id": "rfc-9110-http-semantics",
+      "url": "https://datatracker.ietf.org/doc/rfc9110/",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    },
+    {
+      "id": "doi-alphafold-nature",
+      "url": "https://doi.org/10.1038/s41586-021-03819-2",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    },
+    {
+      "id": "rfc-1149-avian-carriers",
+      "url": "https://datatracker.ietf.org/doc/rfc1149/",
+      "inCrawl": false,
+      "crawl": null,
+      "visibleChars": null,
+      "hasContent": null
+    }
+  ]
+}
