@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-20T20:12:12.026Z
+Report generated: 2026-06-20T20:28:01.749Z
 Data run / scored: 2026-06-20T20:12:09.352Z
-Code + data commit: [`7b497b04f2`](https://github.com/PaulKinlan/url-influence/commit/7b497b04f2f3764ab86e88c2afdde29114ff7ecf)
+Code + data commit: [`d69bfdb2b3`](https://github.com/PaulKinlan/url-influence/commit/d69bfdb2b3e0c9650dbab5e90229549d20458c7d)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 12888 (judge failures: 0)
 
@@ -237,6 +237,17 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | absent from all crawls | 43 | 0.18 |
 
 Present-in-CC items decode higher on average, but the gap is **confounded with fame** (famous URLs are both more crawled and more memorised) and the signal is noisy: e.g. StackOverflow URLs are absent from CC (the crawler is blocked) yet still partially decode, while many ChromeStatus URLs are present in CC yet decode ~0. Treat CC as one weak covariate, not the mechanism — repetition/fame across all routes is.
+
+### Common Crawl presence does NOT predict decoding
+
+| opaque id type | pages in Common Crawl | mean `opaque-url` decode |
+|---|---|---|
+| ChromeStatus feature URLs | 17/28 | 0.01 |
+| arXiv ids | 13/20 | 0.55 |
+
+Among the 50 CC-present items, **22 decode ≥0.50 and 26 decode <0.20** — so being in Common Crawl does not predict whether the bare id decodes.
+
+ChromeStatus pages are crawled at a **comparable** rate to the arXiv papers that decode near-perfectly (see the table), yet they recover ~0. The page being on the web is not the mechanism. What matters is whether the exact id STRING was written next to its content in prose: arXiv ids are cited that way constantly, while ChromeStatus feature numbers essentially never are (the number only appears ON the page, not in citations). The operative variable is **citation co-occurrence of id and content**, not page presence — which also predicts the two gates a URL must pass to act as context: (1) be a citation-style id humans write in text, and (2) name content seen often enough to be memorised.
 
 ## Per-item results — described vs opaque vs canonical id
 

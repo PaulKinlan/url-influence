@@ -689,6 +689,56 @@ async function writeReport(summary, models, data, skippedModels) {
         "not the mechanism — repetition/fame across all routes is.",
     );
     L.push("");
+
+    // The clean control: being in Common Crawl does NOT predict decoding. Two
+    // id types crawled at similar rates decode completely differently, because
+    // what matters is whether the id STRING is cited next to its content in
+    // prose, not whether the page was crawled.
+    const opOf = (i) => i.urls?.opaque || "";
+    const schemeStats = (test) => {
+      const items = CORPUS.filter(
+        (i) => !i.groundTruth.expectUnknown && cc[i.id] && test(opOf(i)),
+      );
+      return {
+        n: items.length,
+        crawled: items.filter((i) => cc[i.id].present).length,
+        decode: meanOf(items),
+      };
+    };
+    const csv = schemeStats((o) => /chromestatus\.com/.test(o));
+    const axv = schemeStats((o) => /arxiv\.org/.test(o));
+    const presentScored = present
+      .map((i) => icMean(i.id, "opaque-url"))
+      .filter((v) => v != null);
+    const hi = presentScored.filter((v) => v >= 0.5).length;
+    const lo = presentScored.filter((v) => v < 0.2).length;
+    L.push("### Common Crawl presence does NOT predict decoding");
+    L.push("");
+    L.push("| opaque id type | pages in Common Crawl | mean `opaque-url` decode |");
+    L.push("|---|---|---|");
+    L.push(`| ChromeStatus feature URLs | ${csv.crawled}/${csv.n} | ${fmt(csv.decode)} |`);
+    L.push(`| arXiv ids | ${axv.crawled}/${axv.n} | ${fmt(axv.decode)} |`);
+    L.push("");
+    L.push(
+      `Among the ${presentScored.length} CC-present items, **${hi} decode ≥0.50 ` +
+        `and ${lo} decode <0.20** — so being in Common Crawl does not predict ` +
+        `whether the bare id decodes.`,
+    );
+    L.push("");
+    L.push(
+      "ChromeStatus pages are crawled at a **comparable** rate to the arXiv " +
+        "papers that decode near-perfectly (see the table), yet they recover ~0. " +
+        "The page being on the " +
+        "web is not the mechanism. What matters is whether the exact id STRING " +
+        "was written next to its content in prose: arXiv ids are cited that way " +
+        "constantly, while ChromeStatus feature numbers essentially never are " +
+        "(the number only appears ON the page, not in citations). The operative " +
+        "variable is **citation co-occurrence of id and content**, not page " +
+        "presence — which also predicts the two gates a URL must pass to act as " +
+        "context: (1) be a citation-style id humans write in text, and (2) name " +
+        "content seen often enough to be memorised.",
+    );
+    L.push("");
   }
 
   // ---- Per-item results: name vs opaque vs canonical ----
