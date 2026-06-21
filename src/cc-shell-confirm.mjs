@@ -15,7 +15,7 @@
 
 import { createGunzip, gunzipSync } from "node:zlib";
 import { Readable } from "node:stream";
-import { writeFileSync, readFileSync } from "node:fs";
+import { writeFileSync, readFileSync, existsSync } from "node:fs";
 import { FRAMEWORKS, classify, inlineDataLen } from "./cc-frameworks.mjs";
 
 // Optional popularity ranking (Majestic Million / Tranco CSV: rank,...,domain).
@@ -114,23 +114,42 @@ async function streamWarc(url, onRecord) {
 }
 
 async function main() {
-  console.log(`[confirm] crawl=${CRAWL} files=${N_FILES} max=${MAX} threshold=${THRESHOLD}`);
+  const accumulate = !!args.accumulate;
+  const OUT = "results/cc-shell-survey.json";
+  console.log(`[confirm] crawl=${CRAWL} files=${N_FILES} max=${MAX} threshold=${THRESHOLD} accumulate=${accumulate}`);
+
+  // Resume/accumulate from a prior compatible survey.
+  let prev = null;
+  if (accumulate && existsSync(OUT)) {
+    try {
+      const j = JSON.parse(readFileSync(OUT, "utf8"));
+      if (j.crawl === CRAWL && j.threshold === THRESHOLD && Array.isArray(j.warcFiles)) prev = j;
+      else console.log(`[confirm] existing survey incompatible (crawl/threshold/format); starting fresh`);
+    } catch { /* start fresh */ }
+  }
+
   const paths = (await getGzText(`${BASE}/crawl-data/${CRAWL}/warc.paths.gz`)).trim().split("\n");
-  console.log(`[confirm] ${paths.length} WARC files; sampling ${N_FILES}`);
+  const used = new Set(prev?.warcFiles || []);
+  const pool = paths.filter((p) => !used.has(p));
+  console.log(`[confirm] ${paths.length} WARC files; ${used.size} already used; picking ${N_FILES} new`);
   const picks = [];
-  for (let i = 0; i < N_FILES; i++) picks.push(paths[Math.floor((i + Math.random()) / N_FILES * paths.length)]);
+  for (let i = 0; i < N_FILES && pool.length; i++) picks.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
 
   const ranks = args.ranks ? loadRanks(args.ranks) : null;
   if (ranks) console.log(`[confirm] loaded ${ranks.size} ranked domains from ${args.ranks}`);
-  const tierStats = Object.fromEntries(TIER_ORDER.map((t) => [t, { pages: 0, shells: 0 }]));
 
-  let htmlPages = 0, tinyText = 0, shells = 0, dataInHtml = 0;
-  let htmlBytesAll = 0, htmlBytesShell = 0;                                  // raw HTML size: shells are big HTML, no text
-  const fwAll = Object.fromEntries(FRAMEWORKS.map((f) => [f.name, 0]));     // framework present on any html page
-  const shellByKind = {};                                                   // shell attribution
-  const shellHosts = new Map(); const examplesByKind = {};
+  // Accumulators, seeded from prior state when accumulating.
+  const tierStats = Object.fromEntries(TIER_ORDER.map((t) => [t, { pages: prev?.tierRaw?.[t]?.pages || 0, shells: prev?.tierRaw?.[t]?.shells || 0 }]));
+  let htmlPages = prev?.htmlPages || 0, tinyText = prev?.tinyText || 0, shells = prev?.shells || 0, dataInHtml = prev?.dataInHtml || 0;
+  let htmlBytesAll = prev?.htmlBytesAll || 0, htmlBytesShell = prev?.htmlBytesShell || 0;
+  const fwAll = Object.fromEntries(FRAMEWORKS.map((f) => [f.name, prev?.fwPages?.[f.name] || 0]));
+  const shellByKind = { ...(prev?.shellKindCounts || {}) };
+  const shellHosts = new Map(Object.entries(prev?.shellHostCounts || {}));
+  const examplesByKind = prev?.examplesByKind ? JSON.parse(JSON.stringify(prev.examplesByKind)) : {};
+  const warcFiles = [...(prev?.warcFiles || [])];
 
   for (const p of picks) {
+    warcFiles.push(p);
     process.stdout.write(`[confirm] streaming ${p} (max ${MAX}) … `);
     let n = 0;
     await streamWarc(`${BASE}/${p}`, (uri, body) => {
@@ -160,22 +179,28 @@ async function main() {
   }
 
   const pct = (x) => +(100 * x / Math.max(1, htmlPages)).toFixed(2);
+  const hasRanks = ranks || TIER_ORDER.some((t) => tierStats[t].pages > 0);
   const out = {
     generatedAt: new Date().toISOString(),
-    crawl: CRAWL, filesSampled: picks.length, maxPerFile: MAX === Infinity ? null : MAX, threshold: THRESHOLD,
-    htmlPages, tinyText, tinyTextPct: pct(tinyText), shells, shellPct: pct(shells),
-    dataInHtml, dataInHtmlPct: pct(dataInHtml),
+    crawl: CRAWL, filesSampled: warcFiles.length, maxPerFile: MAX === Infinity ? null : MAX, threshold: THRESHOLD,
+    // raw accumulable state (so --accumulate can keep growing the sample):
+    htmlPages, tinyText, shells, dataInHtml, htmlBytesAll, htmlBytesShell,
+    fwPages: fwAll, shellKindCounts: shellByKind, shellHostCounts: Object.fromEntries(shellHosts),
+    tierRaw: Object.fromEntries(TIER_ORDER.map((t) => [t, tierStats[t]])),
+    warcFiles, // full list of WARC files used, for independent spot-checking
+    // derived for display:
+    tinyTextPct: pct(tinyText), shellPct: pct(shells), dataInHtmlPct: pct(dataInHtml),
     avgHtmlKB: { all: +(htmlBytesAll / Math.max(1, htmlPages) / 1024).toFixed(1), shell: +(htmlBytesShell / Math.max(1, shells) / 1024).toFixed(1) },
     frameworkPrevalence: Object.fromEntries(Object.entries(fwAll).map(([k, v]) => [k, { pages: v, pct: pct(v) }])),
     shellByKind: Object.fromEntries(Object.entries(shellByKind).map(([k, v]) => [k, { count: v, pct: pct(v) }])),
     topShellDomains: [...shellHosts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30).map(([host, count]) => ({ host, count })),
-    rankBuckets: ranks ? TIER_ORDER.map((t) => ({
+    rankBuckets: hasRanks ? TIER_ORDER.map((t) => ({
       tier: t, pages: tierStats[t].pages, shells: tierStats[t].shells,
       shellPct: +(100 * tierStats[t].shells / Math.max(1, tierStats[t].pages)).toFixed(2),
     })) : null,
     examplesByKind,
   };
-  writeFileSync("results/cc-shell-survey.json", JSON.stringify(out, null, 2));
+  writeFileSync(OUT, JSON.stringify(out, null, 2));
 
   console.log(`\n=== ${htmlPages} real pages (200 text/html) from ${CRAWL}, ${picks.length} file(s) ===`);
   console.log(`tiny visible text (< ${THRESHOLD}): ${tinyText} = ${pct(tinyText)}%`);
