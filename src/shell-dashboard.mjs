@@ -7,6 +7,14 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const d = JSON.parse(readFileSync("results/cc-shell-survey.json", "utf8"));
 
+// Optional prior-year survey for the year-over-year comparison.
+let prev = null;
+try {
+  prev = JSON.parse(readFileSync("results/cc-shell-survey-2025.json", "utf8"));
+} catch { /* no prior-year file: skip the y/y block */ }
+const yr = (s) => (String(s).match(/(\d{4})/) || [])[1] || s;
+const rel = (now, then) => then ? `${now > then ? "+" : ""}${Math.round(100 * (now - then) / then)}%` : "";
+
 const KIND_LABEL = {
   next: "Next.js", nuxt: "Nuxt", react: "React", preact: "Preact",
   angular: "Angular", angularjs: "AngularJS", vue: "Vue", svelte: "Svelte",
@@ -80,6 +88,14 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
   ${d.dataInHtmlPct != null ? `<div class="stat"><div class="k">content in inline JSON<br>(not a shell)</div><div class="v">${d.dataInHtmlPct}<small>%</small></div></div>` : ""}
 </div>
 ${d.avgHtmlKB ? `<div class="sub">A shell is still plenty of HTML: shells average <b>${d.avgHtmlKB.shell} KB</b> of raw HTML (bundles, markup) versus ${d.avgHtmlKB.all} KB across all pages, but almost none of it is readable text. Pages whose content actually sits in inline JSON (Next.js __NEXT_DATA__ and friends) are counted as content-present, not shells.</div>` : ""}
+
+${prev ? `<h2>Year over year (same February crawl, ${yr(prev.crawl)} vs ${yr(d.crawl)})</h2>
+<div class="head">
+  <div class="stat"><div class="k">empty mount<br>${yr(prev.crawl)}</div><div class="v">${prev.emptyMountPct}<small>%</small></div></div>
+  <div class="stat" style="border-color:#7ee081"><div class="k">empty mount<br>${yr(d.crawl)}</div><div class="v">${d.emptyMountPct}<small>%</small></div></div>
+  <div class="stat" style="border-color:#7ee081"><div class="k">change</div><div class="v">${rel(d.emptyMountPct, prev.emptyMountPct)}</div></div>
+</div>
+<div class="sub" style="margin-top:0">The threshold-free empty-mount rate rose from <b>${prev.emptyMountPct}%</b> (${yr(prev.crawl)}, ${prev.htmlPages.toLocaleString()} pages, ${(prev.warcFiles||[]).length} files) to <b>${d.emptyMountPct}%</b> (${yr(d.crawl)}, ${d.htmlPages.toLocaleString()} pages, ${(d.warcFiles||[]).length} files), ${rel(d.emptyMountPct, prev.emptyMountPct)} relative. The text-based estimate moved ${prev.shellPct}% &rarr; ${d.shellPct}% over the same window. Both signals point the same way: JavaScript shells are a growing share of the crawled web.${prev.rankBuckets && d.rankBuckets ? ` The jump is sharpest among popular sites: the top-1k shell rate went ${prev.rankBuckets[0].shellPct}% &rarr; ${d.rankBuckets[0].shellPct}%.` : ""}</div>` : ""}
 
 ${d.shellRateByThreshold ? `<h2>How the text-based estimate depends on the cutoff (sensitivity)</h2>
 ${(() => { const max = Math.max(0.01, ...d.shellRateByThreshold.map((r) => r.pct)); return d.shellRateByThreshold.map((r) =>
