@@ -75,12 +75,18 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 
 <div class="head">
   <div class="stat"><div class="k">pages sampled</div><div class="v">${d.htmlPages.toLocaleString()}</div></div>
-  <div class="stat"><div class="k">near-empty text</div><div class="v">${d.tinyTextPct}<small>%</small></div></div>
+  ${d.emptyMountPct != null ? `<div class="stat" style="border-color:#7ee081"><div class="k">empty app mount<br>(threshold-free)</div><div class="v">${d.emptyMountPct}<small>%</small></div></div>` : ""}
+  <div class="stat"><div class="k">text-based shells<br>(&lt;${d.threshold}c + marker)</div><div class="v">${d.shellPct}<small>%</small></div></div>
   ${d.dataInHtmlPct != null ? `<div class="stat"><div class="k">content in inline JSON<br>(not a shell)</div><div class="v">${d.dataInHtmlPct}<small>%</small></div></div>` : ""}
-  <div class="stat"><div class="k">confirmed shells</div><div class="v">${d.shellPct}<small>%</small></div></div>
-  <div class="stat"><div class="k">text threshold</div><div class="v">${d.threshold}<small> chars</small></div></div>
 </div>
-${d.avgHtmlKB ? `<div class="sub">A shell is still plenty of HTML: confirmed shells average <b>${d.avgHtmlKB.shell} KB</b> of raw HTML (bundles, markup) versus ${d.avgHtmlKB.all} KB across all pages, but almost none of it is readable text. "Near-empty text" pages whose content actually sits in inline JSON (Next.js __NEXT_DATA__ and friends) are counted as content-present, not shells.</div>` : ""}
+${d.avgHtmlKB ? `<div class="sub">A shell is still plenty of HTML: shells average <b>${d.avgHtmlKB.shell} KB</b> of raw HTML (bundles, markup) versus ${d.avgHtmlKB.all} KB across all pages, but almost none of it is readable text. Pages whose content actually sits in inline JSON (Next.js __NEXT_DATA__ and friends) are counted as content-present, not shells.</div>` : ""}
+
+${d.shellRateByThreshold ? `<h2>How the text-based estimate depends on the cutoff (sensitivity)</h2>
+${(() => { const max = Math.max(0.01, ...d.shellRateByThreshold.map((r) => r.pct)); return d.shellRateByThreshold.map((r) =>
+  `<div class="row"><div class="lbl">&lt; ${r.threshold} chars</div>` +
+  `<div class="track"><div class="bar" style="width:${(100 * r.pct / max).toFixed(1)}%;background:#c98bff"></div></div>` +
+  `<div class="val">${r.pct}<span class="pct">%</span></div></div>`).join(""); })()}
+<div class="sub" style="margin:6px 0 0">This is why a single "tiny text" cutoff isn't trustworthy on its own: raise it and you sweep in short real pages that use a framework. The headline number to trust is the <b>empty app mount</b> (${d.emptyMountPct}%), which needs no cutoff: a server-rendered page fills its mount, a client-rendered one leaves it empty.</div>` : ""}
 
 <h2>Confirmed shells by framework (% of all crawled pages)</h2>
 ${bars(shellRows, shellMax, "#f2b24b")}
@@ -102,7 +108,7 @@ ${(() => { const max = Math.max(0.01, ...d.rankBuckets.map((b) => b.shellPct)); 
 ${exHtml}
 
 <div class="note">
-<b>Method.</b> Streams Common Crawl WARC files, keeps 200 <code>text/html</code> responses, strips scripts/styles/markup, and flags a page as a shell when the visible text is under ${d.threshold} characters AND the HTML carries a client-render signature (framework marker, jQuery-with-onload, or a generic SPA skeleton). A "near-empty" page without any such signature is treated as a thin page, not a shell. Detection is from raw HTML only, so pure client-side React that ships just <code>&lt;div id="root"&gt;</code> lands in "Unattributed SPA", and the rates are best read as estimates from this sample, not exact population figures.
+<b>Method.</b> Streams Common Crawl WARC files and keeps 200 <code>text/html</code> responses. Two shell measures: (1) <b>empty app mount</b> &mdash; the page's framework container (<code>&lt;div id="root"&gt;</code>, <code>&lt;app-root&gt;</code>, etc.) is present but empty in the captured HTML, the definitive client-rendered-not-server-rendered signature, with no text threshold; this is the trustworthy headline. (2) <b>text-based</b> &mdash; visible text under a cutoff AND a client-render signature; reported with a sensitivity sweep because the cutoff matters. Content hiding in inline JSON (Next.js <code>__NEXT_DATA__</code>) counts as content-present, not a shell. Detection is from raw HTML, so the by-framework split is approximate and the rates are sample estimates, conservative by design. The exact list of WARC files used is in <code>cc-shell-survey.json</code> for independent spot-checking.
 </div>
 </body></html>`;
 
