@@ -16,7 +16,12 @@
 import { createGunzip, gunzipSync } from "node:zlib";
 import { Readable } from "node:stream";
 import { writeFileSync, readFileSync, existsSync } from "node:fs";
-import { FRAMEWORKS, classify, inlineDataLen } from "./cc-frameworks.mjs";
+import { FRAMEWORKS, CLIENT_FRAMEWORKS, classify, inlineDataLen, hasJqueryOnload, hasGenericSpa, hasEmptyMount } from "./cc-frameworks.mjs";
+
+// Threshold sensitivity sweep: count marker-confirmed shells at several visible-
+// text cutoffs so the headline number is clearly robust to the (otherwise
+// arbitrary) choice, instead of resting on one magic value.
+const SWEEP = [50, 100, 200, 300, 500, 1000];
 
 // Optional popularity ranking (Majestic Million / Tranco CSV: rank,...,domain).
 // Lets us bucket the shell rate by how popular a site is.
@@ -115,7 +120,7 @@ async function streamWarc(url, onRecord) {
 
 async function main() {
   const accumulate = !!args.accumulate;
-  const OUT = "results/cc-shell-survey.json";
+  const OUT = args.out || "results/cc-shell-survey.json";
   console.log(`[confirm] crawl=${CRAWL} files=${N_FILES} max=${MAX} threshold=${THRESHOLD} accumulate=${accumulate}`);
 
   // Resume/accumulate from a prior compatible survey.
@@ -141,9 +146,11 @@ async function main() {
   // Accumulators, seeded from prior state when accumulating.
   const tierStats = Object.fromEntries(TIER_ORDER.map((t) => [t, { pages: prev?.tierRaw?.[t]?.pages || 0, shells: prev?.tierRaw?.[t]?.shells || 0 }]));
   let htmlPages = prev?.htmlPages || 0, tinyText = prev?.tinyText || 0, shells = prev?.shells || 0, dataInHtml = prev?.dataInHtml || 0;
+  let emptyMount = prev?.emptyMount || 0;
   let htmlBytesAll = prev?.htmlBytesAll || 0, htmlBytesShell = prev?.htmlBytesShell || 0;
   const fwAll = Object.fromEntries(FRAMEWORKS.map((f) => [f.name, prev?.fwPages?.[f.name] || 0]));
   const shellByKind = { ...(prev?.shellKindCounts || {}) };
+  const shellSweep = Object.fromEntries(SWEEP.map((t) => [t, prev?.shellSweep?.[t] || 0]));
   const shellHosts = new Map(Object.entries(prev?.shellHostCounts || {}));
   const examplesByKind = prev?.examplesByKind ? JSON.parse(JSON.stringify(prev.examplesByKind)) : {};
   const warcFiles = [...(prev?.warcFiles || [])];
@@ -161,6 +168,9 @@ async function main() {
       const vlen = visible(r.html).length;
       const dlen = inlineDataLen(r.html);
       const c = classify(r.html, vlen, THRESHOLD, dlen);
+      const hasSignal = c.frameworks.some((f) => CLIENT_FRAMEWORKS.has(f)) || hasJqueryOnload(r.html) || hasGenericSpa(r.html);
+      if (hasSignal) for (const t of SWEEP) if (vlen < t && dlen < t) shellSweep[t]++;
+      if (hasEmptyMount(r.html) && dlen < THRESHOLD) emptyMount++; // threshold-free shell floor (empty mount, no inline data)
       htmlBytesAll += r.html.length;
       for (const fw of c.frameworks) fwAll[fw] = (fwAll[fw] || 0) + 1;
       if (vlen < THRESHOLD) tinyText++;
@@ -184,8 +194,11 @@ async function main() {
     generatedAt: new Date().toISOString(),
     crawl: CRAWL, filesSampled: warcFiles.length, maxPerFile: MAX === Infinity ? null : MAX, threshold: THRESHOLD,
     // raw accumulable state (so --accumulate can keep growing the sample):
-    htmlPages, tinyText, shells, dataInHtml, htmlBytesAll, htmlBytesShell,
+    htmlPages, tinyText, shells, dataInHtml, emptyMount, htmlBytesAll, htmlBytesShell,
+    emptyMountPct: pct(emptyMount),
     fwPages: fwAll, shellKindCounts: shellByKind, shellHostCounts: Object.fromEntries(shellHosts),
+    shellSweep,
+    shellRateByThreshold: SWEEP.map((t) => ({ threshold: t, shells: shellSweep[t], pct: pct(shellSweep[t]) })),
     tierRaw: Object.fromEntries(TIER_ORDER.map((t) => [t, tierStats[t]])),
     warcFiles, // full list of WARC files used, for independent spot-checking
     // derived for display:
@@ -205,8 +218,11 @@ async function main() {
   console.log(`\n=== ${htmlPages} real pages (200 text/html) from ${CRAWL}, ${picks.length} file(s) ===`);
   console.log(`tiny visible text (< ${THRESHOLD}): ${tinyText} = ${pct(tinyText)}%`);
   console.log(`  of which content is in inline JSON (NOT a shell): ${dataInHtml} = ${pct(dataInHtml)}%`);
-  console.log(`CONFIRMED shells (tiny visible AND tiny inline-data + marker): ${shells} = ${pct(shells)}% of pages`);
+  console.log(`EMPTY-MOUNT shells (threshold-free: app container empty in the HTML): ${emptyMount} = ${pct(emptyMount)}% of pages`);
+  console.log(`text-threshold shells (tiny visible AND tiny inline-data + marker): ${shells} = ${pct(shells)}% of pages`);
   console.log(`avg raw HTML: all pages ${out.avgHtmlKB.all}KB vs shells ${out.avgHtmlKB.shell}KB (shells are big HTML, ~no text)`);
+  console.log("\nshell rate by visible-text threshold (robustness):");
+  out.shellRateByThreshold.forEach((r) => console.log(`  < ${String(r.threshold).padStart(4)} chars: ${r.pct}%`));
   console.log("\nshells by framework:");
   Object.entries(out.shellByKind).sort((a, b) => b[1].count - a[1].count).forEach(([k, v]) => console.log(`  ${k.padEnd(14)} ${String(v.count).padStart(5)}  ${v.pct}%`));
   console.log("\nframework prevalence (any html page):");

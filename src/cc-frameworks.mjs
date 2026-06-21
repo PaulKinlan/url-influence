@@ -41,6 +41,19 @@ export const GENERIC_SPA = [
 // jQuery that builds content on load (so a non-rendering crawler sees a stub).
 export const JQUERY_ONLOAD = [/\$\(document\)\.ready/, /\$\(function\s*\(/, /window\.onload\s*=/, /addEventListener\(\s*['"]load['"]/];
 
+// The principled, threshold-free shell signal: a framework's MOUNT POINT is
+// present but EMPTY in the captured HTML. Server-rendered pages fill the mount;
+// client-rendered ones leave it empty for JS to populate. This separates SSR
+// from CSR by construction, with no arbitrary text cutoff. High precision (an
+// empty <div id="root"></div> is unambiguous), so it's a clean lower bound.
+export const EMPTY_MOUNT = [
+  /<(?:div|main|section)[^>]*\bid=["'](?:root|app|__next|__nuxt|q-app|application|svelte|gatsby-focus-wrapper)["'][^>]*>\s*<\/(?:div|main|section)>/i,
+  /<(?:app-root|app|nuxt|q-app)[^>]*>\s*<\/(?:app-root|app|nuxt|q-app)>/i,
+];
+export function hasEmptyMount(html) {
+  return EMPTY_MOUNT.some((re) => re.test(html));
+}
+
 // Content can hide in inline JSON even when the body renders nothing visible:
 // Next.js __NEXT_DATA__, Nuxt/Vuex/Redux/Apollo state blobs, JSON-LD, and
 // <script type="application/json">. A non-rendering crawler (and the model) DOES
