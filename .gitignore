@@ -16,3 +16,4 @@ results/transcript.jsonl
 # ...but the run console log IS part of the committed audit trail, so un-ignore
 # it explicitly (the *.log glob above would otherwise catch it).
 !results/run.log
+results/ranks.csv

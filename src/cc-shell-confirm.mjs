@@ -15,8 +15,47 @@
 
 import { createGunzip, gunzipSync } from "node:zlib";
 import { Readable } from "node:stream";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, readFileSync } from "node:fs";
 import { FRAMEWORKS, classify } from "./cc-frameworks.mjs";
+
+// Optional popularity ranking (Majestic Million / Tranco CSV: rank,...,domain).
+// Lets us bucket the shell rate by how popular a site is.
+function loadRanks(path) {
+  const map = new Map();
+  const lines = readFileSync(path, "utf8").split("\n");
+  const header = lines[0].toLowerCase();
+  const cols = header.split(",");
+  const rankCol = cols.findIndex((c) => /rank/.test(c)); // GlobalRank
+  const domCol = cols.findIndex((c) => c === "domain");
+  for (let i = 1; i < lines.length; i++) {
+    const f = lines[i].split(",");
+    if (f.length <= Math.max(rankCol, domCol)) continue;
+    const dom = (f[domCol] || "").toLowerCase().trim();
+    const rank = Number(f[rankCol]);
+    if (dom && rank) map.set(dom, rank);
+  }
+  return map;
+}
+// Progressive suffix match: news.bbc.co.uk -> bbc.co.uk if that's the ranked one.
+function rankOf(host, map) {
+  if (!map) return null;
+  let h = host.replace(/^www\./, "");
+  const parts = h.split(".");
+  for (let i = 0; i < parts.length - 1; i++) {
+    const cand = parts.slice(i).join(".");
+    const r = map.get(cand);
+    if (r) return r;
+  }
+  return null;
+}
+function rankTier(rank) {
+  if (rank == null) return "unranked";
+  if (rank <= 1000) return "top 1k";
+  if (rank <= 10000) return "1k-10k";
+  if (rank <= 100000) return "10k-100k";
+  return "100k-1M";
+}
+const TIER_ORDER = ["top 1k", "1k-10k", "10k-100k", "100k-1M", "unranked"];
 
 const args = Object.fromEntries(process.argv.slice(2).map((a) => {
   const m = a.match(/^--([^=]+)=(.*)$/); return m ? [m[1], m[2]] : [a.replace(/^--/, ""), true];
@@ -81,6 +120,10 @@ async function main() {
   const picks = [];
   for (let i = 0; i < N_FILES; i++) picks.push(paths[Math.floor((i + Math.random()) / N_FILES * paths.length)]);
 
+  const ranks = args.ranks ? loadRanks(args.ranks) : null;
+  if (ranks) console.log(`[confirm] loaded ${ranks.size} ranked domains from ${args.ranks}`);
+  const tierStats = Object.fromEntries(TIER_ORDER.map((t) => [t, { pages: 0, shells: 0 }]));
+
   let htmlPages = 0, tinyText = 0, shells = 0;
   const fwAll = Object.fromEntries(FRAMEWORKS.map((f) => [f.name, 0]));     // framework present on any html page
   const shellByKind = {};                                                   // shell attribution
@@ -93,12 +136,15 @@ async function main() {
       const r = parseResponse(body); if (!r) return;
       if (r.status !== 200 || !/text\/html/i.test(r.ctype)) return;
       htmlPages++; n++;
+      let tier = null;
+      if (ranks) { try { tier = rankTier(rankOf(new URL(uri).hostname, ranks)); tierStats[tier].pages++; } catch {} }
       const vlen = visible(r.html).length;
       const c = classify(r.html, vlen, THRESHOLD);
       for (const fw of c.frameworks) fwAll[fw] = (fwAll[fw] || 0) + 1;
       if (vlen < THRESHOLD) tinyText++;
       if (c.shell) {
         shells++;
+        if (tier) tierStats[tier].shells++;
         shellByKind[c.kind] = (shellByKind[c.kind] || 0) + 1;
         shellHosts.set(hostReg(uri), (shellHosts.get(hostReg(uri)) || 0) + 1);
         (examplesByKind[c.kind] = examplesByKind[c.kind] || []);
@@ -116,6 +162,10 @@ async function main() {
     frameworkPrevalence: Object.fromEntries(Object.entries(fwAll).map(([k, v]) => [k, { pages: v, pct: pct(v) }])),
     shellByKind: Object.fromEntries(Object.entries(shellByKind).map(([k, v]) => [k, { count: v, pct: pct(v) }])),
     topShellDomains: [...shellHosts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30).map(([host, count]) => ({ host, count })),
+    rankBuckets: ranks ? TIER_ORDER.map((t) => ({
+      tier: t, pages: tierStats[t].pages, shells: tierStats[t].shells,
+      shellPct: +(100 * tierStats[t].shells / Math.max(1, tierStats[t].pages)).toFixed(2),
+    })) : null,
     examplesByKind,
   };
   writeFileSync("results/cc-shell-survey.json", JSON.stringify(out, null, 2));
@@ -127,6 +177,10 @@ async function main() {
   Object.entries(out.shellByKind).sort((a, b) => b[1].count - a[1].count).forEach(([k, v]) => console.log(`  ${k.padEnd(14)} ${String(v.count).padStart(5)}  ${v.pct}%`));
   console.log("\nframework prevalence (any html page):");
   Object.entries(out.frameworkPrevalence).sort((a, b) => b[1].pages - a[1].pages).forEach(([k, v]) => console.log(`  ${k.padEnd(14)} ${String(v.pages).padStart(5)}  ${v.pct}%`));
+  if (out.rankBuckets) {
+    console.log("\nshell rate by popularity tier (Majestic rank of the page's domain):");
+    out.rankBuckets.forEach((b) => console.log(`  ${b.tier.padEnd(10)} ${String(b.shells).padStart(5)}/${String(b.pages).padStart(6)} pages = ${b.shellPct}% shells`));
+  }
   console.log("\n[confirm] wrote results/cc-shell-survey.json");
 }
 
