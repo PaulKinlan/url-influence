@@ -151,6 +151,7 @@ async function main() {
   const fwAll = Object.fromEntries(FRAMEWORKS.map((f) => [f.name, prev?.fwPages?.[f.name] || 0]));
   const shellByKind = { ...(prev?.shellKindCounts || {}) };
   const shellSweep = Object.fromEntries(SWEEP.map((t) => [t, prev?.shellSweep?.[t] || 0]));
+  const emptyMountSweep = Object.fromEntries(SWEEP.map((t) => [t, prev?.emptyMountSweep?.[t] || 0]));
   const shellHosts = new Map(Object.entries(prev?.shellHostCounts || {}));
   const examplesByKind = prev?.examplesByKind ? JSON.parse(JSON.stringify(prev.examplesByKind)) : {};
   const warcFiles = [...(prev?.warcFiles || [])];
@@ -170,7 +171,13 @@ async function main() {
       const c = classify(r.html, vlen, THRESHOLD, dlen);
       const hasSignal = c.frameworks.some((f) => CLIENT_FRAMEWORKS.has(f)) || hasJqueryOnload(r.html) || hasGenericSpa(r.html);
       if (hasSignal) for (const t of SWEEP) if (vlen < t && dlen < t) shellSweep[t]++;
-      if (hasEmptyMount(r.html) && dlen < THRESHOLD) emptyMount++; // threshold-free shell floor (empty mount, no inline data)
+      // Empty-mount shell: the app container is empty AND the page shows almost
+      // nothing AND the content isn't hiding in inline JSON. The visible-text
+      // guard rejects content pages that merely embed an empty widget mount; it
+      // is robust because empty-mount pages split cleanly into ~0-text shells vs
+      // text-rich content pages (verified by sweeping it).
+      if (hasEmptyMount(r.html) && vlen < THRESHOLD && dlen < THRESHOLD) emptyMount++;
+      if (hasEmptyMount(r.html) && dlen < THRESHOLD) for (const t of SWEEP) if (vlen < t) emptyMountSweep[t]++;
       htmlBytesAll += r.html.length;
       for (const fw of c.frameworks) fwAll[fw] = (fwAll[fw] || 0) + 1;
       if (vlen < THRESHOLD) tinyText++;
@@ -197,8 +204,9 @@ async function main() {
     htmlPages, tinyText, shells, dataInHtml, emptyMount, htmlBytesAll, htmlBytesShell,
     emptyMountPct: pct(emptyMount),
     fwPages: fwAll, shellKindCounts: shellByKind, shellHostCounts: Object.fromEntries(shellHosts),
-    shellSweep,
+    shellSweep, emptyMountSweep,
     shellRateByThreshold: SWEEP.map((t) => ({ threshold: t, shells: shellSweep[t], pct: pct(shellSweep[t]) })),
+    emptyMountByThreshold: SWEEP.map((t) => ({ threshold: t, shells: emptyMountSweep[t], pct: pct(emptyMountSweep[t]) })),
     tierRaw: Object.fromEntries(TIER_ORDER.map((t) => [t, tierStats[t]])),
     warcFiles, // full list of WARC files used, for independent spot-checking
     // derived for display:
