@@ -222,6 +222,96 @@ Copy any item in [`src/corpus.mjs`](src/corpus.mjs) and fill the fields. Keep
 `groundTruth.mustMention` to distinctive, real identifiers so the structural
 check is meaningful. To put it in the pilot, add its id to `PILOT_ITEM_IDS`.
 
+## Analysis methodology
+
+There are two analyses in this repo. The first asks *does an opaque URL make a
+model reproduce its content?* The second grew out of it: *when a URL fails, is it
+because the content never made it into the training data, e.g. because the page
+is a JavaScript shell the crawler couldn't read?*
+
+### 1. Opaque-URL decoding (the experiment)
+
+Each corpus item carries an **opaque id** (e.g. an arXiv number, a ChromeStatus
+feature id, a Wikipedia `curid`) and a **descriptive name** for the same content.
+Every item is run through the [conditions](#conditions) above against every
+[model](#models), and an LLM-as-judge scores correctness 0..1. Items are split
+into three tracks that are never averaged together: `code`/API-usage (the lift
+metric lives here), `recall` opaque-id decoding (analysed by id-type, popularity,
+and pre/post knowledge-cutoff), and knowledge-calibration (`expectUnknown`, where
+the correct answer is to decline). Net finding: an opaque id decodes only in
+proportion to how often that exact id was written next to its content in training
+(fame), and only pre-cutoff. The cleanest control is **Wikipedia `curid`**: the
+article content is unquestionably in every model, yet the numeric curid decodes
+0.00, because content-in-training is necessary but not sufficient — the id has to
+be a memorised handle.
+
+### 2. Common Crawl shell survey
+
+**Question.** "Present in Common Crawl" (the CDX index says the URL was captured)
+is not the same as "the content is in the crawl". A client-rendered single-page
+app is fetched fine but the captured bytes are an empty shell; the real content
+is injected by JavaScript, which the crawler never runs. How common is that?
+
+**Data + sampling.** A monthly crawl (`CC-MAIN-YYYY-NN`) publishes WARC (raw HTTP
+responses), WAT (metadata) and WET (extracted text) files, ~100k of each. We
+stream a random sample of WARC files (`--files`, `--max` caps response records per
+file), and only analyse **HTTP 200, `text/html`** responses. `--accumulate` merges
+each batch into the running survey and skips already-used files, so a large sample
+is built in checkpointed batches. **The exact list of WARC files used is logged in
+`results/cc-shell-survey.json` (`warcFiles`) so anyone can re-fetch them from
+`https://data.commoncrawl.org/<path>` and re-run the analysis.**
+
+**Shell definition.** A page is a *confirmed shell* only when ALL of:
+1. it is a real page (200, `text/html`);
+2. **tiny visible text** — after stripping `<script>`/`<style>`/tags/entities, the
+   visible text is under the threshold (default 300 chars);
+3. **tiny inline-JSON content** — content often hides in `<script type="application/
+   json">` (Next.js `__NEXT_DATA__`, Nuxt/Redux/Apollo state, JSON-LD). A model
+   training on raw bytes *does* see this, so if the inline JSON is large the page is
+   counted as **content-present (`data-in-html`), not a shell**;
+4. **a client-render signature** — a framework marker (React, Angular, AngularJS,
+   Vue, Ember, Svelte, Solid, Next, Nuxt, Preact), a jQuery handler that builds the
+   DOM on load, or a generic SPA skeleton (`id="root"`/`"app"`, "enable JavaScript",
+   "Loading…"). A near-empty page with no such signal is a *thin page*, not a shell.
+
+Shells are attributed to the detected framework (pure CSR with no attributable
+framework → `unattributed`). Each page's registered domain is joined to the
+**Majestic Million** ranking (progressive-suffix match) and bucketed into
+popularity tiers. **Tier counts are pages, not sites** — one popular domain
+contributes many crawled pages. Raw HTML size is tracked for shells vs all pages
+(shells are large HTML with almost no text).
+
+**Scripts.**
+- [`src/cc-shell-survey.mjs`](src/cc-shell-survey.mjs) — fast first cut over WET
+  (extracted text); flags near-empty pages (an upper bound, includes thin pages).
+- [`src/cc-shell-confirm.mjs`](src/cc-shell-confirm.mjs) — the confirmer over WARC
+  (raw HTML): the strict definition above + framework attribution + rank join +
+  `--accumulate`. Writes `results/cc-shell-survey.json`.
+- [`src/cc-frameworks.mjs`](src/cc-frameworks.mjs) — shared framework / SPA /
+  inline-JSON signatures and the `classify()` rule.
+- [`src/shell-dashboard.mjs`](src/shell-dashboard.mjs) — renders the survey JSON to
+  an embeddable `results/shell-survey.html`.
+- [`src/cc-content-check.mjs`](src/cc-content-check.mjs) — pulls the actual WARC
+  bytes for specific corpus URLs (CDX presence vs content presence).
+- [`src/cc-warc-fetch.mjs`](src/cc-warc-fetch.mjs) — slice-by-site shell check from
+  WARC coordinates supplied by a DuckDB query of the columnar cc-index.
+
+**Method caveats.**
+- Detection is from raw HTML only: a pure client-side React app that ships just
+  `<div id="root"></div>` and an opaque bundle is not attributable to a framework
+  (lands in `unattributed`), and specific frameworks can be undercounted. The
+  by-framework split is approximate; the overall shell rate is more robust.
+- "Near-empty text" alone over-counts shells (login/captcha/listing stubs); the
+  inline-JSON and client-render-signature requirements filter most of those out.
+- The registered-domain match is a heuristic for exotic multi-part TLDs.
+- Results are estimates from a sample of one crawl, and the definition is
+  conservative, so read the shell rate as a floor.
+
+**Headline result** (568k pages across 48 WARC files of CC-MAIN-2026-08): 1.2% of
+crawled HTML pages are confirmed JS shells; shells average ~53KB of HTML with
+almost no text; and shells are **more** common on popular sites (top-1k ≈ 2.5%,
+1k–10k ≈ 2.8%) than the long tail (≈ 0.85%).
+
 ## Caveats
 
 - Scale is small (a handful of items per cell), so treat results as directional.

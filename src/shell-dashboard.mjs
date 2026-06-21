@@ -92,8 +92,8 @@ ${d.rankBuckets ? `<h2>Shell rate by site popularity (Majestic rank of the domai
 ${(() => { const max = Math.max(0.01, ...d.rankBuckets.map((b) => b.shellPct)); return d.rankBuckets.map((b) =>
   `<div class="row"><div class="lbl">${esc(b.tier)}</div>` +
   `<div class="track"><div class="bar" style="width:${(100 * b.shellPct / max).toFixed(1)}%;background:#7ee081"></div></div>` +
-  `<div class="val">${b.shellPct}<span class="pct">% of ${b.pages.toLocaleString()}</span></div></div>`).join(""); })()}
-<div class="sub" style="margin:6px 0 0">% = share of that tier's sampled pages that are confirmed shells. Common Crawl samples the long tail heavily, so the popular tiers have fewer pages (counts shown); read thin tiers with caution.</div>` : ""}
+  `<div class="val">${b.shellPct}<span class="pct">% of ${b.pages.toLocaleString()} pages</span></div></div>`).join(""); })()}
+<div class="sub" style="margin:6px 0 0">% = share of that tier's crawled <b>pages</b> that are confirmed shells. The counts are pages, not sites: one popular domain contributes many crawled pages, so the top-1k tier still holds tens of thousands of pages. The tiers partition the whole sample by the Majestic rank of each page's domain.</div>` : ""}
 
 <h2>Top registered domains among confirmed shells</h2>
 <table><tbody>${domRows}</tbody></table>
