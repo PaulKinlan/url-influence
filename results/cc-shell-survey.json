@@ -1,0 +1,538 @@
+{
+  "generatedAt": "2026-06-21T11:18:28.253Z",
+  "crawl": "CC-MAIN-2026-08",
+  "filesSampled": 5,
+  "maxPerFile": 15000,
+  "threshold": 300,
+  "htmlPages": 74040,
+  "tinyText": 8411,
+  "tinyTextPct": 11.36,
+  "shells": 1375,
+  "shellPct": 1.86,
+  "frameworkPrevalence": {
+    "next": {
+      "pages": 1897,
+      "pct": 2.56
+    },
+    "nuxt": {
+      "pages": 548,
+      "pct": 0.74
+    },
+    "react": {
+      "pages": 2007,
+      "pct": 2.71
+    },
+    "preact": {
+      "pages": 33,
+      "pct": 0.04
+    },
+    "angular": {
+      "pages": 325,
+      "pct": 0.44
+    },
+    "angularjs": {
+      "pages": 377,
+      "pct": 0.51
+    },
+    "vue": {
+      "pages": 1249,
+      "pct": 1.69
+    },
+    "svelte": {
+      "pages": 112,
+      "pct": 0.15
+    },
+    "solid": {
+      "pages": 8,
+      "pct": 0.01
+    },
+    "ember": {
+      "pages": 19,
+      "pct": 0.03
+    },
+    "jquery": {
+      "pages": 48895,
+      "pct": 66.04
+    },
+    "bootstrap": {
+      "pages": 13973,
+      "pct": 18.87
+    }
+  },
+  "shellByKind": {
+    "unattributed": {
+      "count": 661,
+      "pct": 0.89
+    },
+    "jquery-onload": {
+      "count": 260,
+      "pct": 0.35
+    },
+    "vue": {
+      "count": 43,
+      "pct": 0.06
+    },
+    "angularjs": {
+      "count": 61,
+      "pct": 0.08
+    },
+    "react": {
+      "count": 66,
+      "pct": 0.09
+    },
+    "nuxt": {
+      "count": 66,
+      "pct": 0.09
+    },
+    "angular": {
+      "count": 47,
+      "pct": 0.06
+    },
+    "next": {
+      "count": 164,
+      "pct": 0.22
+    },
+    "svelte": {
+      "count": 5,
+      "pct": 0.01
+    },
+    "preact": {
+      "count": 1,
+      "pct": 0
+    },
+    "solid": {
+      "count": 1,
+      "pct": 0
+    }
+  },
+  "topShellDomains": [
+    {
+      "host": "oclc.org",
+      "count": 57
+    },
+    {
+      "host": "tvp.pl",
+      "count": 13
+    },
+    {
+      "host": "co.jp",
+      "count": 11
+    },
+    {
+      "host": "pixnet.net",
+      "count": 11
+    },
+    {
+      "host": "gov.co",
+      "count": 10
+    },
+    {
+      "host": "com.au",
+      "count": 10
+    },
+    {
+      "host": "sketchup.com",
+      "count": 10
+    },
+    {
+      "host": "nih.gov",
+      "count": 9
+    },
+    {
+      "host": "com.br",
+      "count": 9
+    },
+    {
+      "host": "indexcopernicus.com",
+      "count": 9
+    },
+    {
+      "host": "imgur.com",
+      "count": 7
+    },
+    {
+      "host": "co.kr",
+      "count": 7
+    },
+    {
+      "host": "com.ar",
+      "count": 7
+    },
+    {
+      "host": "co.uk",
+      "count": 6
+    },
+    {
+      "host": "myworkdayjobs.com",
+      "count": 6
+    },
+    {
+      "host": "hpe.com",
+      "count": 6
+    },
+    {
+      "host": "mun.ca",
+      "count": 6
+    },
+    {
+      "host": "gov.au",
+      "count": 5
+    },
+    {
+      "host": "qq.com",
+      "count": 5
+    },
+    {
+      "host": "parktons.com",
+      "count": 5
+    },
+    {
+      "host": "europa.eu",
+      "count": 5
+    },
+    {
+      "host": "ne.jp",
+      "count": 4
+    },
+    {
+      "host": "psu.edu",
+      "count": 4
+    },
+    {
+      "host": "purdue.edu",
+      "count": 4
+    },
+    {
+      "host": "intertek.com",
+      "count": 4
+    },
+    {
+      "host": "nicovideo.jp",
+      "count": 4
+    },
+    {
+      "host": "broward.org",
+      "count": 4
+    },
+    {
+      "host": "exlibrisgroup.com",
+      "count": 4
+    },
+    {
+      "host": "cloud.microsoft",
+      "count": 4
+    },
+    {
+      "host": "bulbapp.com",
+      "count": 4
+    }
+  ],
+  "examplesByKind": {
+    "unattributed": [
+      {
+        "url": "http://elenova-rent.com/article/713",
+        "visible": 0
+      },
+      {
+        "url": "http://wosjournal.com/scoretime_363",
+        "visible": 0
+      },
+      {
+        "url": "https://0f2g.com/lander",
+        "visible": 0
+      },
+      {
+        "url": "https://100levels.ru/words-helper/boxer",
+        "visible": 193
+      },
+      {
+        "url": "https://accounts.hatena.ne.jp/login?location=https%3A%2F%2Fb.hatena.ne.jp%2Fentry%3Furl%3Dhttps%253A%252F%252Fwww.nikkei.com%252Farticle%252FDGXZQOUA174VR0X11C25A2000000%252F",
+        "visible": 9
+      },
+      {
+        "url": "https://adrianovalle.nyc/CATEGORY6/?id=55k-bet-apk",
+        "visible": 12
+      },
+      {
+        "url": "https://aniwaves.co/genre/game",
+        "visible": 96
+      },
+      {
+        "url": "https://anotherstoryedu.ca/item/NBxRcFBM7GLknVKUJe9g1w",
+        "visible": 108
+      }
+    ],
+    "jquery-onload": [
+      {
+        "url": "http://jadox.bjc.qulto.ro/jadox/portal/_ns:YVAtMTFlMmI3ZGI3ZWYtMTAwMDV8ZDE_/guestbook.psml;jsessionid=92E1625AD2CE68EB191C48DB3F150A38",
+        "visible": 225
+      },
+      {
+        "url": "http://koreataekkyon.com/taekkyon/bbs/view_image.php?fn=%2Fdata%2Feditor%2F2504%2Facfbde16e1f33e8e1275b7801dc36d0f_1745814398_7601.JPG",
+        "visible": 16
+      },
+      {
+        "url": "http://madfactory.co.jp/?attachment_id=3922",
+        "visible": 234
+      },
+      {
+        "url": "http://njgndhotel.com/plugin.php?id=tom_tongcheng&site=1&mod=help",
+        "visible": 70
+      },
+      {
+        "url": "http://saveriomoriones.it/1/cuba_2903466.html",
+        "visible": 232
+      },
+      {
+        "url": "http://seoulswim.or.kr/bbs/view_image.php?fn=http%3A%2F%2Fwww.seoulswim.or.kr%2Fdata%2Feditor%2F2507%2Fc3a739d9b67b23d897aa68518a6499da_1753672479_3966.jpg",
+        "visible": 20
+      },
+      {
+        "url": "http://www.frontofficetokyo.com/09-07.html",
+        "visible": 26
+      },
+      {
+        "url": "http://www.juvesalonspa.com/casino-minim%C3%A1ln%C3%AD-vklad-100-k%C4%8D-inpay/",
+        "visible": 15
+      }
+    ],
+    "vue": [
+      {
+        "url": "http://m.cqjunlan.com/nd.jsp?mid=302&id=17&groupId=2",
+        "visible": 242
+      },
+      {
+        "url": "http://zhijiuxing.com/pd.jsp?id=117",
+        "visible": 263
+      },
+      {
+        "url": "https://courses.kelly-turner.com/author/aj-73hotmail-com/",
+        "visible": 276
+      },
+      {
+        "url": "https://giros02.ru/sterlitamak/yaponskaya-kuhnya/sousy-4968729/unagi-sous-28905634",
+        "visible": 104
+      },
+      {
+        "url": "https://one-left.ru/samara/rolls/big_rolls/roll-klassicheskiy-peterburg",
+        "visible": 202
+      },
+      {
+        "url": "https://thewinequeenemporium.com/product/couples-veuve-cliquot-indulgence-hamper/",
+        "visible": 261
+      },
+      {
+        "url": "http://m.panda619.cn/col.jsp?id=112",
+        "visible": 244
+      },
+      {
+        "url": "https://bicma.or.jp/member_blog/%E4%BA%BA%E4%BA%8B%E5%8A%B4%E5%8B%99%E3%81%A0%E3%82%88%E3%82%8A%EF%BD%9E%E9%A3%B2%E9%85%92%EF%BD%9E/attachment/31158211_s/",
+        "visible": 297
+      }
+    ],
+    "angularjs": [
+      {
+        "url": "http://www.esemanuelelkinpatarroyo.gov.co/contrataciones/cpsp0342020",
+        "visible": 12
+      },
+      {
+        "url": "http://www.esemanuelelkinpatarroyo.gov.co/control/registro-de-actividad-de-informacion",
+        "visible": 34
+      },
+      {
+        "url": "https://campusmoviefest.com/schools/2911-clovis_adult_education",
+        "visible": 199
+      },
+      {
+        "url": "https://find.slv.vic.gov.au/discovery/fulldisplay/alma99753213607636/61SLV_INST:SLV",
+        "visible": 44
+      },
+      {
+        "url": "https://librarysearch.adelaide.edu.au/discovery/fulldisplay/alma99988501811/61ADELAIDE_INST:UOFA",
+        "visible": 44
+      },
+      {
+        "url": "https://librarysearch.library.utoronto.ca/discovery/fulldisplay/alma991106502880206196/01UTORONTO_INST:UTORONTO",
+        "visible": 44
+      },
+      {
+        "url": "https://m.cedarcrestmc.com/obituaries/John-G-Stanley-III?obId=4188740",
+        "visible": 0
+      },
+      {
+        "url": "https://medcomplet-online.de/article/intralong-katheter-27-g-x-90-cm-10-st?artnr=PJ00115137F",
+        "visible": 143
+      }
+    ],
+    "react": [
+      {
+        "url": "https://aicom23.jp/present/",
+        "visible": 287
+      },
+      {
+        "url": "https://app.enhancv.com/resume/new?example=predefined-Ent6vpSBbFoM4aCi4WgDCHO7Q6CDYw0YWz13NPOi",
+        "visible": 69
+      },
+      {
+        "url": "https://blog.siemens.com/tag/smartworkspaces/",
+        "visible": 118
+      },
+      {
+        "url": "https://brunobonecaprincesa.blogs.sapo.pt/273.html?.isPopup=true",
+        "visible": 294
+      },
+      {
+        "url": "https://en.the-hany.jp/celeste",
+        "visible": 281
+      },
+      {
+        "url": "https://indico.linxs.lu.se/login/?next=%2Fevent%2F588%2Fregistrations%2F228%2F",
+        "visible": 154
+      },
+      {
+        "url": "https://mindsen.se/",
+        "visible": 9
+      },
+      {
+        "url": "https://news.qq.com/rain/a/20260204V03DCW00?suid=&media_id=",
+        "visible": 40
+      }
+    ],
+    "nuxt": [
+      {
+        "url": "https://ajike.co.jp/services/web-performance",
+        "visible": 15
+      },
+      {
+        "url": "https://casinos-levkz.net/kz/games/pragmaticplaylive/pr-speed-auto-roulette",
+        "visible": 43
+      },
+      {
+        "url": "https://casinos-levkz.net/ru/games/gamzix/gz-pilot-cup",
+        "visible": 43
+      },
+      {
+        "url": "https://cgi-veterans.jobs/job-titles/it-support-technician/jobs/",
+        "visible": 10
+      },
+      {
+        "url": "https://ganza.app/postagem/folhas-garra",
+        "visible": 24
+      },
+      {
+        "url": "https://jobs.choctawnation.com/durant-ok/housekeeping-supervisor/06EF9618CE2C4AC8ADF823E8569B4ABC/job/",
+        "visible": 36
+      },
+      {
+        "url": "https://kp.rusneb.ru/item/reader/biologicheskoe-izsledovanie-prirody-v-tvoryashchem-i-tvorimom-eya-kachestve-soderzhashchee-osnovnyya-nachertaniya-vseobshchey-fiziologii",
+        "visible": 49
+      },
+      {
+        "url": "https://levz-enjoy.com/games/agtsoftware/ag-big-foot",
+        "visible": 39
+      }
+    ],
+    "angular": [
+      {
+        "url": "https://antihuman.cl/Categories/Footwear/Zapatillas/Zapatillas-New-Balance-Unisex-1906-Plateado-Negro-Verde-Fluor/p/NBU1906RCQ055",
+        "visible": 0
+      },
+      {
+        "url": "https://archief.omv.omgeving.vlaanderen.be/items/027ee454-b165-4c12-bcd4-6e880fcae93a",
+        "visible": 216
+      },
+      {
+        "url": "https://archief.omv.omgeving.vlaanderen.be/items/5162efe8-c1e1-4c5d-a657-154d0f98375c",
+        "visible": 216
+      },
+      {
+        "url": "https://base-desempeno.peopletalent.mx/product/odds5?c=g&l=31046",
+        "visible": 24
+      },
+      {
+        "url": "https://clickdoc.fr/m%C3%A9decin/Ajaccio/-/Denis-Villelegier/96a255f5-4e7a-430b-a8d6-d7b517f77957",
+        "visible": 73
+      },
+      {
+        "url": "https://idus.us.es/items/29d704c3-3b34-439e-bb07-c0386821bfcf",
+        "visible": 281
+      },
+      {
+        "url": "https://jakdojade.pl/rozklad-pkp/Miko%C5%82%C3%B3w/%C5%9Aroda%20Wielkopolska",
+        "visible": 116
+      },
+      {
+        "url": "https://812firearm.com/shooting-sports/gun-storage/hard-cases/iseries-case/detail/585143e1-931a-4c1a-bfcc-dbebf561bafb/0065c112-4153-4c48-a188-e6bf868efeda",
+        "visible": 25
+      }
+    ],
+    "next": [
+      {
+        "url": "https://bookable.health/a/stratford",
+        "visible": 232
+      },
+      {
+        "url": "https://bookingmitr.com/kiranxkiran",
+        "visible": 248
+      },
+      {
+        "url": "https://dailyfamily.ng/login?redirect=%2Fshocking-man-stabs-sister-refusal-sell-fathers-property-finance-wedding",
+        "visible": 0
+      },
+      {
+        "url": "https://doublagetournezbobines.fr/?y=fw4q15sbhowijud",
+        "visible": 62
+      },
+      {
+        "url": "https://expertsofdeals.com/products/all/apparel-and-fashion-accessories/garment-fashion-accessories/wool-fiber",
+        "visible": 0
+      },
+      {
+        "url": "https://expertsofdeals.com/products/all/construction-and-real-estate/elevators-escalators/elevator-parts",
+        "visible": 0
+      },
+      {
+        "url": "https://farmhouse.delivery/shop/farmhouse/marin-county/products/moonland-675480/pre-rolls/moonland-roz-single-7207639/",
+        "visible": 263
+      },
+      {
+        "url": "https://giphy.com/gifs/rOP4pxRu8Pq5cdOkcD",
+        "visible": 128
+      }
+    ],
+    "svelte": [
+      {
+        "url": "https://max.ru/:share?text=https://www.verstov.info/news/society/77353-mozhet-sobirat-chemodany-teksler-zayavil-o-skoroy-otstavke-ivana-senicheva-iz-hk-traktor",
+        "visible": 144
+      },
+      {
+        "url": "https://www.angelone.in/mutual-funds/nfo/lic-mf-consumption-fund-direct-plan-idcw-reinvestment",
+        "visible": 94
+      },
+      {
+        "url": "https://helicalco.com/",
+        "visible": 200
+      },
+      {
+        "url": "https://lemdro.id/post/lemdro.id/6667727",
+        "visible": 0
+      },
+      {
+        "url": "https://mygolden.day/signup",
+        "visible": 32
+      }
+    ],
+    "preact": [
+      {
+        "url": "https://support.oracle.com/knowledgefs?docId=2146404",
+        "visible": 160
+      }
+    ],
+    "solid": [
+      {
+        "url": "https://hackernews.ryansolid.workers.dev/users/sitkack",
+        "visible": 168
+      }
+    ]
+  }
+}
