@@ -24,6 +24,38 @@ decisions made, and what we have learned about the URLs and methodology.
 ### In progress
 - (none claimed)
 
+### Done (2026-06-21, opus agent — JS-shell / Common Crawl indexing investigation)
+- **Discovery:** ChromeStatus opaque ids decode ~0 not because they aren't crawled
+  but because ChromeStatus is a client-rendered SPA — the Common Crawl capture is
+  an empty 22-char shell ("Chrome Platform Status"), verified by pulling raw WARC
+  bytes (4/4 features). arXiv server-renders its abstract. So CDX presence != content.
+  Saved the raw captures to results/cc-samples/ (linked from the blog).
+- **Wikipedia curid** = the clean opaque-id control: content 100% in training,
+  server-rendered, yet `?curid=` decodes 0.00 across all 5 (name/full-content 1.00).
+  Proves content-in-training is necessary but not sufficient; the id must be a
+  memorised handle.
+- **Implicit-influence experiment** (src/implicit.mjs): an ambient (unmentioned)
+  memorised CVE URL steers output (Drupalgeddon2 0.00→1.00; random URL 0); the
+  "React hunch" confirmed, only for memorised ids.
+- **Shell prevalence survey at scale** (src/cc-shell-confirm.mjs + cc-frameworks.mjs):
+  streams WARC, classifies 200-text/html pages as shells = tiny visible text AND
+  tiny inline-JSON (Next.js __NEXT_DATA__ etc. = content-present, NOT shell) AND a
+  client-render marker. 568k pages / 48 WARC files of CC-MAIN-2026-08: **1.2%
+  confirmed shells**; shells avg 53KB HTML / ~0 text. By framework: unattributed
+  0.57%, jquery-onload 0.29%, Next 0.12%. Prevalence: jQuery 67%, Bootstrap 19%.
+  **KEY: shells MORE common on popular sites** — top-1k 2.5%, 1k-10k 2.8% vs
+  long-tail 0.85% (Majestic rank join). --accumulate mode + logged warcFiles for
+  reproducibility. Embeddable dashboard: results/shell-survey.html.
+- **Tooling:** cc-content-check.mjs (WARC content vs CDX presence), cc-warc-fetch.mjs
+  (DuckDB-by-site companion), cc-shell-survey.mjs (WET first-cut). DuckDB installed
+  but CC columnar index needs AWS creds (anonymous list denied) — documented.
+- **Blog (aifoc.us, committed to main):** reframed as the genuine discovery arc
+  (hunch "no influence" → numbers didn't fit → Common Crawl made it click), folded
+  in implicit-influence, the indexing/SPA problem, the popular-sites-worse finding,
+  a transparency ask (no model card discloses whether the crawler runs JS — checked
+  Anthropic/OpenAI/Google), and embeds the shell-survey dashboard. PR workflow
+  dropped per Paul (commit to main directly).
+
 ### Done (2026-06-20, opus agent — labels, content-only, refusal markers, opaque-url)
 - **Relabel for accuracy** (Paul): name-only→`described`, name-framed→
   `described-framed`, url+name→`url+described`, and url-only→`opaque-url`
