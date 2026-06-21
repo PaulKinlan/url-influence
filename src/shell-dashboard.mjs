@@ -44,7 +44,7 @@ const domRows = (d.topShellDomains || []).slice(0, 20)
 
 const exHtml = Object.entries(d.examplesByKind || {}).map(([k, arr]) =>
   `<div class="exgrp"><div class="exh">${esc(KIND_LABEL[k] || k)}</div>` +
-  arr.slice(0, 4).map((e) => `<div class="ex"><span class="exv">${e.visible}c</span> <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.url)}</a></div>`).join("") +
+  arr.slice(0, 4).map((e) => `<div class="ex"><span class="exv">${e.visible}c</span> <a href="${esc(e.url)}" target="_blank" rel="nofollow noopener noreferrer">${esc(e.url)}</a></div>`).join("") +
   `</div>`).join("");
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">

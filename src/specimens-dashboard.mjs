@@ -28,7 +28,7 @@ const traitRows = allTraits.map((t) => ({
 
 const specimenHtml = (cat) => (d.specimens[cat] || []).map((s) =>
   `<div class="sp"><span class="v">${s.visible}c</span><span class="kb">${s.htmlKB}KB</span> ` +
-  `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.url)}</a>` +
+  `<a href="${esc(s.url)}" target="_blank" rel="nofollow noopener noreferrer">${esc(s.url)}</a>` +
   (s.traits.length ? `<div class="tr">${s.traits.map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : "") +
   `</div>`).join("");
 
