@@ -86,6 +86,47 @@ export function hasJqueryOnload(html) {
 // content IS in the HTML (e.g. a Next.js SSG page with __NEXT_DATA__), so it is
 // NOT a shell -> kind "data-in-html".
 // Returns { shell, frameworks, kind }.
+// SPA-ecosystem libraries: not frameworks, but strong "this is a client app"
+// traits. react-router (client routing) and redux/apollo/preloaded-state (client
+// state) in particular distinguish a real SPA from a React component dropped on a
+// server-rendered page. Tracked as traits for the co-occurrence analysis.
+export const SPA_LIBS = [
+  { name: "react-router", sig: [/react-router/i, /data-router-state/i] },
+  { name: "redux", sig: [/redux/i, /__REDUX_DEVTOOLS/i, /__PRELOADED_STATE__/, /window\.__INITIAL_STATE__/] },
+  { name: "react-query", sig: [/react-query/i, /@tanstack\/(?:react-)?query/i, /__REACT_QUERY/i] },
+  { name: "mobx", sig: [/\bmobx\b/i] },
+  { name: "recoil", sig: [/\brecoil\b/i] },
+  { name: "zustand", sig: [/\bzustand\b/i] },
+  { name: "apollo", sig: [/apollo-client/i, /__APOLLO_STATE__/, /apollographql/i] },
+  { name: "relay", sig: [/relay-runtime/i, /__RELAY_/i] },
+  { name: "graphql", sig: [/graphql/i] },
+  { name: "webpack", sig: [/webpackJsonp/i, /__webpack_require__/, /webpackChunk/i] },
+  { name: "vite", sig: [/\/@vite\/client/i, /type=["']module["'][^>]*\/assets\//i, /__vite__/i] },
+  { name: "hydration", sig: [/data-reactroot/i, /data-server-rendered/i, /_\$HY\b/, /data-hk=["']/i, /<!--\[-->/, /<!--\$-->/] },
+  { name: "module-script", sig: [/<script[^>]*type=["']module["']/i] },
+];
+export function detectLibs(html) {
+  return SPA_LIBS.filter((l) => l.sig.some((re) => re.test(html))).map((l) => l.name);
+}
+
+// A single category for each 200 text/html page, used by the specimen browser and
+// the trait co-occurrence analysis.
+//   empty-mount-shell : app container empty + tiny text (the trustworthy shell)
+//   marker-shell      : tiny text + a client-render marker, but mount not empty
+//   data-in-html      : tiny visible text, but content is in inline JSON (not a shell)
+//   thin              : tiny text, no client-render signal (login/listing/stub)
+//   framework-content : has a client framework AND visible content (an SSR app, NOT a shell)
+//   content           : visible content, no client framework (plain server-rendered page)
+export function categorize(html, visibleLen, dataLen, threshold) {
+  const frameworks = detect(html);
+  const client = frameworks.filter((f) => CLIENT_FRAMEWORKS.has(f));
+  if (visibleLen >= threshold) return client.length ? "framework-content" : "content";
+  if (dataLen >= threshold) return "data-in-html";
+  if (hasEmptyMount(html)) return "empty-mount-shell";
+  if (client.length || hasJqueryOnload(html) || hasGenericSpa(html)) return "marker-shell";
+  return "thin";
+}
+
 export function classify(html, visibleLen, threshold, dataLen = 0) {
   const frameworks = detect(html);
   if (visibleLen >= threshold) return { shell: false, frameworks, kind: null };

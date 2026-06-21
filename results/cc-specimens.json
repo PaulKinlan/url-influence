@@ -1,0 +1,1573 @@
+{
+  "generatedAt": "2026-06-21T17:27:33.468Z",
+  "crawl": "CC-MAIN-2026-08",
+  "filesSampled": 4,
+  "threshold": 300,
+  "pages": 47376,
+  "warcFiles": [
+    "crawl-data/CC-MAIN-2026-08/segments/1770395865208.87/warc/CC-MAIN-20260218110528-20260218140528-00033.warc.gz",
+    "crawl-data/CC-MAIN-2026-08/segments/1770395505913.53/warc/CC-MAIN-20260209011130-20260209041130-00466.warc.gz",
+    "crawl-data/CC-MAIN-2026-08/segments/1770395506119.32/warc/CC-MAIN-20260210200815-20260210230815-00238.warc.gz",
+    "crawl-data/CC-MAIN-2026-08/segments/1770395505680.41/warc/CC-MAIN-20260207002457-20260207032457-00373.warc.gz"
+  ],
+  "categoryCounts": {
+    "empty-mount-shell": 237,
+    "marker-shell": 340,
+    "data-in-html": 415,
+    "thin": 4010,
+    "framework-content": 3106,
+    "content": 39268
+  },
+  "categoryPct": {
+    "empty-mount-shell": 0.5,
+    "marker-shell": 0.72,
+    "data-in-html": 0.88,
+    "thin": 8.46,
+    "framework-content": 6.56,
+    "content": 82.89
+  },
+  "traitByCategory": {
+    "empty-mount-shell": {
+      "angular": 31,
+      "module-script": 110,
+      "vite": 78,
+      "webpack": 14,
+      "bootstrap": 13,
+      "redux": 6,
+      "vue": 1,
+      "graphql": 1,
+      "jquery": 24,
+      "next": 4,
+      "react": 4,
+      "recoil": 1,
+      "angularjs": 1
+    },
+    "marker-shell": {
+      "jquery": 140,
+      "angularjs": 37,
+      "next": 66,
+      "bootstrap": 63,
+      "vite": 17,
+      "module-script": 52,
+      "hydration": 51,
+      "graphql": 4,
+      "react": 9,
+      "react-router": 1,
+      "mobx": 1,
+      "redux": 5,
+      "angular": 4,
+      "webpack": 5,
+      "svelte": 5,
+      "vue": 4,
+      "react-query": 2,
+      "preact": 1
+    },
+    "data-in-html": {
+      "vue": 38,
+      "jquery": 99,
+      "redux": 106,
+      "hydration": 39,
+      "bootstrap": 113,
+      "module-script": 106,
+      "nuxt": 32,
+      "relay": 5,
+      "graphql": 22,
+      "angular": 5,
+      "next": 55,
+      "vite": 24,
+      "react-router": 1,
+      "react": 15,
+      "webpack": 8,
+      "angularjs": 1,
+      "apollo": 2,
+      "react-query": 1
+    },
+    "thin": {
+      "jquery": 235,
+      "bootstrap": 75,
+      "module-script": 99,
+      "vite": 14,
+      "graphql": 1,
+      "webpack": 6,
+      "redux": 5
+    },
+    "framework-content": {
+      "vue": 714,
+      "jquery": 1332,
+      "react": 965,
+      "preact": 20,
+      "angularjs": 213,
+      "bootstrap": 417,
+      "angular": 170,
+      "module-script": 933,
+      "nuxt": 286,
+      "hydration": 898,
+      "next": 982,
+      "redux": 503,
+      "recoil": 8,
+      "solid": 5,
+      "graphql": 86,
+      "svelte": 78,
+      "vite": 80,
+      "webpack": 77,
+      "zustand": 12,
+      "ember": 13,
+      "apollo": 16,
+      "react-query": 15,
+      "mobx": 11,
+      "react-router": 5
+    },
+    "content": {
+      "jquery": 30242,
+      "bootstrap": 8216,
+      "redux": 982,
+      "module-script": 8534,
+      "webpack": 270,
+      "vite": 676,
+      "hydration": 147,
+      "zustand": 82,
+      "mobx": 4,
+      "graphql": 266,
+      "apollo": 25,
+      "react-query": 28,
+      "react-router": 16,
+      "recoil": 12,
+      "relay": 2
+    }
+  },
+  "specimens": {
+    "empty-mount-shell": [
+      {
+        "url": "http://11.rsg385.top/",
+        "visible": 0,
+        "htmlKB": 1.5,
+        "traits": []
+      },
+      {
+        "url": "https://1776power.org/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://1997jogo.com/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://1draftnews.com/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://3ddd.ru/3dmodels/show/christopher_hyde_belgravia",
+        "visible": 53,
+        "htmlKB": 13.1,
+        "traits": [
+          "angular",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://3speak.tv/watch?v=chaste-music/ojyxcsrg",
+        "visible": 6,
+        "htmlKB": 0.7,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://3speak.tv/watch?v=chrono.spt/cpnoqjsw",
+        "visible": 6,
+        "htmlKB": 0.7,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://a-dormable.life/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://aahaarfoods.com/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://ads.sber.ru/stat/projects/2714870/new/report/rating",
+        "visible": 0,
+        "htmlKB": 3.2,
+        "traits": []
+      },
+      {
+        "url": "https://app.endofscoring.com/demo-1681707798785/",
+        "visible": 68,
+        "htmlKB": 4,
+        "traits": [
+          "webpack"
+        ]
+      },
+      {
+        "url": "https://artic.contentdm.oclc.org/digital/collection/mqc/id/65011/",
+        "visible": 105,
+        "htmlKB": 523.2,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://australianarchaeologicalassociation.com.au/events/national-archaeology-week-networking-dinner-naw-2025/",
+        "visible": 150,
+        "htmlKB": 71.9,
+        "traits": []
+      },
+      {
+        "url": "https://beatsaver.com/?order=Rating&from=2025-01-20T02:37:07.375752769Z",
+        "visible": 298,
+        "htmlKB": 4.9,
+        "traits": [
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "https://beqholdings.com/tag/course/",
+        "visible": 8,
+        "htmlKB": 189.1,
+        "traits": [
+          "vue",
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://bezbets.co.zw/sports/outright/rugby/rugby-union/super-rugby/super-rugby-2026-10225",
+        "visible": 0,
+        "htmlKB": 3.5,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://bondekompaniet.no/america-drikkebotte-hons-galvanisert-10-liter-970106882a",
+        "visible": 46,
+        "htmlKB": 7.1,
+        "traits": [
+          "graphql"
+        ]
+      },
+      {
+        "url": "https://bsky.app/intent/compose?text=Izaak%20https://groupfinder.eu/players/472",
+        "visible": 227,
+        "htmlKB": 5.7,
+        "traits": []
+      },
+      {
+        "url": "https://bsky.app/intent/compose?text=Life%20cycle%20dynamics%20of%20Greenland%20blocking%20from%20a%20potential%20vorticity%20perspective+https%3A%2F%2Fpublikationen.bibliothek.kit.edu%2F1000170991",
+        "visible": 227,
+        "htmlKB": 5.7,
+        "traits": []
+      },
+      {
+        "url": "https://bsky.app/intent/compose?text=The%20prisoner%20and%20the%20catalog%20https://www.lorcandempsey.net/the-prisoner-and-the-catalog/",
+        "visible": 227,
+        "htmlKB": 5.7,
+        "traits": []
+      },
+      {
+        "url": "https://classiccannabisstrains.com/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://colegiosconcertados.info/colegio-cardenal-spinola-fundacion-spinola-madrid/",
+        "visible": 0,
+        "htmlKB": 1.5,
+        "traits": []
+      },
+      {
+        "url": "https://connect.shore.com/bookings/auge-n6/services?locale=de",
+        "visible": 55,
+        "htmlKB": 23.2,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "https://delivery.wowsbar.com/announcement?logged_in=false&domain=www.awartisan.fr/atih-06",
+        "visible": 7,
+        "htmlKB": 26.8,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://docs.trustx.com/xdetech/welcome-to-xdetech",
+        "visible": 0,
+        "htmlKB": 18.1,
+        "traits": [
+          "angular",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://elueh.com/about-us",
+        "visible": 55,
+        "htmlKB": 2.6,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://flinthillsplaza.com/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://footpathapp.com/routes/3153a8c8-1577-463c-9344-1af99de17407",
+        "visible": 22,
+        "htmlKB": 3.3,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://forwardonerealestate.com/lander",
+        "visible": 0,
+        "htmlKB": 0.5,
+        "traits": []
+      },
+      {
+        "url": "https://gays-xxx.cfd/index.php?search=malemy%20on%20teen%20jeiahorgb",
+        "visible": 0,
+        "htmlKB": 1.5,
+        "traits": []
+      }
+    ],
+    "marker-shell": [
+      {
+        "url": "http://hearloss.org.tw/shop.php?html=my_pics&tid=22",
+        "visible": 255,
+        "htmlKB": 34.3,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://keiba-lv-st.jp/movie/player?date=20220703&race=2&track=obihiro",
+        "visible": 106,
+        "htmlKB": 2.9,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://www.imdera-armenia.gov.co/noticias/imdera-realizara-la-fase-municipal-de-los-campamentos",
+        "visible": 68,
+        "htmlKB": 8.4,
+        "traits": [
+          "angularjs"
+        ]
+      },
+      {
+        "url": "https://2025.data-recover.com.tw/tags/%E9%8C%AF%E8%AA%A4%E8%99%95%E7%90%86",
+        "visible": 279,
+        "htmlKB": 36.5,
+        "traits": [
+          "next"
+        ]
+      },
+      {
+        "url": "https://activecaptain.garmin.com/de-CH/pois/28962",
+        "visible": 0,
+        "htmlKB": 5.8,
+        "traits": [
+          "jquery",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "https://ameblo.jp/car-polish-authority/image-12535697694-14614635130.html",
+        "visible": 252,
+        "htmlKB": 143.3,
+        "traits": [
+          "jquery",
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://apkbine.com/apps/food-and-drink/",
+        "visible": 229,
+        "htmlKB": 45.5,
+        "traits": [
+          "jquery",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "https://app.memex.xyz/profile/aqqwe/6Ec666",
+        "visible": 49,
+        "htmlKB": 59.3,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://ar.taiwantrade.com/products/detail.html?productid=609569",
+        "visible": 56,
+        "htmlKB": 12,
+        "traits": [
+          "jquery",
+          "graphql",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://atom.library.miami.edu/informationobject/browse?limit=100&sf_culture=nl&creators=613697&collection=170915&view=card&onlyMedia=1&topLod=0&sort=alphabetic&sortDir=asc",
+        "visible": 76,
+        "htmlKB": 0.8,
+        "traits": []
+      },
+      {
+        "url": "https://automotive.skf.com/eap/th/product-catalogue/VKDL81136",
+        "visible": 192,
+        "htmlKB": 430.6,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://automotive.skf.com/eur/it/product-catalogue/VKHB2198",
+        "visible": 225,
+        "htmlKB": 441.5,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://automotive.skf.com/eur/it/product-catalogue/VKJA5149",
+        "visible": 225,
+        "htmlKB": 441.5,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://automotive.skf.com/eur/sv/product-catalogue/VKBD90392S2",
+        "visible": 213,
+        "htmlKB": 438.1,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://automotive.skf.com/eur/sv/product-catalogue/VKBP91128A",
+        "visible": 212,
+        "htmlKB": 437.8,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://bescolle.com/list/?d=20251128",
+        "visible": 162,
+        "htmlKB": 5.5,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "https://bimtopia.com/building-modeling-videos/module-4-assignment-tips-session-spring-2024",
+        "visible": 102,
+        "htmlKB": 150.8,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://bitcointalk.org/index.php?action=profile;threads;u=804073;sa=showPosts",
+        "visible": 291,
+        "htmlKB": 9.1,
+        "traits": []
+      },
+      {
+        "url": "https://codalab.lisn.upsaclay.fr/accounts/signup/?next=/competitions/18459",
+        "visible": 298,
+        "htmlKB": 7.5,
+        "traits": [
+          "jquery",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "https://communities.fiery.com/s/article/Can-I-add-both-cutter-marks-and-crop-marks-in-Fiery-XF",
+        "visible": 64,
+        "htmlKB": 60.2,
+        "traits": [
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "https://data.europa.eu/data/datasets/443fd296-2fc6-4989-a97f-2407da5f4d34-1?locale=en",
+        "visible": 14,
+        "htmlKB": 1.5,
+        "traits": [
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://data.europa.eu/data/datasets/c_m078-c_m078_dataset_sedi_amministrative?locale=en",
+        "visible": 14,
+        "htmlKB": 1.5,
+        "traits": [
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://developmenttracker.austintexas.gov/?category=Building+Permit&shape_group_name=Zip+Codes&shape_id=50&shape_text=78705",
+        "visible": 169,
+        "htmlKB": 254.1,
+        "traits": [
+          "angularjs",
+          "jquery",
+          "bootstrap",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://dongu-dmpi.ru/index.php/dmpi/article/view/297/289",
+        "visible": 266,
+        "htmlKB": 4.1,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "https://dormitory.itall.com/recruit/admission",
+        "visible": 291,
+        "htmlKB": 73.9,
+        "traits": [
+          "next"
+        ]
+      },
+      {
+        "url": "https://e.issuu.com/embed.html?d=csm_november-december_2021_issuu&hideIssuuLogo=true&showOtherPublicationsAsSuggestions=true&u=coastalstyle",
+        "visible": 12,
+        "htmlKB": 10.4,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://e.issuu.com/embed.html?d=wedding_guide_2023_-_web&hideIssuuLogo=true&u=visitbeloit",
+        "visible": 12,
+        "htmlKB": 10.4,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://ejournal.upbatam.ac.id/index.php/jab/article/view/9888/4388",
+        "visible": 267,
+        "htmlKB": 3.3,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "https://euro88me.amebaownd.com/posts/52549869",
+        "visible": 265,
+        "htmlKB": 30.8,
+        "traits": [
+          "react",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://fem.pemersatu.link/play.php?id=cmhPeDhXMmpya1J3ajhaZ0NlNDR4QT09",
+        "visible": 75,
+        "htmlKB": 17.3,
+        "traits": [
+          "jquery"
+        ]
+      }
+    ],
+    "data-in-html": [
+      {
+        "url": "http://boxincable.com/pd.jsp?id=36",
+        "visible": 276,
+        "htmlKB": 126.9,
+        "traits": [
+          "vue",
+          "jquery",
+          "redux",
+          "hydration"
+        ]
+      },
+      {
+        "url": "http://contentdm.acpl.lib.in.us/digital/collection/p16089coll104/id/2073/",
+        "visible": 105,
+        "htmlKB": 52.7,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://contentdm.marinlibrary.org/digital/collection/fieldbooks/id/625/",
+        "visible": 105,
+        "htmlKB": 72.4,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://digitalcollections.plymouth.edu/digital/collection/p15828coll7/id/3888/",
+        "visible": 105,
+        "htmlKB": 74,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://digitalcollections.slu.edu/digital/collection/woodstock/id/29095/",
+        "visible": 105,
+        "htmlKB": 194.6,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://digitallib.oit.edu/digital/collection/p17267coll1/id/402/",
+        "visible": 105,
+        "htmlKB": 88.6,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://digitalwolfgram.widener.edu/digital/collection/p16069coll41/id/11425/",
+        "visible": 105,
+        "htmlKB": 130,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://www.creativeboostdesign.com/index.php/project-1-2/letterhead-3/",
+        "visible": 288,
+        "htmlKB": 52.3,
+        "traits": [
+          "jquery",
+          "bootstrap",
+          "module-script"
+        ]
+      },
+      {
+        "url": "http://www.twyulecheng.com/bmxx/gsszxx/cpqzlsgsshyyssz/202401/t20240112_3533418.html",
+        "visible": 162,
+        "htmlKB": 23.7,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://www.whitefashionbyleescullion.com/city-wedding/newton-hall-wedding-photography-lee-scullion-northumberland-newcastle_/attachment/newton-hall-wedding-photography__0015/",
+        "visible": 234,
+        "htmlKB": 29.5,
+        "traits": []
+      },
+      {
+        "url": "https://2050.su/mnogofrakcionnost-vlasti-rozhdenie-ukrainskoy-modeli/rada_1990s_1/",
+        "visible": 154,
+        "htmlKB": 143.6,
+        "traits": [
+          "jquery",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://amazy.uk/lessons/120049",
+        "visible": 22,
+        "htmlKB": 760.8,
+        "traits": [
+          "nuxt",
+          "vue",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://americas.aecom.jobs/kenova/west-virginia/usa/jobs/dcs/new-jobs/?vs=28",
+        "visible": 0,
+        "htmlKB": 47.9,
+        "traits": [
+          "nuxt",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://apploer.com/szvyedkrtvpenffuk29wn2fnak4zqt09/",
+        "visible": 98,
+        "htmlKB": 68,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "https://ar-ar.workplace.com/help/work/1167689491269151/?ref=AVsMm9VLZLeogzgZcsVwbTu7WETFQAX0x2unNQkffAtu4-QUTvY7gho5kvA3WpWkGJEI_ebjS95SNBsqiuEZRWGfqid7k7nwo2gjE4tUeqWtRhvnTXtPh65vKXIu3j_6UZO4U8wtYXNM3gDcpk-T_oYRLwOSrwbMmOrpvO4HXkFgKaoJdEUEHdhAFDUaeiVD6Ns5-u9LqlraGTz3O-COy6AvRoYTIdzZEBba7dlMjuY67ZaqHPKQGqVknKxWzuSq0bN4qZJS_TOLBS-kCoFe5xZ7A94IIeJjx1hBUcOZgzDYZBc239USgQFvwnwPZSD9QRY",
+        "visible": 64,
+        "htmlKB": 1113.7,
+        "traits": [
+          "relay",
+          "graphql",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://archwayeditions.us/",
+        "visible": 242,
+        "htmlKB": 32.2,
+        "traits": []
+      },
+      {
+        "url": "https://arsenalstroi54.ru/games/belatra/green-grocery-v1",
+        "visible": 39,
+        "htmlKB": 42.3,
+        "traits": [
+          "nuxt",
+          "vue",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://atodi.org/drawings/0296",
+        "visible": 266,
+        "htmlKB": 33.1,
+        "traits": [
+          "jquery",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://autoparts.heywardallentoyota.com/products/product/wire-fr-seat-lh-no-8219b08050",
+        "visible": 64,
+        "htmlKB": 10.4,
+        "traits": [
+          "bootstrap",
+          "graphql"
+        ]
+      },
+      {
+        "url": "https://awards.untappd.com/beers/4761130/",
+        "visible": 54,
+        "htmlKB": 57.8,
+        "traits": [
+          "jquery",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://b-sponsors.com/club/0ad3aa1f1734417baacc7a927f006af2/",
+        "visible": 118,
+        "htmlKB": 34.3,
+        "traits": [
+          "jquery",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://beautystatus.loyaltyapps.co.uk/gallery/i/25910189/beauty-status",
+        "visible": 232,
+        "htmlKB": 280.8,
+        "traits": [
+          "angular",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://bipadi.ub.edu/digital/collection/agricultura/id/13603/",
+        "visible": 105,
+        "htmlKB": 158.5,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://bipadi.ub.edu/digital/collection/astronomia/id/42043/",
+        "visible": 105,
+        "htmlKB": 222.1,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://bipadi.ub.edu/digital/collection/astronomia/id/50062/",
+        "visible": 105,
+        "htmlKB": 194.8,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://books.yandex.ru/authors/e0Ohv2I8",
+        "visible": 290,
+        "htmlKB": 136.9,
+        "traits": [
+          "next",
+          "graphql",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://books.yandex.ru/authors/wRxbf3ot",
+        "visible": 290,
+        "htmlKB": 138.2,
+        "traits": [
+          "next",
+          "graphql",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://buios.com/video/11/",
+        "visible": 141,
+        "htmlKB": 6.2,
+        "traits": [
+          "vite",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://cdm16703.contentdm.oclc.org/digital/collection/dwp/id/4786/",
+        "visible": 105,
+        "htmlKB": 48.2,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://cdm17098.contentdm.oclc.org/digital/collection/p17098coll5/id/2796/",
+        "visible": 105,
+        "htmlKB": 50.4,
+        "traits": [
+          "bootstrap",
+          "redux"
+        ]
+      }
+    ],
+    "thin": [
+      {
+        "url": "http://1001arabicbooks.com/book/68",
+        "visible": 82,
+        "htmlKB": 1.9,
+        "traits": []
+      },
+      {
+        "url": "http://365bd.com/",
+        "visible": 148,
+        "htmlKB": 4.9,
+        "traits": []
+      },
+      {
+        "url": "http://3amfoods.com/how-tos/",
+        "visible": 252,
+        "htmlKB": 30.1,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://44836522.xyz/",
+        "visible": 17,
+        "htmlKB": 0.2,
+        "traits": []
+      },
+      {
+        "url": "http://4x86.com/",
+        "visible": 0,
+        "htmlKB": 0.1,
+        "traits": []
+      },
+      {
+        "url": "http://50301120.dk/",
+        "visible": 268,
+        "htmlKB": 3.4,
+        "traits": []
+      },
+      {
+        "url": "http://91peihuo.com/voddetail/164205.html",
+        "visible": 0,
+        "htmlKB": 0,
+        "traits": []
+      },
+      {
+        "url": "http://afs-inventory.com/login",
+        "visible": 77,
+        "htmlKB": 4.1,
+        "traits": []
+      },
+      {
+        "url": "http://alshema.tj/company/reviews/",
+        "visible": 137,
+        "htmlKB": 0.2,
+        "traits": []
+      },
+      {
+        "url": "http://alt1.toolbarqueries.google.co.bw/url?q=https://lyjnzz.com/",
+        "visible": 166,
+        "htmlKB": 1.5,
+        "traits": []
+      },
+      {
+        "url": "http://aludepot.com/pt/blog/5083-alloy-for-cast-aluminum-plates/",
+        "visible": 80,
+        "htmlKB": 12.1,
+        "traits": []
+      },
+      {
+        "url": "http://app.mff322.com/post/35683.html",
+        "visible": 2,
+        "htmlKB": 0,
+        "traits": []
+      },
+      {
+        "url": "http://arcsys.co.uk/",
+        "visible": 34,
+        "htmlKB": 0.1,
+        "traits": []
+      },
+      {
+        "url": "http://autosport77.pt/",
+        "visible": 80,
+        "htmlKB": 11.7,
+        "traits": []
+      },
+      {
+        "url": "http://baike.share.seawm.com/a/850732024.html",
+        "visible": 0,
+        "htmlKB": 0,
+        "traits": []
+      },
+      {
+        "url": "http://banotovinfast.com/ban-xe-oto-vinfast-vf7-eco-2025-id142283",
+        "visible": 80,
+        "htmlKB": 11.6,
+        "traits": []
+      },
+      {
+        "url": "http://bayoutdoor.com/",
+        "visible": 0,
+        "htmlKB": 0.1,
+        "traits": []
+      },
+      {
+        "url": "http://bb.ccc.dddd.uniastrzybnica.eu/mlodziez/mlodzik-mlodszy-d2-2006/kadra",
+        "visible": 80,
+        "htmlKB": 11.4,
+        "traits": []
+      },
+      {
+        "url": "http://bceee.com/",
+        "visible": 86,
+        "htmlKB": 12.2,
+        "traits": []
+      },
+      {
+        "url": "http://bdsnamhung.com/tin-dang/3511/ban-nha-hem-duong-luu-huu-phuoc-phuong-15-quan-8.html",
+        "visible": 80,
+        "htmlKB": 11.6,
+        "traits": []
+      },
+      {
+        "url": "http://bibli.dk/",
+        "visible": 80,
+        "htmlKB": 11.5,
+        "traits": []
+      },
+      {
+        "url": "http://bifan.net.cn/post/50633785.html",
+        "visible": 3,
+        "htmlKB": 0.3,
+        "traits": []
+      },
+      {
+        "url": "http://biglessonssmallbusiness.com/",
+        "visible": 0,
+        "htmlKB": 0.1,
+        "traits": []
+      },
+      {
+        "url": "http://blog.sonnoprofondo.com/",
+        "visible": 247,
+        "htmlKB": 12.2,
+        "traits": []
+      },
+      {
+        "url": "http://changsha.51qc.com/BrowserCheck.aspx?returnUrl=%2Ftuangou%2Fbrand%2F1059%2F0%2F0",
+        "visible": 0,
+        "htmlKB": 0.9,
+        "traits": []
+      },
+      {
+        "url": "http://classicalgaming.com/",
+        "visible": 0,
+        "htmlKB": 0.1,
+        "traits": []
+      },
+      {
+        "url": "http://contacts.google.com/url?q=https%3A%2F%2Fwww.estate-life.net%2F",
+        "visible": 175,
+        "htmlKB": 1.5,
+        "traits": []
+      },
+      {
+        "url": "http://daniellehawthorne.com/",
+        "visible": 80,
+        "htmlKB": 11.4,
+        "traits": []
+      },
+      {
+        "url": "http://dbabuildingsolutions.co.uk/dba228/",
+        "visible": 80,
+        "htmlKB": 11.4,
+        "traits": []
+      },
+      {
+        "url": "http://download.williamjames.edu/SPSS/Older%20Versions/SPSS%2029%20Patch/",
+        "visible": 210,
+        "htmlKB": 0.4,
+        "traits": []
+      }
+    ],
+    "framework-content": [
+      {
+        "url": "http://bifen.qiuqiushidao.com/index.php?c=home&a=fenxi&fid=1221879",
+        "visible": 15983,
+        "htmlKB": 144.3,
+        "traits": [
+          "vue",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://bsbestqqhr.com/index.php?s=/index/article/index/id/27.html",
+        "visible": 662,
+        "htmlKB": 35.4,
+        "traits": [
+          "vue",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://developer.aliyun.com/ask/681766",
+        "visible": 2969,
+        "htmlKB": 75.2,
+        "traits": [
+          "react",
+          "preact"
+        ]
+      },
+      {
+        "url": "http://help.aliyun.com/zh/cadt/developer-reference/api-bpstudio-2021-09-31-overview",
+        "visible": 3036,
+        "htmlKB": 149.5,
+        "traits": [
+          "react",
+          "preact"
+        ]
+      },
+      {
+        "url": "http://jlkjmall.com/index.php?s=/index/search/index/category_id/1542.html",
+        "visible": 4252,
+        "htmlKB": 460.7,
+        "traits": [
+          "vue",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://m.vrdunhua.cn/product-item-9.html",
+        "visible": 10649,
+        "htmlKB": 563.6,
+        "traits": [
+          "vue",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://m.vrdunhua.cn/product-item-94.html?timestamp=1766556885139",
+        "visible": 9986,
+        "htmlKB": 557,
+        "traits": [
+          "vue",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://ostomyiran.com/bbraun-44212a",
+        "visible": 7184,
+        "htmlKB": 206.2,
+        "traits": [
+          "angularjs",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "http://pzszy.com/submit-a-ticket.html",
+        "visible": 2868,
+        "htmlKB": 62.9,
+        "traits": [
+          "react",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://rportal.lib.ntnu.edu.tw/collections/02f9a374-efcf-4715-948c-703f89b4cb0d?f.dateIssued.max=2023&spc.page=1&f.subject=%E7%94%9F%E6%B4%BB%E5%93%81%E8%B3%AA,equals&f.subject=%E5%B8%86%E8%88%B9,equals&f.author=WANG,%20Chin-Chung,equals&f.has_content_in_original_bundle=true,equals",
+        "visible": 1920,
+        "htmlKB": 484.9,
+        "traits": [
+          "angular",
+          "module-script"
+        ]
+      },
+      {
+        "url": "http://rportal.lib.ntnu.edu.tw/communities/81381e84-da26-4b54-ac4a-9308e25eca17?f.subject=%E7%B6%B2%E9%BB%9E%E4%BD%8D%E7%A7%BB,equals&f.subject=Digital%20Halftone,equals&spc.page=1&f.dateIssued.min=2022&f.dateIssued.max=2022&f.author=%E5%90%B3%E6%85%88%E7%A5%9A,equals&f.author=WU,%20Tzu-Zuo,equals&f.has_content_in_original_bundle=true,equals",
+        "visible": 3308,
+        "htmlKB": 501.8,
+        "traits": [
+          "angular",
+          "module-script"
+        ]
+      },
+      {
+        "url": "http://www.consultoriocobol.com/2011/01/working-storage-definiendo-variables.html?showComment=1358873913491",
+        "visible": 23960,
+        "htmlKB": 186.9,
+        "traits": [
+          "vue"
+        ]
+      },
+      {
+        "url": "http://www.hannainstruments.be/fr/solution-fluorures-1-g-l-bouteille-500-ml-hi70701l/",
+        "visible": 3502,
+        "htmlKB": 82.6,
+        "traits": [
+          "vue",
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://www.kelsieandjohn.com/a/6450a19077b04aaabd53ade0f3fc44d5",
+        "visible": 1952,
+        "htmlKB": 37.3,
+        "traits": [
+          "nuxt",
+          "hydration"
+        ]
+      },
+      {
+        "url": "http://www.lagridepro.com/",
+        "visible": 1456,
+        "htmlKB": 21.1,
+        "traits": [
+          "next"
+        ]
+      },
+      {
+        "url": "http://www.petgw.com/6540.html",
+        "visible": 4118,
+        "htmlKB": 188.7,
+        "traits": [
+          "vue"
+        ]
+      },
+      {
+        "url": "http://www.raywigs.com/blog/how-will-a-drag-queen-get-a-feminine-body-shape.html",
+        "visible": 15526,
+        "htmlKB": 125.7,
+        "traits": [
+          "vue"
+        ]
+      },
+      {
+        "url": "http://www.sdwaishi.com/video/129570.html",
+        "visible": 2780,
+        "htmlKB": 120.3,
+        "traits": [
+          "vue"
+        ]
+      },
+      {
+        "url": "http://www.sydafrika-minna.se/lunch-pa-asara/choklad-puding-asara-liten-2/",
+        "visible": 691,
+        "htmlKB": 54.9,
+        "traits": [
+          "react",
+          "jquery",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://1077thebounce.com/2019/06/21/seth-meyers-rihanna-day-drinking/",
+        "visible": 3030,
+        "htmlKB": 192.2,
+        "traits": [
+          "next"
+        ]
+      },
+      {
+        "url": "https://1077thebounce.com/2020/03/13/full-force-discover-nicki-minaj/",
+        "visible": 3489,
+        "htmlKB": 164.2,
+        "traits": [
+          "next"
+        ]
+      },
+      {
+        "url": "https://1800furnish.com/product/hardwired-interconnectable-smoke-alarm-with-9v-backup-battery-18-ws/",
+        "visible": 4417,
+        "htmlKB": 211.4,
+        "traits": [
+          "react",
+          "jquery",
+          "redux",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://1st-street.com/industrial-wastewater-solution-for-manufacturing-facilities/",
+        "visible": 11074,
+        "htmlKB": 195.5,
+        "traits": [
+          "react",
+          "jquery",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://24tv.ua/kyivnews/dbr-pro-shturm-muzeyu-gonchara-administratsiya-inshi-osobi-pereshkodzhali_n1350250",
+        "visible": 5380,
+        "htmlKB": 265.3,
+        "traits": [
+          "angular",
+          "module-script"
+        ]
+      },
+      {
+        "url": "https://2wantis2have.com/product/tgin-sweet-honey-hair-milk-8oz/",
+        "visible": 6489,
+        "htmlKB": 294.5,
+        "traits": [
+          "react",
+          "jquery",
+          "redux"
+        ]
+      },
+      {
+        "url": "https://3384com.com/2025/Nov/game-on-blockchain-changing-rules-of-play-81666",
+        "visible": 6864,
+        "htmlKB": 51.3,
+        "traits": [
+          "next",
+          "recoil"
+        ]
+      },
+      {
+        "url": "https://3news.com/tag/minister-of-energy",
+        "visible": 1834,
+        "htmlKB": 91.4,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://420kingdom.com/menu/products/raw-garden-24814/concentrates/raw-garden-funk-n-fire-1g-live-sauce-7460329/",
+        "visible": 595,
+        "htmlKB": 174.4,
+        "traits": [
+          "next"
+        ]
+      },
+      {
+        "url": "https://99app.com/ajuda/motorista/?search=Achados+e+perdidos%2CProblemas+com+a+Entrega%2CD%C3%BAvidas+informa%C3%A7%C3%B5es+e+principais+configura%C3%A7%C3%B5es+da+Plataforma%2CPerguntas+frequentes%2CCapacete",
+        "visible": 2201,
+        "htmlKB": 137.8,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      },
+      {
+        "url": "https://99app.com/ajuda/motorista/?search=Perguntas+frequentes%2CCampanha+Empresa%2CAjuda+com+promo%C3%A7%C3%B5es+ou+cupom",
+        "visible": 2178,
+        "htmlKB": 137.7,
+        "traits": [
+          "next",
+          "hydration"
+        ]
+      }
+    ],
+    "content": [
+      {
+        "url": "http://01chan.ru/viewforum.php?f=24&sid=0fc09fe861cc394fac56826b23bfb9d9",
+        "visible": 1418,
+        "htmlKB": 14.6,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://01swa.cn/",
+        "visible": 2636,
+        "htmlKB": 14.6,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://049qq.com/play/index28285-0-0.html",
+        "visible": 703,
+        "htmlKB": 15,
+        "traits": []
+      },
+      {
+        "url": "http://0571-12366.com/list/?23_1.html",
+        "visible": 1327,
+        "htmlKB": 33,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://0891ptj.com/yhqm/show.asp?id=2831",
+        "visible": 731,
+        "htmlKB": 70.8,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://1-2-no-3.cocolog-nifty.com/himajin/2009/03/post-0536.html",
+        "visible": 3999,
+        "htmlKB": 47.5,
+        "traits": []
+      },
+      {
+        "url": "http://126811.com/ShowInfo.asp?id=97566",
+        "visible": 10959,
+        "htmlKB": 97.7,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://1325naps.peacewomen.org/index.php/document/paraguay-nap-2015-spanish/",
+        "visible": 806,
+        "htmlKB": 96.2,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://1t06.com/ucmd/271686.html",
+        "visible": 7905,
+        "htmlKB": 27,
+        "traits": []
+      },
+      {
+        "url": "http://24haubenin.bj/?Des-supporters-rentres-a-Cotonou-sans-bagages-apres-la-CAN",
+        "visible": 9160,
+        "htmlKB": 52.4,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://2event.com/uk/organizers/147?page=7",
+        "visible": 2156,
+        "htmlKB": 56.9,
+        "traits": [
+          "jquery",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "http://3000pomirae.com/?c=6/13&p=2&type=counseling&mod=view&type=counseling&idx=bbs_content_20073000001",
+        "visible": 554,
+        "htmlKB": 31.9,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://3349.com/cases/detail_4088.html",
+        "visible": 3347,
+        "htmlKB": 22.5,
+        "traits": [
+          "jquery",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "http://334diu.com/htm/2022/5/28/zipaitoupai/545058.html",
+        "visible": 715,
+        "htmlKB": 7.2,
+        "traits": []
+      },
+      {
+        "url": "http://334diu.com/htm/2024/8/28/sanjijingdian/645551.html",
+        "visible": 775,
+        "htmlKB": 7.1,
+        "traits": []
+      },
+      {
+        "url": "http://340gg.com/play/index33579-0-0.html",
+        "visible": 719,
+        "htmlKB": 15,
+        "traits": []
+      },
+      {
+        "url": "http://3lgs.org/TNG/suggest.php?page=Bennett%2C+Laura+Malvina+b.+1837+d.+Yes%2C+date+unknown",
+        "visible": 1130,
+        "htmlKB": 13.1,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://3rtherapie.fr/",
+        "visible": 804,
+        "htmlKB": 20.9,
+        "traits": [
+          "jquery",
+          "bootstrap",
+          "redux"
+        ]
+      },
+      {
+        "url": "http://3x-energy.com/fr/accueil/",
+        "visible": 1502,
+        "htmlKB": 111.4,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://424qq.com/play/index5834-0-0.html",
+        "visible": 651,
+        "htmlKB": 14.9,
+        "traits": []
+      },
+      {
+        "url": "http://508889.com/315.html",
+        "visible": 751,
+        "htmlKB": 4.4,
+        "traits": []
+      },
+      {
+        "url": "http://52-xiaoshuo.cn/index.php",
+        "visible": 89425,
+        "htmlKB": 485.3,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://5280learners.weebly.com/growth-mindset.html",
+        "visible": 1359,
+        "htmlKB": 34.3,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://55.fyi/author/1_40055.html",
+        "visible": 2913,
+        "htmlKB": 28.2,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://6dun.tkgl6.cn/pro/pro8/165.html",
+        "visible": 1452,
+        "htmlKB": 29.7,
+        "traits": [
+          "jquery",
+          "bootstrap"
+        ]
+      },
+      {
+        "url": "http://91haha.cn/index.asp",
+        "visible": 74093,
+        "htmlKB": 346.6,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://95116.net/post/77459.html",
+        "visible": 1341,
+        "htmlKB": 12.9,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://964-365.com/",
+        "visible": 544,
+        "htmlKB": 2.1,
+        "traits": []
+      },
+      {
+        "url": "http://99kly.com/product_view_90_146.html",
+        "visible": 481,
+        "htmlKB": 38.3,
+        "traits": [
+          "jquery"
+        ]
+      },
+      {
+        "url": "http://a01se.hakutyo.info/?p=41157",
+        "visible": 3226,
+        "htmlKB": 49.3,
+        "traits": [
+          "jquery"
+        ]
+      }
+    ]
+  }
+}
