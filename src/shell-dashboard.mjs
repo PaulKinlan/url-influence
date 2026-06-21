@@ -76,15 +76,24 @@ const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <div class="head">
   <div class="stat"><div class="k">pages sampled</div><div class="v">${d.htmlPages.toLocaleString()}</div></div>
   <div class="stat"><div class="k">near-empty text</div><div class="v">${d.tinyTextPct}<small>%</small></div></div>
+  ${d.dataInHtmlPct != null ? `<div class="stat"><div class="k">content in inline JSON<br>(not a shell)</div><div class="v">${d.dataInHtmlPct}<small>%</small></div></div>` : ""}
   <div class="stat"><div class="k">confirmed shells</div><div class="v">${d.shellPct}<small>%</small></div></div>
   <div class="stat"><div class="k">text threshold</div><div class="v">${d.threshold}<small> chars</small></div></div>
 </div>
+${d.avgHtmlKB ? `<div class="sub">A shell is still plenty of HTML: confirmed shells average <b>${d.avgHtmlKB.shell} KB</b> of raw HTML (bundles, markup) versus ${d.avgHtmlKB.all} KB across all pages, but almost none of it is readable text. "Near-empty text" pages whose content actually sits in inline JSON (Next.js __NEXT_DATA__ and friends) are counted as content-present, not shells.</div>` : ""}
 
 <h2>Confirmed shells by framework (% of all crawled pages)</h2>
 ${bars(shellRows, shellMax, "#f2b24b")}
 
 <h2>Framework prevalence across all crawled pages (% of pages)</h2>
 ${bars(fwRows, fwMax, "#5aa9ff")}
+
+${d.rankBuckets ? `<h2>Shell rate by site popularity (Majestic rank of the domain)</h2>
+${(() => { const max = Math.max(0.01, ...d.rankBuckets.map((b) => b.shellPct)); return d.rankBuckets.map((b) =>
+  `<div class="row"><div class="lbl">${esc(b.tier)}</div>` +
+  `<div class="track"><div class="bar" style="width:${(100 * b.shellPct / max).toFixed(1)}%;background:#7ee081"></div></div>` +
+  `<div class="val">${b.shellPct}<span class="pct">% of ${b.pages.toLocaleString()}</span></div></div>`).join(""); })()}
+<div class="sub" style="margin:6px 0 0">% = share of that tier's sampled pages that are confirmed shells. Common Crawl samples the long tail heavily, so the popular tiers have fewer pages (counts shown); read thin tiers with caution.</div>` : ""}
 
 <h2>Top registered domains among confirmed shells</h2>
 <table><tbody>${domRows}</tbody></table>

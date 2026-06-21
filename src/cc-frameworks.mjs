@@ -41,6 +41,18 @@ export const GENERIC_SPA = [
 // jQuery that builds content on load (so a non-rendering crawler sees a stub).
 export const JQUERY_ONLOAD = [/\$\(document\)\.ready/, /\$\(function\s*\(/, /window\.onload\s*=/, /addEventListener\(\s*['"]load['"]/];
 
+// Content can hide in inline JSON even when the body renders nothing visible:
+// Next.js __NEXT_DATA__, Nuxt/Vuex/Redux/Apollo state blobs, JSON-LD, and
+// <script type="application/json">. A non-rendering crawler (and the model) DOES
+// see this text, so a page heavy with it is NOT a blank shell. Returns the total
+// length of such inline data so the caller can decide.
+export function inlineDataLen(html) {
+  let total = 0;
+  for (const m of html.matchAll(/<script[^>]*type=["'](?:application\/json|application\/ld\+json)["'][^>]*>([\s\S]*?)<\/script>/gi)) total += m[1].length;
+  for (const m of html.matchAll(/__(?:NUXT|INITIAL_STATE|APOLLO_STATE|PRELOADED_STATE|remixContext|sveltekit)__\s*=\s*([\s\S]{0,300000}?)<\/script>/gi)) total += m[1].length;
+  return total;
+}
+
 // Return the list of framework names detected in the HTML.
 export function detect(html) {
   return FRAMEWORKS.filter((f) => f.sig.some((re) => re.test(html))).map((f) => f.name);
@@ -54,15 +66,20 @@ export function hasJqueryOnload(html) {
   return /jquery/i.test(html) && JQUERY_ONLOAD.some((re) => re.test(html));
 }
 
-// Classify a 200 text/html page with `visibleLen` chars of visible text.
-// Returns { shell, frameworks, kind } where kind is the attributed framework,
-// "jquery-onload", "unattributed", or null (not a shell).
-export function classify(html, visibleLen, threshold) {
+// Classify a 200 text/html page. `visibleLen` = visible-text chars; `dataLen` =
+// inline-JSON chars (from inlineDataLen). A page is a true shell only when BOTH
+// the visible text AND the inline data are below threshold AND there's a
+// client-render signal. If visible text is tiny but inline data is large, the
+// content IS in the HTML (e.g. a Next.js SSG page with __NEXT_DATA__), so it is
+// NOT a shell -> kind "data-in-html".
+// Returns { shell, frameworks, kind }.
+export function classify(html, visibleLen, threshold, dataLen = 0) {
   const frameworks = detect(html);
   if (visibleLen >= threshold) return { shell: false, frameworks, kind: null };
+  if (dataLen >= threshold) return { shell: false, frameworks, kind: "data-in-html" };
   const client = frameworks.filter((f) => CLIENT_FRAMEWORKS.has(f));
   if (client.length) return { shell: true, frameworks, kind: client[0] };
   if (hasJqueryOnload(html)) return { shell: true, frameworks, kind: "jquery-onload" };
   if (hasGenericSpa(html)) return { shell: true, frameworks, kind: "unattributed" };
-  return { shell: false, frameworks, kind: null }; // tiny but no client-render signal: thin page, not a shell
+  return { shell: false, frameworks, kind: null }; // tiny everywhere but no client-render signal: thin page
 }

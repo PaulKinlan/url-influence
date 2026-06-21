@@ -16,7 +16,7 @@
 import { createGunzip, gunzipSync } from "node:zlib";
 import { Readable } from "node:stream";
 import { writeFileSync, readFileSync } from "node:fs";
-import { FRAMEWORKS, classify } from "./cc-frameworks.mjs";
+import { FRAMEWORKS, classify, inlineDataLen } from "./cc-frameworks.mjs";
 
 // Optional popularity ranking (Majestic Million / Tranco CSV: rank,...,domain).
 // Lets us bucket the shell rate by how popular a site is.
@@ -124,7 +124,8 @@ async function main() {
   if (ranks) console.log(`[confirm] loaded ${ranks.size} ranked domains from ${args.ranks}`);
   const tierStats = Object.fromEntries(TIER_ORDER.map((t) => [t, { pages: 0, shells: 0 }]));
 
-  let htmlPages = 0, tinyText = 0, shells = 0;
+  let htmlPages = 0, tinyText = 0, shells = 0, dataInHtml = 0;
+  let htmlBytesAll = 0, htmlBytesShell = 0;                                  // raw HTML size: shells are big HTML, no text
   const fwAll = Object.fromEntries(FRAMEWORKS.map((f) => [f.name, 0]));     // framework present on any html page
   const shellByKind = {};                                                   // shell attribution
   const shellHosts = new Map(); const examplesByKind = {};
@@ -139,11 +140,15 @@ async function main() {
       let tier = null;
       if (ranks) { try { tier = rankTier(rankOf(new URL(uri).hostname, ranks)); tierStats[tier].pages++; } catch {} }
       const vlen = visible(r.html).length;
-      const c = classify(r.html, vlen, THRESHOLD);
+      const dlen = inlineDataLen(r.html);
+      const c = classify(r.html, vlen, THRESHOLD, dlen);
+      htmlBytesAll += r.html.length;
       for (const fw of c.frameworks) fwAll[fw] = (fwAll[fw] || 0) + 1;
       if (vlen < THRESHOLD) tinyText++;
+      if (c.kind === "data-in-html") dataInHtml++;
       if (c.shell) {
         shells++;
+        htmlBytesShell += r.html.length;
         if (tier) tierStats[tier].shells++;
         shellByKind[c.kind] = (shellByKind[c.kind] || 0) + 1;
         shellHosts.set(hostReg(uri), (shellHosts.get(hostReg(uri)) || 0) + 1);
@@ -159,6 +164,8 @@ async function main() {
     generatedAt: new Date().toISOString(),
     crawl: CRAWL, filesSampled: picks.length, maxPerFile: MAX === Infinity ? null : MAX, threshold: THRESHOLD,
     htmlPages, tinyText, tinyTextPct: pct(tinyText), shells, shellPct: pct(shells),
+    dataInHtml, dataInHtmlPct: pct(dataInHtml),
+    avgHtmlKB: { all: +(htmlBytesAll / Math.max(1, htmlPages) / 1024).toFixed(1), shell: +(htmlBytesShell / Math.max(1, shells) / 1024).toFixed(1) },
     frameworkPrevalence: Object.fromEntries(Object.entries(fwAll).map(([k, v]) => [k, { pages: v, pct: pct(v) }])),
     shellByKind: Object.fromEntries(Object.entries(shellByKind).map(([k, v]) => [k, { count: v, pct: pct(v) }])),
     topShellDomains: [...shellHosts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30).map(([host, count]) => ({ host, count })),
@@ -172,7 +179,9 @@ async function main() {
 
   console.log(`\n=== ${htmlPages} real pages (200 text/html) from ${CRAWL}, ${picks.length} file(s) ===`);
   console.log(`tiny visible text (< ${THRESHOLD}): ${tinyText} = ${pct(tinyText)}%`);
-  console.log(`CONFIRMED shells: ${shells} = ${pct(shells)}% of pages`);
+  console.log(`  of which content is in inline JSON (NOT a shell): ${dataInHtml} = ${pct(dataInHtml)}%`);
+  console.log(`CONFIRMED shells (tiny visible AND tiny inline-data + marker): ${shells} = ${pct(shells)}% of pages`);
+  console.log(`avg raw HTML: all pages ${out.avgHtmlKB.all}KB vs shells ${out.avgHtmlKB.shell}KB (shells are big HTML, ~no text)`);
   console.log("\nshells by framework:");
   Object.entries(out.shellByKind).sort((a, b) => b[1].count - a[1].count).forEach(([k, v]) => console.log(`  ${k.padEnd(14)} ${String(v.count).padStart(5)}  ${v.pct}%`));
   console.log("\nframework prevalence (any html page):");
