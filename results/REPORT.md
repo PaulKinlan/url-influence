@@ -1,10 +1,10 @@
 # URL Influence: Results
 
-Report generated: 2026-06-20T22:25:55.657Z
-Data run / scored: 2026-06-20T22:25:52.922Z
-Code + data commit: [`16a097b1df`](https://github.com/PaulKinlan/url-influence/commit/16a097b1dfe75fcecb479ab8e4bde88383bae69b)
+Report generated: 2026-06-22T10:35:42.223Z
+Data run / scored: 2026-06-22T10:35:24.449Z
+Code + data commit: [`81df315e65`](https://github.com/PaulKinlan/url-influence/commit/81df315e655707f81f314ff02494ad406c670b9f)
 Judge model: `claude-sonnet-4-5`
-Judged outputs: 13941 (judge failures: 0)
+Judged outputs: 13995 (judge failures: 0)
 
 > An interactive, filterable view of every cell (prompt, model output, and the judge's full prompt + raw verdict) is in [dashboard.html](dashboard.html) — open it in a browser to slice by model / condition / pre-vs-post cutoff / pass-fail and read each verdict.
 
@@ -86,11 +86,11 @@ The single averaged "lift" below is misleading: the effect is **categorical, not
 | GitHub commit SHA | 8 | 0.22 | 0.50 |
 | Stack Overflow # | 12 | 0.17 | 0.69 |
 | HuggingFace id | 3 | 0.14 | 0.04 |
+| other | 6 | 0.08 | 1.00 |
 | PubMed id | 6 | 0.07 | 0.82 |
 | control (synthetic, not a real pointer) | 1 | 0.02 | 1.00 |
 | ChromeStatus # | 28 | 0.01 | 0.78 |
 | caniuse | 1 | 0.00 | 0.08 |
-| other | 5 | 0.00 | 1.00 |
 
 **Read:** a bare OPAQUE id works only when it is a *famous, memorised* id (landmark arXiv / RFC). Opaque numeric ids the model never memorised (ChromeStatus #, un-famous Stack Overflow #) decode to ~0 — even for features the model knows cold by name. The canonical web-id probes (`bcd-key-only`, `spec-url-only`) DO work, but they are semi-descriptive (the BCD key / spec path usually contains the feature name), so that is partly a *hint*, not pure opaque retrieval. See the per-item table below.
 
@@ -109,7 +109,7 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 | `url+described` | OPAQUE id + the task described | 0.74 |
 | `full-content` | — (page pasted + task spelled out; max-info ceiling) | 0.94 |
 | `content-only` | — (page pasted, NO task; clean ceiling parallel to opaque-url) | 0.84 |
-| `fake-structural-url` | CONTROL | 0.11 |
+| `fake-structural-url` | CONTROL | 0.10 |
 | `fake-opaque-url` | CONTROL | 0.00 |
 | `random-url` | CONTROL | 0.00 |
 
@@ -118,7 +118,7 @@ Every condition, averaged across ALL models and ALL API-usage items (knowledge-c
 Two controls test whether the `opaque-url` collapse is real or an artifact:
 
 - **Framing.** `described-framed` puts the plain task description in the SAME "do whatever this describes" wording as `opaque-url`. Framing cost = described-framed − described = **-0.02** (≈0): the framing does NOT explain opaque-url's low score. So the **framing-adjusted lift** (opaque-url − described-framed = **-0.44**) equals the raw lift — the opaque id genuinely fails, it is not vaguer instruction.
-- **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.11**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
+- **Opaque shape.** `fake-opaque-url` (an OPAQUE-shaped fake id) scores **0.00**, vs `fake-structural-url` **0.10**. An opaque fake steers nothing; the higher fake-structural number is only because that fake is *descriptive* for web items (the fake path still names an API). So opaque URL SHAPE alone does not steer output — only real, memorised content does.
 
 ## Per-item identifier reference
 
@@ -176,6 +176,7 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | `arxiv-bert` | 2018-10-11 | `arxiv.org/abs/1810.04805` | arXiv id | — | — | 1 (2025-06) |
 | `cve-2019-0708-bluekeep` | 2019-05-16 | `nvd.nist.gov/vuln/detail/CVE-2019-0708` | CVE id | — | — | 1 (2026-04) |
 | `doi-optuna-kdd` | 2019-07-25 | `doi.org/10.1145/3292500.3330701` | DOI | — | — | 1 (2026-02) |
+| `clinicaltrials-actt-covid` | 2020-05 | `clinicaltrials.gov/study/NCT04280705` | other | — | — | — |
 | `arxiv-gpt3` | 2020-05-28 | `arxiv.org/abs/2005.14165` | arXiv id | — | — | 1 (2025-09) |
 | `gh-sha-obscure-slugify-empty-separator` | 2020-07-18 | `github.com/sindresorhus/slugify/commit/d7bf7cc06c63676b273fa496340f4a85a64d7fe8` | GitHub commit SHA | — | — | — |
 | `doi-alphafold-nature` | 2021-07-15 | `doi.org/10.1038/s41586-021-03819-2` | DOI | — | — | 0 |
@@ -317,6 +318,7 @@ Mean correctness across all models, by item (sorted by date). `opaque` = `opaque
 | `arxiv-bert` | arXiv id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `cve-2019-0708-bluekeep` | CVE id | 1.00 | 1.00 |   -   |   -   |   -   | 1.00 |
 | `doi-optuna-kdd` | DOI | 1.00 | 0.00 |   -   |   -   |   -   | 1.00 |
+| `clinicaltrials-actt-covid` | other | 1.00 | 0.47 |   -   |   -   |   -   | 0.80 |
 | `arxiv-gpt3` | arXiv id | 1.00 | 0.92 |   -   |   -   |   -   | 1.00 |
 | `gh-sha-obscure-slugify-empty-separator` | GitHub commit SHA | 0.68 | 0.00 |   -   |   -   |   -   | 1.00 |
 | `doi-alphafold-nature` | DOI | 1.00 | 0.82 |   -   |   -   |   -   | 1.00 |
@@ -536,15 +538,15 @@ _Both tracks combined — included only for completeness. Use the API-usage tabl
 | Condition | Claude Opus 4.8 (cut 2026-01-31) | Claude Sonnet 4.6 (cut 2026-01-31) | Claude Opus 4.6 (cut 2025-08-31) | Claude Sonnet 4.5 (cut 2025-07-31) | Gemini 3.1 Pro (cut 2025-01-31) | Gemini 3.5 Flash (cut 2025-01-31) | GPT-5.5 (cut 2025-12-01) | GPT-5.2 (cut 2025-08-31) | GPT-5 (cut 2024-09-30) | Grok 4.3 (cut 2025-12-31) | Grok 4 (cut 2024-11-30) | GLM-5.2 (cut 2025-10-31) | GLM-5.1 (cut 2025-10-31) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | described | 0.73 | 0.76 | 0.81 | 0.71 | 0.69 | 0.66 | 0.87 | 0.77 | 0.70 | 0.69 | 0.71 | 0.75 | 0.73 |
-| described-framed | 0.72 | 0.76 | 0.78 | 0.68 | 0.65 | 0.71 | 0.83 | 0.73 | 0.71 | 0.69 | 0.63 | 0.73 | 0.71 |
-| opaque-url | 0.33 | 0.31 | 0.31 | 0.25 | 0.32 | 0.32 | 0.37 | 0.22 | 0.32 | 0.28 | 0.28 | 0.28 | 0.32 |
+| described-framed | 0.72 | 0.76 | 0.78 | 0.68 | 0.66 | 0.71 | 0.83 | 0.73 | 0.71 | 0.69 | 0.63 | 0.73 | 0.71 |
+| opaque-url | 0.34 | 0.30 | 0.32 | 0.25 | 0.33 | 0.32 | 0.37 | 0.22 | 0.32 | 0.28 | 0.28 | 0.28 | 0.32 |
 | mdn-url-only | 0.82 | 0.78 | 0.76 | 0.58 | 0.52 | 0.40 | 0.77 | 0.49 | 0.57 | 0.59 | 0.61 | 0.68 | 0.69 |
 | spec-url-only | 0.83 | 0.72 | 0.59 | 0.57 | 0.46 | 0.28 | 0.80 | 0.49 | 0.53 | 0.51 | 0.61 | 0.69 | 0.74 |
 | bcd-key-only | 0.91 | 0.86 | 0.84 | 0.71 | 0.67 | 0.63 | 0.81 | 0.64 | 0.55 | 0.66 | 0.61 | 0.86 | 0.73 |
-| url+described | 0.78 | 0.78 | 0.76 | 0.70 | 0.67 | 0.69 | 0.85 | 0.70 | 0.70 | 0.72 | 0.70 | 0.77 | 0.73 |
-| full-content | 0.91 | 0.94 | 0.93 | 0.89 | 0.89 | 0.90 | 0.95 | 0.92 | 0.92 | 0.92 | 0.91 | 0.93 | 0.92 |
-| content-only | 0.85 | 0.83 | 0.84 | 0.83 | 0.73 | 0.76 | 0.86 | 0.84 | 0.84 | 0.79 | 0.78 | 0.83 | 0.85 |
-| fake-structural-url | 0.19 | 0.13 | 0.18 | 0.12 | 0.13 | 0.10 | 0.15 | 0.07 | 0.07 | 0.10 | 0.06 | 0.16 | 0.12 |
+| url+described | 0.78 | 0.78 | 0.76 | 0.70 | 0.68 | 0.69 | 0.85 | 0.70 | 0.70 | 0.72 | 0.70 | 0.77 | 0.73 |
+| full-content | 0.91 | 0.94 | 0.93 | 0.89 | 0.89 | 0.91 | 0.95 | 0.92 | 0.92 | 0.92 | 0.91 | 0.93 | 0.92 |
+| content-only | 0.86 | 0.83 | 0.84 | 0.83 | 0.73 | 0.76 | 0.86 | 0.84 | 0.84 | 0.79 | 0.78 | 0.83 | 0.85 |
+| fake-structural-url | 0.19 | 0.13 | 0.17 | 0.12 | 0.13 | 0.10 | 0.15 | 0.07 | 0.07 | 0.10 | 0.06 | 0.16 | 0.12 |
 | fake-opaque-url | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 | 0.03 |
 | random-url | 0.01 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
 

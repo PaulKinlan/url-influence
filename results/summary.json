@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-20T22:25:55.657Z",
+  "generatedAt": "2026-06-22T10:35:42.223Z",
   "judgeModel": "claude-sonnet-4-5",
   "calibrationItems": [
     "scroll-triggered-animations",
@@ -498,18 +498,18 @@
       "label": "Claude Opus 4.8",
       "cutoff": "2026-01-31",
       "byConditionAll": {
-        "described": 0.7261467889908259,
-        "described-framed": 0.7155963302752294,
-        "opaque-url": 0.3336363636363637,
+        "described": 0.7286363636363639,
+        "described-framed": 0.7181818181818181,
+        "opaque-url": 0.33783783783783783,
         "mdn-url-only": 0.8222222222222222,
         "spec-url-only": 0.8327586206896551,
         "bcd-key-only": 0.9125,
-        "url+described": 0.7768181818181819,
-        "full-content": 0.9090909090909091,
-        "content-only": 0.8541284403669724,
-        "fake-structural-url": 0.19181818181818183,
-        "fake-opaque-url": 0.02727272727272727,
-        "random-url": 0.00909090909090909
+        "url+described": 0.7788288288288289,
+        "full-content": 0.9099099099099099,
+        "content-only": 0.8554545454545454,
+        "fake-structural-url": 0.1900900900900901,
+        "fake-opaque-url": 0.02702702702702703,
+        "random-url": 0.009009009009009009
       },
       "api": {
         "byCondition": {
@@ -585,23 +585,23 @@
         },
         "nItems": 3
       },
-      "n": 1320
+      "n": 1332
     },
     "claude-sonnet-4-6": {
       "label": "Claude Sonnet 4.6",
       "cutoff": "2026-01-31",
       "byConditionAll": {
-        "described": 0.7587155963302754,
-        "described-framed": 0.760091743119266,
-        "opaque-url": 0.3054545454545455,
+        "described": 0.7609090909090911,
+        "described-framed": 0.7622727272727272,
+        "opaque-url": 0.3027027027027027,
         "mdn-url-only": 0.7833333333333334,
         "spec-url-only": 0.7241935483870966,
         "bcd-key-only": 0.8637931034482759,
-        "url+described": 0.7754545454545455,
-        "full-content": 0.9395454545454545,
-        "content-only": 0.8302752293577983,
-        "fake-structural-url": 0.12954545454545452,
-        "fake-opaque-url": 0.02727272727272727,
+        "url+described": 0.7774774774774775,
+        "full-content": 0.94009009009009,
+        "content-only": 0.8318181818181819,
+        "fake-structural-url": 0.12837837837837834,
+        "fake-opaque-url": 0.02702702702702703,
         "random-url": 0
       },
       "api": {
@@ -678,23 +678,23 @@
         },
         "nItems": 3
       },
-      "n": 1320
+      "n": 1332
     },
     "claude-opus-4-6": {
       "label": "Claude Opus 4.6",
       "cutoff": "2025-08-31",
       "byConditionAll": {
-        "described": 0.8110091743119267,
-        "described-framed": 0.7784403669724771,
-        "opaque-url": 0.3090909090909091,
+        "described": 0.8127272727272727,
+        "described-framed": 0.7804545454545455,
+        "opaque-url": 0.3153153153153153,
         "mdn-url-only": 0.7555555555555555,
         "spec-url-only": 0.5903225806451613,
         "bcd-key-only": 0.8448275862068966,
-        "url+described": 0.7622727272727272,
-        "full-content": 0.9330275229357798,
-        "content-only": 0.8389908256880736,
-        "fake-structural-url": 0.17545454545454547,
-        "fake-opaque-url": 0.02727272727272727,
+        "url+described": 0.7644144144144144,
+        "full-content": 0.9336363636363637,
+        "content-only": 0.8404545454545456,
+        "fake-structural-url": 0.17387387387387387,
+        "fake-opaque-url": 0.02702702702702703,
         "random-url": 0
       },
       "api": {
@@ -771,23 +771,23 @@
         },
         "nItems": 3
       },
-      "n": 1320
+      "n": 1332
     },
     "claude-sonnet-4-5": {
       "label": "Claude Sonnet 4.5",
       "cutoff": "2025-07-31",
       "byConditionAll": {
-        "described": 0.7110091743119268,
-        "described-framed": 0.6777777777777777,
-        "opaque-url": 0.2509090909090909,
+        "described": 0.7136363636363636,
+        "described-framed": 0.6807339449541283,
+        "opaque-url": 0.24864864864864866,
         "mdn-url-only": 0.577777777777778,
         "spec-url-only": 0.5677419354838709,
         "bcd-key-only": 0.7051724137931036,
-        "url+described": 0.698165137614679,
-        "full-content": 0.8904545454545455,
-        "content-only": 0.8288580246913582,
-        "fake-structural-url": 0.12,
-        "fake-opaque-url": 0.02727272727272727,
+        "url+described": 0.700909090909091,
+        "full-content": 0.8860360360360361,
+        "content-only": 0.830428134556575,
+        "fake-structural-url": 0.11891891891891891,
+        "fake-opaque-url": 0.02702702702702703,
         "random-url": 0
       },
       "api": {
@@ -864,23 +864,23 @@
         },
         "nItems": 3
       },
-      "n": 1320
+      "n": 1332
     },
     "gemini-3.1-pro": {
       "label": "Gemini 3.1 Pro",
       "cutoff": "2025-01-31",
       "byConditionAll": {
-        "described": 0.6908256880733946,
-        "described-framed": 0.6536697247706423,
-        "opaque-url": 0.3218181818181819,
+        "described": 0.6936363636363637,
+        "described-framed": 0.656818181818182,
+        "opaque-url": 0.32792792792792796,
         "mdn-url-only": 0.5240740740740741,
         "spec-url-only": 0.45645161290322583,
         "bcd-key-only": 0.6689655172413791,
-        "url+described": 0.6740909090909092,
-        "full-content": 0.890909090909091,
-        "content-only": 0.7322727272727273,
-        "fake-structural-url": 0.12818181818181817,
-        "fake-opaque-url": 0.02727272727272727,
+        "url+described": 0.6770270270270271,
+        "full-content": 0.8864864864864866,
+        "content-only": 0.7346846846846848,
+        "fake-structural-url": 0.12702702702702703,
+        "fake-opaque-url": 0.02702702702702703,
         "random-url": 0
       },
       "api": {
@@ -957,23 +957,23 @@
         },
         "nItems": 3
       },
-      "n": 1320
+      "n": 1332
     },
     "gemini-3.5-flash": {
       "label": "Gemini 3.5 Flash",
       "cutoff": "2025-01-31",
       "byConditionAll": {
-        "described": 0.6605504587155964,
-        "described-framed": 0.7087155963302751,
-        "opaque-url": 0.3181818181818182,
+        "described": 0.6636363636363637,
+        "described-framed": 0.7113636363636362,
+        "opaque-url": 0.3153153153153153,
         "mdn-url-only": 0.39629629629629626,
         "spec-url-only": 0.27903225806451615,
         "bcd-key-only": 0.6293103448275862,
-        "url+described": 0.6881818181818182,
-        "full-content": 0.9045454545454547,
-        "content-only": 0.7627272727272727,
-        "fake-structural-url": 0.09636363636363636,
-        "fake-opaque-url": 0.02727272727272727,
+        "url+described": 0.690990990990991,
+        "full-content": 0.9054054054054055,
+        "content-only": 0.7603603603603603,
+        "fake-structural-url": 0.09549549549549549,
+        "fake-opaque-url": 0.02702702702702703,
         "random-url": 0
       },
       "api": {
@@ -1050,7 +1050,7 @@
         },
         "nItems": 3
       },
-      "n": 1320
+      "n": 1332
     },
     "gpt-5.5": {
       "label": "GPT-5.5",
@@ -1155,7 +1155,7 @@
         "mdn-url-only": 0.48518518518518516,
         "spec-url-only": 0.49354838709677423,
         "bcd-key-only": 0.6448275862068965,
-        "url+described": 0.6963636363636364,
+        "url+described": 0.6963636363636363,
         "full-content": 0.915,
         "content-only": 0.8354545454545456,
         "fake-structural-url": 0.075,

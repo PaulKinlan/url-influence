@@ -2745,6 +2745,33 @@ export const CORPUS = [
     },
     fakeUrl: "https://en.wikipedia.org/?curid=999999995",
   },
+  // Client-rendered shell with famous content: the direct counterpart to the
+  // server-rendered CVE. clinicaltrials.gov is a JavaScript SPA, so Common
+  // Crawl saved a ~175-char empty shell of this page (no trial content), even
+  // though the ACTT remdesivir trial is one of the most famous of the pandemic.
+  // opaque = the shell URL (the test); fullContentUrl = the pre-migration
+  // server-rendered capture (so the ceiling condition gets the real content).
+  {
+    id: "clinicaltrials-actt-covid",
+    kind: "recall",
+    popularity: "famous",
+    target: "Recall the clinical trial at this URL: what is it about?",
+    contentDate: "2020-05", // ACTT registered Feb 2020; pre-cutoff for all models
+    groundTruth: {
+      mustMention: ["COVID", "remdesivir", "ACTT"],
+      notes:
+        "clinicaltrials.gov/study/NCT04280705 is the Adaptive COVID-19 Treatment Trial (ACTT), the major US NIAID trial that established remdesivir as a treatment for COVID-19. Correct recall identifies the ACTT remdesivir COVID-19 trial. NOTE: clinicaltrials.gov is a client-rendered single-page app, so the page Common Crawl saved is a ~175-character empty shell with no trial content (it only appears after JavaScript runs), which is why the opaque URL is expected to fail even though the trial is famous.",
+    },
+    urls: {
+      descriptive: "https://clinicaltrials.gov/study/NCT04280705",
+      semiOpaque: "https://clinicaltrials.gov/study/NCT04280705",
+      opaque: "https://clinicaltrials.gov/study/NCT04280705",
+      fullContentUrl:
+        "https://paulkinlan.github.io/url-influence/results/cc-samples/clinicaltrials-actt-covid-OLD-ssr.cc.html.txt",
+      randomUrl: RANDOM_URL,
+    },
+    fakeUrl: "https://clinicaltrials.gov/study/NCT99999999",
+  },
 ];
 
 // Descriptive-title baseline for `recall` items.
@@ -2760,6 +2787,7 @@ export const CORPUS = [
 //
 // Authored from each item's groundTruth.notes (real identities, not invented).
 export const DESCRIPTIVE_NAMES = {
+  "clinicaltrials-actt-covid": "the Adaptive COVID-19 Treatment Trial (ACTT)",
   "rfc-9110-http-semantics": "the IETF 'HTTP Semantics' specification",
   "arxiv-attention":
     "the paper 'Attention Is All You Need' (Vaswani et al., 2017)",
