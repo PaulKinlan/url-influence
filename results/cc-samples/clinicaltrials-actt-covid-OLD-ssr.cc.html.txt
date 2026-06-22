@@ -1,0 +1,1763 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang='en'>
+<head>  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="referrer" content="origin-when-cross-origin"/>
+  <title>Adaptive COVID-19 Treatment Trial (ACTT) - Full Text View - ClinicalTrials.gov</title>
+    <link href="/ct2/show/NCT04280705" rel="canonical"/>
+    
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://clinicaltrials.gov/ct2/html/images/ct.gov-nlm-nih-square-logo.png?v1">
+
+  <!-- Open Graph data -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Adaptive COVID-19 Treatment Trial (ACTT) - Full Text View - ClinicalTrials.gov">
+  <meta property="og:image" content="https://clinicaltrials.gov/ct2/html/images/ct.gov-nlm-nih-square-logo.png?v1">
+    <meta property="og:description" content="Adaptive COVID-19 Treatment Trial (ACTT) - Full Text View.">
+  <meta property="og:url" content="https://clinicaltrials.gov/ct2/show/NCT04280705">
+    
+  <link rel="shortcut icon" href="/ct2/html/images/favicon.ico" />
+  <link rel='apple-touch-icon-precomposed' href='/ct2/html/images/apple-touch-icon-144x144.png' sizes='144x144'>
+  <link rel='apple-touch-icon-precomposed' href='/ct2/html/images/apple-touch-icon-114x114.png' sizes='114x114'>
+  <link rel='apple-touch-icon-precomposed' href='/ct2/html/images/apple-touch-icon-72x72.png'   sizes='72x72'>
+  <link rel='apple-touch-icon-precomposed' href='/ct2/html/images/apple-touch-icon-precomposed.png' >
+  <link rel='apple-touch-icon-precomposed' href='/ct2/html/images/apple-touch-icon.png' >
+
+  <link rel="stylesheet" type="text/css" href="/ct2/html/jquery/css/superfish.css?v=48" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/ct2/html/jquery/css/superfish-vertical.css?v=48" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/ct2/html/css/glossary.css?v=48" />
+  <link rel="stylesheet" type="text/css" href="/ct2/html/css/base.css?v=48" />
+  <link rel="stylesheet" type="text/css" href="/ct2/html/css/print.css?v=48" media="print" />
+  <link rel="stylesheet" href="/ct2/html/css/w3-ct.css?v=48" type="text/css" />
+  <!--[if lt IE 9]>
+	<link rel="stylesheet" href="/ct2/html/css/w3-ct-oldIE.css?v=48" type="text/css" />
+  <![endif]-->
+   	
+  <link rel="preconnect" href="https://use.fontawesome.com">
+  <link rel="preconnect" href="https://www.ncbi.nlm.nih.gov">
+  
+  <script src="https://use.fontawesome.com/20a31629ec.js"></script>
+<!--[if lte IE 7]>
+       <link href="/ct2/html/css/target-IE7-and-below.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+<style type="text/css">
+  h2 
+  {
+      background-color: #EAEAEA;
+  }
+</style>
+<link href="/ct2/html/css/trial-record.css?v=48" rel="stylesheet" type="text/css" />
+
+	<script type="text/javascript" src="/ct2/html/jquery/js/jquery.min.js?v=48"></script><noscript></noscript>
+<script type="text/javascript" async src="/ct2/html/jquery/js/superclick.min.js?v=48"></script><noscript></noscript>
+<script type="text/javascript" async src="/ct2/html/js/ct.js?v=48"></script><noscript></noscript>
+<script type="text/javascript" async src="/ct2/html/js/ctmenu.js?v=48"></script><noscript></noscript>
+<script>
+var theURL = "/ct2/show/NCT04280705"+window.location.hash;
+history.replaceState(null,null,theURL);
+</script>
+
+  <meta name="ncbi_sid" content="58aab88e38a07416_13041cSID"/>
+  <meta name="ncbi_app" content="ctgov"/>
+  <meta name="ncbi_db" content="ctgov"/>
+  <meta name="ncbi_pdid" content="show_study"/>
+  <meta name="ncbi_pcid" content="NCT04280705"/>
+  <meta name="ncbi_ctreqid" content="R8805ECa"/>
+  <meta name="ncbi_ctsessid" content="S8804ekR"/>
+  <meta name="ncbi_ctipid" content="IyXsViki"/>
+  <meta name="ncbi_cthost" content="w33"/>
+</head>
+
+
+<body> 
+<script type="text/javascript">
+    jQuery.getScript("https://www.ncbi.nlm.nih.gov/core/alerts/alerts.js", function () {
+      galert(['#alert_banner', 'body &gt; *:nth-child(1)'])});
+</script>
+
+<div id="alert_banner"></div>
+
+
+
+<!-- eff6fb / aa0000; f9dede/black; ac2020/white -->
+<!--
+<div style="display:flex; flex-direction:row; justify-content:center; background-color:#f9dede; margin-top:0px; padding: 10px 0 10px 0;">
+    <div style="text-align:center; color:black; font-size:18px; font-weight:700;">
+        Maintenance test banner</br>
+        Line # 2
+    </div>
+</div>
+-->
+
+<div style="width:100%; height:8px; background-color:#ffbe2e;"></div>
+<div id="longAlert" style="width:100%; background-color:#faf3d1; padding: 10px 0px; ">
+    <div style="max-width: 1200px; margin: 0px auto; display:flex; align-items: center; font-size:14px; font-weight:700; padding:0px 8px;">
+        <div style="margin-right:1rem; display:flex; justify-content: center;"><img src="/ct2/html/images/icon-disclaimer.png" width="24" height="24"/></div>
+        <div>We're building a better <a href="https://beta.clinicaltrials.gov" title="Follow link">ClinicalTrials.gov</a>. Check it out and tell us what you think!</div>
+    </div>
+</div>
+<div style="width:100%; height:8px; background-color:#ffbe2e; margin-bottom:-8px;"></div>
+<!--
+<div id="shortAlrt" style="display:block;margin-left:auto;margin-right:auto;border-bottom: 1px solid #aeb0b5;">
+&nbsp;
+</div>
+-->
+
+<!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+<script type='text/javascript'>
+(function(){var g=function(e,h,f,g){
+this.get=function(a){for(var a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var d=c[b];" "==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return d.substring(a.length,d.length)}return null};
+this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b="; expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+this.check=function(){var a=this.get(f);if(a)a=a.split(":");else if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case "v":return!1;case "r":return c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+this.go=function(){if(this.check()){var a=document.createElement("script");a.type="text/javascript";a.src=g+ "&t=" + (new Date()).getTime();document.body&&document.body.appendChild(a)}};
+this.start=function(){var a=this;window.addEventListener?window.addEventListener("load",function(){a.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){a.go()})}};
+try{(new g(100,"r","QSI_S_ZN_7WHWRcRMBs9xWYd","https://zn7whwrcrmbs9xwyd-nlmenterprise.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID=ZN_7WHWRcRMBs9xWYd")).start()}catch(i){}})();
+</script><div id='ZN_7WHWRcRMBs9xWYd'><!--DO NOT REMOVE-CONTENTS PLACED HERE--></div>
+<!--END WEBSITE FEEDBACK SNIPPET-->
+<div id="glossary" class="glossary"
+    aria-describedby="glossary-result" aria-hidden="true">
+  <button
+      title="Close glossary"
+      class="js-glossary-close button button--close js-glossary-toggle usa-button-unstyled"
+    ><span class="usa-sr-only">Hide glossary</span>
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </button>
+  <h4 class="glossary-heading">Glossary</h4>
+  <p>
+  Study record managers: refer to the <a href="https://clinicaltrials.gov/ct2/manage-recs/resources#DataElement"><span style="text-decoration:underline">Data Element Definitions</span></a> if submitting registration or results information.
+  </p>
+  <p>
+  <label for="glossary-search" class="label">Search for terms</label>
+  </p>
+  <span class="clearable-input">
+    <input id="glossary-search" class="glossary__search js-glossary-search" type="search">
+  </span>
+  <div class="glossary__content" id="glossary-result">
+    <ul class="js-glossary-list"></ul>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="/ct2/html/js/working.js"></script><noscript></noscript>
+<div id="workingDim" class="ct-dim">
+  <div id="workingIndicator" class="ct-workingBox" style="text-align:center;vertical-align:middle;">
+    <img alt="Working&#8230;" src="/ct2/html/images/working.gif" height="50" >
+  </div>
+</div>
+
+<div id="wrapper"> 
+<div class="ct-inner_wrapper">   			<a href="/ct2/home" style='float:left;border-bottom-width:0;min-width:200px;width:29%;'><img src='/ct2/html/images/ct.gov-nlm-nih-logo.png' alt='ClinicalTrials.gov'/></a>
+
+				<div id="hamburger" class="w3-hide-medium w3-hide-large" style="float:right;border-width:0;display:block;margin-left:1em;padding:4px;"
+			title="Show menus">
+			<img src="/ct2/html/images/hamburgerMenuIcon.png" alt="ClinicalTrials.gov Menu" style="max-width:30px;cursor:pointer;" 
+			 onclick="$('#global-nav-popupMenu').toggle();"/>
+		</div>
+		<div id="global-nav-popupMenu" class="w3-hide-medium w3-hide-large w3-modal w3-center" 
+			 style="display:none;" onclick="$('#global-nav-popupMenu').hide();"> 			<div id="global-nav-popupMenu-content" class="w3-modal-content">
+				<div class="w3-container">
+				    <span onclick="$('#global-nav-popupMenu').hide();"
+				      class="w3-closebtn">&times;</span>
+					<ul class="sf-menu sf-vertical">
+									<li class="first"><a href="/ct2/search/index">Find Studies<img src="/ct2/html/images/pulldown.png" alt="Find Studies Menu"></a>
+			<ul>
+                      <li                  ><a                  href="/ct2/home">New Search</a></li>
+                      <li                  ><a         href="/ct2/search/advanced">Advanced Search</a></li>
+                      <li                  ><a     href="/ct2/search/browse?brwse=cond_cat">See Studies by Topic</a></li>
+                      <li                  ><a             href="/ct2/search/map">See Studies on Map</a></li>
+                      <li class="new-group"><a           href="/ct2/help/how-find/index">How to Search</a></li>
+                      <li                  ><a href="/ct2/help/how-use-search-results">How to Use Search Results</a></li>
+                      <li                  ><a        href="/ct2/help/how-find/find-study-results">How to Find Results of Studies</a></li>
+                      <li                  ><a          href="/ct2/help/how-read-study">How to Read a Study Record</a></li>
+			</ul>
+			</li>
+			<li><a href="/ct2/about-studies">About Studies<img src="/ct2/html/images/pulldown.png" alt="About Studies Menu"></a>
+			<ul>
+                      <li><a href="/ct2/about-studies/learn">Learn About Studies</a></li>
+                      <li><a  href="/ct2/about-studies/other-sites">Other Sites About Studies</a></li>
+                      <li><a         href="/ct2/about-studies/glossary">Glossary of Common Site Terms</a></li>
+			</ul>
+			</li>
+			<li><a href="/ct2/manage-recs">Submit Studies<img src="/ct2/html/images/pulldown.png" alt="Submit Studies Menu"></a>
+			<ul>
+                      <li><a                          href="/ct2/manage-recs/submit-study">Submit Studies to ClinicalTrials.gov PRS</a></li>
+                      <li><a                          href="/ct2/manage-recs/background">Why Should I Register and Submit Results?</a></li>
+                      <li><a                                href="/ct2/manage-recs/fdaaa">FDAAA 801 and the Final Rule</a></li>
+                      <li class="new-group"><a    href="/ct2/manage-recs/how-apply">How to Apply for a PRS Account</a></li>
+                      <li><a                        href="/ct2/manage-recs/how-register">How to Register Your Study</a></li>
+                      <li><a                         href="/ct2/manage-recs/how-edit">How to Edit Your Study Record</a></li>
+                      <li><a                   href="/ct2/manage-recs/how-report">How to Submit Your Results</a></li>
+                      <li class="new-group"><a       href="/ct2/manage-recs/faq">Frequently Asked Questions</a></li>
+                      <li                  ><a href="/ct2/manage-recs/resources">Support Materials</a></li>
+                      <li                  ><a      href="/ct2/manage-recs/present">Training Materials</a></li>
+			</ul>
+			</li>
+			<li><a href="/ct2/resources">Resources<img src="/ct2/html/images/pulldown.png" alt="Resources Menu"></a>
+			<ul>
+                      <li                  ><a    href="/ct2/resources/pubs">Selected Publications</a></li>
+                      <li                  ><a       href="/ct2/resources/alert">Clinical Alerts and Advisories</a></li>
+                      <li                  ><a     href="/ct2/resources/rss">RSS Feeds</a></li>
+                      <li class="new-group"><a href="/ct2/resources/trends">Trends, Charts, and Maps</a></li>
+                      <li                  ><a   href="/ct2/resources/download">Downloading Content for Analysis</a></li>
+			</ul>
+			</li>
+			<li class="last"><a href="/ct2/about-site">About Site<img src="/ct2/html/images/pulldown.png" alt="About Site Menu"></a>
+			<ul>
+                      <li class="new-group"><a href="/ct2/about-site/new">What's New</a></li>
+                      <li                  ><a    href="/ct2/about-site/background">ClinicalTrials.gov Background</a></li>
+                      <li                  ><a    href="/ct2/about-site/results">About the Results Database</a></li>
+                      <li                  ><a    href="/ct2/about-site/history">History, Policies, and Laws</a></li>
+                      <li                  ><a    href="/ct2/about-site/modernization">ClinicalTrials.gov Modernization</a></li>
+                      <li                  ><a   href="/ct2/about-site/for-media">Media/Press Resources</a></li>
+                      <li class="new-group"><a          href="/ct2/about-site/link-to">Linking to This Site</a></li>
+                      <li                  ><a           href="/ct2/about-site/terms-conditions">Terms and Conditions</a></li>
+                      <li                  ><a      href="/ct2/about-site/disclaimer">Disclaimer</a></li>
+			</ul>
+			</li>
+			<li><a title="Login to the ClinicalTrials.gov Protocol Registration and Results System (PRS)"
+				href="/ct2/manage-recs/register"><span style="border-bottom:1px solid;padding-bottom:1px;padding-right:0;">PRS Login</span></a>
+			</li>
+								</ul>
+				</div>
+    		</div>
+  		</div>		
+		
+<div 
+style="float:right;margin-top:1.5%;" 
+class="w3-hide-small">
+	<ul class="sf-menu sf-vertical">
+				<li class="first"><a href="/ct2/search/index">Find Studies<img src="/ct2/html/images/pulldown.png" alt="Find Studies Menu"></a>
+			<ul>
+                      <li                  ><a                  href="/ct2/home">New Search</a></li>
+                      <li                  ><a         href="/ct2/search/advanced">Advanced Search</a></li>
+                      <li                  ><a     href="/ct2/search/browse?brwse=cond_cat">See Studies by Topic</a></li>
+                      <li                  ><a             href="/ct2/search/map">See Studies on Map</a></li>
+                      <li class="new-group"><a           href="/ct2/help/how-find/index">How to Search</a></li>
+                      <li                  ><a href="/ct2/help/how-use-search-results">How to Use Search Results</a></li>
+                      <li                  ><a        href="/ct2/help/how-find/find-study-results">How to Find Results of Studies</a></li>
+                      <li                  ><a          href="/ct2/help/how-read-study">How to Read a Study Record</a></li>
+			</ul>
+			</li>
+			<li><a href="/ct2/about-studies">About Studies<img src="/ct2/html/images/pulldown.png" alt="About Studies Menu"></a>
+			<ul>
+                      <li><a href="/ct2/about-studies/learn">Learn About Studies</a></li>
+                      <li><a  href="/ct2/about-studies/other-sites">Other Sites About Studies</a></li>
+                      <li><a         href="/ct2/about-studies/glossary">Glossary of Common Site Terms</a></li>
+			</ul>
+			</li>
+			<li><a href="/ct2/manage-recs">Submit Studies<img src="/ct2/html/images/pulldown.png" alt="Submit Studies Menu"></a>
+			<ul>
+                      <li><a                          href="/ct2/manage-recs/submit-study">Submit Studies to ClinicalTrials.gov PRS</a></li>
+                      <li><a                          href="/ct2/manage-recs/background">Why Should I Register and Submit Results?</a></li>
+                      <li><a                                href="/ct2/manage-recs/fdaaa">FDAAA 801 and the Final Rule</a></li>
+                      <li class="new-group"><a    href="/ct2/manage-recs/how-apply">How to Apply for a PRS Account</a></li>
+                      <li><a                        href="/ct2/manage-recs/how-register">How to Register Your Study</a></li>
+                      <li><a                         href="/ct2/manage-recs/how-edit">How to Edit Your Study Record</a></li>
+                      <li><a                   href="/ct2/manage-recs/how-report">How to Submit Your Results</a></li>
+                      <li class="new-group"><a       href="/ct2/manage-recs/faq">Frequently Asked Questions</a></li>
+                      <li                  ><a href="/ct2/manage-recs/resources">Support Materials</a></li>
+                      <li                  ><a      href="/ct2/manage-recs/present">Training Materials</a></li>
+			</ul>
+			</li>
+			<li><a href="/ct2/resources">Resources<img src="/ct2/html/images/pulldown.png" alt="Resources Menu"></a>
+			<ul>
+                      <li                  ><a    href="/ct2/resources/pubs">Selected Publications</a></li>
+                      <li                  ><a       href="/ct2/resources/alert">Clinical Alerts and Advisories</a></li>
+                      <li                  ><a     href="/ct2/resources/rss">RSS Feeds</a></li>
+                      <li class="new-group"><a href="/ct2/resources/trends">Trends, Charts, and Maps</a></li>
+                      <li                  ><a   href="/ct2/resources/download">Downloading Content for Analysis</a></li>
+			</ul>
+			</li>
+			<li class="last"><a href="/ct2/about-site">About Site<img src="/ct2/html/images/pulldown.png" alt="About Site Menu"></a>
+			<ul>
+                      <li class="new-group"><a href="/ct2/about-site/new">What's New</a></li>
+                      <li                  ><a    href="/ct2/about-site/background">ClinicalTrials.gov Background</a></li>
+                      <li                  ><a    href="/ct2/about-site/results">About the Results Database</a></li>
+                      <li                  ><a    href="/ct2/about-site/history">History, Policies, and Laws</a></li>
+                      <li                  ><a    href="/ct2/about-site/modernization">ClinicalTrials.gov Modernization</a></li>
+                      <li                  ><a   href="/ct2/about-site/for-media">Media/Press Resources</a></li>
+                      <li class="new-group"><a          href="/ct2/about-site/link-to">Linking to This Site</a></li>
+                      <li                  ><a           href="/ct2/about-site/terms-conditions">Terms and Conditions</a></li>
+                      <li                  ><a      href="/ct2/about-site/disclaimer">Disclaimer</a></li>
+			</ul>
+			</li>
+			<li><a title="Login to the ClinicalTrials.gov Protocol Registration and Results System (PRS)"
+				href="/ct2/manage-recs/register"><span style="border-bottom:1px solid;padding-bottom:1px;padding-right:0;">PRS Login</span></a>
+			</li>
+				</ul>
+    <div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+
+</div> 
+<div class="ct-outer_breadcrumb w3-container">
+	<div id="breadcrumb">
+    <ul class="ct-horz-list w3-left">
+			<li><a href="/ct2/home">Home</a></li>
+												<li><a href="/ct2/results">Search Results</a></li>
+										<li>Study Record Detail</li>
+    </ul>
+    <div id="savedStudies" class="w3-right">
+  	<div id="cart" style="cursor:pointer;" onclick="location.href=('/ct2/results'+cartToURL()); showWorking();">
+  	<button class="ct-savedStudiesEnabled" id="open-cart-link" type="button" 
+  		onclick="location.href=('/ct2/results'+cartToURL()); showWorking();"
+  		title="Show previously saved studies.">Saved Studies</button>
+  	</div>
+</div>
+<script type="text/javascript" src="/ct2/html/js/cart.js?v=48"></script><noscript></noscript>
+
+		<script type="text/javascript">
+	$(document).ready(function(){
+		$("input#saved").prop( 'checked', (inCart("NCT04280705")>=0));
+	});
+</script>
+		<div class="w3-right" style="margin-right: 1em;">
+			<label for="saved" title="Add or Remove this study in the Saved Studies list"><input type="checkbox" id="saved" name="NCT04280705" onchange="updateCart('NCT04280705');" style="margin-left:1em;"> Save this study </label>
+		</div>
+		<div id="maxSavedStudies-popup" class="w3-modal" style="cursor:pointer;border:2px groove" onclick="$('#maxSavedStudies-popup').hide();">
+	<div id="maxSavedStudies-popup-content" class="w3-modal-content">
+		<div class="w3-display-container" style="border:1px solid #ccc;background-color:#eee;">
+			<form>
+			<div class="w3-center" style="font-size:large;font-weight:bold;padding:3ex 1.5em;">
+				<img src="/ct2/html/images/warning.png" alt="Maximum Saved Studies Reached" style="max-width:1.0rem;cursor:pointer;"/>
+			    <b>Warning</b>
+				<div style="margin-top:1ex;margin-bottom:0.5ex;">You have reached the maximum number of saved studies (100).</div>
+				<div>Please remove one or more studies before adding more.</div>
+			</div>
+		
+			<div class="w3-center" style="padding-bottom:1.5ex">
+			  <input class="ct-searchButton" type="button" style="opacity:1.0;font-weight:bold;font-size:inherit;padding:1.1ex 1em;" onclick="$('#maxSavedStudies-popup').hide();" value="Close" title="Close this dialog"/>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+	</div>
+</div>
+
+<div style="clear:both;"></div>
+
+<div id="main-content" tabindex='-1'>
+	
+	
+		<div class="tr-indent2">
+        	<h1 class="tr-h1 ct-sans-serif tr-solo_record">Adaptive COVID-19 Treatment Trial (ACTT)</h1>
+
+  <div class="w3-row">
+    <div class="w3-col m6">       <div class="usa-alert usa-alert-warning" style="clear:both;margin:2ex 2em;">
+        <table>
+          <tr>
+            <td style="width:5%">
+              <img src="/ct2/html/images/warning.png" style="width:1.3em;" alt=""/>
+            </td>
+            <td style="padding-right:2em;">
+              The safety and scientific validity of this study is the responsibility of the study sponsor and investigators. Listing a study does not mean it has been evaluated by the U.S. Federal Government.
+                            Read our <a href="/ct2/about-site/disclaimer">disclaimer</a> for details.
+            </td>
+          </tr>
+        </table>
+      </div>      </div> 
+<!--
+    <div style="float:right;margin-right:4em">ClinicalTrials.gov Identifier: NCT04280705</div>
+-->
+    <div class="w3-col m1">&nbsp;</div> 
+    <div class="w3-col m5">       <table style="width:95%">
+        <tr>
+          <td>ClinicalTrials.gov Identifier: NCT04280705</td>
+        </tr>
+        <tr>
+          <td>
+                          
+                          
+                                  <div  class="tr-status tr-not-recruiting-colors" >
+                                            <span style="display:inline;" class="term" data-term="Recruitment Status" title="Show definition">Recruitment Status <i class="fa fa-info-circle term" aria-hidden="true" data-term="Recruitment Status" style="border-bottom-style:none;"></i></span> : 
+                                        Completed
+                                                
+                                              
+            <div style="font-size:inherit">
+            <span style="display:inline;" class="term" data-term="First Posted" title="Show definition">First Posted <i class="fa fa-info-circle term" aria-hidden="true" data-term="First Posted" style="border-bottom-style:none;"></i></span> : February 21, 2020</div>
+                          <div style="font-size:inherit">
+              <span style="display:inline;" class="term" data-term="Results First Posted" title="Show definition">Results First Posted <i class="fa fa-info-circle term" aria-hidden="true" data-term="Results First Posted" style="border-bottom-style:none;"></i></span> : September 25, 2020</div>
+                        <div style="font-size:inherit">
+            <span style="display:inline;" class="term" data-term="Last Update Posted" title="Show definition">Last Update Posted <i class="fa fa-info-circle term" aria-hidden="true" data-term="Last Update Posted" style="border-bottom-style:none;"></i></span> : March 14, 2022</div>
+
+            
+                                    </div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- CTGDEV-1242 -->
+      <div style="width:95%; margin-top:10px; padding: 0px 3px;">
+        <div style="padding: 15px 15px; background-color: #eff6fb; border: 5px #aacdec; border-style: solid none none none;">
+          <a href="https://beta.clinicaltrials.gov/study/NCT04280705" target="_blank">View this study on Beta.ClinicalTrials.gov</a>
+          <!--a href="https://beta.clinicaltrials.gov/study/NCT04280705" target="_blank">View Record on Beta</a-->
+        </div>
+      </div>
+    </div>    <!-- div.w3-col.m5 -->
+  </div>
+
+  <!-- CTGDEV-1242 -->
+  <!--
+  <div style="float: right; width:41.66666%; margin-top:1rem; margin-left: 3rem; margin-bottom: 1rem;">
+    <div style="width:95%; background-color: #eff6fb; ">
+      <div style="width:100%; height:.5rem; background-color: #aacdec;"></div>
+      <div style="padding: 15px 15px;">
+        <a href="https://beta.clinicaltrials.gov/study/NCT04280705" target="_blank">View Record on Beta</a>
+      </div>
+    </div>
+  </div>
+  -->
+
+
+                <div class="tr-info-title">Sponsor:</div>
+                <div class="tr-info-text" id="sponsor"> National Institute of Allergy and Infectious Diseases (NIAID) </div>
+
+                              <div class="tr-info-title">Information provided by (Responsible Party):</div>
+                <div class="tr-info-text" id="responsibleparty">National Institute of Allergy and Infectious Diseases (NIAID)</div>
+              	</div>
+<br>
+
+
+<div id="tabs">
+    <ul id="tab-links">
+		<li id="full-text"  class="current">Study Details     </li>
+		<li id="tabular"   ><a href="/ct2/show/record/NCT04280705" >Tabular View</a></li>
+  					<li id="results"   ><a href="/ct2/show/results/NCT04280705">Study Results</a></li>
+						<li id="disclaimer"><a title="Disclaimer - opens new window"  href="/ct2/about-site/disclaimer" onclick="openNewWindow('/ct2/about-site/disclaimer'); return false"
+>Disclaimer</a></li>
+		<li id="howtoread"><a title="How to Read a Study Record - opens new window"  href="/ct2/help/how-read-study" onclick="openNewWindow('/ct2/help/how-read-study'); return false"
+>How to Read a Study Record</a></li>
+    </ul>
+</div>  <!--
+<div style="background-color:#f6f6f6;margin-top:5.0ex;padding-bottom:1.5ex;"> </div>
+-->
+		
+	<div id="tab-body">
+		<div class="tr-indent2" style="background-color:white;">
+						  
+<!-- purpose_section -->
+<div class="tr-indent1" style="margin-top:1ex">
+
+<div class="tr-subsection">
+	<div class="ct-header2"><a id="studydesc"></a>Study Description</div>
+	<div class="tr-underline"></div>
+	<div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+</div>
+
+<div class="tr-indent2" style="margin-top:2ex">
+
+  <div class="ct-body3">Brief Summary:</div>
+  <div class="ct-body3 tr-indent2">This study is an adaptive, randomized, double-blind, placebo-controlled trial to evaluate the safety and efficacy of novel therapeutic agents in hospitalized adults diagnosed with COVID-19. The study is a multicenter trial that will be conducted in up to approximately 100 sites globally. The study will compare different investigational therapeutic agents to a control arm. There will be interim monitoring to introduce new arms and allow early stopping for futility, efficacy, or safety. If one therapy proves to be efficacious, then this treatment may become the control arm for comparison(s) with new experimental treatment(s). Any such change would be accompanied by an updated sample size. Because background standards of supportive care may evolve/improve over time as more is learned about successful management of COVID-19, comparisons of safety and efficacy will be based on data from concurrently randomized subjects. An independent Data and Safety Monitoring Board (DSMB) will actively monitor interim data to make recommendations about early study closure or changes to study arms. To evaluate the clinical efficacy, as assessed by time to recovery, of different investigational therapeutics as compared to the control arm.</div><br/>
+
+    <!-- condition, intervention, phase summary table -->
+  <table class="ct-data_table tr-data_table" border="1" style="margin:auto;width:80%;">
+    <tr style="text-align:left;">
+            <th class="ct-header3 tr-pale_banner_color">
+<span style="display:inline;" class="term" data-term="Condition/disease" title="Show definition">Condition or disease <i class="fa fa-info-circle term" aria-hidden="true" data-term="Condition/disease" style="border-bottom-style:none;"></i></span>       </th>
+                  <th class="ct-header3 tr-pale_banner_color">
+<span style="display:inline;" class="term" data-term="Intervention/treatment" title="Show definition">Intervention/treatment <i class="fa fa-info-circle term" aria-hidden="true" data-term="Intervention/treatment" style="border-bottom-style:none;"></i></span>       </th>
+                  <th class="ct-header3 tr-pale_banner_color">
+<span style="display:inline;" class="term" data-term="Phase" title="Show definition">Phase <i class="fa fa-info-circle term" aria-hidden="true" data-term="Phase" style="border-bottom-style:none;"></i></span>       </th>
+          </tr>
+    <tr style="text-align:left;vertical-align:top;">
+            <td class="ct-body3">
+                <span style="display:block;margin-bottom:1ex;">COVID-19</span>
+              </td>
+                  <td class="ct-body3">
+                <span style="display:block;margin-bottom:1ex;">Other: Placebo</span>
+                <span style="display:block;margin-bottom:1ex;">Drug: Remdesivir</span>
+              </td>
+                  <td class="ct-body3" style="white-space:nowrap;">
+                <span style="display:block;margin-bottom:1ex;">Phase 3</span>
+              </td>
+          </tr>
+  </table>
+  <br/>
+  
+  
+      <a id="desc"></a>
+
+    
+    <!-- detailed description -->
+    <div id="COLLAPSE-DetailedDesc" class="COLLAPSE"  style="margin-bottom:2ex;">
+      <div class="ct-body3"><a id="detaileddesc"></a>Detailed Description:</div>
+      <div class="ct-body3 tr-indent2"><p style="margin-top:1ex; margin-bottom:1ex;">This study is an adaptive, randomized, double-blind, placebo-controlled trial to evaluate the safety and efficacy of novel therapeutic agents in hospitalized adults diagnosed with COVID-19. The study is a multicenter trial that will be conducted in up to approximately 100 sites globally. The study will compare different investigational therapeutic agents to a control arm. There will be interim monitoring to introduce new arms and allow early stopping for futility, efficacy, or safety. If one therapy proves to be efficacious, then this treatment may become the control arm for comparison(s) with new experimental treatment(s). Any such change would be accompanied by an updated sample size. Because background standards of supportive care may evolve/improve over time as more is learned about successful management of COVID-19, comparisons of safety and efficacy will be based on data from concurrently randomized subjects. An independent Data and Safety Monitoring Board (DSMB) will actively monitor interim data to make recommendations about early study closure or changes to study arms.</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">The initial sample size is projected to be 572 subjects to achieve 400 subjects with a &quot;recovered&quot; status (per the primary objective). The primary analysis will be based on those subjects enrolled in order to 400 recoveries. An additional analysis of the moderate severity subgroup (those with baseline status of &quot;Hospitalized, requiring supplemental oxygen&quot; or &quot;Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care&quot;) is also of public health importance. Hence, enrollment will be permitted until the date of April 20, 2020 to ensure 400 recoveries and provide additional data about this important subgroup. With recent enrollment rates, the total sample size may be 600 to over 800.</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">Subjects will be assessed daily while hospitalized. If the subjects are discharged from the hospital, they will have a study visit at Days 15, 22, and 29 as an outpatient. For discharged subjects, it is preferred that the Day 15 and 29 visits are in person to obtain safety laboratory tests and OP swab and blood (serum only) samples for secondary research as well as clinical outcome data. However, infection control or other restrictions may limit the ability of the subject to return to the clinic. In this case, Day 15 and 29 visits may be conducted by phone, and only clinical data will be obtained. The Day 22 visit does not have laboratory tests or collection of samples and may also be conducted by phone.</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">All subjects will undergo a series of efficacy, safety, and laboratory assessments. Safety laboratory tests and blood (serum and plasma) research samples and oropharyngeal (OP) swabs will be obtained on Days 1 (prior to infusion) and Days 3, 5, 8, and 11 (while hospitalized). OP swabs and blood (serum only) plus safety laboratory tests will be collected on Day 15 and 29 (if the subject attends an in-person visit or are still hospitalized).</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">The primary outcome is time to recovery by Day 29. A key secondary outcome evaluates treatment-related improvements in the 8-point ordinal scale at Day 15. As little is known about the clinical course of COVID-19, a pilot study will be used for a blinded sample size reassessment.</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">Contacts:</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">20-0006 Central Contact</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">Telephone: 1 (301) 7617948</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">Email: DMIDClinicalTrials@niaid.nih.gov</p></div>
+    </div>
+</div> 
+<div class="tr-subsection">
+  <div class="ct-header2"><a id="studydesign"></a>Study Design</div>
+  <div class="tr-underline"></div>
+  <div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+</div>
+
+  <p>
+  <table class="ct-layout_table tr-tableStyle tr-studyInfo" style="margin-bottom:2ex;">
+   <caption>Layout table for study information</caption>
+   <thead>
+    <tr>
+      <th id="studyInfoColTitle"></th>
+      <th id="studyInfoColData"></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+      <td headers="studyInfoColTitle">
+<span style="display:inline;" class="term" data-term="Study Type" title="Show definition">Study Type <i class="fa fa-info-circle term" aria-hidden="true" data-term="Study Type" style="border-bottom-style:none;"></i></span> :</td>
+      <td headers="studyInfoColData" style="padding-left:1em">
+        Interventional
+                &nbsp;(Clinical Trial)
+                
+        
+      </td>
+    </tr>
+                    <tr>
+      <td headers="studyInfoColTitle">Actual
+<span style="display:inline;" class="term" data-term="Enrollment" title="Show definition">Enrollment <i class="fa fa-info-circle term" aria-hidden="true" data-term="Enrollment" style="border-bottom-style:none;"></i></span> :</td>
+      <td headers="studyInfoColData" style="padding-left:1em">1062 participants</td>
+    </tr>
+                <tr>
+            <td headers="studyInfoColTitle">Allocation:</td>
+            <td headers="studyInfoColData" style="padding-left:1em">Randomized</td>
+    </tr>
+        <tr>
+            <td headers="studyInfoColTitle">Intervention Model:</td>
+            <td headers="studyInfoColData" style="padding-left:1em">Parallel Assignment</td>
+    </tr>
+        <tr>
+            <td headers="studyInfoColTitle">Masking:</td>
+            <td headers="studyInfoColData" style="padding-left:1em"> Double (Participant, Investigator)</td>
+    </tr>
+        <tr>
+            <td headers="studyInfoColTitle">Primary Purpose:</td>
+            <td headers="studyInfoColData" style="padding-left:1em"> Treatment</td>
+    </tr>
+                    <tr>
+<!--
+      <td headers="studyInfoColTitle" style="padding-top:2ex;">Official Title:</td>
+-->
+      <td headers="studyInfoColTitle">Official Title:</td>
+      <td headers="studyInfoColData" style="padding-left:1em;">A Multicenter, Adaptive, Randomized Blinded Controlled Trial of the Safety and Efficacy of Investigational Therapeutics for the Treatment of COVID-19 in Hospitalized Adults</td>
+    </tr>
+    
+            <tr>
+        <td headers="studyInfoColTitle">  Actual <span style="display:inline;" class="term" data-term="Study Start Date" title="Show definition">Study Start Date <i class="fa fa-info-circle term" aria-hidden="true" data-term="Study Start Date" style="border-bottom-style:none;"></i></span> :</td>
+        <td headers="studyInfoColData" style="padding-left:1em">February 21, 2020</td>
+      </tr>
+                  <tr>
+        <td headers="studyInfoColTitle">  Actual <span style="display:inline;" class="term" data-term="Primary Completion Date" title="Show definition">Primary Completion Date <i class="fa fa-info-circle term" aria-hidden="true" data-term="Primary Completion Date" style="border-bottom-style:none;"></i></span> :</td>
+        <td headers="studyInfoColData" style="padding-left:1em">May 21, 2020</td>
+      </tr>
+                  <tr>
+        <td headers="studyInfoColTitle">  Actual <span style="display:inline;" class="term" data-term="Study Completion Date" title="Show definition">Study Completion Date <i class="fa fa-info-circle term" aria-hidden="true" data-term="Study Completion Date" style="border-bottom-style:none;"></i></span> :</td>
+        <td headers="studyInfoColData" style="padding-left:1em">May 21, 2020</td>
+      </tr>
+            </tbody>
+    </table>
+
+    <!-- NLM links -->
+<p>
+<div class="tr-indent2">
+  <div class="usa-alert usa-alert-warning nlm-info">
+    <strong>Resource links provided by the National Library of Medicine</strong>
+    <img src="/ct2/html/images/NIH_NLM_ABRV_BLK_4.png" style="width:5em; float:right;" alt=""/>
+    <p>
+    <p>
+
+  
+    <!-- medline links -->
+  <div style="margin-bottom:2ex;">
+    <a class="tr-study-link" href="https://medlineplus.gov/" title="MedlinePlus" onclick="openNewWindow('https://medlineplus.gov/'); return false">MedlinePlus</a> related topics:
+    	    	    	<a class="tr-study-link" style="margin-left:0.5em;" href="https://medlineplus.gov/covid19coronavirusdisease2019.html" title="COVID-19&#160;(Coronavirus&#160;Disease&#160;2019) at MedlinePlus" onclick="openNewWindow('https://medlineplus.gov/covid19coronavirusdisease2019.html'); return false">COVID-19&#160;(Coronavirus&#160;Disease&#160;2019)</a>
+	          </div>
+  
+  
+  
+  
+  <!-- Ropr Link -->
+<!-- Commented out RoPR
+  -->
+
+  <div style="margin-bottom:2ex;">
+  <a class="tr-study-link" href="/ct2/info/fdalinks" title="Show FDA resources page" onclick="openNewWindow('/ct2/info/fdalinks'); return false">U.S. FDA Resources</a>
+  </div>
+
+  </div>
+</div>
+
+
+  
+  <br/>
+    </div>
+
+    <!-- arms and groups table -->
+    		<div class="tr-subsection">
+		    		    	<div class="ct-header2"><a id="armgroup"></a>Arms and Interventions</div>
+		    		    <div class="tr-underline"></div>
+			<div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+		</div>
+	
+    <div style="padding-left:.8em; padding-right:1.2em;text-align:left;">
+        <p>
+    <table class="ct-data_table tr-data_table" style="padding:5px;width:100%;border-width:1px;">
+      <thead>
+      <tr style="text-align:left;">
+        <th class="ct-header3 tr-pale_banner_color" style="width:50%;">
+            				<span style="display:inline;" class="term" data-term="Arm" title="Show definition">Arm <i class="fa fa-info-circle term" aria-hidden="true" data-term="Arm" style="border-bottom-style:none;"></i></span> 			        </th>
+                <th class="ct-header3 tr-pale_banner_color">
+			<span style="display:inline;" class="term" data-term="Intervention/treatment" title="Show definition">Intervention/treatment <i class="fa fa-info-circle term" aria-hidden="true" data-term="Intervention/treatment" style="border-bottom-style:none;"></i></span>         </th>
+              </tr>
+      </thead>
+      <tbody>
+            <tr style="text-align:left;vertical-align:top;">
+        <td class="ct-body3">
+          Placebo Comparator: Placebo
+<div class="tr-indent2" style="margin-top:0.5ex">200 mg of Remdesivir placebo administered intravenously on Day 1, followed by a 100 mg once-daily maintenance dose of Remdesivir placebo while hospitalized for up to a 10 days total course. n=286.</div>
+        </td>
+                <td class="ct-body3">
+                      Other: Placebo
+<div class="tr-indent2" style="margin-top:0.5ex">The supplied placebo lyophilized formulation is identical in physical appearance to the active lyophilized formulation and contains the same inactive ingredients. Alternatively, a placebo of normal saline of equal volume may be given if there are limitations on matching placebo supplies.</div><br/>
+                  </td>
+              </tr>
+            <tr style="text-align:left;vertical-align:top;">
+        <td class="ct-body3">
+          Experimental: Remdesivir
+<div class="tr-indent2" style="margin-top:0.5ex">200 mg of Remdesivir administered intravenously on Day 1, followed by a 100 mg once-daily maintenance dose of Remdesivir while hospitalized for up to a 10 days total course. n=286.</div>
+        </td>
+                <td class="ct-body3">
+                      Drug: Remdesivir
+<div class="tr-indent2" style="margin-top:0.5ex">Drug Remdesivir is a single diastereomer monophosphoramidate prodrug designed for the intracellular delivery of a modified adenine nucleoside analog GS-441524. In addition to the active ingredient, the lyophilized formulation of Remdesivir contains the following inactive ingredients: water for injection, sulfobutylether beta-cyclodextrin sodium (SBECD), and hydrochloric acid and/or sodium hydroxide.</div><br/>
+                  </td>
+              </tr>
+            </tbody>
+    </table>
+          </div>
+    <br/>
+
+    
+    <!-- more details -->
+  <br/>
+  <div class="tr-subsection">
+	  <div class="ct-header2"><a id="outcomemeasures"></a>Outcome Measures</div>
+	  <div class="tr-underline"></div>
+	  <div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+  </div>
+  <br/>
+  <div class="tr-indent3" style="margin-right:1em;">
+
+        <!-- primary outcomes -->
+    <div class="ct-body3">
+<span style="display:inline;" class="term" data-term="Primary Outcome Measure" title="Show definition">Primary Outcome Measures <i class="fa fa-info-circle term" aria-hidden="true" data-term="Primary Outcome Measure" style="border-bottom-style:none;"></i></span> :
+      <ol style="margin-top:1ex; margin-bottom:1ex;">
+            	<li style="margin-top:0.7ex;">Time to Recovery [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Day of recovery is defined as the first day on which the subject satisfies one of the following three categories from the ordinal scale: 1) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 3) Not hospitalized, no limitations on activities.</div><br/>
+            	<li style="margin-top:0.7ex;">Time to Recovery by Race [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Day of recovery is defined as the first day on which the subject satisfies one of the following three categories from the ordinal scale: 1) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 3) Not hospitalized, no limitations on activities.</div><br/>
+            	<li style="margin-top:0.7ex;">Time to Recovery by Ethnicity [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Day of recovery is defined as the first day on which the subject satisfies one of the following three categories from the ordinal scale: 1) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 3) Not hospitalized, no limitations on activities.</div><br/>
+            	<li style="margin-top:0.7ex;">Time to Recovery by Sex [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Day of recovery is defined as the first day on which the subject satisfies one of the following three categories from the ordinal scale: 1) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 3) Not hospitalized, no limitations on activities.</div><br/>
+            </ol>
+    </div>
+    <br/>
+    
+        <!-- secondary outcomes -->
+    <div class="ct-body3"  style="margin-right:1em;">
+<span style="display:inline;" class="term" data-term="Secondary Outcome Measure" title="Show definition">Secondary Outcome Measures <i class="fa fa-info-circle term" aria-hidden="true" data-term="Secondary Outcome Measure" style="border-bottom-style:none;"></i></span> :
+      <ol style="margin-top:1ex; margin-bottom:1ex;">
+            <li style="margin-top:0.7ex;">Change From Baseline in Alanine Transaminase (ALT) [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate ALT was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Aspartate Transaminase (AST) [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate AST was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Creatinine [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate serum creatinine was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Glucose [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate serum glucose was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Hemoglobin [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate hemoglobin was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Platelets [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate platelets was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Prothrombin Time (PT) [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate PT was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Total Bilirubin [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate total bilirubin was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in White Blood Cell Count (WBC) [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate WBC was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Neutrophils [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate neutrophils was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Lymphocytes [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate lymphocytes was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Monocytes [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate monocytes was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Basophils [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate basophils was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change From Baseline in Eosinophils [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15 and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Blood to evaluate eosinophils was collected at Days 1, 3, 5, 8, and 11 while participants were inpatient, and at Days 15 and 29, with the Day 1 assessment serving as baseline. Participants who had been discharged had blood collected if infection control measures allowed for in-person visits after discharge.</div><br/>
+            <li style="margin-top:0.7ex;">Change in National Early Warning Score (NEWS) From Baseline [&nbsp;Time&nbsp;Frame:&nbsp;Days 1, 3, 5, 8, 11, 15, 22, and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The NEW score has demonstrated an ability to discriminate patients at risk of poor outcomes. This score is based on 7 clinical parameters (respiration rate, oxygen saturation, any supplemental oxygen, temperature, systolic blood pressure, heart rate, level of consciousness). The NEW Score is being used as an efficacy measure. The minimum score is 0, representing the better outcome, and the maximum value is 19, representing the worse outcome.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 1 [&nbsp;Time&nbsp;Frame:&nbsp;Day 1&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 3 [&nbsp;Time&nbsp;Frame:&nbsp;Day 3&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 5 [&nbsp;Time&nbsp;Frame:&nbsp;Day 5&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 8 [&nbsp;Time&nbsp;Frame:&nbsp;Day 8&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 11 [&nbsp;Time&nbsp;Frame:&nbsp;Day 11&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 15 [&nbsp;Time&nbsp;Frame:&nbsp;Day 15&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 22 [&nbsp;Time&nbsp;Frame:&nbsp;Day 22&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants at Each Clinical Status Using Ordinal Scale at Day 29 [&nbsp;Time&nbsp;Frame:&nbsp;Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants Reporting Grade 3 and 4 Clinical and/or Laboratory Adverse Events (AEs) [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Grade 3 AEs are defined as events that interrupt usual activities of daily living, or significantly affects clinical status, or may require intensive therapeutic intervention. Severe events are usually incapacitating. Grade 4 AEs are defined as events that are potentially life threatening.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants Reporting Serious Adverse Events (SAEs) [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">An SAE is defined as an AE or suspected adverse reaction is considered serious if, in the view of either the investigator or the sponsor, it results in death, a life-threatening AE, inpatient hospitalization or prolongation of existing hospitalization, a persistent or significant incapacity or substantial disruption of the ability to conduct normal life functions, or a congenital anomaly/birth defect.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants Discontinued or Temporarily Suspended From Investigational Therapeutics [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 10&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Participants may have been discontinued from investigational therapeutics due to discharge or death. The halting or slowing of the infusion for any reason was collected, as was missed doses in the series of 10 doses.</div><br/>
+            <li style="margin-top:0.7ex;">Duration of Hospitalization [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Duration of hospitalization was determined two ways. The first includes imputations for participants who died. The second method is restricted to participants who did not die.</div><br/>
+            <li style="margin-top:0.7ex;">Duration of New Non-invasive Ventilation or High Flow Oxygen Use [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Duration of new non-invasive ventilation or high flow oxygen use was measured in days among participants who were not on non-invasive ventilation or high-flow oxygen use at baseline, determined two ways. The first includes imputations for participants who died. The second method is restricted to participants who did not die</div><br/>
+            <li style="margin-top:0.7ex;">Duration of New Oxygen Use [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;"><p style="margin-top:0ex; margin-bottom:1ex;">Duration of new oxygen use was measured in days among participants who were not on oxygen at baseline, determined two ways. The first includes imputations for participants who died. The second method is restricted to participants who did not die</p>
+  <p style="margin-top:0ex; margin-bottom:1ex;">.</p></div><br/>
+            <li style="margin-top:0.7ex;">Duration of New Ventilator or Extracorporeal Membrane Oxygenation (ECMO) Use [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">Duration of new ventilator or ECMO use was measured in days among participants who were not on a ventilator or ECMO at baseline, determined two ways. The first includes imputations for participants who died. The second method is restricted to participants who did not die</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants Requiring New Non-invasive Ventilation or High-flow Oxygen Use [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">New non-invasive ventilation or high-flow oxygen use was determined as the percentage of subject not on non-invasive ventilation or high-flow oxygen at baseline.</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants Requiring New Oxygen Use [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The percentage of participants requiring new oxygen use was determined as the percentage of participants not requiring oxygen at baseline</div><br/>
+            <li style="margin-top:0.7ex;">Percentage of Participants Requiring New Ventilator or Extracorporeal Membrane Oxygenation (ECMO) Use [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The percentage of participants requiring new ventilator or ECMO use was determined as the percentage not on a ventilator or ECMO at baseline</div><br/>
+            <li style="margin-top:0.7ex;">Mean Change in the Ordinal Scale [&nbsp;Time&nbsp;Frame:&nbsp;Day 1, 3, 5, 8, 11, 15, 22, and 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities. A positive change indicates a worsening and a negative change is an improvement.</div><br/>
+            <li style="margin-top:0.7ex;">14-day Participant Mortality [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 15&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The mortality rate was determined as the proportion of participants who died by study Day 15.</div><br/>
+            <li style="margin-top:0.7ex;">29-day Participant Mortality [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The mortality rate was determined as the proportion of participants who died by study Day 29.</div><br/>
+            <li style="margin-top:0.7ex;">Time to an Improvement by at Least One Category Using an Ordinal Scale [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 8) Death; 7) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 6) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 5) Hospitalized, requiring supplemental oxygen; 4) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 3) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 2) Not hospitalized, limitation on activities and/or requiring home oxygen; 1) Not hospitalized, no limitations on activities. Time to improvement by at least one category was determined for each participant</div><br/>
+            <li style="margin-top:0.7ex;">Time to an Improvement of at Least Two Categories Using an Ordinal Scale [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The ordinal scale is an assessment of the clinical status at the first assessment of a given study day. The scale is as follows: 1) Death; 2) Hospitalized, on invasive mechanical ventilation or extracorporeal membrane oxygenation (ECMO); 3) Hospitalized, on non-invasive ventilation or high flow oxygen devices; 4) Hospitalized, requiring supplemental oxygen; 5) Hospitalized, not requiring supplemental oxygen - requiring ongoing medical care (COVID-19 related or otherwise); 6) Hospitalized, not requiring supplemental oxygen - no longer requires ongoing medical care; 7) Not hospitalized, limitation on activities and/or requiring home oxygen; 8) Not hospitalized, no limitations on activities. Time to improvement by at least two categories was determined for each participant</div><br/>
+            <li style="margin-top:0.7ex;">Time to Discharge or to a NEWS of 2 or Less and Maintained for 24 Hours, Whichever Occurs First [&nbsp;Time&nbsp;Frame:&nbsp;Day 1 through Day 29&nbsp;]<div class="tr-indent2" style="margin-top:1ex;">The NEW score has demonstrated an ability to discriminate patients at risk of poor outcomes. This score is based on 7 clinical parameters (respiration rate, oxygen saturation, any supplemental oxygen, temperature, systolic blood pressure, heart rate, level of consciousness). The NEW Score is being used as an efficacy measure. The minimum score is 0, representing the better outcome, and the maximum value is 19, representing the worse outcome. The time to discharge or a NEWS of less than or equal to 2 was determined for each participant.</div><br/>
+            </ol>
+    </div>
+    <br/>
+    
+    
+    
+  </div>
+  
+			  
+<!-- eligibility_section -->
+<div class="tr-indent1" style="margin-top:3ex; border:1px solid white">
+<div class="tr-subsection">
+	<div class="ct-header2"><a id="eligibility"></a>Eligibility Criteria</div>
+	<div class="tr-underline"></div>
+	<div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+</div>
+<br/>
+
+<p>
+  <div class="tr-indent2 usa-alert usa-alert-warning nlm-info">
+    <strong>Information from the National Library of Medicine</strong>
+    <img src="/ct2/html/images/NIH_NLM_ABRV_BLK_4.png" style="width:5em; float:right;" alt=""/>
+    <p>
+    <p>
+    <em>Choosing to participate in a study is an important personal decision. Talk with your doctor and family members or friends about deciding to join a study. To learn more about this study, you or your doctor may contact the study research staff using the contacts provided below. For general information, <a href="/ct2/about-studies/learn" title="Learn About Clinical Studies"><u>Learn About Clinical Studies.</u></a>
+    </em>
+  </div>
+
+
+  <br/>
+  <div class="tr-indent2">
+    <table class="ct-layout_table tr-tableStyle tr-studyInfo">
+      <caption>Layout table for eligibility information</caption>
+      <thead>
+        <tr>
+          <th id="elgType"></th>
+          <th id="elgData"></th>
+        </tr>
+      </thead>
+      <tbody>
+            <tr>
+        <td headers="elgType" class="ct-nowrap">Ages Eligible for Study: &nbsp; </td>
+        <td headers="elgData" style="padding-left:1em">18 Years to 99 Years &nbsp; (Adult, Older Adult)</td>
+      </tr>
+                  <tr>
+        <td headers="elgType" class="ct-nowrap">Sexes Eligible for Study: &nbsp; </td>
+        <td headers="elgData" style="padding-left:1em">All</td>
+      </tr>
+                              <tr>
+        <td headers="elgType" class="ct-nowrap">Accepts Healthy Volunteers: &nbsp; </td>
+        <td headers="elgData" style="padding-left:1em">No</td>
+      </tr>
+                  </tbody>
+    </table>
+
+    
+        <div class="ct-header3" style="margin-top:2ex">Criteria</div>
+    <div class="tr-indent2"><p style="margin-top:1ex; margin-bottom:1ex;">Inclusion Criteria:</p>
+  <ol style="margin-top:1ex; margin-bottom:1ex;">
+    <li style="margin-top:0.7ex;">Admitted to a hospital with symptoms suggestive of COVID-19 infection.</li>
+    <li style="margin-top:0.7ex;">Subject (or legally authorized representative) provides informed consent prior to initiation of any study procedures.</li>
+    <li style="margin-top:0.7ex;">Subject (or legally authorized representative) understands and agrees to comply with planned study procedures.</li>
+    <li style="margin-top:0.7ex;">Male or non-pregnant female adult &gt; / = 18 years of age at time of enrollment.</li>
+    <li style="margin-top:0.7ex;">
+      <p style="margin-top:0ex; margin-bottom:1ex;">Has laboratory-confirmed SARS-CoV-2 infection as determined by polymerase chain reaction (PCR) or other commercial or public health assay in any specimen, as documented by either or the following:</p>
+      <ol style="margin-top:1ex; margin-bottom:1ex;">
+        <li style="margin-top:0.7ex;">
+          <p style="margin-top:0ex; margin-bottom:1ex;">PCR positive in sample collected &lt; 72 hours prior to randomization; OR</p>
+          <p style="margin-top:0ex; margin-bottom:1ex;">Exclusion Criteria:</p>
+        </li>
+        <li style="margin-top:0.7ex;">PCR positive in sample collected &gt;/= 72 hours prior to randomization, documented inability to obtain a repeat sample (e.g. due to lack of testing supplies, limited testing capacity, results taking &gt;24 hours, etc.) AND progressive disease suggestive of ongoing SARS-CoV-2 infection.</li>
+      </ol>
+    </li>
+    <li style="margin-top:0.7ex;">
+      <p style="margin-top:0ex; margin-bottom:1ex;">Illness of any duration, and at least one of the following:</p>
+      <ol style="margin-top:1ex; margin-bottom:1ex;">
+        <li style="margin-top:0.7ex;">Radiographic infiltrates by imaging (chest x-ray, CT scan, etc.), OR</li>
+        <li style="margin-top:0.7ex;">SpO2 &lt; / = 94% on room air, OR</li>
+        <li style="margin-top:0.7ex;">Requiring supplemental oxygen, OR</li>
+        <li style="margin-top:0.7ex;">Requiring mechanical ventilation.</li>
+      </ol>
+    </li>
+    <li style="margin-top:0.7ex;">Women of childbearing potential must agree to either abstinence or use at least one primary form of contraception not including hormonal contraception from the time of screening through Day 29.</li>
+    <li style="margin-top:0.7ex;">Agrees to not participate in another clinical trial for the treatment of COVID-19 or SARS-CoV-2 through Day 29.</li>
+  </ol>
+  <p style="margin-top:0ex; margin-bottom:1ex;">Exclusion Criteria:</p>
+  <ol style="margin-top:1ex; margin-bottom:1ex;">
+    <li style="margin-top:0.7ex;">Alanine Transaminase (ALT) or Aspartate Transaminase (AST) &gt; 5 times the upper limit of normal.</li>
+    <li style="margin-top:0.7ex;">Estimated glomerular filtration rate (eGFR) &lt; 30 ml/min (including patients receiving hemodialysis or hemofiltration).</li>
+    <li style="margin-top:0.7ex;">Pregnancy or breast feeding.</li>
+    <li style="margin-top:0.7ex;">Anticipated discharge from the hospital or transfer to another hospital which is not a study site within 72 hours.</li>
+    <li style="margin-top:0.7ex;">Allergy to any study medication.</li>
+  </ol></div>
+    
+  </div>
+
+  </div>
+
+			  
+<!-- location_section -->
+<a id="contacts"></a>
+<div class="tr-indent1" style="margin-top:3ex">
+<div class="tr-subsection">
+	<div class="ct-header2"><a id="contactlocation"></a>Contacts and Locations</div>
+	<div class="tr-underline"></div>
+	<div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+</div>
+<br/>
+
+
+<div class="tr-indent2" style="margin-top:2ex">
+
+<!--
+Choosing to participate in a study is an important personal decision. Talk with your doctor and family members or friends about deciding to join a study. 
+To learn more about this study, you or your doctor may contact the study research staff using the Contacts provided below. 
+For general information, see <a href="/ct2/about-studies/learn" target="def_win" onClick="openNewWindow('/ct2/about-studies/learn'); return false;" title="Learn About Clinical Studies - opens new window"><u>Learn About Clinical Studies.</u></a>
+<br/>
+-->
+
+  
+  <div class="usa-alert usa-alert-warning nlm-info">
+    <strong>Information from the National Library of Medicine</strong>
+    <img src="/ct2/html/images/NIH_NLM_ABRV_BLK_4.png" style="width:5em; float:right;" alt=""/>
+    <p>
+    <p>
+    <em>
+    To learn more about this study, you or your doctor may contact the study research staff using the contact information provided by the sponsor.
+    </em>
+    <p>
+    <em>
+    Please refer to this study by its ClinicalTrials.gov identifier (NCT number): <strong>NCT04280705</strong>
+    </em>
+  </div>
+  <br/>
+
+  <!-- contacts -->
+  
+  <!-- locations -->
+   <a id="locn"></a>
+  <div class="ct-header3" style="margin-top:2ex;margin-bottom:2ex;">Locations</div>
+
+      <script type="text/javascript" async src="/ct2/html/js/ExpandCollapseScript.js"></script>
+    
+    <span id="EXPAND_CONTROL-Locations" class="EXPAND tr-showAndHide"       onclick="toggleSectionAndControls('-Locations');document.getElementById('locn').scrollIntoView({behavior: 'smooth', block: 'start'});" 
+      title="Show 60 study locations">
+      <img src="/ct2/html/images/expand.png" alt="Show">
+      <span style="padding-bottom:3px"> Show 60 study locations</span>
+    </span>
+    <span  id="COLLAPSE_CONTROL-Locations" class="COLLAPSE tr-showAndHide" style="display:none"      onclick="toggleSectionAndControls('-Locations');" 
+      title="Hide 60 study locations">
+      <img src="/ct2/html/images/collapse.png"  alt="Hide">
+      <span style="padding-bottom:3px"> Hide 60 study locations</span>
+    </span>
+     
+  <div id="COLLAPSE-Locations" class="COLLAPSE" style="display:none">
+        <div class="tr-table_cover">
+      <table class="ct-layout_table tr-indent2">
+        <caption>Layout table for location information</caption>
+        <thead>
+          <tr>
+            <th id="locName"></th>
+            <th id="locStatus"></th>
+          </tr>
+        </thead>
+        <tbody>
+                                    <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Alabama</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Alabama at Birmingham School of Medicine - Infectious Disease</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Birmingham, Alabama, United States, 35233  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, California</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of California San Diego Health - Jacobs Medical Center</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">La Jolla, California, United States, 29037  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of California Los Angeles Medical Center - Westwood Clinic</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Los Angeles, California, United States, 90095  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of California Irvine Medical Center - Infectious Disease</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Orange, California, United States, 92868-3298  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">VA Palo Alto Health Care System - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Palo Alto, California, United States, 94304-1207  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of California Davis Medical Center - Internal Medicine - Infectious Disease</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Sacramento, California, United States, 95817-1460  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Naval Medical Center San Diego - Infectious Disease Clinic</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">San Diego, California, United States, 92314  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of California San Francisco - Zuckerberg San Francisco General Hospital - Division of Human Immunodeficiency Virus, Infectious Disease, and Global Medicine</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">San Francisco, California, United States, 94110-2859  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Stanford University - Stanford Hospital and Clinics - Pediatrics - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Stanford, California, United States, 94305-2200  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Cedars Sinai Medical Center</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">West Hollywood, California, United States, 90048-1804  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Colorado</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Denver Health Division of Hospital Medicine - Main Campus</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Denver, Colorado, United States, 80204  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Georgia</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Emory Vaccine Center - The Hope Clinic</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Decatur, Georgia, United States, 30030-1705  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Illinois</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Northwestern Hospital - Infectious Disease</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Chicago, Illinois, United States, 60611-2908  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Illinois at Chicago College of Medicine - Division of Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Chicago, Illinois, United States, 60612  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Louisiana</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Southeast Louisiana Veterans Health Care System - Section of Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">New Orleans, Louisiana, United States, 70119  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Maryland</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Maryland School of Medicine - Center for Vaccine Development - Baltimore</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Baltimore, Maryland, United States, 21201-1509  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Johns Hopkins Hospital - Medicine - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Baltimore, Maryland, United States, 21287-0005  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Walter Reed National Military Medical Center</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Bethesda, Maryland, United States, 20889  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">National Institutes of Health - Clinical Center, National Institute of Allergy and Infectious Diseases Laboratory Of Immunoregulation, Clinical Research Section</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Bethesda, Maryland, United States, 20892-1504  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Massachusetts</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Massachusetts General Hospital - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Boston, Massachusetts, United States, 02114-2621  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Massachusetts Medical School - Infectious Diseases and Immunology</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Worcester, Massachusetts, United States, 01655-0002  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Minnesota</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Minnesota Medical Center, Fairview - Infectious Diseases and International Medicine</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Minneapolis, Minnesota, United States, 55455-0341  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Missouri</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Saint Louis University - Center for Vaccine Development</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Saint Louis, Missouri, United States, 63104-1015  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Nebraska</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Nebraska Medical Center - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Omaha, Nebraska, United States, 68105  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, New York</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Montefiore Medical Center - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Bronx, New York, United States, 10467-2401  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">New York University School of Medicine - Langone Medical Center - Microbiology - Parasitology</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">New York, New York, United States, 10016-6402  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Rochester Medical Center - Vaccine Research Unit</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Rochester, New York, United States, 14642-0001  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, North Carolina</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Duke Human Vaccine Institute - Duke Vaccine and Trials Unit</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Durham, North Carolina, United States, 27704  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Pennsylvania</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Penn State Health Milton S. Hershey Medical Center - Division of Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Hershey, Pennsylvania, United States, 17033  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Hospital of the University of Pennsylvania - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Philadelphia, Pennsylvania, United States, 19104-4238  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Tennessee</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Vanderbilt University Medical Center - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Nashville, Tennessee, United States, 37232-0011  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Texas</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Brooke Army Medical Center</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Fort Sam Houston, Texas, United States, 78234  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Texas Medical Branch - Division of Infectious Disease</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Galveston, Texas, United States, 77555-0435  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Baylor College of Medicine - Molecular Virology and Microbiology</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Houston, Texas, United States, 77030-3411  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Texas Health Science Center at San Antonio - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">San Antonio, Texas, United States, 78229-3901  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Virginia</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Virginia - Acute Care Surgery</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Charlottesville, Virginia, United States, 22908-0816  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Naval Medical Center Portsmouth - Infectious Disease Division</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Portsmouth, Virginia, United States, 23708  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United States, Washington</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">EvergreenHealth Infectious Disease Service</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Kirkland, Washington, United States, 98034  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">The University of Washington - Virology Research Clinic</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Seattle, Washington, United States, 98104  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Providence Sacred Heart Medical Center</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Spokane, Washington, United States, 99204  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Madigan Army Medical Center - Infectious Disease Clinic</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Tacoma, Washington, United States, 98431  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Denmark</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">University of Copenhagen - Centre of Excellence for Health, Immunity and Infections (CHIP) - Department of Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Copenhagen, Denmark, 2100  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Germany</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Universitatsklinikum Bonn, Medizinische Klinik I - Bereich Infektiologie/HIV der Medizinischen Klinik</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Bonn, Nordrhein-Westfalen, Germany, 53127  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Universitatsklinikum Koeln Klinik I fur Innere Medizin Klinisches Studienzentrum fur Infektiologie I</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Cologne, Germany, 50937  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Universit&#228;tsklinikum Frankfurt -Medizinische Klinik II - Infektiologie</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Frankfurt, Germany, 60590  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Greece</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">AHEPA University Hospital - 1st Department of Internal Medicine</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Thessaloniki, Central Macedonia, Greece, P.O. 54636  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Medical School of Athens University - Evangelismos Hospital - Department of Critical Care and Pulmonary Services</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Athens, Greece, GR-10675  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Japan</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">National Center for Global Health and Medicine Hospital - Disease Control and Prevention Center</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Tokyo, Japan, 162-8655  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Korea, Republic of</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Seoul National University Bundang Hospital - Division of Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Bundang-gu Seongnam-si, Gyeonggi-do, Korea, Republic of, 13620  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Seoul National University Hospital</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Seoul, Jongno-gu, Korea, Republic of, 03080  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Mexico</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Instituto Nacional de Ciencias Medicas y Nutrici&#243;n Salvador Zubir&#225;n - Departamento de Infectologia</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Mexico City, Mexico, 14080  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Instituto Nacional de Enfermedades Respiratorias (INER) - Ismael Cos&#237;o Villegas</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Mexico City, Mexico, 14080  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Singapore</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">National Centre for Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Singapore, Singapore, 308442  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">Spain</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Hospital Clinic Barcelona, Servicio de Salud Internacional</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Barcelona, Catalu&#241;a, Spain, 08036  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Hospital Germans Trias i Pujol - Servei Malalties Infeccioses</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Barcelona, Catalu&#241;a, Spain, 08916  </td></tr>
+                                                            <tr><td colspan="2" class="ct-header3" style="padding-top:2ex;">United Kingdom</td></tr>
+                                      <tr>
+                            <td headers="locName" style="padding-left:2em;">Royal Sussex County Hospital - Department of Intensive Care Medicine</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">East Sussex, Brighton, United Kingdom, BN2 5BE  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Saint Thomas' Hospital - Directorate of Infection</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">London, London, City Of, United Kingdom, SE1 7EH  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">Royal Victoria Infirmary - Department of Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Level 6, Ward 19, Newcastle Upon Tyne, United Kingdom, NE1 4LP  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">St. James's University Hospital - Infectious Diseases</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Leeds, West Yorkshire, United Kingdom, LS9 7TK  </td></tr>
+                                                          <tr>
+                            <td headers="locName" style="padding-left:2em;">John Radcliffe Hospital</td>
+                                          <td headers="locStatus"></td>
+                          </tr>
+                          <tr><td colspan="2" style="padding:0;padding-left:4em;">Headington, Oxford, United Kingdom, OX3 9DU  </td></tr>
+                                          </tbody>
+      </table>
+    </div>
+  </div>   
+  
+  <!-- sponsors -->
+      <div class="ct-header3" style="margin-top:2ex">Sponsors and Collaborators</div>
+              <div class="tr-indent2" style="margin-top:1ex">National Institute of Allergy and Infectious Diseases (NIAID)</div>
+        
+  <!-- overall officials -->
+  
+
+</div>
+</div>
+						
+<!-- more_info_section -->
+
+<!-- Large docs section -->
+
+    <div class="tr-indent1" style="margin-top:5ex; border:1px solid white">
+    <span class="ct-header2">&nbsp; Study Documents (Full-Text)</span>
+
+    <div class="tr-indent2">
+      <br/>
+      Documents provided by National Institute of Allergy and Infectious Diseases (NIAID):
+            <div class="tr-indent2" style="margin-top:2ex">
+        <a class="tr-study-link" href="/ProvidedDocs/05/NCT04280705/Prot_001.pdf" title="Study Protocol" onclick="openNewWindow('/ProvidedDocs/05/NCT04280705/Prot_001.pdf'); return false">Study Protocol</a>&nbsp; [PDF] April 2, 2020
+      </div>
+            <div class="tr-indent2" style="margin-top:2ex">
+        <a class="tr-study-link" href="/ProvidedDocs/05/NCT04280705/SAP_002.pdf" title="Statistical Analysis Plan" onclick="openNewWindow('/ProvidedDocs/05/NCT04280705/SAP_002.pdf'); return false">Statistical Analysis Plan</a>&nbsp; [PDF] May 29, 2020
+      </div>
+            <div class="tr-indent2" style="margin-top:2ex">
+        <a class="tr-study-link" href="/ProvidedDocs/05/NCT04280705/ICF_000.pdf" title="Informed Consent Form" onclick="openNewWindow('/ProvidedDocs/05/NCT04280705/ICF_000.pdf'); return false">Informed Consent Form</a>&nbsp; [PDF] March 4, 2020
+      </div>
+                 <br/>
+    </div>
+  </div>
+    
+
+<!-- More info section -->
+  <div class="tr-indent1" style="margin-top:3ex; border:1px solid white">
+  <div class="tr-subsection">
+  	<div class="ct-header2"><a id="moreinfo"></a>More Information</div>
+  	<div class="tr-underline"></div>
+  	<div class="tr-dropdown" style="padding-right:10em">
+Go&nbsp;to&nbsp;
+<button class="tr-dropbtn" style="font-weight:bold; font-size:14px">
+<img src="/ct2/html/images/pulldown.png" alt="sections">
+</button>
+
+  <div class="tr-dropdown-content">
+	<a href="#wrapper">Top of Page</a>
+    <a href="#studydesc">Study Description</a>
+    <a href="#studydesign">Study Design</a>
+
+    <!-- arms and groups table -->
+        <a href="#armgroup">Arms and Interventions</a>
+    
+        <a href="#outcomemeasures">Outcome Measures</a>
+        <a href="#eligibility">Eligibility Criteria</a>
+    <a href="#contactlocation">Contacts and Locations</a>
+    <a href="#moreinfo">More Information</a>
+  </div>
+</div>
+  </div>
+  
+  <div class="tr-indent2" style="margin-top:1em;">
+
+
+    <!-- Additional Information -->
+    
+
+    <!-- Available Study Data/Document -->
+    
+
+  <!-- References -->
+    
+    
+  <!-- Derived References -->
+        <span class="ct-header3">Publications automatically indexed to this study by ClinicalTrials.gov Identifier (NCT Number):</span>
+      <div class="tr-indent2">
+                <div style="margin-top:2ex">
+                    <a href="/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFVWgFRFg4RA6h9Ei4L3BUgWwNG0it." title="Kreuzberger N, Hirsch C, Chai KL, Tomlinson E, Khosravi Z, Popp M, Neidhardt M, Piechotta V, Salomon S, Valk SJ, Monsef I, Schmaderer C, Wood EM, So-Osman C, Roberts DJ, McQuilten Z, Estcourt LJ, Skoetz N. SARS-CoV-2-neutralising monoclonal antibodies for treatment of COVID-19. Cochrane Database Syst Rev. 2021 Sep 2;9(9):CD013825. doi: 10.1002/14651858.CD013825.pub2." onclick="openNewWindow('/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFVWgFRFg4RA6h9Ei4L3BUgWwNG0it.'); return false">Kreuzberger N, Hirsch C, Chai KL, Tomlinson E, Khosravi Z, Popp M, Neidhardt M, Piechotta V, Salomon S, Valk SJ, Monsef I, Schmaderer C, Wood EM, So-Osman C, Roberts DJ, McQuilten Z, Estcourt LJ, Skoetz N. SARS-CoV-2-neutralising monoclonal antibodies for treatment of COVID-19. Cochrane Database Syst Rev. 2021 Sep 2;9(9):CD013825. doi: 10.1002/14651858.CD013825.pub2.</a>
+                            </div>
+                <div style="margin-top:2ex">
+                    <a href="/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFVFgCtLK4nA6h9Ei4L3BUgWwNG0it." title="Ansems K, Grundeis F, Dahms K, Mikolajewska A, Thieme V, Piechotta V, Metzendorf MI, Stegemann M, Benstoem C, Fichtner F. Remdesivir for the treatment of COVID-19. Cochrane Database Syst Rev. 2021 Aug 5;8(8):CD014962. doi: 10.1002/14651858.CD014962." onclick="openNewWindow('/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFVFgCtLK4nA6h9Ei4L3BUgWwNG0it.'); return false">Ansems K, Grundeis F, Dahms K, Mikolajewska A, Thieme V, Piechotta V, Metzendorf MI, Stegemann M, Benstoem C, Fichtner F. Remdesivir for the treatment of COVID-19. Cochrane Database Syst Rev. 2021 Aug 5;8(8):CD014962. doi: 10.1002/14651858.CD014962.</a>
+                            </div>
+                <div style="margin-top:2ex">
+                    <a href="/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFRSg4tEKCjA6h9Ei4L3BUgWwNG0it." title="Sultana J, Crisafulli S, Gabbay F, Lynn E, Shakir S, Trifiro G. Challenges for Drug Repurposing in the COVID-19 Pandemic Era. Front Pharmacol. 2020 Nov 6;11:588654. doi: 10.3389/fphar.2020.588654. eCollection 2020." onclick="openNewWindow('/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFRSg4tEKCjA6h9Ei4L3BUgWwNG0it.'); return false">Sultana J, Crisafulli S, Gabbay F, Lynn E, Shakir S, Trifiro G. Challenges for Drug Repurposing in the COVID-19 Pandemic Era. Front Pharmacol. 2020 Nov 6;11:588654. doi: 10.3389/fphar.2020.588654. eCollection 2020.</a>
+                            </div>
+                <div style="margin-top:2ex">
+                    <a href="/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFnxg05-RCtA6h9Ei4L3BUgWwNG0it." title="Maleszewski JJ, Young PM, Ackerman MJ, Halushka MK. Urgent Need for Studies of the Late Effects of SARS-CoV-2 on the Cardiovascular System. Circulation. 2021 Mar 30;143(13):1271-1273. doi: 10.1161/CIRCULATIONAHA.120.051362. Epub 2020 Sep 24." onclick="openNewWindow('/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFnxg05-RCtA6h9Ei4L3BUgWwNG0it.'); return false">Maleszewski JJ, Young PM, Ackerman MJ, Halushka MK. Urgent Need for Studies of the Late Effects of SARS-CoV-2 on the Cardiovascular System. Circulation. 2021 Mar 30;143(13):1271-1273. doi: 10.1161/CIRCULATIONAHA.120.051362. Epub 2020 Sep 24.</a>
+                            </div>
+                <div style="margin-top:2ex">
+                    <a href="/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFnWg48Wg4tA6h9Ei4L3BUgWwNG0it." title="Beigel JH, Tomashek KM, Dodd LE, Mehta AK, Zingman BS, Kalil AC, Hohmann E, Chu HY, Luetkemeyer A, Kline S, Lopez de Castilla D, Finberg RW, Dierberg K, Tapson V, Hsieh L, Patterson TF, Paredes R, Sweeney DA, Short WR, Touloumi G, Lye DC, Ohmagari N, Oh MD, Ruiz-Palacios GM, Benfield T, Fatkenheuer G, Kortepeter MG, Atmar RL, Creech CB, Lundgren J, Babiker AG, Pett S, Neaton JD, Burgess TH, Bonnett T, Green M, Makowski M, Osinusi A, Nayak S, Lane HC; ACTT-1 Study Group Members. Remdesivir for the Treatment of Covid-19 - Final Report. N Engl J Med. 2020 Nov 5;383(19):1813-1826. doi: 10.1056/NEJMoa2007764. Epub 2020 Oct 8." onclick="openNewWindow('/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFnWg48Wg4tA6h9Ei4L3BUgWwNG0it.'); return false">Beigel JH, Tomashek KM, Dodd LE, Mehta AK, Zingman BS, Kalil AC, Hohmann E, Chu HY, Luetkemeyer A, Kline S, Lopez de Castilla D, Finberg RW, Dierberg K, Tapson V, Hsieh L, Patterson TF, Paredes R, Sweeney DA, Short WR, Touloumi G, Lye DC, Ohmagari N, Oh MD, Ruiz-Palacios GM, Benfield T, Fatkenheuer G, Kortepeter MG, Atmar RL, Creech CB, Lundgren J, Babiker AG, Pett S, Neaton JD, Burgess TH, Bonnett T, Green M, Makowski M, Osinusi A, Nayak S, Lane HC; ACTT-1 Study Group Members. Remdesivir for the Treatment of Covid-19 - Final Report. N Engl J Med. 2020 Nov 5;383(19):1813-1826. doi: 10.1056/NEJMoa2007764. Epub 2020 Oct 8.</a>
+                            </div>
+              </div>
+      <br/>
+    
+   
+  <table class="ct-layout_table tr-tableStyle tr-moreInfo" style="margin-top:1ex;">
+    <caption>Layout table for additonal information</caption>
+    <thead>
+    <tr>
+      <th id="colTitle1"></th>
+      <th id="colData1"></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+      <td headers="colTitle1" class="ct-nowrap">Responsible Party:</td>
+      <td headers="colData1" style="padding-left:1em">National Institute of Allergy and Infectious Diseases (NIAID)</td>
+    </tr>
+        <tr>
+      <td headers="colTitle1" class="ct-nowrap">ClinicalTrials.gov Identifier:</td>
+      <td headers="colData1" style="padding-left:1em">
+        <a class="tr-study-link" title="Current version of study NCT04280705 on ClinicalTrials.gov" href="https://clinicaltrials.gov/show/NCT04280705">NCT04280705</a> &nbsp; &nbsp;
+
+  <script type="text/javascript">
+    <!--
+    // Scramble access to archive site -
+    // don't want crawlers directing users to outdated versions of the study
+    // this should be opaque to crawlers that don't execute javascript
+    var yyy=new Array(
+      ['<','a clas','s="tr-study','-link c', 't-now','rap" t','itle="Hist','orical vers','ions of '],
+      ['study ','NCT04280705',' on Clin','icalTrials.','go'],
+      ['v Ar','chive',' Sit','e" ','onc','lick="','openN','ewWin', 'dow(','\'/ct2/', 'history/'],
+      ['NCT04280705','\'); return', ' false;" '],
+      ['href','="/ct2/','history/','NCT04280705"','>'],
+      ['Histo','ry of C','hange','s<','/','a>']);
+    var i=0;
+    var j=0;
+    var xxx='';
+    for (i=0; i<yyy.length; i++)
+      for (j=0; j<yyy[i].length; j++)
+        xxx+=yyy[i][j];
+    document.write(xxx)
+    -->
+  </script>
+
+      </td>
+    </tr>
+            <tr>
+      <td headers="colTitle1" class="ct-nowrap">Other Study ID Numbers:</td>
+      <td headers="colData1" style="padding-left:1em">
+                                    20-0006 <br/>
+                            </td>
+    </tr>
+            <tr>
+      <td headers="colTitle1" class="ct-nowrap">First Posted:</td>
+      <td headers="colData1" style="padding-left:1em">February 21, 2020
+          &nbsp;&nbsp;
+          <a class="tr-study-link ct-nowrap" href="/ct2/keydates/NCT04280705"
+                title="View key record dates for NCT04280705"
+                onclick="openNewWindow('/ct2/keydates/NCT04280705'); return false;">Key Record Dates</a>
+      </td>
+    </tr>
+            <tr>
+      <td headers="colTitle1" class="ct-nowrap">Results First Posted:</td>
+      <td headers="colData1" style="padding-left:1em">September 25, 2020</td>
+    </tr>
+        <tr>
+      <td headers="colTitle1" class="ct-nowrap">Last Update Posted:</td>
+      <td headers="colData1" style="padding-left:1em">March 14, 2022
+      </td>
+    </tr>
+        <tr>
+      <td headers="colTitle1" class="ct-nowrap">Last Verified:</td>
+      <td headers="colData1" style="padding-left:1em">April 2020
+      </td>
+    </tr>
+           
+    <!-- Plan to Share Data -->
+        </tbody>
+  </table>
+
+    <br/>
+  <table class="ct-layout_table tr-tableStyle tr-moreInfo" style="margin-top:1ex">
+    <caption>Layout table for additional information</caption>
+    <thead>
+    <tr>
+      <th id="colTitle2"></th>
+      <th id="colData2"></th>
+    </tr>
+    </thead>
+    <tbody>       
+        <tr>
+      <td headers="colTitle2" class="ct-nowrap">Studies a U.S. FDA-regulated Drug Product:</td>
+      <td headers="colData2" style="padding-left:1em">Yes</td>
+    </tr>
+            <tr>
+      <td headers="colTitle2" class="ct-nowrap">Studies a U.S. FDA-regulated Device Product:</td>
+      <td headers="colData2" style="padding-left:1em">No</td>
+    </tr>
+                    <tr>
+      <td headers="colTitle2" class="ct-nowrap">Product Manufactured in and Exported from the U.S.:</td>
+      <td headers="colData2" style="padding-left:1em">No</td>
+    </tr>
+        </tbody>
+  </table>
+  
+  
+    <!-- keywords -->
+        	
+    	    	  	<div class="tr-tableLabel">Keywords provided by National Institute of Allergy and Infectious Diseases (NIAID):</div>
+    	    	<div class="tr-indent3">
+          <table class="ct-layout_table tr-moreInfo" style="width:100%;">
+    	      <thead>
+    	      <tr>
+    	        <th id="keywordCol1" style="width:50%;"></th>
+    	        <th id="keywordCol2" style="width:50%;"></th>
+    	      </tr>
+    	      </thead>
+    	      <tr>
+    	        <td headers="keywordCol1" style="padding-left:1em;">
+    	              	          Adaptive<br/>
+    	              	          COVID-19<br/>
+    	              	          Efficacy<br/>
+    	              	          Multicenter<br/>
+    	              	        </td>
+    	            	        <td headers="keywordCol2" style="padding-left:1em;">
+    	              	          novel coronavirus<br/>
+    	              	          Safety<br/>
+    	              	          ACTT<br/>
+    	              	        </td>
+    	            	      </tr>
+    	    </table>
+    	</div>
+    
+    <!-- mesh terms -->
+          <div class="tr-tableLabel">Additional relevant MeSH terms:</div>
+      <div class="tr-indent3">
+        <table class="ct-layout_table tr-meshTerms" style="width:100%;">
+          <caption>Layout table for MeSH terms</caption>
+          <thead>
+          <tr>
+            <th id="meshTermCol1" style="width:50%;"></th>
+            <th id="meshTermCol2"></th>
+          </tr>
+          </thead>
+          <tr>
+            <td headers="meshTermCol1" style="padding-left:1em;">
+                            COVID-19<br/>
+                            Respiratory Tract Infections<br/>
+                            Infections<br/>
+                            Pneumonia, Viral<br/>
+                            Pneumonia<br/>
+                            Virus Diseases<br/>
+                            Coronavirus Infections<br/>
+                            Coronaviridae Infections<br/>
+                            Nidovirales Infections<br/>
+                          </td>
+                        <td headers="meshTermCol1" style="padding-left:1em;">
+                            RNA Virus Infections<br/>
+                            Lung Diseases<br/>
+                            Respiratory Tract Diseases<br/>
+                            Remdesivir<br/>
+                            Antimetabolites<br/>
+                            Molecular Mechanisms of Pharmacological Action<br/>
+                            Antiviral Agents<br/>
+                            Anti-Infective Agents<br/>
+                          </td>
+                      </tr>
+        </table>
+      </div>
+    
+  <br/>
+
+  <!--
+        <span class="ct-body3">ClinicalTrials.gov processed this record on December 01, 2022</span><br/>
+      -->
+    <br/>  
+  </div>
+   </div>
+						
+			<div id="to-top"><a href="#wrapper">To Top</a></div>
+			
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+</div>  
+<div>       <div id="for-footer">
+        <ul class="ct-horz-list">
+            <li style="border-left:0;"><a    href="/ct2/help/for-patient">For Patients and Families</a></li>
+            <li><a href="/ct2/help/for-researcher">For Researchers</a></li>
+            <li><a     href="/ct2/help/for-manager">For Study Record Managers</a></li>
+        </ul>
+    </div>
+
+</div>  
+<div id="footer-menu">
+    <ul class="ct-horz-list">
+		<li><a     href="/ct2/home">Home</a></li>
+		<li><a     href="/ct2/resources/rss">RSS Feeds</a></li>
+		<li><a     href="/ct2/sitemap">Site Map</a></li>
+		<li><a     href="/ct2/about-site/terms-conditions">Terms and Conditions</a></li>
+		<li><a     href="/ct2/about-site/disclaimer">Disclaimer</a></li>
+		<li><a     href="https://support.nlm.nih.gov/knowledgebase/category/?id=CAT-01242&amp;category=clinicaltrials.gov&amp;hd_url=https%3A%2F%2Fclinicaltrials.gov%2Fct2%2Fshow%2FNCT04280705" onclick="openNewWindow('https://support.nlm.nih.gov/knowledgebase/category/?id=CAT-01242&amp;category=clinicaltrials.gov&amp;hd_url=https%3A%2F%2Fclinicaltrials.gov%2Fct2%2Fshow%2FNCT04280705'); return false">Customer Support</a></li>
+	</ul>
+</div>
+
+</div>  
+<div id="fine-print">
+	<ul class="ct-horz-list">
+		<li ><a title="NLM copyright information - opens new window"  href="https://www.nlm.nih.gov/copyright.html" onclick="openNewWindow('https://www.nlm.nih.gov/copyright.html'); return false"
+>Copyright</a></li>
+		<li ><a title="NLM privacy policy - opens new window"  href="https://www.nlm.nih.gov/privacy.html" onclick="openNewWindow('https://www.nlm.nih.gov/privacy.html'); return false"
+>Privacy</a></li>
+		<li ><a href="/ct2/accessibility" title="NLM Accessibility">Accessibility</a></li>
+		<li ><a title="NLM viewers and players - opens new window"  href="https://www.nlm.nih.gov/plugins.html" onclick="openNewWindow('https://www.nlm.nih.gov/plugins.html'); return false"
+>Viewers and Players</a></li>
+		<li ><a title="NIH Freedom of Information Act office - opens new window"  href="https://www.nih.gov/icd/od/foia/index.htm" onclick="openNewWindow('https://www.nih.gov/icd/od/foia/index.htm'); return false"
+>Freedom of Information Act</a></li>
+		<li ><a title="USA.gov - opens new window"  href="https://www.usa.gov/" onclick="openNewWindow('https://www.usa.gov/'); return false"
+>USA.gov</a></li>
+		<!--li ><a id="vdp" title="HHS Vulnerability Disclosure - opens new window"  href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onclick="openNewWindow('https://www.hhs.gov/vulnerability-disclosure-policy/index.html'); return false"
+>HHS Vulnerability Disclosure</a></li-->
+		<li>
+			<a id="vdp" 
+				href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" 
+				title="HHS Vulnerability Disclosure" 
+				target="_blank">
+				HHS Vulnerability Disclosure
+			</a>
+		</li>
+	</ul>
+    <ul class="ct-horz-list">
+       <li><a title="U.S. National Library of Medicine - opens new window"  href="https://www.nlm.nih.gov/" onclick="openNewWindow('https://www.nlm.nih.gov/'); return false"
+>U.S. National Library of Medicine</a></li>
+       <li><a title="U.S. National Institutes of Health - opens new window"  href="https://www.nih.gov/" onclick="openNewWindow('https://www.nih.gov/'); return false"
+>U.S. National Institutes of Health</a></li>
+       <li><a title="U.S. Department of Health and Human Services - opens new window"  href="https://www.hhs.gov/" onclick="openNewWindow('https://www.hhs.gov/'); return false"
+>
+            U.S. Department of Health and Human Services</a></li>
+    </ul>
+</div>
+
+<script type="text/javascript">__ncbi_sg_gaMode="clinicaltrials"</script>
+<script type="text/javascript" src="/ct2/html/js/instrumentNCBIBaseJS.min.js?v=2"></script><noscript></noscript>
+<script type="text/javascript" src="/ct2/html/js/main-glossary.js?v=48"></script><noscript></noscript>
+<script type="text/javascript">
+//OnSubmit routine - copy over some useful data and submit
+function sendSearchPing() {
+// Get pinger values
+var cVals = ncbi.sg.getInstance()._cachedVals;
+var app = cVals['ncbi_app'];
+var db = cVals['ncbi_db'];
+var pdid = cVals['ncbi_pdid'];
+var pcid = cVals['ncbi_pcid'];
+// Populate search details
+var searchDetails = {};
+searchDetails['jsevent'] = 'search';
+searchDetails['searchtext'] = jQuery('#header-search-query').val();
+if (app!=null) searchDetails['ncbi_app'] = app.value;
+if (db!=null) searchDetails['ncbi_db'] = db.value;
+if (pdid!=null) searchDetails['ncbi_pdid'] = pdid.value;
+if (pcid!=null) searchDetails['ncbi_pcid'] = pcid.value;
+// Send ping msg
+ncbi.sg.ping(searchDetails);
+};
+</script>
+
+
+</body>
+</html>
+
+
