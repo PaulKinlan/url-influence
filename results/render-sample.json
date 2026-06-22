@@ -1,0 +1,544 @@
+{
+  "generatedAt": "2026-06-22T08:06:58.758Z",
+  "n": 59,
+  "counts": {
+    "server": 30,
+    "shell": 21,
+    "partial": 2,
+    "dead": 6
+  },
+  "sameOriginMixed": [],
+  "rows": [
+    {
+      "expected": "server",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228",
+      "source": "curated",
+      "rawVisible": 81105,
+      "renderedVisible": 116849,
+      "ratio": 0.694,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+      "source": "curated",
+      "rawVisible": 98088,
+      "renderedVisible": 107639,
+      "ratio": 0.911,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "source": "curated",
+      "rawVisible": 5302,
+      "renderedVisible": 5304,
+      "ratio": 1,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/fetch",
+      "source": "curated",
+      "rawVisible": 9931,
+      "renderedVisible": 8712,
+      "ratio": 1.14,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "source": "curated",
+      "rawVisible": 451619,
+      "renderedVisible": 454093,
+      "ratio": 0.995,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11237011/",
+      "source": "curated",
+      "rawVisible": 15524,
+      "renderedVisible": 17,
+      "ratio": 913.176,
+      "verdict": "dead/empty"
+    },
+    {
+      "expected": "server",
+      "url": "https://github.com/torvalds/linux",
+      "source": "curated",
+      "rawVisible": 10383,
+      "renderedVisible": 13568,
+      "ratio": 0.765,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://news.ycombinator.com/item?id=1",
+      "source": "curated",
+      "rawVisible": 511,
+      "renderedVisible": 513,
+      "ratio": 0.996,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "https://www.bbc.com/news",
+      "source": "curated",
+      "rawVisible": 10726,
+      "renderedVisible": 24612,
+      "ratio": 0.436,
+      "verdict": "partial"
+    },
+    {
+      "expected": "server",
+      "url": "https://react.dev/reference/react/useState",
+      "source": "curated",
+      "rawVisible": 25993,
+      "renderedVisible": 26108,
+      "ratio": 0.996,
+      "verdict": "server"
+    },
+    {
+      "expected": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT02846857",
+      "source": "curated",
+      "rawVisible": 175,
+      "renderedVisible": 59009,
+      "ratio": 0.003,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://bsky.app/profile/bsky.app",
+      "source": "curated",
+      "rawVisible": 393,
+      "renderedVisible": 20261,
+      "ratio": 0.019,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://chromestatus.com/feature/5085655327309824",
+      "source": "curated",
+      "rawVisible": 22,
+      "renderedVisible": 80,
+      "ratio": 0.275,
+      "verdict": "dead/empty"
+    },
+    {
+      "expected": "shell",
+      "url": "https://www.figma.com/community",
+      "source": "curated",
+      "rawVisible": 553,
+      "renderedVisible": 553,
+      "ratio": 1,
+      "verdict": "server"
+    },
+    {
+      "expected": "shell",
+      "url": "https://linear.app",
+      "source": "curated",
+      "rawVisible": 9681,
+      "renderedVisible": 10014,
+      "ratio": 0.967,
+      "verdict": "server"
+    },
+    {
+      "expected": "shell",
+      "url": "https://vercel.com/templates",
+      "source": "curated",
+      "rawVisible": 6634,
+      "renderedVisible": 5343,
+      "ratio": 1.242,
+      "verdict": "server"
+    },
+    {
+      "expected": "shell",
+      "url": "https://music.youtube.com/",
+      "source": "curated",
+      "rawVisible": 150,
+      "renderedVisible": 3018,
+      "ratio": 0.05,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://www.reddit.com/r/programming/",
+      "source": "curated",
+      "rawVisible": 37,
+      "renderedVisible": 143,
+      "ratio": 0.259,
+      "verdict": "dead/empty"
+    },
+    {
+      "expected": "?",
+      "url": "https://notion.so/help",
+      "source": "curated",
+      "rawVisible": 3637,
+      "renderedVisible": 3685,
+      "ratio": 0.987,
+      "verdict": "server"
+    },
+    {
+      "expected": "?",
+      "url": "https://www.notion.so/templates",
+      "source": "curated",
+      "rawVisible": 6108,
+      "renderedVisible": 6897,
+      "ratio": 0.886,
+      "verdict": "server"
+    },
+    {
+      "expected": "?",
+      "url": "https://nvd.nist.gov/vuln/search",
+      "source": "curated",
+      "rawVisible": 2068,
+      "renderedVisible": 8814,
+      "ratio": 0.235,
+      "verdict": "partial"
+    },
+    {
+      "expected": "?",
+      "url": "https://docs.github.com/en/rest",
+      "source": "curated",
+      "rawVisible": 5905,
+      "renderedVisible": 5738,
+      "ratio": 1.029,
+      "verdict": "server"
+    },
+    {
+      "expected": "?",
+      "url": "https://support.google.com/chrome",
+      "source": "curated",
+      "rawVisible": 7228,
+      "renderedVisible": 7789,
+      "ratio": 0.928,
+      "verdict": "server"
+    },
+    {
+      "expected": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT02846857",
+      "source": "recall-corpus",
+      "rawVisible": 175,
+      "renderedVisible": 59009,
+      "ratio": 0.003,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT00000378",
+      "source": "recall-corpus",
+      "rawVisible": 175,
+      "renderedVisible": 54385,
+      "ratio": 0.003,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT04280705",
+      "source": "recall-corpus",
+      "rawVisible": 175,
+      "renderedVisible": 90577,
+      "ratio": 0.002,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT03035123",
+      "source": "recall-corpus",
+      "rawVisible": 175,
+      "renderedVisible": 57450,
+      "ratio": 0.003,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://3ddd.ru/3dmodels/show/christopher_hyde_belgravia",
+      "source": "recall-corpus",
+      "rawVisible": 53,
+      "renderedVisible": 2283,
+      "ratio": 0.023,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://3speak.tv/watch?v=chaste-music/ojyxcsrg",
+      "source": "recall-corpus",
+      "rawVisible": 37,
+      "renderedVisible": 0,
+      "ratio": null,
+      "verdict": "dead/empty"
+    },
+    {
+      "expected": "shell",
+      "url": "https://3speak.tv/watch?v=chrono.spt/cpnoqjsw",
+      "source": "recall-corpus",
+      "rawVisible": 37,
+      "renderedVisible": 0,
+      "ratio": null,
+      "verdict": "dead/empty"
+    },
+    {
+      "expected": "shell",
+      "url": "https://artic.contentdm.oclc.org/digital/collection/mqc/id/65011/",
+      "source": "recall-corpus",
+      "rawVisible": 105,
+      "renderedVisible": 2343,
+      "ratio": 0.045,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://australianarchaeologicalassociation.com.au/events/national-archaeology-week-networking-dinner-naw-2025/",
+      "source": "recall-corpus",
+      "rawVisible": 150,
+      "renderedVisible": 3655,
+      "ratio": 0.041,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://beatsaver.com/?order=Rating&from=2025-01-20T02:37:07.375752769Z",
+      "source": "recall-corpus",
+      "rawVisible": 298,
+      "renderedVisible": 7675,
+      "ratio": 0.039,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://bezbets.co.zw/sports/outright/rugby/rugby-union/super-rugby/super-rugby-2026-10225",
+      "source": "recall-corpus",
+      "rawVisible": 0,
+      "renderedVisible": 1648,
+      "ratio": 0,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://bondekompaniet.no/america-drikkebotte-hons-galvanisert-10-liter-970106882a",
+      "source": "recall-corpus",
+      "rawVisible": 46,
+      "renderedVisible": 24651,
+      "ratio": 0.002,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://bsky.app/intent/compose?text=Izaak%20https://groupfinder.eu/players/472",
+      "source": "recall-corpus",
+      "rawVisible": 227,
+      "renderedVisible": 9132,
+      "ratio": 0.025,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://bsky.app/intent/compose?text=Life%20cycle%20dynamics%20of%20Greenland%20blocking%20from%20a%20potential%20vorticity%20perspective+https%3A%2F%2Fpublikationen.bibliothek.kit.edu%2F1000170991",
+      "source": "recall-corpus",
+      "rawVisible": 227,
+      "renderedVisible": 10615,
+      "ratio": 0.021,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://bsky.app/intent/compose?text=The%20prisoner%20and%20the%20catalog%20https://www.lorcandempsey.net/the-prisoner-and-the-catalog/",
+      "source": "recall-corpus",
+      "rawVisible": 227,
+      "renderedVisible": 8235,
+      "ratio": 0.028,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://colegiosconcertados.info/colegio-cardenal-spinola-fundacion-spinola-madrid/",
+      "source": "recall-corpus",
+      "rawVisible": 0,
+      "renderedVisible": 1152,
+      "ratio": 0,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://connect.shore.com/bookings/auge-n6/services?locale=de",
+      "source": "recall-corpus",
+      "rawVisible": 55,
+      "renderedVisible": 1607,
+      "ratio": 0.034,
+      "verdict": "shell"
+    },
+    {
+      "expected": "shell",
+      "url": "https://docs.trustx.com/xdetech/welcome-to-xdetech",
+      "source": "recall-corpus",
+      "rawVisible": 0,
+      "renderedVisible": 5103,
+      "ratio": 0,
+      "verdict": "shell"
+    },
+    {
+      "expected": "server",
+      "url": "http://01chan.ru/viewforum.php?f=24&sid=0fc09fe861cc394fac56826b23bfb9d9",
+      "source": "recall-corpus",
+      "rawVisible": 1418,
+      "renderedVisible": 1391,
+      "ratio": 1.019,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://01swa.cn/",
+      "source": "recall-corpus",
+      "rawVisible": 0,
+      "renderedVisible": 1104,
+      "ratio": 0,
+      "verdict": "shell"
+    },
+    {
+      "expected": "server",
+      "url": "http://049qq.com/play/index28285-0-0.html",
+      "source": "recall-corpus",
+      "rawVisible": 703,
+      "renderedVisible": 1135,
+      "ratio": 0.619,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://1-2-no-3.cocolog-nifty.com/himajin/2009/03/post-0536.html",
+      "source": "recall-corpus",
+      "rawVisible": 4069,
+      "renderedVisible": 4885,
+      "ratio": 0.833,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://126811.com/ShowInfo.asp?id=97566",
+      "source": "recall-corpus",
+      "rawVisible": 10959,
+      "renderedVisible": 0,
+      "ratio": null,
+      "verdict": "dead/empty"
+    },
+    {
+      "expected": "server",
+      "url": "http://1325naps.peacewomen.org/index.php/document/paraguay-nap-2015-spanish/",
+      "source": "recall-corpus",
+      "rawVisible": 0,
+      "renderedVisible": 734,
+      "ratio": 0,
+      "verdict": "shell"
+    },
+    {
+      "expected": "server",
+      "url": "http://1t06.com/ucmd/271686.html",
+      "source": "recall-corpus",
+      "rawVisible": 25423,
+      "renderedVisible": 25423,
+      "ratio": 1,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://2event.com/uk/organizers/147?page=7",
+      "source": "recall-corpus",
+      "rawVisible": 3567,
+      "renderedVisible": 4187,
+      "ratio": 0.852,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://334diu.com/htm/2022/5/28/zipaitoupai/545058.html",
+      "source": "recall-corpus",
+      "rawVisible": 715,
+      "renderedVisible": 1071,
+      "ratio": 0.668,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://334diu.com/htm/2024/8/28/sanjijingdian/645551.html",
+      "source": "recall-corpus",
+      "rawVisible": 752,
+      "renderedVisible": 1108,
+      "ratio": 0.679,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://340gg.com/play/index33579-0-0.html",
+      "source": "recall-corpus",
+      "rawVisible": 719,
+      "renderedVisible": 1151,
+      "ratio": 0.625,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://3lgs.org/TNG/suggest.php?page=Bennett%2C+Laura+Malvina+b.+1837+d.+Yes%2C+date+unknown",
+      "source": "recall-corpus",
+      "rawVisible": 1130,
+      "renderedVisible": 1139,
+      "ratio": 0.992,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://3x-energy.com/fr/accueil/",
+      "source": "recall-corpus",
+      "rawVisible": 1502,
+      "renderedVisible": 1573,
+      "ratio": 0.955,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://424qq.com/play/index5834-0-0.html",
+      "source": "recall-corpus",
+      "rawVisible": 781,
+      "renderedVisible": 1252,
+      "ratio": 0.624,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://508889.com/315.html",
+      "source": "recall-corpus",
+      "rawVisible": 751,
+      "renderedVisible": 1049,
+      "ratio": 0.716,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://52-xiaoshuo.cn/index.php",
+      "source": "recall-corpus",
+      "rawVisible": 750,
+      "renderedVisible": 754,
+      "ratio": 0.995,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://5280learners.weebly.com/growth-mindset.html",
+      "source": "recall-corpus",
+      "rawVisible": 1359,
+      "renderedVisible": 1355,
+      "ratio": 1.003,
+      "verdict": "server"
+    },
+    {
+      "expected": "server",
+      "url": "http://6dun.tkgl6.cn/pro/pro8/165.html",
+      "source": "recall-corpus",
+      "rawVisible": 1452,
+      "renderedVisible": 1557,
+      "ratio": 0.933,
+      "verdict": "server"
+    }
+  ]
+}
