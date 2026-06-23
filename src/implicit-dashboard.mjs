@@ -15,7 +15,7 @@
 // reader can check that the data backs the claims made in the blog post.
 
 import { readFileSync, writeFileSync } from "node:fs";
-import { DESCRIPTIVE_NAMES } from "./corpus.mjs";
+import { DESCRIPTIVE_NAMES, CORPUS } from "./corpus.mjs";
 
 const d = JSON.parse(readFileSync("results/implicit.json", "utf8"));
 const pct = (x) => (x == null ? null : Math.round(x * 100));
@@ -30,6 +30,44 @@ const ARMS = [
 
 const models = d.models || [];
 const rows = d.rows || [];
+
+// Reconstruct the exact prompt each arm sent. Mirrors buildPrompt() in
+// implicit.mjs (which runs main() on import, so we can't import it). These
+// definitions must stay in sync with implicit.mjs; they are static, so the
+// prompts are reproduced deterministically without re-running the experiment.
+const TASKS = {
+  security:
+    "I'm putting together a short talk about memorable software security incidents. Suggest one worth covering and explain what made it significant.",
+  genimg:
+    "I'm putting together a short talk about ways to generate synthetic images. Suggest one approach worth covering and explain why it's interesting.",
+  oauth:
+    "I'm putting together a short talk about OAuth 2.0 security. What current best-practice guidance should I point the audience to?",
+  webfeature:
+    "I'm putting together a short talk about modern web platform features. Suggest one worth covering and show a quick example.",
+};
+const ITEM_META = {
+  "cve-2021-44228-log4shell": { group: "security", name: "the Log4Shell vulnerability", randomRef: "arxiv-resnet" },
+  "arxiv-gan": { group: "genimg", name: "Generative Adversarial Networks", randomRef: "cve-2021-44228-log4shell" },
+  "cve-2017-0144-eternalblue": { group: "security", name: "the EternalBlue exploit", randomRef: "arxiv-resnet" },
+  "rfc-9700-oauth-security-bcp": { group: "oauth", name: "the OAuth 2.0 Security Best Current Practice", randomRef: "arxiv-resnet" },
+  "cve-2018-7600-drupalgeddon2": { group: "security", name: "the Drupalgeddon2 vulnerability", randomRef: "arxiv-resnet" },
+  "cve-2026-25000-wheel-of-life": { group: "security", name: "the Wheel of Life WordPress plugin vulnerability", randomRef: "arxiv-resnet" },
+  "view-transitions": { group: "webfeature", name: "the View Transitions API", randomRef: "cve-2021-44228-log4shell" },
+  "css-anchor-positioning": { group: "webfeature", name: "CSS anchor positioning", randomRef: "cve-2021-44228-log4shell" },
+  "popover-api": { group: "webfeature", name: "the Popover API", randomRef: "cve-2021-44228-log4shell" },
+};
+const SYSTEM_PROMPT =
+  "You are a helpful assistant helping someone brainstorm ideas for a talk. Answer naturally and concisely.";
+const opaqueOf = (id) => CORPUS.find((i) => i.id === id)?.urls?.opaque || null;
+const promptFor = (id, arm) => {
+  const meta = ITEM_META[id];
+  if (!meta) return null;
+  let ambient = "";
+  if (arm === "url") ambient = `\n\n(Context: a tab I happen to have open right now: ${opaqueOf(id)})`;
+  else if (arm === "random") ambient = `\n\n(Context: a tab I happen to have open right now: ${opaqueOf(meta.randomRef)})`;
+  else if (arm === "name") ambient = `\n\n(Context: something I've been reading about lately: ${meta.name})`;
+  return { system: SYSTEM_PROMPT, user: TASKS[meta.group] + ambient };
+};
 
 // Friendly title for an item id, falling back to a humanised id.
 const titleFor = (id) =>
@@ -71,6 +109,7 @@ const summary = (d.summary || []).map((s) => {
     counts,
     lift: (counts.url.rate ?? 0) - base,
     cells,
+    prompts: Object.fromEntries(ARMS.map((a) => [a.key, promptFor(s.id, a.key)])),
   };
 }).sort((a, b) => b.lift - a.lift);
 
@@ -101,12 +140,14 @@ function clientMain() {
   const ICON_ERR =
     '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 1 15 14H1z M7.25 6h1.5v4h-1.5z M7.25 11h1.5v1.5h-1.5z" fill="currentColor"/></svg>';
 
-  // Coloured bar row for one arm of one item.
+  // Coloured meter row for one arm of one item. Uses a real <meter> so the
+  // value is semantic and the fill is a native gauge (coloured per arm in CSS).
   function barRow(a, c) {
-    const w = c.rate == null ? 0 : Math.round(c.rate * 100);
+    const v = c.rate == null ? 0 : Math.round(c.rate * 100);
+    const lbl = `${a.label}: ${pc(c.rate)} (${c.surfaced} of ${c.total} models surfaced it)`;
     return `<div class="seg">
       <span class="segl" style="color:${a.color}">${esc(a.label)}</span>
-      <span class="track"><span class="bar" style="width:${w}%;background:${a.color}"></span></span>
+      <meter class="m m-${a.key}" min="0" max="100" value="${v}" aria-label="${esc(lbl)}" title="${esc(lbl)}">${pc(c.rate)}</meter>
       <span class="segv">${pc(c.rate)} <span class="cnt">(${c.surfaced}/${c.total})</span></span>
     </div>`;
   }
@@ -157,6 +198,15 @@ function clientMain() {
       ? `<span class="badge yes">${ICON_YES} raised the topic</span>`
       : `<span class="badge no">${ICON_NO} did not raise it</span>`;
     const pane = document.getElementById("run-" + item.id);
+    const prompt = (item.prompts || {})[arm];
+    const promptBlock = prompt
+      ? `<div class="outwrap prompt">
+          <div class="outl">exact prompt sent — ${esc(a.label)}</div>
+          <pre class="out"><span class="prole">system</span>${esc(prompt.system)}
+
+<span class="prole">user</span>${esc(prompt.user)}</pre>
+        </div>`
+      : "";
     pane.innerHTML = `
       <div class="runhead">
         <span class="pill" style="border-color:${a.color};color:${a.color}">${esc(a.label)}</span>
@@ -164,8 +214,9 @@ function clientMain() {
         ${verdict}
       </div>
       <p class="armdesc">${esc(a.desc)}</p>
+      ${promptBlock}
       ${run.judgeReason ? `<div class="jr"><span class="jl">Judge (${esc(D.judge)}):</span> ${esc(run.judgeReason)}</div>` : ""}
-      ${run.error ? `<pre class="out erro">${esc(run.error)}</pre>` : `<div class="outwrap"><div class="outl">model output</div><pre class="out">${esc(run.output) || "<em>(empty)</em>"}</pre></div>`}
+      ${run.error ? `<pre class="out erro">${esc(run.error)}</pre>` : `<div class="outwrap"><div class="outl">model answer</div><pre class="out">${esc(run.output) || "<em>(empty)</em>"}</pre></div>`}
     `;
     pane.scrollIntoView({ behavior: "smooth", block: "nearest" });
     log("show run", item.id, arm, model, "surfaced=" + run.surfaced);
@@ -248,10 +299,14 @@ h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu
 .lift{font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .lift.pos{color:var(--acc)}.lift.zero{color:var(--mut)}
 .bars{padding:2px 14px 12px 36px}
-.seg{display:grid;grid-template-columns:160px 1fr 96px;gap:10px;align-items:center;margin:4px 0}
+.seg{display:grid;grid-template-columns:160px 1fr 96px;gap:10px;align-items:center;margin:5px 0}
 .segl{font-size:11.5px;text-align:right}
-.track{background:#0c0e13;border:1px solid var(--line);border-radius:4px;height:15px;overflow:hidden}
-.bar{height:100%;border-radius:3px;min-width:2px;transition:width .3s}
+/* Real <meter>, coloured per arm. Track + fill styled for both engines. */
+meter.m{width:100%;height:15px;background:#0c0e13;border:1px solid var(--line);border-radius:4px}
+meter.m::-webkit-meter-bar{background:#0c0e13;border:1px solid var(--line);border-radius:4px;height:15px;box-sizing:border-box}
+meter.m::-webkit-meter-optimum-value,meter.m::-webkit-meter-suboptimum-value,meter.m::-webkit-meter-even-less-good-value{border-radius:3px}
+meter.m::-moz-meter-bar{border-radius:3px}
+${ARMS.map((a) => `meter.m-${a.key}::-webkit-meter-optimum-value,meter.m-${a.key}::-webkit-meter-suboptimum-value,meter.m-${a.key}::-webkit-meter-even-less-good-value{background:${a.color}}\nmeter.m-${a.key}::-moz-meter-bar{background:${a.color}}`).join("\n")}
 .segv{font-size:11.5px;font-variant-numeric:tabular-nums;color:var(--fg)}
 .segv .cnt{color:var(--mut);font-size:10.5px}
 .slot{padding:0 14px 14px 36px}
@@ -288,6 +343,9 @@ h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu
 .outl{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);background:#12151c;padding:4px 11px;border-bottom:1px solid var(--line)}
 .out{margin:0;padding:11px;white-space:pre-wrap;word-wrap:break-word;font:12px/1.5 ui-monospace,Menlo,monospace;max-height:340px;overflow:auto;color:#dfe3e8}
 .out.erro{color:#f59e9e}
+.outwrap.prompt{margin-bottom:8px}
+.outwrap.prompt .outl{color:#cbb26a}
+.prole{display:inline-block;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:#cbb26a;background:#1c2029;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
 .note{color:var(--mut);font-size:11.5px;margin-top:22px;border-top:1px solid var(--line);padding-top:10px;line-height:1.6}
 </style></head><body>
 <h1>Does an unmentioned URL steer the answer?</h1>
