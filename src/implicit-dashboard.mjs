@@ -31,43 +31,11 @@ const ARMS = [
 const models = d.models || [];
 const rows = d.rows || [];
 
-// Reconstruct the exact prompt each arm sent. Mirrors buildPrompt() in
-// implicit.mjs (which runs main() on import, so we can't import it). These
-// definitions must stay in sync with implicit.mjs; they are static, so the
-// prompts are reproduced deterministically without re-running the experiment.
-const TASKS = {
-  security:
-    "I'm putting together a short talk about memorable software security incidents. Suggest one worth covering and explain what made it significant.",
-  genimg:
-    "I'm putting together a short talk about ways to generate synthetic images. Suggest one approach worth covering and explain why it's interesting.",
-  oauth:
-    "I'm putting together a short talk about OAuth 2.0 security. What current best-practice guidance should I point the audience to?",
-  webfeature:
-    "I'm putting together a short talk about modern web platform features. Suggest one worth covering and show a quick example.",
-};
-const ITEM_META = {
-  "cve-2021-44228-log4shell": { group: "security", name: "the Log4Shell vulnerability", randomRef: "arxiv-resnet" },
-  "arxiv-gan": { group: "genimg", name: "Generative Adversarial Networks", randomRef: "cve-2021-44228-log4shell" },
-  "cve-2017-0144-eternalblue": { group: "security", name: "the EternalBlue exploit", randomRef: "arxiv-resnet" },
-  "rfc-9700-oauth-security-bcp": { group: "oauth", name: "the OAuth 2.0 Security Best Current Practice", randomRef: "arxiv-resnet" },
-  "cve-2018-7600-drupalgeddon2": { group: "security", name: "the Drupalgeddon2 vulnerability", randomRef: "arxiv-resnet" },
-  "cve-2026-25000-wheel-of-life": { group: "security", name: "the Wheel of Life WordPress plugin vulnerability", randomRef: "arxiv-resnet" },
-  "view-transitions": { group: "webfeature", name: "the View Transitions API", randomRef: "cve-2021-44228-log4shell" },
-  "css-anchor-positioning": { group: "webfeature", name: "CSS anchor positioning", randomRef: "cve-2021-44228-log4shell" },
-  "popover-api": { group: "webfeature", name: "the Popover API", randomRef: "cve-2021-44228-log4shell" },
-};
-const SYSTEM_PROMPT =
-  "You are a helpful assistant helping someone brainstorm ideas for a talk. Answer naturally and concisely.";
-const opaqueOf = (id) => CORPUS.find((i) => i.id === id)?.urls?.opaque || null;
-const promptFor = (id, arm) => {
-  const meta = ITEM_META[id];
-  if (!meta) return null;
-  let ambient = "";
-  if (arm === "url") ambient = `\n\n(Context: a tab I happen to have open right now: ${opaqueOf(id)})`;
-  else if (arm === "random") ambient = `\n\n(Context: a tab I happen to have open right now: ${opaqueOf(meta.randomRef)})`;
-  else if (arm === "name") ambient = `\n\n(Context: something I've been reading about lately: ${meta.name})`;
-  return { system: SYSTEM_PROMPT, user: TASKS[meta.group] + ambient };
-};
+// Prompts are emitted verbatim by implicit.mjs into results/implicit.json
+// (`prompts[item][arm] = {system,user}`), so the dashboard renders the EXACT
+// prompt sent without re-deriving it — no drift when the item set changes.
+const PROMPTS = d.prompts || {};
+const promptFor = (id, arm) => (PROMPTS[id] || {})[arm] || null;
 
 // Friendly title for an item id, falling back to a humanised id.
 const titleFor = (id) =>
@@ -110,6 +78,12 @@ const summary = (d.summary || []).map((s) => {
     lift: (counts.url.rate ?? 0) - base,
     cells,
     prompts: Object.fromEntries(ARMS.map((a) => [a.key, promptFor(s.id, a.key)])),
+    // interpretation metadata (from implicit.json summary)
+    contentDate: s.contentDate || null,
+    idType: s.idType || null,
+    opaque: s.opaque || null,
+    ccPresent: s.ccPresent ?? null,
+    ccPresentIn: s.ccPresentIn || [],
   };
 }).sort((a, b) => b.lift - a.lift);
 
@@ -120,7 +94,7 @@ for (const a of ARMS) {
   avg[a.key] = xs.length ? xs.reduce((p, c) => p + c, 0) / xs.length : 0;
 }
 
-const DATA = { models, judge: d.judge || "", arms: ARMS, avg, items: summary };
+const DATA = { models, judge: d.judge || "", arms: ARMS, avg, items: summary, modelCutoffs: d.modelCutoffs || {} };
 
 // The client renderer. Stringified verbatim (no server-side interpolation of
 // its own template literals) and invoked over the embedded JSON.
@@ -139,6 +113,8 @@ function clientMain() {
     '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4 7.25h8v1.5H4z" fill="currentColor"/></svg>';
   const ICON_ERR =
     '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 1 15 14H1z M7.25 6h1.5v4h-1.5z M7.25 11h1.5v1.5h-1.5z" fill="currentColor"/></svg>';
+  const ICON_LINK =
+    '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6.7 9.3a2.6 2.6 0 0 1 0-3.6l2-2a2.6 2.6 0 1 1 3.6 3.6l-1 1-1.1-1.1 1-1a1.1 1.1 0 0 0-1.5-1.5l-2 2a1.1 1.1 0 0 0 0 1.5zM9.3 6.7a2.6 2.6 0 0 1 0 3.6l-2 2a2.6 2.6 0 1 1-3.6-3.6l1-1 1.1 1.1-1 1a1.1 1.1 0 0 0 1.5 1.5l2-2a1.1 1.1 0 0 0 0-1.5z" fill="currentColor"/></svg>';
 
   // Coloured meter row for one arm of one item. Uses a real <meter> so the
   // value is semantic and the fill is a native gauge (coloured per arm in CSS).
@@ -150,6 +126,14 @@ function clientMain() {
       <meter class="m m-${a.key}" min="0" max="100" value="${v}" aria-label="${esc(lbl)}" title="${esc(lbl)}">${pc(c.rate)}</meter>
       <span class="segv">${pc(c.rate)} <span class="cnt">(${c.surfaced}/${c.total})</span></span>
     </div>`;
+  }
+
+  // Is the item's content before (pre) or after (post) a model's training
+  // cutoff? Mid-month-pad YYYY-MM content dates; ISO strings compare in order.
+  function cutoffRel(contentDate, cutoff) {
+    if (!contentDate || !cutoff) return null;
+    const c = contentDate.length === 7 ? contentDate + "-15" : contentDate;
+    return c <= cutoff ? "pre" : "post";
   }
 
   function detailPane(item) {
@@ -164,7 +148,10 @@ function clientMain() {
         const ic = run.error ? ICON_ERR : run.surfaced ? ICON_YES : ICON_NO;
         return `<td><button class="cell ${cls}" data-item="${esc(item.id)}" data-arm="${esc(a.key)}" data-model="${esc(m)}" title="${esc(a.label)} · ${esc(m)}">${ic}</button></td>`;
       }).join("");
-      return `<tr><td class="mc">${esc(m)}</td>${tds}</tr>`;
+      // pre/post for THIS item vs THIS model's cutoff (same across arms).
+      const rel = cutoffRel(item.contentDate, (D.modelCutoffs || {})[m]);
+      const relTag = rel ? `<span class="rel ${rel}">${rel}-cutoff</span>` : "";
+      return `<tr><td class="mc">${esc(m)}${relTag}</td>${tds}</tr>`;
     }).join("");
     return `<div class="detail">
       <p class="legend2"><span class="k yes">${ICON_YES} raised the topic</span><span class="k no">${ICON_NO} did not</span><span class="k err">${ICON_ERR} run errored</span><span class="hint">click any cell to read the model's actual answer and the judge's verdict</span></p>
@@ -176,13 +163,24 @@ function clientMain() {
   function itemCard(item, i) {
     const bars = D.arms.map((a) => barRow(a, item.counts[a.key])).join("");
     const liftCls = item.lift > 0 ? "pos" : "zero";
-    return `<section class="item" data-i="${i}">
+    const cc = item.ccPresent === true
+      ? `<span class="mb cc yes" title="${esc((item.ccPresentIn || []).join(", ") || "in Common Crawl")}">in Common Crawl</span>`
+      : item.ccPresent === false
+      ? `<span class="mb cc no" title="not found in the checked Common Crawl snapshots">not in Common Crawl</span>`
+      : `<span class="mb cc unk">CC unchecked</span>`;
+    return `<section class="item" id="${esc(item.id)}" data-i="${i}">
       <button class="ih" aria-expanded="false">
         <span class="tw"><span class="caret">▸</span></span>
         <span class="iti"><span class="title">${esc(item.title)}</span><span class="iid">${esc(item.id)}</span></span>
         <span class="grp">${esc(item.group)}</span>
         <span class="lift ${liftCls}">lift +${pc(item.lift)}</span>
       </button>
+      <div class="imeta">
+        ${item.contentDate ? `<span class="mb date" title="content / publication date">${esc(item.contentDate)}</span>` : ""}
+        ${cc}
+        ${item.idType ? `<span class="mb idt" title="identifier type">${esc(item.idType)}</span>` : ""}
+        ${item.opaque ? `<a class="mb url" href="${esc(item.opaque)}" target="_blank" rel="noopener noreferrer">opaque URL</a>` : ""}
+      </div>
       <div class="bars">${bars}</div>
       <div class="slot" hidden></div>
     </section>`;
@@ -212,6 +210,7 @@ function clientMain() {
         <span class="pill" style="border-color:${a.color};color:${a.color}">${esc(a.label)}</span>
         <span class="pill model">${esc(model)}</span>
         ${verdict}
+        <button type="button" class="copylink" data-item="${esc(item.id)}" data-arm="${esc(arm)}" data-model="${esc(model)}" title="Copy a shareable link to this exact run">${ICON_LINK}<span class="cl-t">copy link</span></button>
       </div>
       <p class="armdesc">${esc(a.desc)}</p>
       ${promptBlock}
@@ -225,27 +224,81 @@ function clientMain() {
   const root = document.getElementById("items");
   root.innerHTML = D.items.map(itemCard).join("");
 
-  // Expand / collapse an item, rendering its matrix lazily.
+  // --- Deep-linking: every item (and every specific run) is addressable +
+  // shareable via the URL fragment. `#<item-id>` opens that item;
+  // `#<item-id>:<arm>:<model>` opens it and shows that exact run. Clicks update
+  // the URL (replaceState, no history spam); pasting/editing the hash re-applies.
+  function fillAndOpen(sec) {
+    const slot = sec.querySelector(".slot");
+    if (!slot.dataset.filled) {
+      slot.innerHTML = detailPane(D.items[+sec.dataset.i]);
+      slot.dataset.filled = "1";
+    }
+    slot.removeAttribute("hidden");
+    sec.querySelector(".ih").setAttribute("aria-expanded", "true");
+    sec.classList.add("open");
+  }
+  function closeItem(sec) {
+    sec.querySelector(".slot").setAttribute("hidden", "");
+    sec.querySelector(".ih").setAttribute("aria-expanded", "false");
+    sec.classList.remove("open");
+  }
+  function deepLink(itemId, arm, model) {
+    const parts = arm && model ? [itemId, arm, model] : [itemId];
+    return "#" + parts.map(encodeURIComponent).join(":");
+  }
+  function setHash(hash) {
+    history.replaceState(null, "", hash || (location.pathname + location.search));
+  }
+  function decode(s) {
+    try { return decodeURIComponent(s); } catch { return s; }
+  }
+  function applyHash() {
+    const raw = location.hash.slice(1);
+    if (!raw) return;
+    const [itemId, arm, model] = raw.split(":").map(decode);
+    const idx = D.items.findIndex((x) => x.id === itemId);
+    if (idx < 0) return;
+    const sec = root.querySelector('.item[data-i="' + idx + '"]');
+    fillAndOpen(sec);
+    if (arm && model) {
+      const item = D.items[idx];
+      sec.querySelectorAll(".cell.sel").forEach((c) => c.classList.remove("sel"));
+      const sel = window.CSS && CSS.escape
+        ? '.cell[data-arm="' + CSS.escape(arm) + '"][data-model="' + CSS.escape(model) + '"]'
+        : null;
+      const cell = sel ? sec.querySelector(sel) : null;
+      if (cell) cell.classList.add("sel");
+      showRun(item, arm, model); // scrolls the run pane into view
+    } else {
+      sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   root.addEventListener("click", (e) => {
+    const copy = e.target.closest(".copylink");
+    if (copy) {
+      const link = location.origin + location.pathname + location.search +
+        deepLink(copy.dataset.item, copy.dataset.arm, copy.dataset.model);
+      setHash(deepLink(copy.dataset.item, copy.dataset.arm, copy.dataset.model));
+      const t = copy.querySelector(".cl-t");
+      const done = () => { if (t) { const o = t.textContent; t.textContent = "link copied"; setTimeout(() => (t.textContent = o), 1400); } };
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(link).then(done, done);
+      else done();
+      return;
+    }
     const head = e.target.closest(".ih");
     if (head) {
       const sec = head.closest(".item");
-      const slot = sec.querySelector(".slot");
-      const open = slot.hasAttribute("hidden");
-      if (open) {
-        if (!slot.dataset.filled) {
-          slot.innerHTML = detailPane(D.items[+sec.dataset.i]);
-          slot.dataset.filled = "1";
-        }
-        slot.removeAttribute("hidden");
-        head.setAttribute("aria-expanded", "true");
-        sec.classList.add("open");
+      const item = D.items[+sec.dataset.i];
+      if (sec.classList.contains("open")) {
+        closeItem(sec);
+        if (decode(location.hash.slice(1).split(":")[0] || "") === item.id) setHash("");
       } else {
-        slot.setAttribute("hidden", "");
-        head.setAttribute("aria-expanded", "false");
-        sec.classList.remove("open");
+        fillAndOpen(sec);
+        setHash(deepLink(item.id));
       }
-      log("toggle", D.items[+sec.dataset.i].id, "open=" + open);
+      log("toggle", item.id);
       return;
     }
     const cell = e.target.closest(".cell");
@@ -254,8 +307,12 @@ function clientMain() {
       cell.classList.add("sel");
       const item = D.items.find((x) => x.id === cell.dataset.item);
       showRun(item, cell.dataset.arm, cell.dataset.model);
+      setHash(deepLink(cell.dataset.item, cell.dataset.arm, cell.dataset.model));
     }
   });
+
+  window.addEventListener("hashchange", applyHash);
+  applyHash(); // open + scroll to a deep-linked item/run on initial load
 
   log("ready", D.items.length, "items,", D.models.length, "models");
 }
@@ -298,6 +355,15 @@ h2{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mu
 .grp{font-size:10px;color:var(--mut);background:#1c2029;border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-left:auto;white-space:nowrap}
 .lift{font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .lift.pos{color:var(--acc)}.lift.zero{color:var(--mut)}
+.imeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:0 14px 8px 36px}
+.mb{font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:1px 7px;white-space:nowrap;text-decoration:none}
+.mb.cc.yes{color:#34d399;border-color:#34d39955}
+.mb.cc.no{color:#f87171;border-color:#f8717155}
+.mb.url:hover{color:var(--fg);border-color:var(--mut)}
+.rel{margin-left:6px;font-size:9.5px;border-radius:5px;padding:0 5px}
+.rel.pre{color:#34d399;background:#34d39915}.rel.post{color:#f59e0b;background:#f59e0b18}
+.copylink{margin-left:auto;display:inline-flex;gap:5px;align-items:center;font:inherit;font-size:11px;background:none;border:1px solid var(--line);color:var(--mut);border-radius:20px;padding:2px 10px;cursor:pointer}
+.copylink:hover{color:var(--fg);border-color:var(--mut)}
 .bars{padding:2px 14px 12px 36px}
 .seg{display:grid;grid-template-columns:160px 1fr 96px;gap:10px;align-items:center;margin:5px 0}
 .segl{font-size:11.5px;text-align:right}
