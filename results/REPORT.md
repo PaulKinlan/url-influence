@@ -1,8 +1,8 @@
 # URL Influence: Results
 
-Report generated: 2026-06-22T10:35:42.223Z
-Data run / scored: 2026-06-22T10:35:24.449Z
-Code + data commit: [`81df315e65`](https://github.com/PaulKinlan/url-influence/commit/81df315e655707f81f314ff02494ad406c670b9f)
+Report generated: 2026-06-28T18:45:38.955Z
+Data run / scored: 2026-06-28T18:45:27.704Z
+Code + data commit: [`edb96a0a62`](https://github.com/PaulKinlan/url-influence/commit/edb96a0a62f92e0fa6827161e6bcd0390cfe9e76)
 Judge model: `claude-sonnet-4-5`
 Judged outputs: 13995 (judge failures: 0)
 
@@ -222,7 +222,7 @@ Exactly what the `opaque-url` (OPAQUE) id is for each item, and which descriptiv
 | `hf-gemma-4-26b-a4b-it` | 2026-03-11 | `huggingface.co/google/gemma-4-26B-A4B-it` | HuggingFace id | — | — | 1 (2026-04) |
 | `element-scoped-view-transitions` | 2026-04 | `chromestatus.com/feature/5109852273377280` | ChromeStatus # | Y | Y | 1 (2026-04) |
 | `math-sumprecise` | 2026-04 | `chromestatus.com/feature/4790090146643968` | ChromeStatus # | Y | Y | 1 (2026-04) |
-| `gamepad-event-driven-input` | 2026-04 | `chromestatus.com/feature/5989275208253440` | ChromeStatus # | — | — | 0 |
+| `gamepad-event-driven-input` | 2026-04 | `chromestatus.com/feature/5989275208253440` | ChromeStatus # | Y | — | 0 |
 | `doi-biorxiv-endomesoderm-grn` | 2026-04-01 | `doi.org/10.64898/2026.03.31.715602` | DOI | — | — | 0 |
 | `gh-sha-obscure-ky-searchparams` | 2026-04-21 | `github.com/sindresorhus/ky/commit/add0703b7ea2e20f5afe16ab5d9507a16e275f20` | GitHub commit SHA | — | — | — |
 | `hf-qwen3-6-27b` | 2026-04-21 | `huggingface.co/Qwen/Qwen3.6-27B` | HuggingFace id | — | — | 1 (2026-05) |

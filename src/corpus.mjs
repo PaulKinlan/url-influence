@@ -753,6 +753,11 @@ export const CORPUS = [
       descriptive: "https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API",
       semiOpaque: "https://github.com/w3c/gamepad",
       opaque: "https://chromestatus.com/feature/5989275208253440",
+      // Canonical spec (verified via webstatus.dev: the Gamepad feature's spec is
+      // the W3C Gamepad spec, which is where the event-driven input lives). No BCD
+      // key yet — the event-driven surface is too new for browser-compat-data, so
+      // bcd-key-only stays correctly N/A.
+      specUrl: "https://w3c.github.io/gamepad/",
       fullContentUrl:
         "https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API",
       randomUrl: RANDOM_URL,

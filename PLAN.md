@@ -236,14 +236,18 @@ decisions made, and what we have learned about the URLs and methodology.
 - **Task 3 (the thesis-prover):** source post-cutoff features where `name-only`
   itself FAILS. Current post-cutoff items are too guessable (high `name-only`),
   so they show "opaque id gives nothing", not "model can't build it".
-- **Broaden spec-url-only / bcd-key-only coverage.** Only 9/40 items carry
-  `specUrl` + `bcdKey` (the 6 old features + view-transitions/popover/fedcm), so
-  the identifier probes are correctly `skipped` (n/a, not 0) on the other 31 —
-  including ALL the recent 2026 web features, which is exactly where the
-  canonical-web-id question is most interesting. Add `specUrl`
-  (w3.org/csswg-drafts / whatwg / tc39) + `bcdKey` to the recent web-platform
-  items, then re-run just the spec/bcd cells. (Do after the regeneration commit;
-  it edits the corpus.)
+- **DONE (2026-06-28) — spec-url-only / bcd-key-only coverage is complete.** Every
+  `code` (web-platform) item now carries `specUrl` + `bcdKey` where one exists; the
+  broadened spec/bcd matrix is run (1436 real cells per probe) and REPORT.md
+  surfaces the finding (canonical web ids decode: `bcd-key-only` ≈0.73,
+  `spec-url-only` ≈0.59, vs opaque numeric ids ≈0). Closing gap was just 3 recent
+  items: added the verified canonical spec URL for `gamepad-event-driven-input`
+  (`https://w3c.github.io/gamepad/`, per webstatus.dev) and ran its spec-url-only
+  cell across all 13 models. The other 3 — `html-in-canvas`, `named-feature-supports`,
+  `gamepad-event-driven-input` — have **NO BCD key** (verified absent from
+  mdn/browser-compat-data: no `CanvasRenderingContext2D.drawElement*`, no
+  `supports.named-feature`, no event-driven gamepad surface), so `bcd-key-only`
+  stays correctly N/A for them — do not invent keys; re-check only when BCD adds them.
 - Keep SO URLs in the corpus as noisy/control metadata where useful, but prefer
   ChromeStatus for `urls.opaque` on web-platform items because those pages are
   indexable and canonical enough for URL-memory testing.

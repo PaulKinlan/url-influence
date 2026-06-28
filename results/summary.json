@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T10:35:42.223Z",
+  "generatedAt": "2026-06-28T18:45:38.955Z",
   "judgeModel": "claude-sonnet-4-5",
   "calibrationItems": [
     "scroll-triggered-animations",
@@ -597,7 +597,7 @@
         "mdn-url-only": 0.7833333333333334,
         "spec-url-only": 0.7241935483870966,
         "bcd-key-only": 0.8637931034482759,
-        "url+described": 0.7774774774774775,
+        "url+described": 0.7774774774774778,
         "full-content": 0.94009009009009,
         "content-only": 0.8318181818181819,
         "fake-structural-url": 0.12837837837837834,
@@ -877,7 +877,7 @@
         "spec-url-only": 0.45645161290322583,
         "bcd-key-only": 0.6689655172413791,
         "url+described": 0.6770270270270271,
-        "full-content": 0.8864864864864866,
+        "full-content": 0.8864864864864865,
         "content-only": 0.7346846846846848,
         "fake-structural-url": 0.12702702702702703,
         "fake-opaque-url": 0.02702702702702703,
