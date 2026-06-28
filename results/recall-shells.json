@@ -1,0 +1,1134 @@
+{
+  "generatedAt": "2026-06-21T22:21:08.002Z",
+  "models": [
+    "gemini-3.5-flash",
+    "claude-sonnet-4-5"
+  ],
+  "judge": "claude-sonnet-4-5",
+  "corpusCounts": {
+    "shell": 18,
+    "server": 18
+  },
+  "byTrack": {
+    "shell": {
+      "n": 36,
+      "recalled": 1,
+      "rate": 0.028
+    },
+    "server": {
+      "n": 36,
+      "recalled": 0,
+      "rate": 0
+    }
+  },
+  "byTrackModel": {
+    "gemini-3.5-flash": {
+      "shell": {
+        "n": 18,
+        "recalled": 1,
+        "rate": 0.056
+      },
+      "server": {
+        "n": 18,
+        "recalled": 0,
+        "rate": 0
+      }
+    },
+    "claude-sonnet-4-5": {
+      "shell": {
+        "n": 18,
+        "recalled": 0,
+        "rate": 0
+      },
+      "server": {
+        "n": 18,
+        "recalled": 0,
+        "rate": 0
+      }
+    }
+  },
+  "perItem": [
+    {
+      "id": "recall-shell-1",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT02846857",
+      "title": "Study Details | NCT02846857 | Closed-loop Control of Glucose Levels (Artificial Pancreas) for 15 Weeks in Adolescents and Adults With Type 1 Diabetes | ClinicalTrials.gov",
+      "renderedChars": 59009,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-2",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT00000378",
+      "title": "Study Details | NCT00000378 | Antidepressant Treatment of Melancholia in Late Life | ClinicalTrials.gov",
+      "renderedChars": 54385,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-3",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT04280705",
+      "title": "Study Details | NCT04280705 | Adaptive COVID-19 Treatment Trial (ACTT) | ClinicalTrials.gov",
+      "renderedChars": 90577,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-4",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT03035123",
+      "title": "Study Details | NCT03035123 | Therapeutic Education Strategy for Patients With Acute Heart Failure | ClinicalTrials.gov",
+      "renderedChars": 57450,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-5",
+      "track": "shell",
+      "url": "https://3ddd.ru/3dmodels/show/christopher_hyde_belgravia",
+      "title": "Christopher Hyde \"BELGRAVIA\" - Подвесной - 3D модель",
+      "renderedChars": 2283,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-6",
+      "track": "shell",
+      "url": "https://3speak.tv/watch?v=chaste-music/ojyxcsrg",
+      "title": "3Speak - Decentralized Video Platform",
+      "renderedChars": 6645,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-7",
+      "track": "shell",
+      "url": "https://3speak.tv/watch?v=chrono.spt/cpnoqjsw",
+      "title": "3Speak - Decentralized Video Platform",
+      "renderedChars": 2921,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-8",
+      "track": "shell",
+      "url": "https://artic.contentdm.oclc.org/digital/collection/mqc/id/65011/",
+      "title": "Lake Forest College, Donnelley Library Center for Learning - Archival Image Collection - Ryerson and Burnham Libraries and Archives",
+      "renderedChars": 2343,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-9",
+      "track": "shell",
+      "url": "https://australianarchaeologicalassociation.com.au/events/national-archaeology-week-networking-dinner-naw-2025/",
+      "title": "National Archaeology Week Networking Dinner (NAW 2025) | Australian Archaeological Association",
+      "renderedChars": 3655,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-10",
+      "track": "shell",
+      "url": "https://beatsaver.com/?order=Rating&from=2025-01-20T02:37:07.375752769Z",
+      "title": "BeatSaver - Home",
+      "renderedChars": 7673,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-11",
+      "track": "shell",
+      "url": "https://bezbets.co.zw/sports/outright/rugby/rugby-union/super-rugby/super-rugby-2026-10225",
+      "title": "Bezbets",
+      "renderedChars": 1631,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-12",
+      "track": "shell",
+      "url": "https://bondekompaniet.no/america-drikkebotte-hons-galvanisert-10-liter-970106882a",
+      "title": "AMERICA Drikkebøtte høns galvanisert 10 liter | BondeKompaniet",
+      "renderedChars": 24651,
+      "n": 2,
+      "recalled": 1,
+      "rate": 0.5
+    },
+    {
+      "id": "recall-shell-13",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=Izaak%20https://groupfinder.eu/players/472",
+      "title": "Discover — Bluesky",
+      "renderedChars": 8060,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-14",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=Life%20cycle%20dynamics%20of%20Greenland%20blocking%20from%20a%20potential%20vorticity%20perspective+https%3A%2F%2Fpublikationen.bibliothek.kit.edu%2F1000170991",
+      "title": "Discover — Bluesky",
+      "renderedChars": 7640,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-15",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=The%20prisoner%20and%20the%20catalog%20https://www.lorcandempsey.net/the-prisoner-and-the-catalog/",
+      "title": "Discover — Bluesky",
+      "renderedChars": 8054,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-16",
+      "track": "shell",
+      "url": "https://colegiosconcertados.info/colegio-cardenal-spinola-fundacion-spinola-madrid/",
+      "title": "colegiosconcertados.info",
+      "renderedChars": 1152,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-17",
+      "track": "shell",
+      "url": "https://connect.shore.com/bookings/auge-n6/services?locale=de",
+      "title": "Buchen Sie jetzt Ihren Termin bei Auge N6 / Optik Geist",
+      "renderedChars": 1607,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-shell-18",
+      "track": "shell",
+      "url": "https://docs.trustx.com/xdetech/welcome-to-xdetech",
+      "title": "Welcome to xDeTECH - TrustX",
+      "renderedChars": 5103,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-1",
+      "track": "server",
+      "url": "http://01chan.ru/viewforum.php?f=24&sid=0fc09fe861cc394fac56826b23bfb9d9",
+      "title": "/R/omance. /ART/. /G/raphics. Разное искусство. • Нольодинчан",
+      "renderedChars": 1391,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-2",
+      "track": "server",
+      "url": "http://01swa.cn/",
+      "title": "01swa.cn",
+      "renderedChars": 1104,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-3",
+      "track": "server",
+      "url": "http://049qq.com/play/index28285-0-0.html",
+      "title": "葵萌花 丰满身材震动！ 葵もか MBRAA-324(P2P加速中)",
+      "renderedChars": 1135,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-4",
+      "track": "server",
+      "url": "http://1-2-no-3.cocolog-nifty.com/himajin/2009/03/post-0536.html",
+      "title": "マーライオン: Window of society is open",
+      "renderedChars": 4871,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-5",
+      "track": "server",
+      "url": "http://126811.com/ShowInfo.asp?id=97566",
+      "title": "QQ群里发现的给钱就能操的04年抽烟小太妹，自称缺零花钱缺蹦迪钱_顺义小姐_顺义楼凤_北京小姐_北京楼凤_小姐威客网|小姐威客|小姐地图|小姐窝|洗浴桑拿|酒店宾馆|会所发廊|楼凤兼职|丝足按摩|代聊中介|鸡头老鸨|模特外围|白瘦幼秀|精品极品|微群Q群|男模鸭子|黑店曝光|求包养|全国各地小姐狼友交流群|交换伴侣夫妻交换派对群|全国小姐楼凤兼职学生妹信息",
+      "renderedChars": 7552,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-6",
+      "track": "server",
+      "url": "http://1325naps.peacewomen.org/index.php/document/paraguay-nap-2015-spanish/",
+      "title": "1325naps.peacewomen.org",
+      "renderedChars": 734,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-7",
+      "track": "server",
+      "url": "http://1t06.com/ucmd/271686.html",
+      "title": "在线播放淫荡捣蛋鬼聚集的G罩杯宿舍长，竟然想当自慰狂。她张开双腿，小便潮吹！她有着猥琐的黑脸，在4P群 FOCS-277 -无码资源-国产91精品福利资源在线观看_精品人妻一区二区三区四区在线_综合色区亚洲熟妇p_18禁美女黄网站色大片免费观看_婷婷五月开心中文字幕777_亚洲最大天码AV在线观看",
+      "renderedChars": 25468,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-8",
+      "track": "server",
+      "url": "http://2event.com/uk/organizers/147?page=7",
+      "title": "2event.com",
+      "renderedChars": 4187,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-9",
+      "track": "server",
+      "url": "http://334diu.com/htm/2022/5/28/zipaitoupai/545058.html",
+      "title": "大神土豪的专属肉便器美少女[狗子日记]捆绑小母狗乳夹调教 舔舐挑逗主人的肉棒 强制深喉吞精 - 俺去也伦理电影",
+      "renderedChars": 1071,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-10",
+      "track": "server",
+      "url": "http://334diu.com/htm/2024/8/28/sanjijingdian/645551.html",
+      "title": "无法忍受的性游戏 - 俺去也伦理电影",
+      "renderedChars": 1112,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-11",
+      "track": "server",
+      "url": "http://340gg.com/play/index33579-0-0.html",
+      "title": "美人女友超爱口暴性欲强到随时都想舔大鸡巴 花衣椿 HBAD-720(P2P加速中)",
+      "renderedChars": 1151,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-12",
+      "track": "server",
+      "url": "http://3lgs.org/TNG/suggest.php?page=Bennett%2C+Laura+Malvina+b.+1837+d.+Yes%2C+date+unknown",
+      "title": "Contact Us: We are Three Lakes",
+      "renderedChars": 1139,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-13",
+      "track": "server",
+      "url": "http://3x-energy.com/fr/accueil/",
+      "title": "3x-energy",
+      "renderedChars": 1573,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-14",
+      "track": "server",
+      "url": "http://424qq.com/play/index5834-0-0.html",
+      "title": "MOODYZ 首个专属 gal 本所翼在 3 场特别公演的高潮中苏醒！ ！ 本城つばさ MOODYZ(P2P加速中)",
+      "renderedChars": 1252,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-15",
+      "track": "server",
+      "url": "http://508889.com/315.html",
+      "title": "野风_【www.838359.com】热闻资讯,致力打造,火热全网！",
+      "renderedChars": 1049,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-16",
+      "track": "server",
+      "url": "http://52-xiaoshuo.cn/index.php",
+      "title": "Attention Required! | Cloudflare",
+      "renderedChars": 754,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-17",
+      "track": "server",
+      "url": "http://5280learners.weebly.com/growth-mindset.html",
+      "title": "Growth Mindset - 4th &amp; 5th Grade Literacy with Mrs. Stedeford",
+      "renderedChars": 1355,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    },
+    {
+      "id": "recall-server-18",
+      "track": "server",
+      "url": "http://6dun.tkgl6.cn/pro/pro8/165.html",
+      "title": "6吨烟气余热导热油炉-余热有机载体炉导热油炉-生产厂家",
+      "renderedChars": 1557,
+      "n": 2,
+      "recalled": 0,
+      "rate": 0
+    }
+  ],
+  "rows": [
+    {
+      "id": "recall-shell-1",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT02846857",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific clinical trial NCT02846857 about closed-loop glucose control/artificial pancreas for 15 weeks in adolescents and adults with Type 1 Diabetes"
+    },
+    {
+      "id": "recall-shell-1",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT02846857",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that particular clinical trial page. While I know that clinicaltrials.gov uses NCT numbers to identify specific clinical trials, I don't have knowledge of what NCT02846857 specifically covers - what condition it studies, what intervention is being tested, or what the trial's title is.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the specific content, despite the page being about a specific artificial pancreas trial for Type 1 Diabetes (NCT02846857)"
+    },
+    {
+      "id": "recall-shell-2",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT00000378",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific clinical trial NCT00000378 about Antidepressant Treatment of Melancholia in Late Life"
+    },
+    {
+      "id": "recall-shell-2",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT00000378",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that particular clinical trial page. While I know that clinicaltrials.gov uses NCT numbers to identify specific clinical trials, I don't have knowledge of what specific study NCT00000378 refers to - what condition it studied, what intervention was tested, or what its title is.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as a study about Antidepressant Treatment of Melancholia in Late Life (NCT00000378)"
+    },
+    {
+      "id": "recall-shell-3",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT04280705",
+      "model": "gemini-3.5-flash",
+      "output": "Based on my knowledge, this URL refers to the following clinical trial:\n\n* **Title:** Safety and Immunogenicity of Study mRNA-1273 Vaccine for Novel Coronavirus Disease (COVID-19) in Healthy Adults (often referred to as the Phase 1 trial of the Moderna COVID-19 vaccine).\n* **Specific Content/Topic:** This is the landmark Phase 1, open-label, dose-ranging clinical trial designed to evaluate the safety, reactogenicity, and immunogenicity of Moderna's mRNA-1273 vaccine candidate against SARS-CoV-2. Sponsored by the National Institute of Allergy and Infectious Diseases (NIAID), the trial was conducted in healthy adult volunteers (initially aged 18–55, later expanded to older cohorts) to determine the optimal dosage for subsequent larger-scale trials.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model identified the wrong trial. The URL NCT04280705 is for the Adaptive COVID-19 Treatment Trial (ACTT), not the Moderna mRNA-1273 vaccine Phase 1 trial."
+    },
+    {
+      "id": "recall-shell-3",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT04280705",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that particular clinical trial page. While I know that clinicaltrials.gov is a database of clinical studies and that NCT04280705 is a clinical trial identifier, I don't have knowledge of what specific study, condition, intervention, or trial title corresponds to that exact NCT number.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the specific content and only made generic statements about clinicaltrials.gov being a database, rather than identifying this as the Adaptive COVID-19 Treatment Trial (ACTT)."
+    },
+    {
+      "id": "recall-shell-4",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT03035123",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific clinical trial NCT03035123 about therapeutic education strategy for acute heart failure patients"
+    },
+    {
+      "id": "recall-shell-4",
+      "track": "shell",
+      "url": "https://clinicaltrials.gov/study/NCT03035123",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of this particular clinical trial page. While I know that clinicaltrials.gov is a database of clinical studies and NCT03035123 is a specific trial identifier, I don't have knowledge of what specific study, condition, intervention, or title corresponds to this particular NCT number.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the specific content rather than identifying this as a study about Therapeutic Education Strategy for Patients With Acute Heart Failure"
+    },
+    {
+      "id": "recall-shell-5",
+      "track": "shell",
+      "url": "https://3ddd.ru/3dmodels/show/christopher_hyde_belgravia",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific 3D model page for Christopher Hyde 'BELGRAVIA' pendant light"
+    },
+    {
+      "id": "recall-shell-5",
+      "track": "shell",
+      "url": "https://3ddd.ru/3dmodels/show/christopher_hyde_belgravia",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that exact URL page. While I can see it's from 3ddd.ru (a 3D model website) and appears to reference \"Christopher Hyde Belgravia\" (likely a furniture collection or specific furniture piece), I don't have knowledge of what specific 3D model or models are featured on that particular page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific 3D model page for Christopher Hyde 'BELGRAVIA' pendant/hanging light fixture"
+    },
+    {
+      "id": "recall-shell-6",
+      "track": "shell",
+      "url": "https://3speak.tv/watch?v=chaste-music/ojyxcsrg",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know instead of identifying the specific Cyndi Lauper cover video on 3Speak by @chaste-music for Hive Open Mic 96"
+    },
+    {
+      "id": "recall-shell-6",
+      "track": "shell",
+      "url": "https://3speak.tv/watch?v=chaste-music/ojyxcsrg",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. While I can see it's a 3speak.tv video URL with what appears to be a user \"chaste-music\" and a video ID \"ojyxcsrg\", I don't have knowledge of what specific video content is hosted at that exact URL.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the content, but the page contains a specific Cyndi Lauper 'True Colours' cover performance for Hive Open Mic 96 by @chaste-music"
+    },
+    {
+      "id": "recall-shell-7",
+      "track": "shell",
+      "url": "https://3speak.tv/watch?v=chrono.spt/cpnoqjsw",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific Splinterlands brawl battle video content posted by @chrono.spt"
+    },
+    {
+      "id": "recall-shell-7",
+      "track": "shell",
+      "url": "https://3speak.tv/watch?v=chrono.spt/cpnoqjsw",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. While I can see it's a 3speak.tv video URL with what appears to be a user \"chrono.spt\" and a video ID \"cpnoqjsw\", I don't have knowledge of what specific video content is at that exact URL.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific video content about Splinterlands brawl battles with Kron Undying Style by @chrono.spt"
+    },
+    {
+      "id": "recall-shell-8",
+      "track": "shell",
+      "url": "https://artic.contentdm.oclc.org/digital/collection/mqc/id/65011/",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific archival record for Lake Forest College Donnelley Library Center for Learning architectural drawing"
+    },
+    {
+      "id": "recall-shell-8",
+      "track": "shell",
+      "url": "https://artic.contentdm.oclc.org/digital/collection/mqc/id/65011/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that exact page. While I can see this is a ContentDM digital collection URL from the Art Institute of Chicago (artic) in what appears to be the \"mqc\" collection with item ID 65011, I don't have knowledge of what specific artwork, document, or object that particular ID corresponds to.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific archival item about Lake Forest College Donnelley Library Center for Learning, which is an architectural drawing (underdrainage plan) from the Karr, Joe, and Associates Records"
+    },
+    {
+      "id": "recall-shell-9",
+      "track": "shell",
+      "url": "https://australianarchaeologicalassociation.com.au/events/national-archaeology-week-networking-dinner-naw-2025/",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the National Archaeology Week Networking Dinner event page"
+    },
+    {
+      "id": "recall-shell-9",
+      "track": "shell",
+      "url": "https://australianarchaeologicalassociation.com.au/events/national-archaeology-week-networking-dinner-naw-2025/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that exact page. While I can see it's related to a National Archaeology Week networking dinner event for 2025 on the Australian Archaeological Association website, I don't have knowledge of the specific details, title, or content of this particular event page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know the specific content despite it being a National Archaeology Week Networking Dinner event page, which matches the URL and contains specific details about date, location, and registration"
+    },
+    {
+      "id": "recall-shell-10",
+      "track": "shell",
+      "url": "https://beatsaver.com/?order=Rating&from=2025-01-20T02:37:07.375752769Z",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as BeatSaver's home page with map search filters and navigation"
+    },
+    {
+      "id": "recall-shell-10",
+      "track": "shell",
+      "url": "https://beatsaver.com/?order=Rating&from=2025-01-20T02:37:07.375752769Z",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. \n\nWhile I know that beatsaver.com is a repository for custom Beat Saber maps, I cannot tell you what specific maps or content would be displayed at that exact URL with those particular query parameters (ordering by rating from that specific timestamp). The content would be dynamic and depend on what maps were available in the database at that time with those filtering criteria.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as the BeatSaver home page with search filters, navigation options, and sorting capabilities for Beat Saber custom maps"
+    },
+    {
+      "id": "recall-shell-11",
+      "track": "shell",
+      "url": "https://bezbets.co.zw/sports/outright/rugby/rugby-union/super-rugby/super-rugby-2026-10225",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as a Bezbets online gambling/betting platform page"
+    },
+    {
+      "id": "recall-shell-11",
+      "track": "shell",
+      "url": "https://bezbets.co.zw/sports/outright/rugby/rugby-union/super-rugby/super-rugby-2026-10225",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what particular betting markets or content exists at that exact URL on the bezbets.co.zw website.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific Bezbets gambling/betting platform content shown on the page"
+    },
+    {
+      "id": "recall-shell-12",
+      "track": "shell",
+      "url": "https://bondekompaniet.no/america-drikkebotte-hons-galvanisert-10-liter-970106882a",
+      "model": "gemini-3.5-flash",
+      "output": "Based on the URL, this is a product page on the Norwegian agricultural retail website Bondekompaniet. \n\n* **Title:** America drikkebøtte høns galvanisert 10 liter (America Galvanized Chicken Drinking Bucket, 10 Liters)\n* **Specific Content:** It is a product listing for a 10-liter galvanized steel poultry drinker/waterer bucket manufactured by the brand America (America Thisted). The product is designed for chickens and other poultry, featuring a gravity-fed drinking trough at the base to keep a steady supply of clean water accessible to the birds, and a handle for carrying or hanging.",
+      "error": null,
+      "recalled": true,
+      "reason": "Model correctly identified the specific product (AMERICA 10-liter galvanized chicken drinking bucket) from BondeKompaniet, matching the ground truth page title and content."
+    },
+    {
+      "id": "recall-shell-12",
+      "track": "shell",
+      "url": "https://bondekompaniet.no/america-drikkebotte-hons-galvanisert-10-liter-970106882a",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. While I can see it's from bondekompaniet.no (a Norwegian agricultural/farming supplies website) and the URL suggests it's about a galvanized drinking container/bottle for chickens with a 10-liter capacity (based on the Norwegian words in the URL), I don't have actual knowledge of what specific product or content is on that exact page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific product (AMERICA Drikkebøtte høns galvanisert 10 liter - a 10 liter galvanized chicken drinking bucket)"
+    },
+    {
+      "id": "recall-shell-13",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=Izaak%20https://groupfinder.eu/players/472",
+      "model": "gemini-3.5-flash",
+      "output": "This URL is a Bluesky social media sharing intent link. \n\n* **Title of the page:** \"Compose post — Bluesky\" (or \"New Post — Bluesky\")\n* **Specific content:** It is a dynamic post-creation page on the Bluesky platform. The post composer is pre-filled with the text: **\"Izaak https://groupfinder.eu/players/472\"**, which is designed to let a user easily share a link to the player profile of a user named \"Izaak\" (player ID 472) from the gaming group-finder website `groupfinder.eu`.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model described a post composer with pre-filled text about 'Izaak' and a gaming website, but the actual page is a Discover feed showing various social media posts about dogs, cats, World Cup, nature, etc."
+    },
+    {
+      "id": "recall-shell-13",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=Izaak%20https://groupfinder.eu/players/472",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. This appears to be a Bluesky social media compose intent URL with pre-filled text, but I don't have knowledge of what specific content exists at that particular groupfinder.eu player profile URL (player ID 472) or what \"Izaak\" refers to in this context.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it didn't know the content. The page is actually a Bluesky Discover feed showing various social media posts about topics like dogs/cats, World Cup, nature, and other content. The model incorrectly described it as a compose intent URL."
+    },
+    {
+      "id": "recall-shell-14",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=Life%20cycle%20dynamics%20of%20Greenland%20blocking%20from%20a%20potential%20vorticity%20perspective+https%3A%2F%2Fpublikationen.bibliothek.kit.edu%2F1000170991",
+      "model": "gemini-3.5-flash",
+      "output": "This URL is a Bluesky Social share intent link (`/intent/compose`) designed to open a post-composition window on Bluesky with pre-filled text. \n\n* **Page Title:** Compose post - Bluesky (or similar Bluesky post composer interface)\n* **Specific Content/Topic:** The page contains a pre-filled text box to share an academic publication. \n  * **Title of the shared work:** \"Life cycle dynamics of Greenland blocking from a potential vorticity perspective\"\n  * **Topic covered:** It refers to a meteorological research paper (hosted on the Karlsruhe Institute of Technology repository) that investigates the atmospheric dynamics, development, and decay of Greenland blocking (a high-pressure system over Greenland that influences weather patterns) using a potential vorticity framework.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model described a compose intent page for sharing an academic paper about Greenland blocking, but the actual page is Bluesky's Discover feed showing various social posts about nature, World Cup, healthcare, etc."
+    },
+    {
+      "id": "recall-shell-14",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=Life%20cycle%20dynamics%20of%20Greenland%20blocking%20from%20a%20potential%20vorticity%20perspective+https%3A%2F%2Fpublikationen.bibliothek.kit.edu%2F1000170991",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of this page. \n\nThis appears to be a Bluesky social media compose/share intent URL that would pre-populate a post with text about \"Life cycle dynamics of Greenland blocking from a potential vorticity perspective\" and a link to a publication at KIT (Karlsruhe Institute of Technology), but I don't have knowledge of what specific content would be displayed when accessing this particular URL.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know the content and guessed it was a compose/share intent URL about Greenland blocking. Actually, it's the Bluesky Discover feed page showing various social media posts about topics like rainforests, World Cup, healthcare, and summer solstice."
+    },
+    {
+      "id": "recall-shell-15",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=The%20prisoner%20and%20the%20catalog%20https://www.lorcandempsey.net/the-prisoner-and-the-catalog/",
+      "model": "gemini-3.5-flash",
+      "output": "This URL is a Bluesky social media \"intent\" link used to pre-fill a new post on the Bluesky platform. \n\n* **Page Title:** Typically \"Bluesky\" or \"Compose post - Bluesky\"\n* **Specific Content:** It opens a Bluesky post composer box pre-populated with the text: \n  `The prisoner and the catalog https://www.lorcandempsey.net/the-prisoner-and-the-catalog/`\n\nThe link within the post refers to a blog entry by librarian and writer Lorcan Dempsey titled **\"The prisoner and the catalog.\"** In this blog post, Dempsey writes about library metadata, cataloging, and identity/authority control, using the classic 1960s British television series *The Prisoner* (famous for the line \"I am not a number, I am a free man!\") as a metaphor for how individuals and entities are represented and numbered in library systems.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model described a Bluesky intent/compose link with pre-filled text about a blog post, but the actual page is the Bluesky Discover feed showing various posts about nature, healthcare, World Cup, and a ProPublica article"
+    },
+    {
+      "id": "recall-shell-15",
+      "track": "shell",
+      "url": "https://bsky.app/intent/compose?text=The%20prisoner%20and%20the%20catalog%20https://www.lorcandempsey.net/the-prisoner-and-the-catalog/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of this page.\n\nThis is a Bluesky social media compose/share URL with pre-populated text that references \"The prisoner and the catalog\" and links to a Lorcan Dempsey blog post, but I don't have knowledge of what specific content that particular blog post contains.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know and guessed about a compose/share URL with pre-populated text about 'The prisoner and the catalog'. The actual page is Bluesky's Discover feed showing various social media posts about nature, healthcare, education, and World Cup topics."
+    },
+    {
+      "id": "recall-shell-16",
+      "track": "shell",
+      "url": "https://colegiosconcertados.info/colegio-cardenal-spinola-fundacion-spinola-madrid/",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know instead of identifying this as an error page showing ERR_NAME_NOT_RESOLVED for colegiosconcertados.info"
+    },
+    {
+      "id": "recall-shell-16",
+      "track": "shell",
+      "url": "https://colegiosconcertados.info/colegio-cardenal-spinola-fundacion-spinola-madrid/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that exact URL page. While I can see it appears to be about a school called \"Colegio Cardenal Spínola\" (part of Fundación Spínola in Madrid) on a website about concertado schools (semi-private/charter schools) in Spain, I don't have knowledge of the specific content, title, or details that appear on that particular page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model attempted to guess specific content about a school, but the page actually shows a DNS error and cannot be reached"
+    },
+    {
+      "id": "recall-shell-17",
+      "track": "shell",
+      "url": "https://connect.shore.com/bookings/auge-n6/services?locale=de",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as an online appointment booking page for Auge N6 / Optik Geist, an optician in Mannheim offering various eye care services"
+    },
+    {
+      "id": "recall-shell-17",
+      "track": "shell",
+      "url": "https://connect.shore.com/bookings/auge-n6/services?locale=de",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. While I can see it appears to be a booking page on the Shore platform for a business with the identifier \"auge-n6\" with German locale, I don't have knowledge of what specific business this is, what services they offer, or what the page title would be.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as Auge N6 / Optik Geist's appointment booking page for optometry services in Mannheim"
+    },
+    {
+      "id": "recall-shell-18",
+      "track": "shell",
+      "url": "https://docs.trustx.com/xdetech/welcome-to-xdetech",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the xDeTECH documentation page about Daon's Detection Technology for voice replay and synthetic audio detection"
+    },
+    {
+      "id": "recall-shell-18",
+      "track": "shell",
+      "url": "https://docs.trustx.com/xdetech/welcome-to-xdetech",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what is specifically covered at that exact URL on docs.trustx.com.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the xDeTECH documentation page about Daon's Detection Technology for voice replay, synthetic audio, and cloning detection."
+    },
+    {
+      "id": "recall-server-1",
+      "track": "server",
+      "url": "http://01chan.ru/viewforum.php?f=24&sid=0fc09fe861cc394fac56826b23bfb9d9",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as a Russian imageboard forum section for romance, art, and graphics with no posts"
+    },
+    {
+      "id": "recall-server-1",
+      "track": "server",
+      "url": "http://01chan.ru/viewforum.php?f=24&sid=0fc09fe861cc394fac56826b23bfb9d9",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what particular forum or topic is associated with forum ID 24 on that domain.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know the content instead of identifying it as a forum section titled '/R/omance. /ART/. /G/raphics. Разное искусство.' (Romance/Art/Graphics - Various Art) on the Нольодинчан imageboard"
+    },
+    {
+      "id": "recall-server-2",
+      "track": "server",
+      "url": "http://01swa.cn/",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the DNS error page for 01swa.cn"
+    },
+    {
+      "id": "recall-server-2",
+      "track": "server",
+      "url": "http://01swa.cn/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content, title, or topic of the page at that exact URL.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying that the page shows an ERR_NAME_NOT_RESOLVED error"
+    },
+    {
+      "id": "recall-server-3",
+      "track": "server",
+      "url": "http://049qq.com/play/index28285-0-0.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about 葵もか MBRAA-324"
+    },
+    {
+      "id": "recall-server-3",
+      "track": "server",
+      "url": "http://049qq.com/play/index28285-0-0.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what is hosted at that particular URL and page identifier.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it didn't know the content instead of identifying this adult content page featuring a specific performer and video code"
+    },
+    {
+      "id": "recall-server-4",
+      "track": "server",
+      "url": "http://1-2-no-3.cocolog-nifty.com/himajin/2009/03/post-0536.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific blog post about the Merlion statue in Singapore, which mentions the February 28th lightning strike that damaged its right ear."
+    },
+    {
+      "id": "recall-server-4",
+      "track": "server",
+      "url": "http://1-2-no-3.cocolog-nifty.com/himajin/2009/03/post-0536.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have knowledge of this particular blog post from a Cocolog-Nifty blog dated March 2009.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of recalling that the page is a blog post about the Merlion statue in Singapore, mentioning it's one of the 'world's three great disappointments' and that its right ear was damaged by lightning on February 28."
+    },
+    {
+      "id": "recall-server-5",
+      "track": "server",
+      "url": "http://126811.com/ShowInfo.asp?id=97566",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult services listing page content"
+    },
+    {
+      "id": "recall-server-5",
+      "track": "server",
+      "url": "http://126811.com/ShowInfo.asp?id=97566",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have knowledge of what particular article or information is associated with that specific ID number (97566) on that domain.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the specific content, but the page contains explicit adult/sex work solicitation content with specific details about a person born in 2004"
+    },
+    {
+      "id": "recall-server-6",
+      "track": "server",
+      "url": "http://1325naps.peacewomen.org/index.php/document/paraguay-nap-2015-spanish/",
+      "model": "gemini-3.5-flash",
+      "output": "Based on my knowledge of this database, the specific content of the page at that URL is:\n\n*   **Title:** \"Paraguay NAP (2015) - Spanish\" (or \"Paraguay - NAP 2015 (Spanish)\")\n*   **Specific Content:** This page hosts and describes Paraguay's first National Action Plan (Plan de Acción Nacional) for the implementation of United Nations Security Council Resolution 1325 (UNSCR 1325) on Women, Peace, and Security, written in Spanish. It covers Paraguay's national commitments, strategic objectives, and indicators for the period (typically 2015–2020), focusing on increasing the participation of Paraguayan women in peace operations, decision-making processes, and national security forces, as well as protecting the rights of women and girls.",
+      "error": null,
+      "recalled": false,
+      "reason": "The page shows a connection error (ERR_CONNECTION_REFUSED), not a Paraguay NAP document. The model described specific content that doesn't exist at this URL."
+    },
+    {
+      "id": "recall-server-6",
+      "track": "server",
+      "url": "http://1325naps.peacewomen.org/index.php/document/paraguay-nap-2015-spanish/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that exact page. While I can tell from the URL structure that it appears to be related to Paraguay's National Action Plan (NAP) from 2015 in Spanish, likely concerning UN Security Council Resolution 1325 on Women, Peace and Security (given the \"1325naps\" subdomain), I cannot tell you the specific title or detailed contents of that particular page without having accessed it directly.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the content and guessed it was about Paraguay's National Action Plan. The actual page shows a connection error (ERR_CONNECTION_REFUSED), not any NAP content."
+    },
+    {
+      "id": "recall-server-7",
+      "track": "server",
+      "url": "http://1t06.com/ucmd/271686.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about FOCS-277"
+    },
+    {
+      "id": "recall-server-7",
+      "track": "server",
+      "url": "http://1t06.com/ucmd/271686.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what is hosted at that particular URL on the 1t06.com domain.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page with title referencing FOCS-277"
+    },
+    {
+      "id": "recall-server-8",
+      "track": "server",
+      "url": "http://2event.com/uk/organizers/147?page=7",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model claimed not to know instead of identifying this as a Ukrainian event listing platform with specific content about 2Event redirecting to 2Event.com.ua"
+    },
+    {
+      "id": "recall-server-8",
+      "track": "server",
+      "url": "http://2event.com/uk/organizers/147?page=7",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have knowledge of what particular organizer #147 is on 2event.com or what would be displayed on page 7 of their listing.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it didn't know the content, but the page shows a general 2Event.com landing page with event categories and a redirect notice to 2Event.com.ua for Ukraine"
+    },
+    {
+      "id": "recall-server-9",
+      "track": "server",
+      "url": "http://334diu.com/htm/2022/5/28/zipaitoupai/545058.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page"
+    },
+    {
+      "id": "recall-server-9",
+      "track": "server",
+      "url": "http://334diu.com/htm/2022/5/28/zipaitoupai/545058.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what is located at that particular URL on that domain.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the content instead of identifying the specific adult content page title and details that were present"
+    },
+    {
+      "id": "recall-server-10",
+      "track": "server",
+      "url": "http://334diu.com/htm/2024/8/28/sanjijingdian/645551.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about a film titled '无法忍受的性游戏' (Unbearable Sex Game)"
+    },
+    {
+      "id": "recall-server-10",
+      "track": "server",
+      "url": "http://334diu.com/htm/2024/8/28/sanjijingdian/645551.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know.\n\nI don't have specific knowledge of the content at this exact URL. The domain \"334diu.com\" is not one I have detailed information about in my training data, and I cannot determine what specific content is located at that particular page path without actually accessing it.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about a film titled '无法忍受的性游戏' (Unbearable Sex Game)"
+    },
+    {
+      "id": "recall-server-11",
+      "track": "server",
+      "url": "http://340gg.com/play/index33579-0-0.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about HBAD-720"
+    },
+    {
+      "id": "recall-server-11",
+      "track": "server",
+      "url": "http://340gg.com/play/index33579-0-0.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what is hosted at that particular URL on that domain.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the content instead of providing the specific page details about the adult video HBAD-720"
+    },
+    {
+      "id": "recall-server-12",
+      "track": "server",
+      "url": "http://3lgs.org/TNG/suggest.php?page=Bennett%2C+Laura+Malvina+b.+1837+d.+Yes%2C+date+unknown",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying this as the 'Contact Us' page for the 'We Are Three Lakes' genealogical website"
+    },
+    {
+      "id": "recall-server-12",
+      "track": "server",
+      "url": "http://3lgs.org/TNG/suggest.php?page=Bennett%2C+Laura+Malvina+b.+1837+d.+Yes%2C+date+unknown",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of this page. While I can see this appears to be from a genealogy website (3lgs.org) with a URL structure suggesting it relates to a person named Laura Malvina Bennett (born 1837, death date unknown), I don't have knowledge of what specific content, title, or information is actually displayed on this particular page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the page as a 'Contact Us' page for the 'We Are Three Lakes' genealogy website with a contact form and site information."
+    },
+    {
+      "id": "recall-server-13",
+      "track": "server",
+      "url": "http://3x-energy.com/fr/accueil/",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the page content about 3X-Energy drink products"
+    },
+    {
+      "id": "recall-server-13",
+      "track": "server",
+      "url": "http://3x-energy.com/fr/accueil/",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content, title, or topic of that exact page. While I can see it appears to be a French language page (indicated by \"/fr/\") on the 3x-energy.com domain, and \"accueil\" means \"home\" in French, I don't have knowledge of what specific content is actually on that particular webpage.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the specific content, when the page is actually the French homepage for 3X-Energy drink with product details, sizes (250ml/330ml/500ml), testimonials, and contact information."
+    },
+    {
+      "id": "recall-server-14",
+      "track": "server",
+      "url": "http://424qq.com/play/index5834-0-0.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about a MOODYZ video"
+    },
+    {
+      "id": "recall-server-14",
+      "track": "server",
+      "url": "http://424qq.com/play/index5834-0-0.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what particular content is located at that specific URL path on that domain.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific adult content page about a MOODYZ performer"
+    },
+    {
+      "id": "recall-server-15",
+      "track": "server",
+      "url": "http://508889.com/315.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific article about '野风' (wild wind) discussing winter wind and childhood memories"
+    },
+    {
+      "id": "recall-server-15",
+      "track": "server",
+      "url": "http://508889.com/315.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page. I don't have information about what is hosted at that numeric domain and particular path in my training data.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it doesn't know the content instead of identifying the Chinese article about winter wind (野风) and the website structure"
+    },
+    {
+      "id": "recall-server-16",
+      "track": "server",
+      "url": "http://52-xiaoshuo.cn/index.php",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the Cloudflare security challenge page"
+    },
+    {
+      "id": "recall-server-16",
+      "track": "server",
+      "url": "http://52-xiaoshuo.cn/index.php",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content, title, or topic of that exact page.\n\nWhile the domain \"52-xiaoshuo.cn\" suggests it's likely a Chinese website related to novels (as \"xiaoshuo\" means \"novel\" or \"fiction\" in Chinese), and \"index.php\" indicates it's probably a homepage, I don't have specific knowledge of what actual content appears on that particular page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it didn't know the specific content, when the page actually shows a Cloudflare security block/error page"
+    },
+    {
+      "id": "recall-server-17",
+      "track": "server",
+      "url": "http://5280learners.weebly.com/growth-mindset.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the specific page about Growth Mindset in Mrs. Stedeford's 4th & 5th Grade Literacy class"
+    },
+    {
+      "id": "recall-server-17",
+      "track": "server",
+      "url": "http://5280learners.weebly.com/growth-mindset.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know the specific content of that page.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated it didn't know instead of recalling the page about Growth Mindset in Mrs. Stedeford's 4th & 5th Grade Literacy class"
+    },
+    {
+      "id": "recall-server-18",
+      "track": "server",
+      "url": "http://6dun.tkgl6.cn/pro/pro8/165.html",
+      "model": "gemini-3.5-flash",
+      "output": "I don't know.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model responded 'I don't know' instead of identifying the specific page about a 6-ton waste heat thermal oil boiler from Henan Taikang Boiler Company"
+    },
+    {
+      "id": "recall-server-18",
+      "track": "server",
+      "url": "http://6dun.tkgl6.cn/pro/pro8/165.html",
+      "model": "claude-sonnet-4-5",
+      "output": "I don't know.\n\nI have no knowledge of the specific content at this URL. The domain doesn't correspond to any well-known website I'm familiar with, and I cannot determine what specific content would be at that particular path without actually accessing it.",
+      "error": null,
+      "recalled": false,
+      "reason": "Model stated 'I don't know' instead of identifying the page as a Chinese industrial boiler manufacturer's product page about 6-ton waste heat thermal oil boilers"
+    }
+  ]
+}
